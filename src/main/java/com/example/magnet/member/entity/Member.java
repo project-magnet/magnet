@@ -31,8 +31,6 @@ public class Member {
     private String latitude;
     private String longitude;
 
-    // 연관관계
-
 
     @ElementCollection(targetClass = Role.class) // 값 타입 컬렉션 표현 jpa 어노테이션
     @CollectionTable(name = "member_roles", joinColumns = @JoinColumn(name = "member_id")) // Enum 타입 값을 문자열로 저장하도록 지정
