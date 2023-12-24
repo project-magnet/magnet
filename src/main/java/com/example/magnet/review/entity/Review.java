@@ -23,4 +23,10 @@ public class Review {
     private String reviewContent;
 
     // 작성시간, 수정시간 - auditing
+
+    public Review(Long id, String reviewTitle, String reviewContent) {
+        this.id = id;
+        this.reviewTitle = reviewTitle;
+        this.reviewContent = reviewContent;
+    }
 }

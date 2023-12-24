@@ -1,14 +1,12 @@
 package com.example.magnet.mentor.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Mentor {
     @Id
@@ -21,4 +19,6 @@ public class Mentor {
     private String task;
 
     // 생성일은 auditing
+
+
 }
