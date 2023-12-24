@@ -1,14 +1,12 @@
 package com.example.magnet.mentoring.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Mentoring {
 
@@ -21,5 +19,6 @@ public class Mentoring {
     private String pay;
     private String period;
     private int participants;
+
 
 }
