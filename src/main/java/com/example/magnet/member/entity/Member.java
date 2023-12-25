@@ -1,5 +1,6 @@
 package com.example.magnet.member.entity;
 
+import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.mentor.entity.Mentor;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.lang.NonNull;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @ToString
-public class Member {
+public class Member extends TimeEntity implements Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +29,12 @@ public class Member {
 
     private String username;
 
+    @Column(nullable = false, updatable = false, unique = true)
+    private String email; // id
+
+    @Column(nullable = false, length = 20)
     private String password;
 
-    private String email;
     private String phone;
 
     private String picture;
@@ -40,27 +45,38 @@ public class Member {
     private String latitude;
     private String longitude;
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
-//    @ElementCollection(targetClass = Role.class) // 값 타입 컬렉션 표현 jpa 어노테이션
-//    @CollectionTable(name = "member_roles", joinColumns = @JoinColumn(name = "member_id")) // Enum 타입 값을 문자열로 저장하도록 지정
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> roles;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
-    public enum Role {
+
+
+    @Override
+    public String getName() {
+        return getEmail();
+    }
+
+    public enum MemberStatus {
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_SLEEP("휴면 상태"),
+        MEMBER_QUIT("탈퇴 상태");
+
+        @Getter
+        private final String status; // final field 추가
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+    }
+
+    public enum MemberRole {
         ADMIN,
         MENTOR,
         MENTEE,
         USER
     }
 
-    public Member(String username, String password, String email, String phone, String picture, Address address, String latitude, String longitude) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.picture = picture;
-        this.address = address;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 }
