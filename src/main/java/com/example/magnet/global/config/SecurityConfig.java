@@ -13,8 +13,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -23,10 +27,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .headers((headers) -> headers.frameOptions(Customizer.withDefaults()))
+                .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                .cors(Customizer.withDefaults())
+                .httpBasic((httpBasic) -> httpBasic.disable())
+                .formLogin((formLogin) -> formLogin.disable());
 
         return http.build();
     }
@@ -42,35 +51,22 @@ public class SecurityConfig {
         return new ProviderManager(authenticationProvider);
     }
 
-//    @Bean
-//    public UserDetailsService userDetailsService() { // inmemoryUser 등록 - sample code
-//        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//
-//        UserDetails user = User.withUsername("dong")
-//                .password(encoder.toString())
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails admin = User.withUsername("admin")
-//                .password(encoder.toString())
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails mentor = User.withUsername("mentor")
-//                .password(encoder.toString())
-//                .roles("MENTOR")
-//                .build();
-//
-//        UserDetails mentee = User.withUsername("mentee")
-//                .password(encoder.toString())
-//                .roles("MENTEE")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin, mentor, mentee);
-//    } - inmemory 관련 내용이라 제거
 
     @Bean
     public PasswordEncoder passwordEncoder() { // 기본적인 패스워드 인코딩 생성
         return PasswordEncoderFactories.createDelegatingPasswordEncoder(); // DelegatingPasswordEncoder가 실질적으로 PasswordEncoder 구현 객체를 생성
     }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));   // 모든 출처 허용
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));  // http 통신 허용
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();   // (8-3)
+        source.registerCorsConfiguration("/**", configuration); // 모든 url 앞에서 구성한 cors 정책 적용
+        return source;
+    }
+
+
 }
