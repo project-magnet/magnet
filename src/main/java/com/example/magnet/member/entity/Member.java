@@ -26,13 +26,12 @@ public class Member extends TimeEntity implements Principal {
     @Column(name = "member_id")
     private Long id;
 
-
     private String username;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String email; // id
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false) // 암호화 되므로
     private String password;
 
     private String phone;
@@ -42,12 +41,10 @@ public class Member extends TimeEntity implements Principal {
     @Embedded // 내장 타입을 포함함 > 이거나 Embeddable 하나만 사용하면 된다.
     private Address address;
 
-    private String latitude;
-    private String longitude;
-
     @Enumerated(value = EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+    @Column(length = 20)
+    private MemberStatus memberStatus;
+//    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE; // dto, service에서 추가하는 것으로 변경
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
