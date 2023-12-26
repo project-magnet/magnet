@@ -34,24 +34,17 @@ public class MemberService {
         String encryptedPassword = passwordEncoder.encode(member.getPassword()); //db에 저장되는 password 암호화
         List<String> roles = authorityUtils.createRoles(member.getEmail());// 사용자 이메일 기반으로 사용자 역할을 생성, 저장
 
-        Member BeforeSaved = Member.builder()
-                .email(member.getEmail())
-                .username(member.getUsername())
-                .phone(member.getPhone())
-                .password(encryptedPassword)
-                .roles(roles)
-                .memberStatus(Member.MemberStatus.MEMBER_ACTIVE)
-                .address(Address.builder()
-                        .city(member.getAddress().getCity())
-                        .street(member.getAddress().getStreet())
-                        .build())
-                .build();
-        Member savedMember = memberRepository.save(BeforeSaved);
+        Member.MemberBuilder builder = member.toBuilder();
+        builder.password(encryptedPassword);
+        builder.roles(roles);
+        builder.memberStatus(Member.MemberStatus.MEMBER_ACTIVE);
+
+        Member savedMember = memberRepository.save(builder.build());
 
         publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
     }
 
-    private void verifyExistsEmail(String email){
+    public void verifyExistsEmail(String email){
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
