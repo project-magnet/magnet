@@ -10,7 +10,7 @@ function App() {
     <div className="w-screen">
       <Header />
       <Routes>
-        <Route path="/" Component={Home} />
+        <Route path="/magnet" Component={Home} />
         <Route path="/Login" Component={Login} />
       </Routes>
       <Footer />
