@@ -9,7 +9,7 @@ public enum ExceptionCode {
     // member
     MEMBER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
 
-    MEMBER_EXISTS(409, "Member exists");
+    MEMBER_EXISTS(409, "이미 사용자가 존재합니다.");
 
     // mentor
 

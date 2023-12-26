@@ -21,6 +21,7 @@ public class MemberMapper {
                 .password(dto.getPassword())
                 .username(dto.getName())
                 .phone(dto.getPhone())
+//                .memberStatus(Member.MemberStatus.MEMBER_ACTIVE)
                 .address(Address.builder()
                         .city(dto.getAddressDto().getCity())
                         .street(dto.getAddressDto().getStreet())
