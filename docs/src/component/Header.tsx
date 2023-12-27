@@ -7,7 +7,7 @@ const Header = () => {
       className="flex items-center border-b-[1px] text-l 
      bg-white w-screen h-16 sticky top-0 opacity-95 backdrop-blur-3xl"
     >
-      <Link to="/" className="tracking-[5px] font-bold  mx-24 ">
+      <Link to="/magnet" className="tracking-[5px] font-bold  mx-24 ">
         MAGNET
       </Link>
       <Link to="/login" className="tracking-wide  me-10">
