@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import MentorCard from '../component/MentorCard';
 
 const Home = () => {
   return (
@@ -23,6 +23,16 @@ const Home = () => {
           <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
             멘티의 성공을 위해 노력하는 경험 많은 멘토를 만나보세요.
           </p>
+        </div>
+        <div className="w-full  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
+          <MentorCard />
         </div>
       </section>
     </section>
