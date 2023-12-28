@@ -1,6 +1,8 @@
 package com.example.magnet.global.config;
 
 import com.example.magnet.global.auth.filter.JwtAuthenticationFilter;
+import com.example.magnet.global.auth.handler.LoginAuthenticationFailureHandler;
+import com.example.magnet.global.auth.handler.LoginAuthenticationSuccessHandler;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -97,8 +99,10 @@ public class SecurityConfig {
             logger.info("authenticationManager, jwtTokenizer DI");
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
             logger.info("디폴트 request URL 변경. 로그인 경로 설정 완료" );
-//            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
-//            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new LoginAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new LoginAuthenticationFailureHandler());
+            logger.info("jwtAuthenticationFilter에 핸들러 등록 완료" );
 
 //            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 //
