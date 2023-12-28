@@ -29,7 +29,7 @@ public class MemberPostDto {  // 회원 등록 dto
     private String password;
 
     @NotBlank(message = "이름을 작성해주세요.")
-    private String name;
+    private String nickName;
 
     @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$", message ="010으로 시작하고 '-'로 구분됩니다." )
     private String phone;

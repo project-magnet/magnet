@@ -19,6 +19,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * - 클라이언트의 인증 정보 수신 (username - email, password)
+ * */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
@@ -51,15 +54,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = delegateRefreshToken(member); // delegateRefreshToken(member) 메서드를 이용해 Refresh Token을 생성합니다.
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
+        response.setHeader("RefreshToken", refreshToken);
 
-        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("memberId", member.getId());  // 사용자 식별자 포함
-        claims.put("email", member.getEmail());
+        claims.put("username", member.getEmail());
         claims.put("roles", member.getRoles());
 
         String subject = member.getEmail();

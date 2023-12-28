@@ -15,6 +15,8 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
+//@AllArgsConstructor(access = AccessLevel.PRIVATE) // memberStatus로 인해 사용 불가능
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
@@ -27,6 +29,8 @@ public class Member extends TimeEntity implements Principal {
     private Long id;
 
     private String username;
+
+    private String nickName;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String email; // id
@@ -44,11 +48,20 @@ public class Member extends TimeEntity implements Principal {
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20)
     private MemberStatus memberStatus;
-//    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE; // dto, service에서 추가하는 것으로 변경
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER) // 테이블이 새로 생성됨
     private List<String> roles = new ArrayList<>();
 
+
+
+
+    //MemberDetails
+    public void setMemberDetails(Member member){
+        this.id = member.getId();
+        this.email = member.getEmail();
+        this.password = member.getPassword();
+        this.roles = member.getRoles();
+    }
 
 
     @Override
@@ -69,11 +82,5 @@ public class Member extends TimeEntity implements Principal {
         }
     }
 
-    public enum MemberRole {
-        ADMIN,
-        MENTOR,
-        MENTEE,
-        USER
-    }
 
 }
