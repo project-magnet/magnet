@@ -15,12 +15,8 @@ const Login = () => {
         <LoginButton />
       </section>
       <section className=" ml-10 hidden md:block">
-        <p className="text-7xl bg-blue-200">쉽게, 간편하게</p>
-        <p className="text-5xl text-slate-500 mt-20">
-          마그넷과 함께 <br />
-          커리어 여정을 <br />
-          떠나 볼까요!
-        </p>
+        <p className="text-6xl bg-green-300 rounded-xl px-2 py-1">쉽고, 간편하게</p>
+        <p className="text-lg text-slate-500 mt-3 px-2">커리어를 향해 나를 이끄는, 마그넷</p>
       </section>
     </div>
   );
