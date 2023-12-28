@@ -6,4 +6,7 @@
     .flexCenter {
       @apply flex items-center justify-center;
     }
+    .flexCol{
+      @apply flex flex-col
+    }
   }
