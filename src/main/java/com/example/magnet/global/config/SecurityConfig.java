@@ -1,6 +1,7 @@
 package com.example.magnet.global.config;
 
 import com.example.magnet.global.auth.filter.JwtAuthenticationFilter;
+import com.example.magnet.global.auth.filter.JwtVerificationFilter;
 import com.example.magnet.global.auth.handler.LoginAuthenticationFailureHandler;
 import com.example.magnet.global.auth.handler.LoginAuthenticationSuccessHandler;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
@@ -51,6 +52,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/health", "member/signup").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/mentor/**").hasRole("MENTOR")
+                        .requestMatchers("/mentee/**").hasRole("MENTEE")
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(),Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
@@ -104,13 +107,12 @@ public class SecurityConfig {
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new LoginAuthenticationFailureHandler());
             logger.info("jwtAuthenticationFilter에 핸들러 등록 완료" );
 
-//            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-//
-//            builder
-//                    .addFilter(jwtAuthenticationFilter)
-//                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
 
-            builder.addFilter(jwtAuthenticationFilter);
+            builder
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+
             logger.info("security filter chain에 추가");
         }
     }
