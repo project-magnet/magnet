@@ -10,6 +10,9 @@ import com.example.magnet.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +23,12 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
