@@ -22,7 +22,7 @@ const LoginForm = () => {
       <button type="button" disabled className="w-96 h-12  text-white bg-blue-500 rounded-lg ">
         로그인
       </button>
-      <Link to="/login">
+      <Link to="/signup">
         <p className="text-sm text-slate-400">이메일로 회원가입</p>
       </Link>
     </section>

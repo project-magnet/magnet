@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import LoginEmailPage from './pages/LoginEmailPage';
 import Header from './component/Header';
 import Footer from './component/Footer';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/magnet" Component={HomePage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/loginemail" Component={LoginEmailPage} />
+        <Route path="signup" Component={SignupPage} />
       </Routes>
       <Footer />
     </div>
