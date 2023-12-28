@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import LoginEmail from './pages/LoginEmail';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import LoginEmailPage from './pages/LoginEmailPage';
 import Header from './component/Header';
 import Footer from './component/Footer';
 
@@ -11,9 +11,9 @@ function App() {
     <div>
       <Header />
       <Routes>
-        <Route path="/magnet" Component={Home} />
-        <Route path="/login" Component={Login} />
-        <Route path="/loginemail" Component={LoginEmail} />
+        <Route path="/magnet" Component={HomePage} />
+        <Route path="/login" Component={LoginPage} />
+        <Route path="/loginemail" Component={LoginEmailPage} />
       </Routes>
       <Footer />
     </div>

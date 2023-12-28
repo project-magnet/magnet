@@ -2,7 +2,7 @@ import React from 'react';
 import LoginButton from '../component/LoginButton';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <div className="w-screen h-[80vh] flexCenter">
       <section className="w-80 h-[350px] container flexCol items-center justify-evenly">
@@ -41,4 +41,4 @@ const Login = () => {
 //   );
 // };
 
-export default Login;
+export default LoginPage;

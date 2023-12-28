@@ -1,7 +1,7 @@
 import React from 'react';
 import MentorCard from '../component/MentorCard';
 
-const Home = () => {
+const HomePage = () => {
   return (
     <section>
       <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48 ">
@@ -39,4 +39,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
