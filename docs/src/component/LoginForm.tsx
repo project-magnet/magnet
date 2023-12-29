@@ -6,18 +6,11 @@ const LoginForm = () => {
     <section className=" w-[500px] h-96 flexCol items-center justify-around">
       <div>
         <p className="text-slate-600 text-sm m-1">이메일</p>
-        <input
-          className="border-1 w-96 h-12 rounded-lg pl-3 font-light"
-          placeholder="이메일을 입력하세요."
-        />
+        <input className="input" placeholder="이메일을 입력하세요." />
       </div>
       <div>
         <p className="text-slate-600 text-sm m-1">비밀번호</p>
-        <input
-          type="password"
-          className="border-1 w-96 h-12 rounded-lg pl-3 font-light"
-          placeholder="비밀번호를 입력하세요."
-        />
+        <input type="password" className="input" placeholder="비밀번호를 입력하세요." />
       </div>
       <button type="button" disabled className="w-96 h-12  text-white bg-blue-500 rounded-lg ">
         로그인
