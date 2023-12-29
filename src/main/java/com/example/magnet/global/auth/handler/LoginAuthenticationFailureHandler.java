@@ -1,6 +1,6 @@
 package com.example.magnet.global.auth.handler;
 
-import com.example.magnet.global.exception.BusinessLogicException;
+import com.example.magnet.global.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.web.ErrorResponse;
 
 import java.io.IOException;
 
@@ -33,7 +32,7 @@ public class LoginAuthenticationFailureHandler implements AuthenticationFailureH
 
     private void sendErrorResponse(HttpServletResponse response) throws IOException{
         Gson gson = new Gson();
-        ErrorResponse errorResponse = ErrorResponse.create(new Throwable("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED, "사용자 인증 실패"); // (2-2)
+        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(UNAUTHORIZED.value());
         response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));

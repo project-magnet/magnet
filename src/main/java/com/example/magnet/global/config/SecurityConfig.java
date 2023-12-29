@@ -4,6 +4,8 @@ import com.example.magnet.global.auth.filter.JwtAuthenticationFilter;
 import com.example.magnet.global.auth.filter.JwtVerificationFilter;
 import com.example.magnet.global.auth.handler.LoginAuthenticationFailureHandler;
 import com.example.magnet.global.auth.handler.LoginAuthenticationSuccessHandler;
+import com.example.magnet.global.auth.handler.MemberAccessDeniedHandler;
+import com.example.magnet.global.auth.handler.MemberAuthenticationEntryPoint;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +51,9 @@ public class SecurityConfig {
                 .headers((headers) -> headers.frameOptions(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement((sessionManagement)-> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// spring security가 세션을 생성하지 않도록 설정
+                .exceptionHandling((exceptionHandling) ->
+                        exceptionHandling.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                                .accessDeniedHandler(new MemberAccessDeniedHandler()))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/health", "member/signup").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
