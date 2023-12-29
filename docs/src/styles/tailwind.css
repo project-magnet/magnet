@@ -9,4 +9,7 @@
     .flexCol{
       @apply flex flex-col
     }
+    .input {
+      @apply w-96 h-12 rounded-lg pl-3 font-light border-1
+    }
   }
