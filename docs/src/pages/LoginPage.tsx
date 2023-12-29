@@ -2,7 +2,7 @@ import React from 'react';
 import LoginButton from '../component/LoginButton';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <div className="w-screen h-[80vh] flexCenter">
       <section className="w-80 h-[350px] container flexCol items-center justify-evenly">
@@ -14,9 +14,14 @@ const Login = () => {
         <LoginButton />
         <LoginButton />
       </section>
-      <section className=" ml-10 hidden md:block">
-        <p className="text-6xl bg-green-300 rounded-xl px-2 py-1">쉽고, 간편하게</p>
-        <p className="text-lg text-slate-500 mt-3 px-2">커리어를 향해 나를 이끄는, 마그넷</p>
+      <section className=" ml-6 hidden md:block">
+        <p className="text-7xl bg-blue-200   px-2 py-1 relative">
+          쉽고, 간편하게
+          <span className="absolute right-0 top-0 h-full w-[2px] bg-black animate-blink"></span>
+        </p>
+        <p className="text-lg bg-red text-slate-500 mt-3 px-2">
+          커리어를 향해 나를 이끄는 곳, 마그넷
+        </p>
       </section>
     </div>
   );
@@ -41,4 +46,4 @@ const Login = () => {
 //   );
 // };
 
-export default Login;
+export default LoginPage;

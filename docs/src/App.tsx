@@ -1,19 +1,21 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import LoginEmail from './pages/LoginEmail';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import LoginEmailPage from './pages/LoginEmailPage';
 import Header from './component/Header';
 import Footer from './component/Footer';
+import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
     <div>
       <Header />
       <Routes>
-        <Route path="/magnet" Component={Home} />
-        <Route path="/login" Component={Login} />
-        <Route path="/loginemail" Component={LoginEmail} />
+        <Route path="/magnet" Component={HomePage} />
+        <Route path="/login" Component={LoginPage} />
+        <Route path="/loginemail" Component={LoginEmailPage} />
+        <Route path="signup" Component={SignupPage} />
       </Routes>
       <Footer />
     </div>
