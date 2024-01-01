@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import LoginEmailPage from './pages/LoginEmailPage';
-import Header from './component/Header';
-import Footer from './component/Footer';
+import Header from './component/common/Header';
+import Footer from './component/common/Footer';
 import SignupPage from './pages/SignupPage';
 
 function App() {
