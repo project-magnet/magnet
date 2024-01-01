@@ -1,4 +1,4 @@
-package com.example.magnet.global;
+package com.example.magnet.global.auth.dto;
 
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;

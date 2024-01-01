@@ -2,12 +2,10 @@ package com.example.magnet.global.config;
 
 import com.example.magnet.global.auth.filter.JwtAuthenticationFilter;
 import com.example.magnet.global.auth.filter.JwtVerificationFilter;
-import com.example.magnet.global.auth.handler.LoginAuthenticationFailureHandler;
-import com.example.magnet.global.auth.handler.LoginAuthenticationSuccessHandler;
-import com.example.magnet.global.auth.handler.MemberAccessDeniedHandler;
-import com.example.magnet.global.auth.handler.MemberAuthenticationEntryPoint;
+import com.example.magnet.global.auth.handler.*;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
+import com.example.magnet.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +22,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -37,20 +36,26 @@ import java.util.Arrays;
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+//    private final MemberService memberService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    public SecurityConfig(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    public SecurityConfig(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils
+//            , MemberService memberService
+    ) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+//        this.memberService = memberService;
+
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .headers((headers) -> headers.frameOptions(Customizer.withDefaults()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement((sessionManagement)-> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// spring security가 세션을 생성하지 않도록 설정
+                .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// spring security가 세션을 생성하지 않도록 설정
                 .exceptionHandling((exceptionHandling) ->
                         exceptionHandling.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                                 .accessDeniedHandler(new MemberAccessDeniedHandler()))
@@ -61,11 +66,12 @@ public class SecurityConfig {
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
-                .with(new CustomFilterConfigurer(),Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
+                .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
                 .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable) // .httpBasic((httpBasic) -> httpBasic.disable())
                 .exceptionHandling(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable);
+                .formLogin(AbstractHttpConfigurer::disable)
+                .oauth2Login(oauth2 -> oauth2.successHandler(OAuth2MemberSuccessHandler.builder().jwtTokenizer(jwtTokenizer).authorityUtils(authorityUtils).build()));
 
         return http.build();
     }
@@ -116,9 +122,10 @@ public class SecurityConfig {
 
             builder
                     .addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class)
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); // jwtVerificationFilter 이후에 와야한다는 의미
 
-            logger.info("security filter chain에 추가");
+            logger.info("jwtVerificationFilter 뒤에 로컬 로그인, oauth2 검증 필터 추가");
         }
     }
 }

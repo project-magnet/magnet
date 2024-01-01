@@ -1,6 +1,6 @@
 package com.example.magnet.global.auth.filter;
 
-import com.example.magnet.global.LoginDto;
+import com.example.magnet.global.auth.dto.LoginDto;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.example.magnet.global.auth;
+package com.example.magnet.global.auth.details;
 
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.global.exception.BusinessLogicException;
@@ -46,17 +46,13 @@ public class MemberDetailService implements UserDetailsService {
     private final class MemberDetails extends Member implements UserDetails { // member 권한 정보 생성, 데이터베이스에서 조회한 회원 정보를 Spring Security의 User 정보로 변환하는 과정과 User의 권한 정보를 생성하는 과정을 캡슐화
           MemberDetails(Member member) {
               logger.info("member 권한 정보 생성 - setter ");
-//            MemberBuilder builder = member.toBuilder();
-//            builder.id(member.getId());
-//            builder.email(member.getEmail());
-//            builder.password(member.getPassword());
-//            builder.roles(member.getRoles());
-//
-//            setMemberDetails(builder.build());
-              setId(member.getId());
-              setEmail(member.getEmail());
-              setPassword(member.getPassword());
-              setRoles(member.getRoles());
+            MemberBuilder builder = member.toBuilder();
+            builder.id(member.getId());
+            builder.email(member.getEmail());
+            builder.password(member.getPassword());
+            builder.roles(member.getRoles());
+
+            setMemberDetails(builder.build());
           }
 
         @Override

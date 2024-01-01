@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-@Setter
+//@Setter
 //@AllArgsConstructor(access = AccessLevel.PRIVATE) // memberStatus로 인해 사용 불가능
 @AllArgsConstructor
 @NoArgsConstructor
