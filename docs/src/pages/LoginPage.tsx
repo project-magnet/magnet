@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginButton from '../component/LoginButton';
+import LoginButton from '../component/auth/LoginButton';
 import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
