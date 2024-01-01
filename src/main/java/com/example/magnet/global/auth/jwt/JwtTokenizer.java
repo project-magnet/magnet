@@ -101,4 +101,18 @@ public class JwtTokenizer {
         return expiration;
     }
 
+//    // 최초 로그인 시 accessToken과 RefreshToken을 발급하는 부분 , oauth2 > MyAuthenticationSuccessHandler
+//    public GeneratedToken generateToken(String email, String role) {
+//        // refreshToken과 accessToken을 생성한다.
+//        String refreshToken = generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+//        String accessToken = generateAccessToken(email, role);
+//
+//        // 토큰을 Redis에 저장한다.
+//        tokenService.saveTokenInfo(email, refreshToken, accessToken);
+//        return new GeneratedToken(accessToken, refreshToken);
+//    }
+//
+//    //토큰에서 이메일 추출
+//    public String getUserEmail(String )
+
 }

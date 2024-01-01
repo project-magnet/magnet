@@ -13,20 +13,27 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/member")
 @Validated
 @Slf4j
 @RequiredArgsConstructor
-//@ControllerAdvice // 모든 요청에 대해 spring security 필터 적용
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper mapper;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signupMember(@Valid @RequestBody MemberPostDto memberPostDto){
+    public ResponseEntity<String> signupMember(@Valid @RequestBody MemberPostDto memberPostDto){
         memberService.createMember(mapper.postDtoToEntity(memberPostDto));
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("정상적으로 가입되었습니다.",HttpStatus.OK);
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(){
+        // 로그아웃 로직 수행
+        // Redis 또는 다른 저장소에서 사용자 정보 및 토큰 정보 삭제
+        return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
+    }
+
 
 }
