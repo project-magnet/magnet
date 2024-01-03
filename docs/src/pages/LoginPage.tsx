@@ -5,9 +5,10 @@ const LoginPage = () => {
   return (
     <div className="w-screen h-[80vh] flexCenter">
       <section className="w-80 h-[350px] container flexCol items-center justify-evenly">
-        <LoginButton type="Email" />
         <LoginButton type="Google" />
         <LoginButton type="Kakao" />
+        <LoginButton type="Naver" />
+        <LoginButton type="Email" />
       </section>
       <section className=" ml-6 hidden md:block">
         <p className="text-7xl  px-2 py-1 relative">
