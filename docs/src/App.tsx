@@ -6,6 +6,7 @@ import LoginEmailPage from './pages/LoginEmailPage';
 import Header from './component/common/Header';
 import Footer from './component/common/Footer';
 import SignupPage from './pages/SignupPage';
+import Authpage from './pages/AuthPage';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/magnet" Component={HomePage} />
         <Route path="/login" Component={LoginPage} />
         <Route path="/loginemail" Component={LoginEmailPage} />
-        <Route path="signup" Component={SignupPage} />
+        <Route path="/signup" Component={SignupPage} />
+        <Route path="/auth" Component={Authpage} />
       </Routes>
       <Footer />
     </div>
