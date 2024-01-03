@@ -60,7 +60,7 @@ public class SecurityConfig {
                         exceptionHandling.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                                 .accessDeniedHandler(new MemberAccessDeniedHandler()))
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/health", "member/signup").permitAll()
+                        .requestMatchers("/health", "member/signup", "auth/login", "/login/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
