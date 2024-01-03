@@ -52,9 +52,6 @@ public class Member extends TimeEntity implements Principal {
     @ElementCollection(fetch = FetchType.EAGER) // 테이블이 새로 생성됨
     private List<String> roles = new ArrayList<>();
 
-
-
-
     //MemberDetails
     public void setMemberDetails(Member member){
         this.id = member.getId();
@@ -63,6 +60,10 @@ public class Member extends TimeEntity implements Principal {
         this.roles = member.getRoles();
     }
 
+    //OAuth2MemberSuccessHandler
+    public Member(String email) {
+        this.email = email;
+    }
 
     @Override
     public String getName() {

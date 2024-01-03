@@ -33,6 +33,10 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
+    /**
+     * 회원가입 구현
+     * - 이메일 기반으로 회원이 db에 존재하는지 판단 후 spring security의 createRoles를 통해 역할 생성
+     * */
     public void createMember(Member member) {
         verifyExistsEmail(member.getEmail());
 
@@ -46,6 +50,7 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(builder.build());
 
+        // 회원가입 이벤트 객체 생성
         publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
     }
 

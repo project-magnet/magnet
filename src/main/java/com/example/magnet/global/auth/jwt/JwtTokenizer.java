@@ -19,19 +19,17 @@ import java.util.Map;
 /**
  * jwt 생성 및 검증
  * */
-
+@Getter
 @Component
 public class JwtTokenizer {
 
-    @Getter
+
     @Value("${jwt.key}")
     private String secretKey;
 
-    @Getter
     @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;
 
-    @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
