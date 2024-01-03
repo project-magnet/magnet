@@ -6,10 +6,10 @@
 > 기능 개발 브랜치에서 작업 후 `Pull Request`하여 병합 진행
 - `main` : 배포 브랜치
 - `dev` : `fe` / `be` 작업 테스트 병합 브랜치
-- `feat/FE` : Front-End 개발 브랜치
-- `feat/BE` : Back-End 개발 브랜치
-- `feat/FE/기능 이름` : FE 기능 개발 브랜치
-- `feat/BE/기능 이름` : BE 기능 개발 브랜치
+- `dev/FE` : Front-End 개발 브랜치
+- `dev/BE` : Back-End 개발 브랜치
+- `FE/기능 이름` : FE 기능 개발 브랜치
+- `BE/기능 이름` : BE 기능 개발 브랜치
 
 ### Git 저장소 이용법 
 로컬에서 작업 후 개인 branch Push
