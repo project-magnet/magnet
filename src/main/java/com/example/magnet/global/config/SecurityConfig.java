@@ -31,7 +31,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true) // filter 호출 순서 반환
 @Slf4j
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;

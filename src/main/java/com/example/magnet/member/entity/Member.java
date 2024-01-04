@@ -1,7 +1,9 @@
 package com.example.magnet.member.entity;
 
 import com.example.magnet.global.audit.TimeEntity;
+import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentoring.entity.Mentoring;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,6 +53,28 @@ public class Member extends TimeEntity implements Principal {
 
     @ElementCollection(fetch = FetchType.EAGER) // 테이블이 새로 생성됨
     private List<String> roles = new ArrayList<>();
+
+
+    /**
+     * Member entity는 모든 연관관계의 주인입니다. 등록, 수정이 가능합니다.
+     * */
+    //mentor
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTOR_ID")
+    private Mentor mentor;
+
+    //mentee
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTEE_ID")
+    private Mentee mentee;
+
+    //mentoring
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTORING_ID")
+    private Mentoring mentoring;
+
+
+
 
     //MemberDetails
     public void setMemberDetails(Member member){

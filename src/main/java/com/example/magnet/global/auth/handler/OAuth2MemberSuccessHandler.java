@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -59,18 +58,18 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // 이메일 추출
         List<String> authorities = authorityUtils.createRoles(email); // 추출한 이메일 기반의 권한 정보 생성
 
-//        saveMember(email); // Resource Owner의 이메일 주소를 DB에 저장
+        saveMember(email); // Resource Owner의 이메일 주소를 DB에 저장
         redirect(request, response, email, authorities);// Access Token과 Refresh Token을 생성 후 프론트에 전달
     }
 
-//    private void saveMember(String email){ // 권한이 생성된 이메일을 DB에 저장 > 조회용
-//        Member member = Member.builder().email(email).build();
-////        Member member = new Member(email);
-////        MemberService memberService = applicationContext.getBean(MemberService.class);
-//        memberService.createMember(member);
-//
-//        log.info("데이터베이스에 저장");
-//    }
+    private void saveMember(String email){ // 권한이 생성된 이메일을 DB에 저장 > 조회용
+        Member member = Member.builder().email(email).build();
+//        Member member = new Member(email);
+//        MemberService memberService = applicationContext.getBean(MemberService.class);
+        memberService.createMember(member);
+
+        log.info("데이터베이스에 저장");
+    }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
         String accessToken = delegateAccessToken(username, authorities);
@@ -115,7 +114,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-                .port(8080) // default
+//                .port(80) // default
                 .path("/login/oauth2/code/google") // /receive-token.html
                 .queryParams(queryParams)
                 .build()

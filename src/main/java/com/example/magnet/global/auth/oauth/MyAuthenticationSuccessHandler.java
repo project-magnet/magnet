@@ -1,6 +1,7 @@
 //package com.example.magnet.global.auth.oauth;
 //
 //import com.example.magnet.global.auth.jwt.JwtTokenizer;
+//import com.example.magnet.global.auth.jwt.JwtUtil;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +26,7 @@
 //@RequiredArgsConstructor
 //public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 //
-//    private final JwtTokenizer jwtUtil;
+//    private final JwtUtil jwtUtil;
 //
 //    @Override
 //    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
