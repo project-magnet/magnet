@@ -31,7 +31,7 @@ public class MemberController {
     @GetMapping("/logout")
     public ResponseEntity<String> logout(){
         // 로그아웃 로직 수행
-        // Redis 또는 다른 저장소에서 사용자 정보 및 토큰 정보 삭제
+        // Redis에서 사용자 정보 및 토큰 정보 삭제
         return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
     }
 

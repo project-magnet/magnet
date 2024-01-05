@@ -34,7 +34,7 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
 
     /**
-     * 회원가입 구현
+     *  회원가입
      * - 이메일 기반으로 회원이 db에 존재하는지 판단 후 spring security의 createRoles를 통해 역할 생성
      * */
     public void createMember(Member member) {
@@ -59,4 +59,11 @@ public class MemberService {
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
+
+    /**
+     * Redis 기반의 로그아웃
+     * */
+
+
+
 }

@@ -29,7 +29,8 @@ public class Mentee extends TimeEntity {
     private List<Member> members = new ArrayList<>();
 
     //mentorings
-    @OneToMany(mappedBy = "mentee")
-    private List<Mentoring> mentoringList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTORING_ID")
+    private Mentoring mentoring;
 
 }
