@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import LoginEmailPage from './pages/LoginEmailPage';
 import Header from './component/common/Header';
+import BottomMenu from './component/common/BottomMenu';
 import Footer from './component/common/Footer';
 import SignupPage from './pages/SignupPage';
 import Authpage from './pages/AuthPage';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/mentor" Component={MentorPage} />
         <Route path="/mentorlist" Component={MentorListPage} />
       </Routes>
+      <BottomMenu />
       <Footer />
     </div>
   );
