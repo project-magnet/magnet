@@ -7,7 +7,7 @@ import Header from './component/common/Header';
 import Footer from './component/common/Footer';
 import SignupPage from './pages/SignupPage';
 import Authpage from './pages/AuthPage';
-
+import MentorPage from './pages/MentorPage';
 function App() {
   return (
     <div>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/loginemail" Component={LoginEmailPage} />
         <Route path="/signup" Component={SignupPage} />
         <Route path="/auth" Component={Authpage} />
+        <Route path="/mentor" Component={MentorPage} />
       </Routes>
       <Footer />
     </div>
