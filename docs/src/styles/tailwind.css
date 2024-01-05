@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply break-keep;
+}
+
 @layer components {
     .flexCenter {
       @apply flex items-center justify-center;
