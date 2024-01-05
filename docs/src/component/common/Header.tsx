@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <header
-      className="flex items-center border-b-[1px] text-l 
-     bg-white w-screen h-16 sticky top-0 opacity-95 backdrop-blur-3xl"
+      className="flex items-center text-l 
+     bg-white  h-16 sticky top-0 opacity-95 border-b"
     >
       <Link to="/magnet" className="tracking-[5px] font-bold  mx-24 ">
         MAGNET
       </Link>
-      <Link to="/login" className="tracking-wide  me-10">
-        제안하기
+      <Link to="/mentorlist" className="tracking-wide  mr-10">
+        둘러보기
       </Link>
-      <Link to="/login" className="tracking-wide  me-10">
-        제안받기
+      <Link to="/login" className="tracking-wide">
+        로그인
       </Link>
     </header>
   );
