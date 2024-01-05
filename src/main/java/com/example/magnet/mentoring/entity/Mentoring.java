@@ -1,5 +1,6 @@
 package com.example.magnet.mentoring.entity;
 
+import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
@@ -14,11 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Mentoring {
+public class Mentoring extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mentee_id")
+    @Column(name = "MENTORING_ID")
     private Long id;
     private String title;
     private String content;
@@ -27,14 +28,18 @@ public class Mentoring {
     private int participants;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTOR_ID")
-    private Mentor mentor;
+    /**
+     * 멤버, 멘토와 멘티가 각각 mentoring과 연관관계의 주인입니다.
+     * */
+    // mentor, mentoring
+    @OneToMany(mappedBy = "mentoring")
+    private List<Mentor> mentorList = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTEE_ID")
-    private Mentee mentee;
+    // mentee, mentoring
+    @OneToMany(mappedBy = "mentoring")
+    private List<Mentee> menteeList = new ArrayList<>();
 
+    // member, mentoring
     @OneToMany(mappedBy = "mentoring")
     private List<Member> members = new ArrayList<>();
 

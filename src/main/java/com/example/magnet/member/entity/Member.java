@@ -4,20 +4,15 @@ import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.lang.NonNull;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
-//@Setter
 //@AllArgsConstructor(access = AccessLevel.PRIVATE) // memberStatus로 인해 사용 불가능
 @AllArgsConstructor
 @NoArgsConstructor
