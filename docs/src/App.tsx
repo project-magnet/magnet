@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage';
 import Authpage from './pages/AuthPage';
 import MentorPage from './pages/MentorPage';
 import MentorListPage from './pages/MentorListPage';
+import PaymentCompletedPage from './pages/PaymentCompletedPage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/auth" Component={Authpage} />
         <Route path="/mentor" Component={MentorPage} />
         <Route path="/mentorlist" Component={MentorListPage} />
+        <Route path="/paymentcompleted" Component={PaymentCompletedPage} />
       </Routes>
       <BottomMenu />
       <Footer />
