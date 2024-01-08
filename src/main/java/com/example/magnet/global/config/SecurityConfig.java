@@ -36,16 +36,13 @@ import java.util.Arrays;
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-//    private final MemberService memberService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     public SecurityConfig(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils
-//            , MemberService memberService
     ) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-//        this.memberService = memberService;
 
     }
 
@@ -64,6 +61,8 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
+                        .requestMatchers("/member/update").hasRole("USER")
+                        .requestMatchers("/member/extract").permitAll()
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입

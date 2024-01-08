@@ -1,6 +1,7 @@
 package com.example.magnet.global.auth.filter;
 
 
+import com.example.magnet.global.auth.dto.UserInfoDto;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -9,6 +10,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,15 +22,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
+@Slf4j
 public class JwtVerificationFilter extends OncePerRequestFilter {
-    private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+    private final JwtTokenizer jwtTokenizer;// jwt 검증용, claims 획득 목적
+    private final CustomAuthorityUtils authorityUtils; // jwt 검증 성공 시 Authentication 객체에 채울 사용자의 권한 생성
 
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer; // jwt 검증용, claims 획득 목적
-        this.authorityUtils = authorityUtils; // jwt 검증 성공 시 Authentication 객체에 채울 사용자의 권한 생성
-    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
         try {
@@ -58,11 +59,31 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return claims;
     }
 
-    private void setAuthenticationToContext(Map<String, Object> claims) {
+    // JWT 검증 후 특정 사용자 정보를 Controller에 DI하기 위한 로직
+//    private void extractUserInfo(HttpServletRequest request){
+//        Map<String, Object> claims = verifyJws(request);
+//
+//        Long memberId = Long.valueOf(claims.get("memberId").toString());
+//        String username = (String) claims.get("username");
+//        List<String> roles = (List<String>) claims.get("roles");
+//
+//        UserInfoDto userInfoDto = UserInfoDto.builder()
+//                .memberId(memberId)
+//                .username(username)
+//                .roles(roles)
+//                .build();
+//
+//        userInfoDto.setUserInfoDto(userInfoDto);
+//    }
+
+    private void setAuthenticationToContext(Map<String, Object> claims) { // SecurityContextHolder의 Authentication이 사용자의 이름과 역할을 관리
         String username = (String) claims.get("username");
+        Long memberId = Long.valueOf(claims.get("memberId").toString());
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication); // (4-4)
+        log.info("username: " + username);
+        log.info("memberId: " + memberId);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, memberId, authorities); // claims 값을 기반으로 사용자 정보 객체 생성
+        SecurityContextHolder.getContext().setAuthentication(authentication); // SecurityContextHolder에 저장
     }
 
 
