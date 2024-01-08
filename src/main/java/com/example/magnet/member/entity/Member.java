@@ -17,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-@ToString
 public class Member extends TimeEntity implements Principal {
 
     @Id

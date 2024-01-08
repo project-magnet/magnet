@@ -34,11 +34,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
 
-    @SneakyThrows
+    @SneakyThrows // 메서드 예외를 런타임 예외로 변환
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper(); //json 객체 자바 객체로 변환
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
+
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());

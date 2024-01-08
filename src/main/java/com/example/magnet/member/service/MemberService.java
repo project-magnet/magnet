@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 @Slf4j
 public class MemberService {
@@ -64,6 +63,38 @@ public class MemberService {
      * Redis 기반의 로그아웃
      * */
 
+
+    //회원 수정
+    public void updateMember(Member member) {
+
+        Member findMember = memberRepository.findById(member.getId())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        // entity에 매개변수로 전달받은 데이터 삽입. 변경된 내용만 적용
+        Member.MemberBuilder builder = findMember.toBuilder(); // 새로운 객체 생성
+
+        Optional.ofNullable(member.getNickName())
+                .ifPresent(nickName -> builder.nickName(member.getNickName()));
+
+        Optional.ofNullable(member.getPhone())
+                .ifPresent(phone -> builder.phone(member.getPhone()));
+
+        if (member.getAddress() != null) {
+            Address.AddressBuilder addressBuilder = Address.builder();
+
+            Optional.ofNullable(member.getAddress().getCity())
+                    .ifPresent(city -> addressBuilder.city(city));
+
+            Optional.ofNullable(member.getAddress().getStreet())
+                    .ifPresent(street -> addressBuilder.street(street));
+
+            builder.address(addressBuilder.build());
+        }
+
+        memberRepository.save(builder.build());
+    }
+
+    // jwt의 memberId와 생성자가 같은지 판단하는 함수
 
 
 }
