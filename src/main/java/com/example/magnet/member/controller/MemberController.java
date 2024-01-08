@@ -2,6 +2,7 @@ package com.example.magnet.member.controller;
 
 import com.example.magnet.global.auth.dto.UserInfoDto;
 import com.example.magnet.member.dto.ExtractMember;
+import com.example.magnet.member.dto.MemberPatchDto;
 import com.example.magnet.member.dto.MemberPostDto;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.mapper.MemberMapper;
@@ -39,7 +40,6 @@ public class MemberController {
     @GetMapping("/extract")
     public ResponseEntity<ExtractMember> extractMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        log.info("memberId가 long인가? "+ memberId);
         String username = authentication.getName();
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -64,12 +64,11 @@ public class MemberController {
     } 
 
     // 회원 수정
-    @GetMapping("/update")
-    public String memberUpdate(@AuthenticationPrincipal UserDetails userDetails){
-        // UserDetails 객체를 통해 username 및 authorities 정보에 접근
-        String username = userDetails.getUsername();
-        return username;
-
+    @PatchMapping("/update")
+    public ResponseEntity<Void> memberUpdate(@Valid @RequestBody MemberPatchDto memberPatchDto, Authentication authentication){
+        Long memberId = (Long) authentication.getCredentials();
+        memberService.updateMember(mapper.patchDtoToEntity(memberPatchDto, memberId));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // 회원 탈퇴

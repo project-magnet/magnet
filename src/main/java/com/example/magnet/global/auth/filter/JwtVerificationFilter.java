@@ -59,29 +59,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         return claims;
     }
 
-    // JWT 검증 후 특정 사용자 정보를 Controller에 DI하기 위한 로직
-//    private void extractUserInfo(HttpServletRequest request){
-//        Map<String, Object> claims = verifyJws(request);
-//
-//        Long memberId = Long.valueOf(claims.get("memberId").toString());
-//        String username = (String) claims.get("username");
-//        List<String> roles = (List<String>) claims.get("roles");
-//
-//        UserInfoDto userInfoDto = UserInfoDto.builder()
-//                .memberId(memberId)
-//                .username(username)
-//                .roles(roles)
-//                .build();
-//
-//        userInfoDto.setUserInfoDto(userInfoDto);
-//    }
-
     private void setAuthenticationToContext(Map<String, Object> claims) { // SecurityContextHolder의 Authentication이 사용자의 이름과 역할을 관리
-        String username = (String) claims.get("username");
-        Long memberId = Long.valueOf(claims.get("memberId").toString());
+        String username = (String) claims.get("username"); // name
+        Long memberId = Long.valueOf(claims.get("memberId").toString()); // credentials
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        log.info("username: " + username);
-        log.info("memberId: " + memberId);
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, memberId, authorities); // claims 값을 기반으로 사용자 정보 객체 생성
         SecurityContextHolder.getContext().setAuthentication(authentication); // SecurityContextHolder에 저장
     }

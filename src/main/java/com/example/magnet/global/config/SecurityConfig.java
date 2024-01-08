@@ -61,7 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/**").hasRole("MENTOR")
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
-                        .requestMatchers("/member/update").hasRole("USER")
+                        .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
                         .requestMatchers("/member/extract").permitAll()
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
