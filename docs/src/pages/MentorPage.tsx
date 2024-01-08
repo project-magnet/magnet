@@ -1,6 +1,26 @@
+import { useEffect, useState } from 'react';
 import MentorInfoBox from '../component/MentorInfoBox';
+import PaymentPopup from '../component/payment/PaymentPopup';
 
 const MentorPage = () => {
+  const [openPopup, setOpenPopup] = useState(false);
+
+  const handleButton = () => {
+    setOpenPopup(true);
+  };
+
+  useEffect(() => {
+    if (openPopup) {
+      document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
+    } else {
+      document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
+    };
+  }, [openPopup]);
+
   const infoData = {
     technology: {
       icon: 'https://cdn-icons-png.flaticon.com/512/6000/6000354.png',
@@ -20,6 +40,7 @@ const MentorPage = () => {
   };
   return (
     <>
+      {openPopup && <PaymentPopup openPopup={openPopup} setOpenPopup={setOpenPopup} />}
       <div className="flexCenter justify-evenly w-full p-10 border-b flex-col lg:flex-row gap-10">
         <div className="flexCol gap-6 order-2 lg:order-1">
           <p className=" text-6xl font-bold">피할 수 없으면 즐겨라.</p>
@@ -27,7 +48,10 @@ const MentorPage = () => {
             안녕하세요! 웹 디자인 및 개발 및 바리스타 분야에서 경험한 멘토 김브라키오사우루스입니다.
           </p>
           <div className="flexCenter justify-start">
-            <button className="bg-black flexCenter py-3 w-40 rounded-lg text-white">
+            <button
+              onClick={handleButton}
+              className="bg-black flexCenter py-3 w-40 rounded-lg text-white"
+            >
               만나러 가기!
             </button>
             <p className="ml-4 text-stone-500">1회 30분 / 165,000원</p>
