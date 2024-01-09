@@ -12,19 +12,19 @@ const MentorListPage = () => {
   ];
 
   return (
-    <section>
-      <div className="flexCenter flex-wrap gap-10 p-10 bg-slate-100">
+    <section className="flexCol w-full bg-slate-100 p-3 sm:p-10 gap-10">
+      <div className="flexCenter flex-wrap gap-10">
         {categories.map((el, index) => (
           <div
             key={index}
-            className="bg-slate-50 flexCenter flex-col w-24 h-24  rounded-xl shadow-md cursor-pointer"
+            className="bg-white flexCenter flex-col w-24 h-24  rounded-md shadow-md cursor-pointer"
           >
             {el.image}
             <p className="font-semibold text-sm">{el.title}</p>
           </div>
         ))}
       </div>
-      <div className="bg-slate-100 w-full  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 py-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         <MentorCard />
         <MentorCard />
         <MentorCard />
