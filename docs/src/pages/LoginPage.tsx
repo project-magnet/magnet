@@ -3,7 +3,7 @@ import LoginButton from '../component/auth/LoginButton';
 
 const LoginPage = () => {
   return (
-    <div className="w-screen h-[80vh] flexCenter">
+    <div className="w-full h-[80vh] flexCenter">
       <section className="w-80 h-[350px] container flexCol items-center justify-evenly">
         <LoginButton type="Google" />
         <LoginButton type="Kakao" />

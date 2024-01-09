@@ -38,7 +38,7 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="w-[500px] h-96 flexCol items-center justify-around">
+    <section className="w-full md:w-[500px] h-96 flexCol items-center justify-around">
       <div>
         <p className="text-slate-600 text-sm m-1">이메일</p>
         <input
