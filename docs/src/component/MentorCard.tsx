@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MentorCard = () => {
   return (
     <Link to="/mentor">
-      <div className="p-7 h-80 m-10 md:m-3 xl:m-5 bg-white shadow-lg rounded-xl cursor-pointer">
+      <div className="p-7 h-80 m-10 md:m-3 xl:m-5 bg-white buttonStyle">
         <div className="h-1/2 flex">
           <div className="w-14 ">
             <img

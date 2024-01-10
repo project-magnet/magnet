@@ -32,10 +32,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ type, pageNumber, setPage
   }
 
   return (
-    <div
-      onClick={buttonHandler}
-      className="w-24 h-10  border rounded-md flexCenter cursor-pointer bg-slate-50"
-    >
+    <div onClick={buttonHandler} className="buttonStyle w-24 h-10 flexCenter bg-slate-50">
       <p className="font- text-sm">{buttonText}</p>
     </div>
   );
