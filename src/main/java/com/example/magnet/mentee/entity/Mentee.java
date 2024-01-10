@@ -30,7 +30,6 @@ public class Mentee extends TimeEntity {
     private Member member;
 
 
-
     //mentorings
     @OneToMany(mappedBy = "mentee")
     private List<Mentoring> mentoringList = new ArrayList<>();

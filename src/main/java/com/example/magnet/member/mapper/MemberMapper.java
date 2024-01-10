@@ -7,6 +7,7 @@ import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentoring.entity.Mentoring;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import static java.util.Arrays.stream;
 
 @Component
 @RequiredArgsConstructor
+
 public class MemberMapper {
 
     // post
@@ -74,41 +76,35 @@ public class MemberMapper {
     }
 
     // get
-//    public MemberResponseDto memberToResponseDto(Member result) {
-//        if(result == null){
-//            return null;
-//        }
-//
-//        MemberResponseDto.MemberResponseDtoBuilder dtoBuilder = MemberResponseDto.builder()
-//                .id(result.getId())
-//                .username(result.getUsername())
-//                .nickName(result.getNickName())
-//                .email(result.getEmail())
-//                .phone(result.getPhone())
-//                .picture(result.getPicture())
-//                .memberStatus(result.getMemberStatus().toString())
-//                .city(result.getAddress().getCity())
-//                .street(result.getAddress().getStreet());
-//
-//
-//        if(result.getMentoring() != null){
-//            List<Long> mentoringIdList = result.getMentoring().stream()
-//                    .map(Mentoring::getId)
-//                    .collect(Collectors.toList());
-//            dtoBuilder.mentoringIdList(mentoringIdList);
-//        }
-//
-//        // 멘토 객체 리스트 빌더에 추가
-//        if(result.getMentor() != null) {
-//            List<Mentor> mentorList = result.getMentor().getMembers().stream().
+    public MemberResponseDto memberToResponseDto(Member result) {
+        if(result == null){
+            return null;
+        }
+
+        MemberResponseDto.MemberResponseDtoBuilder dtoBuilder = MemberResponseDto.builder()
+                .id(result.getId())
+                .username(result.getUsername())
+                .nickName(result.getNickName())
+                .email(result.getEmail())
+                .phone(result.getPhone())
+                .picture(result.getPicture())
+                .memberStatus(result.getMemberStatus().toString())
+                .city(result.getAddress().getCity())
+                .street(result.getAddress().getStreet())
+                .roles(result.getRoles());
+
+        return dtoBuilder.build();
+    }
+
+    //        // 멘토 객체 리스트 빌더에 추가
+//        if(result.getMentorList() != null && !result.getMentorList().isEmpty()) {
+//            List<Mentor> mentorList = new ArrayList<>(result.getMentorList());
+//            dtoBuilder.mentorList(mentorList);
 //        }
 //
 //        // 멘티 객체 리스트 빌더에 추가
-//        if(result.getMentee() != null){
-//            List<Mentee> menteeList = result.getMentee().getMembers();
+//        if(result.getMenteeList() != null && !result.getMenteeList().isEmpty()){
+//            List<Mentee> menteeList = new ArrayList<>(result.getMenteeList());
+//             dtoBuilder.menteeList(menteeList);
 //        }
-//
-//
-//
-//    }
 }

@@ -25,8 +25,6 @@ public class Mentor extends TimeEntity {
     private String task;
 
 
-
-
     //member, mentor
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")

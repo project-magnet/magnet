@@ -82,8 +82,7 @@ public class MemberController {
         Long memberId = (Long) authentication.getCredentials();
         Member result = memberService.findMyInfo(memberId);
 
-//        return new ResponseEntity<MemberResponseDto>(mapper.memberToResponseDto(result), HttpStatus.OK);
-        return null;
+        return new ResponseEntity<>(mapper.memberToResponseDto(result), HttpStatus.OK);
     }
 
     // 회원 리스트 조회

@@ -12,9 +12,11 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String username);
 
     @Query("SELECT m FROM Member m " +
-            "LEFT JOIN FETCH m.mentee " +
-            "LEFT JOIN FETCH m.mentor " +
-            "LEFT JOIN FETCH m.mentoring " +
+            "LEFT JOIN FETCH m.menteeList " +
+            "LEFT JOIN FETCH m.mentorList " +
+            "LEFT JOIN FETCH m.mentoringList " +
             "WHERE m.id = :memberId")
     Optional<Member> findByIdWithMenteeMentorMentoring(@Param("memberId") Long memberId);
+
+
 }

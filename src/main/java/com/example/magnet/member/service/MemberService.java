@@ -94,13 +94,15 @@ public class MemberService {
         memberRepository.save(builder.build());
     }
 
-    // 엔티티는 비즈니스 레이어에서만 조작 > dto의 변환은 controller에서
+
     @Transactional(readOnly = true)
     public Member findMyInfo(Long memberId) {
-        Member findMember = memberRepository.findByIdWithMenteeMentorMentoring(memberId)
+        Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
+
+
 
     // jwt의 memberId와 생성자가 같은지 판단하는 함수
 
