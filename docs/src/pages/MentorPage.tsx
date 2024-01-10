@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import MentorInfoBox from '../component/MentorInfoBox';
 import PaymentPopup from '../component/payment/PaymentPopup';
 import PopupStore from '../store/PopupStore';
+import { useNavigate } from 'react-router-dom';
 
 const MentorPage = () => {
   const isOpen = PopupStore(state => state.isOpen);
   const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
+  const navigate = useNavigate();
 
   const handleButton = () => {
     setIsOpenTrue();
@@ -15,9 +17,9 @@ const MentorPage = () => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
     } else {
+      navigate('');
       document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
     }
-
     return () => {
       document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
     };
