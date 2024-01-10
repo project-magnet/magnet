@@ -28,19 +28,22 @@ public class Mentoring extends TimeEntity {
     private int participants;
 
 
-    /**
-     * 멤버, 멘토와 멘티가 각각 mentoring과 연관관계의 주인입니다.
-     * */
+
     // mentor, mentoring
-    @OneToMany(mappedBy = "mentoring")
-    private List<Mentor> mentorList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTOR_ID")
+    private Mentor mentor;
 
     // mentee, mentoring
-    @OneToMany(mappedBy = "mentoring")
-    private List<Mentee> menteeList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTEE_ID")
+    private Mentee mentee;
 
     // member, mentoring
-    @OneToMany(mappedBy = "mentoring")
-    private List<Member> members = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+
 
 }

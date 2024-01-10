@@ -4,11 +4,10 @@ import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.global.helper.event.MemberRegistrationApplicationEvent;
+import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -79,7 +79,7 @@ public class MemberService {
         Optional.ofNullable(member.getPhone())
                 .ifPresent(phone -> builder.phone(member.getPhone()));
 
-        if (member.getAddress() != null) {
+        if (member.getAddress() != null) { // 주소 부분 수정 고도화
             Address.AddressBuilder addressBuilder = Address.builder();
 
             Optional.ofNullable(member.getAddress().getCity())
@@ -92,6 +92,14 @@ public class MemberService {
         }
 
         memberRepository.save(builder.build());
+    }
+
+    // 엔티티는 비즈니스 레이어에서만 조작 > dto의 변환은 controller에서
+    @Transactional(readOnly = true)
+    public Member findMyInfo(Long memberId) {
+        Member findMember = memberRepository.findByIdWithMenteeMentorMentoring(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
     }
 
     // jwt의 memberId와 생성자가 같은지 판단하는 함수

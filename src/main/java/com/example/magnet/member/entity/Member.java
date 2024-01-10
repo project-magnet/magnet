@@ -21,7 +21,7 @@ public class Member extends TimeEntity implements Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "MEMBER_ID")
     private Long id;
 
     private String username;
@@ -50,24 +50,19 @@ public class Member extends TimeEntity implements Principal {
 
 
     /**
-     * Member entity는 모든 연관관계의 주인입니다. 등록, 수정이 가능합니다.
+     * Member 엔티티는 조회만 가능합니다.
      * */
     //mentor
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTOR_ID")
-    private Mentor mentor;
+    @OneToMany(mappedBy = "member")
+    private List<Mentor> mentorList = new ArrayList<>();
 
     //mentee
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTEE_ID")
-    private Mentee mentee;
+    @OneToMany(mappedBy = "member")
+    private List<Mentee> menteeList = new ArrayList<>();
 
     //mentoring
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTORING_ID")
-    private Mentoring mentoring;
-
-
+    @OneToMany(mappedBy = "member")
+    private List<Mentoring> mentoringList = new ArrayList<>();
 
 
     //MemberDetails
@@ -100,6 +95,7 @@ public class Member extends TimeEntity implements Principal {
             this.status = status;
         }
     }
+
 
 
 }
