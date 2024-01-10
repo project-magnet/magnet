@@ -50,7 +50,7 @@ const MentorPage = () => {
           <div className="flexCenter justify-start">
             <button
               onClick={handleButton}
-              className="bg-black flexCenter py-3 w-40 rounded-lg text-white"
+              className="bg-black flexCenter py-3 w-40 buttonStyle text-white"
             >
               만나러 가기!
             </button>

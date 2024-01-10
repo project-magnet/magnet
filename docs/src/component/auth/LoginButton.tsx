@@ -50,10 +50,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ type }) => {
 
   return (
     <Link to={linkTo}>
-      <div
-        className={`shadow-md w-80 h-12 flexCenter justify-evenly 
-        px-16  rounded-xl cursor-pointer ${buttonStyle}`}
-      >
+      <div className={`buttonStyle w-80 h-12 flexCenter ${buttonStyle}`}>
         {buttonImage && <img src={buttonImage} alt={`${type} 이미지`} className=" w-6 " />}
         <p className="font-semibold">{buttonText}</p>
       </div>

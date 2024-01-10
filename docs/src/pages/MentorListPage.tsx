@@ -15,10 +15,7 @@ const MentorListPage = () => {
     <section className="flexCol w-full bg-slate-100 p-3 sm:p-10 gap-10">
       <div className="flexCenter flex-wrap gap-10">
         {categories.map((el, index) => (
-          <div
-            key={index}
-            className="bg-white flexCenter flex-col w-24 h-24  rounded-md shadow-md cursor-pointer"
-          >
+          <div key={index} className="buttonStyle bg-white flexCenter flex-col w-24 h-24  ">
             {el.image}
             <p className="font-semibold text-sm">{el.title}</p>
           </div>

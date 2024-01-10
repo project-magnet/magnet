@@ -8,7 +8,7 @@ const PaymentCompletedPage = () => {
         <p className="text-3xl font-semibold">결제 완료</p>
         <p className="text-sm text-slate-400">빠른 시일내에 멘토님의 승인을 알려드릴게요!</p>
       </section>
-      <Link to="/magnet" className="shadow-md border px-6 py-2 rounded-md">
+      <Link to="/user" className=" px-6 py-2 buttonStyle">
         <p className="text-sm">나의 일정 보러 가기</p>
       </Link>
     </div>
