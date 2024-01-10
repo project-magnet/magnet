@@ -2,18 +2,16 @@ import 'remixicon/fonts/remixicon.css';
 import PaymentInput from './PaymentInput';
 import PaymentButton from './PaymentButton';
 import { useState } from 'react';
+import PopupStore from '../../store/PopupStore';
 
-type PaymentPopupProps = {
-  openPopup: boolean,
-  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>,
-};
-
-const PaymentPopup: React.FC<PaymentPopupProps> = ({ openPopup, setOpenPopup }) => {
+const PaymentPopup = () => {
+  const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
   const [pageNumber, setPageNumber] = useState(1);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // 팝업 영역 자체를 클릭한 경우에만 팝업을 닫습니다.
     if (e.target === e.currentTarget) {
-      setOpenPopup(false);
+      setIsOpenFalse();
     }
   };
 

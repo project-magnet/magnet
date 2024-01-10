@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import MentorInfoBox from '../component/MentorInfoBox';
 import PaymentPopup from '../component/payment/PaymentPopup';
+import PopupStore from '../store/PopupStore';
 
 const MentorPage = () => {
-  const [openPopup, setOpenPopup] = useState(false);
+  const isOpen = PopupStore(state => state.isOpen);
+  const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
 
   const handleButton = () => {
-    setOpenPopup(true);
+    setIsOpenTrue();
   };
 
   useEffect(() => {
-    if (openPopup) {
+    if (isOpen) {
       document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
     } else {
       document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
@@ -19,7 +21,7 @@ const MentorPage = () => {
     return () => {
       document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
     };
-  }, [openPopup]);
+  }, [isOpen]);
 
   const infoData = {
     technology: {
@@ -40,7 +42,7 @@ const MentorPage = () => {
   };
   return (
     <>
-      {openPopup && <PaymentPopup openPopup={openPopup} setOpenPopup={setOpenPopup} />}
+      {isOpen && <PaymentPopup />}
       <div className="flexCenter justify-evenly w-full p-10 border-b flex-col lg:flex-row gap-10">
         <div className="flexCol gap-6 order-2 lg:order-1">
           <p className=" text-6xl font-bold">피할 수 없으면 즐겨라.</p>
