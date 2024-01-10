@@ -4,6 +4,7 @@ import com.example.magnet.global.auth.dto.UserInfoDto;
 import com.example.magnet.member.dto.ExtractMember;
 import com.example.magnet.member.dto.MemberPatchDto;
 import com.example.magnet.member.dto.MemberPostDto;
+import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.mapper.MemberMapper;
 import com.example.magnet.member.service.MemberService;
@@ -71,10 +72,22 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    // 회원 탈퇴
 
-    // 회원 단건 조회
+    /**
+     * 회원 단건 조회
+     *  - 로그인 한 사용자는 자신의 회원 정보를 조회할 수 있습니다.
+     * */
+    @GetMapping("/get")
+    public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
+        Long memberId = (Long) authentication.getCredentials();
+        Member result = memberService.findMyInfo(memberId);
+
+        return new ResponseEntity<>(mapper.memberToResponseDto(result), HttpStatus.OK);
+    }
 
     // 회원 리스트 조회
+
+
+    // 회원 탈퇴
 
 }

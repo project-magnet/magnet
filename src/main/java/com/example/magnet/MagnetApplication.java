@@ -15,14 +15,15 @@ import java.util.UUID;
 public class MagnetApplication {
 	// jwttokenprovider를 통해 주입 그 후 토큰 반환
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(MagnetApplication.class, args);
 	}
 
-//	@Bean
-//	public AuditorAware<String> auditorProvider(){
-//		return () -> Optional.of(UUID.randomUUID().toString());
-//		// AuditorAware을 넘긴다. 해당 값들을 꺼내서 등록자, 수정자를 채워준다.
-//	}
+	@Bean
+	public AuditorAware<String> auditorProvider(){
+		return () -> Optional.of(UUID.randomUUID().toString());
+		// AuditorAware을 넘긴다. 해당 값들을 꺼내서 등록자, 수정자를 채워준다.
+	}
 
 }
