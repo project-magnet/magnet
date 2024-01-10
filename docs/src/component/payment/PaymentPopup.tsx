@@ -1,19 +1,28 @@
 import 'remixicon/fonts/remixicon.css';
 import PaymentInput from './PaymentInput';
 import PaymentButton from './PaymentButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import PopupStore from '../../store/PopupStore';
+import { useLocation } from 'react-router-dom';
 
-type PaymentPopupProps = {
-  openPopup: boolean,
-  setOpenPopup: React.Dispatch<React.SetStateAction<boolean>>,
-};
-
-const PaymentPopup: React.FC<PaymentPopupProps> = ({ openPopup, setOpenPopup }) => {
+const PaymentPopup = () => {
+  const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
   const [pageNumber, setPageNumber] = useState(1);
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const pageParam = searchParams.get('page');
+
+    if (pageParam) {
+      setPageNumber(Number(pageParam));
+    }
+  }, [location.search]);
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // 팝업 영역 자체를 클릭한 경우에만 팝업을 닫습니다.
     if (e.target === e.currentTarget) {
-      setOpenPopup(false);
+      setIsOpenFalse();
     }
   };
 
@@ -85,15 +94,11 @@ const PaymentPopup: React.FC<PaymentPopupProps> = ({ openPopup, setOpenPopup }) 
 
         <div className="flex justify-end gap-3">
           {pageNumber == 1 ? (
-            <PaymentButton pageNumber={pageNumber} setPageNumber={setPageNumber} type="next" />
+            <PaymentButton pageNumber={pageNumber} type="next" />
           ) : (
             <>
-              <PaymentButton
-                pageNumber={pageNumber}
-                setPageNumber={setPageNumber}
-                type="previous"
-              />
-              <PaymentButton pageNumber={pageNumber} setPageNumber={setPageNumber} type="payment" />
+              <PaymentButton pageNumber={pageNumber} type="previous" />
+              <PaymentButton pageNumber={pageNumber} type="payment" />
             </>
           )}
         </div>
