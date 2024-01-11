@@ -112,10 +112,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         return UriComponentsBuilder // Access Token과 Refresh Token을 포함한 URL을 생성
                 .newInstance()
-                .scheme("http")
-                .host("localhost")
+                .scheme("https")
+                .host("project-magnet.github.io")
 //                .port(80) // default
-                .path("/login/oauth2/code/google") // /receive-token.html
+                .path("/auth") // /receive-token.html
                 .queryParams(queryParams)
                 .build()
                 .toUri();

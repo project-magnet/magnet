@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@EntityListeners(AuditingEntityListener.class) // 이벤트 기반으로 동작
+@EntityListeners(AuditingEntityListener.class) // 이벤트 기반으로 동작, 자동으로 필드를 관리한다.
 @MappedSuperclass
 @Getter
 public class TimeEntity {

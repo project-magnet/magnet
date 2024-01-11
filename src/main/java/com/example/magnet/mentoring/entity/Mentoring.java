@@ -25,7 +25,7 @@ public class Mentoring extends TimeEntity {
     private String content;
     private String pay;
     private String period;
-    private int participants;
+    private int participants;//랭킹
 
 
 

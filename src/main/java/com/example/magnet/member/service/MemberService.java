@@ -91,7 +91,7 @@ public class MemberService {
             builder.address(addressBuilder.build());
         }
 
-        memberRepository.save(builder.build());
+        memberRepository.save(builder.build()); // save 호출 시 lastModifiedData 갱신
     }
 
 
