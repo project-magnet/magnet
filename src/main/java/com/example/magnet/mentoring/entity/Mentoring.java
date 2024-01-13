@@ -12,9 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mentoring extends TimeEntity {
 
     @Id
@@ -45,5 +43,16 @@ public class Mentoring extends TimeEntity {
     private Member member;
 
 
-
+    @Builder(toBuilder = true)
+    public Mentoring(Long id, String title, String content, String pay, String period, int participants, Mentor mentor, Mentee mentee, Member member) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.pay = pay;
+        this.period = period;
+        this.participants = participants;
+        this.mentor = mentor;
+        this.mentee = mentee;
+        this.member = member;
+    }
 }

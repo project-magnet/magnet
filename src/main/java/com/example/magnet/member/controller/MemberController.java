@@ -85,7 +85,7 @@ public class MemberController {
         return new ResponseEntity<>(mapper.memberToResponseDto(result), HttpStatus.OK);
     }
 
-    // 회원 리스트 조회
+
 
 
     // 회원 탈퇴

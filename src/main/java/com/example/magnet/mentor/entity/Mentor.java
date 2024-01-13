@@ -11,9 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Mentor extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +32,14 @@ public class Mentor extends TimeEntity {
     // mentoring, mentor
     @OneToMany(mappedBy = "mentor")
     private List<Mentoring> mentoringList = new ArrayList<>();
+
+    @Builder(toBuilder = true)
+    public Mentor(Long id, String career, String field, String task, Member member, List<Mentoring> mentoringList) {
+        this.id = id;
+        this.career = career;
+        this.field = field;
+        this.task = task;
+        this.member = member;
+        this.mentoringList = mentoringList;
+    }
 }

@@ -13,10 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
-//@AllArgsConstructor(access = AccessLevel.PRIVATE) // memberStatus로 인해 사용 불가능
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends TimeEntity implements Principal {
 
     @Id
@@ -96,6 +93,20 @@ public class Member extends TimeEntity implements Principal {
         }
     }
 
-
-
+    @Builder(toBuilder = true)
+    public Member(Long id, String username, String nickName, String email, String password, String phone, String picture, Address address, MemberStatus memberStatus, List<String> roles, List<Mentor> mentorList, List<Mentee> menteeList, List<Mentoring> mentoringList) {
+        this.id = id;
+        this.username = username;
+        this.nickName = nickName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.picture = picture;
+        this.address = address;
+        this.memberStatus = memberStatus;
+        this.roles = roles;
+        this.mentorList = mentorList;
+        this.menteeList = menteeList;
+        this.mentoringList = mentoringList;
+    }
 }
