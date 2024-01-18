@@ -19,7 +19,6 @@ import static java.util.Arrays.stream;
 
 @Component
 @RequiredArgsConstructor
-
 public class MemberMapper {
 
     // post

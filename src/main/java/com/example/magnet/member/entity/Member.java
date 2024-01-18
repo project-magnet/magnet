@@ -21,14 +21,16 @@ public class Member extends TimeEntity implements Principal {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    private String username;
+    @Column(unique = true)
+    private String username; // unique key 설정하자
 
+    @Column(unique = true)
     private String nickName;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String email; // id
 
-    @Column(nullable = false) // 암호화 되므로
+    @Column(nullable = false)
     private String password;
 
     private String phone;
@@ -42,8 +44,14 @@ public class Member extends TimeEntity implements Principal {
     @Column(length = 20)
     private MemberStatus memberStatus;
 
-    @ElementCollection(fetch = FetchType.EAGER) // 테이블이 새로 생성됨
+    @ElementCollection(fetch = FetchType.EAGER) // jpa에서 테이블을 새로 생성해서 관리.
+    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<String> roles = new ArrayList<>();
+
+    // 권한 부여 시 사용됨
+    public void setRoles(List<String> roles) {
+        this.roles = new ArrayList<>(roles); // 수정 가능한 새로운 리스트 생성
+    }
 
 
     /**
@@ -109,4 +117,16 @@ public class Member extends TimeEntity implements Principal {
         this.menteeList = menteeList;
         this.mentoringList = mentoringList;
     }
+
+//    @Override
+//    public boolean equals(Object o){
+//        if(this == o) return true;
+//        if(o == null || getClass() != o.getClass()) return false;
+//        Role member = (Member) o;
+//        return
+//    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(memberId, money);
+//    }
 }
