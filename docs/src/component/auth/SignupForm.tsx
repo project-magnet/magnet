@@ -1,5 +1,6 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
   const [form, setForm] = useState({
@@ -20,9 +21,18 @@ const SignupForm = () => {
     phoneNumber: { focused: false, validated: false },
   });
   //
-
+  const navigate = useNavigate();
   const handleSignup = () => {
-    console.log(form);
+    // Axios를 사용하여 서버에 POST 요청 보내기 (주의!!!!!!!! 존재하는 이메일 사용 금지!!!)
+    axios
+      .post('http://localhost:3001/user', form)
+      .then(response => {
+        console.log('서버 응답:', response.data);
+        navigate('/loginemail');
+      })
+      .catch(error => {
+        console.error('서버 요청 오류:', error);
+      });
   };
 
   const validateEmail = (vlaue: string) => {
@@ -53,8 +63,7 @@ const SignupForm = () => {
   };
   const validatePhoneNumber = (value: string) => {
     setForm({ ...form, phoneNumber: value });
-    // 원하는 전화번호 유효성 검사 정규식을 사용하세요
-    // 예시: 숫자만 허용하고, 특정 길이 제한 등
+    // 숫자만 허용하고 10자리 이상
     if (/^[0-9]{10,}$/.test(value)) {
       setCheckForm({ ...checkForm, phoneNumber: { ...checkForm.phoneNumber, validated: true } });
     } else {
@@ -88,6 +97,7 @@ const SignupForm = () => {
     });
   };
 
+  // 패스워드 유효성검사
   useEffect(() => {
     const validateAndSetPassword = () => {
       validatePassword(form.password);
@@ -110,14 +120,8 @@ const SignupForm = () => {
             setCheckForm({ ...checkForm, email: { ...checkForm.email, focused: true } })
           }
         />
-        {checkForm.email.focused && (
-          <>
-            {checkForm.email.validated ? (
-              <p className="text-green-500 text-xs">올바른 이메일 형식입니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">이메일 형식이 올바르지 않습니다.</p>
-            )}
-          </>
+        {!checkForm.email.validated && checkForm.email.focused && (
+          <p className="text-red-500 text-xs">이메일 형식이 올바르지 않습니다.</p>
         )}
       </div>
 
@@ -130,14 +134,8 @@ const SignupForm = () => {
           onChange={e => validateName(e.target.value)}
           onFocus={() => setCheckForm({ ...checkForm, name: { ...checkForm.name, focused: true } })}
         />
-        {checkForm.name.focused && (
-          <>
-            {checkForm.name.validated ? (
-              <p className="text-green-500 text-xs">올바른 이름 형식입니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">이름 형식이 올바르지 않습니다.</p>
-            )}
-          </>
+        {!checkForm.name.validated && checkForm.name.focused && (
+          <p className="text-red-500 text-xs">이름 형식이 올바르지 않습니다.</p>
         )}
       </div>
 
@@ -152,14 +150,8 @@ const SignupForm = () => {
             setCheckForm({ ...checkForm, nickname: { ...checkForm.nickname, focused: true } })
           }
         />
-        {checkForm.nickname.focused && (
-          <>
-            {checkForm.nickname.validated ? (
-              <p className="text-green-500 text-xs">올바른 닉네임 형식입니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">닉네임 형식이 올바르지 않습니다.</p>
-            )}
-          </>
+        {!checkForm.nickname.validated && checkForm.nickname.focused && (
+          <p className="text-red-500 text-xs">닉네임 형식이 올바르지 않습니다.</p>
         )}
       </div>
 
@@ -174,14 +166,8 @@ const SignupForm = () => {
             setCheckForm({ ...checkForm, phoneNumber: { ...checkForm.phoneNumber, focused: true } })
           }
         />
-        {checkForm.phoneNumber.focused && (
-          <>
-            {checkForm.phoneNumber.validated ? (
-              <p className="text-green-500 text-xs">올바른 전화번호 형식입니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">전화번호 형식이 올바르지 않습니다.</p>
-            )}
-          </>
+        {!checkForm.phoneNumber.validated && checkForm.phoneNumber.focused && (
+          <p className="text-red-500 text-xs">전화번호 형식이 올바르지 않습니다.</p>
         )}
       </div>
 
@@ -197,18 +183,11 @@ const SignupForm = () => {
             setCheckForm({ ...checkForm, password: { ...checkForm.password, focused: true } })
           }
         />
-        {checkForm.password.focused && (
-          <>
-            {checkForm.password.validated ? (
-              <p className="text-green-500 text-xs">올바른 비밀번호 형식입니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">
-                최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다.
-              </p>
-            )}
-          </>
+        {!checkForm.password.validated && checkForm.password.focused && (
+          <p className="text-red-500 text-xs">최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다.</p>
         )}
       </div>
+
       <div className="mt-1">
         <input
           type="password"
@@ -218,38 +197,26 @@ const SignupForm = () => {
           onChange={e => setForm({ ...form, confirmPassword: e.target.value })}
         />
         {checkForm.password.validated && (
-          <>
-            {checkForm.confirmPassword.validated ? (
-              <p className="text-green-500 text-xs">비밀번호가 일치합니다.</p>
-            ) : (
-              <p className="text-red-500 text-xs">비밀번호가 일치하지 않습니다.</p>
-            )}
-          </>
+          <p
+            className={`text-${checkForm.confirmPassword.validated ? 'green' : 'red'}-500 text-xs`}
+          >
+            {checkForm.confirmPassword.validated
+              ? '비밀번호가 일치합니다.'
+              : '비밀번호가 일치하지 않습니다.'}
+          </p>
         )}
       </div>
-
-      {checkForm.email.validated &&
-      checkForm.password.validated &&
-      checkForm.name.validated &&
-      checkForm.phoneNumber.validated &&
-      checkForm.nickname.validated &&
-      checkForm.confirmPassword.validated ? (
-        <button
-          type="button"
-          onFocus={handleSignup}
-          className="w-96 h-12 text-white bg-blue-500 rounded-lg mt-10"
-        >
-          회원가입
-        </button>
-      ) : (
-        <button
-          disabled
-          type="button"
-          className="w-96 h-12 text-white bg-blue-100 rounded-lg mt-10"
-        >
-          회원가입
-        </button>
-      )}
+      {/* 모든 validated가 참인가? */}
+      <button
+        type="button"
+        onClick={handleSignup}
+        className={`w-96 h-12 text-white rounded-lg mt-10 ${
+          Object.values(checkForm).every(field => field.validated) ? 'bg-blue-500' : 'bg-blue-100'
+        }`}
+        disabled={!Object.values(checkForm).every(field => field.validated)}
+      >
+        회원가입
+      </button>
       <Link to="/loginemail">
         <p className="text-sm text-slate-400 mt-3">로그인으로 돌아가기</p>
       </Link>
