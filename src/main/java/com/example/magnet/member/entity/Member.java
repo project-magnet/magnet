@@ -6,7 +6,11 @@ import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +18,8 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE member SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Member extends TimeEntity implements Principal {
 
     @Id
@@ -48,6 +54,10 @@ public class Member extends TimeEntity implements Principal {
     @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<String> roles = new ArrayList<>();
 
+    // 회원 탈퇴 필드
+    private Boolean deleted = Boolean.FALSE; // 스케줄러 고도화
+    private LocalDateTime deletedAt;
+
     // 권한 부여 시 사용됨
     public void setRoles(List<String> roles) {
         this.roles = new ArrayList<>(roles); // 수정 가능한 새로운 리스트 생성
@@ -58,15 +68,15 @@ public class Member extends TimeEntity implements Principal {
      * Member 엔티티는 조회만 가능합니다.
      * */
     //mentor
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentor> mentorList = new ArrayList<>();
 
     //mentee
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentee> menteeList = new ArrayList<>();
 
     //mentoring
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentoring> mentoringList = new ArrayList<>();
 
 

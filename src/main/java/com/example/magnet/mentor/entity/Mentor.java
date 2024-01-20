@@ -38,7 +38,7 @@ public class Mentor extends TimeEntity {
 
 
     // mentoring, mentor
-    @OneToMany(mappedBy = "mentor")
+    @OneToMany(mappedBy = "mentor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentoring> mentoringList = new ArrayList<>();
 
     @Builder(toBuilder = true)
