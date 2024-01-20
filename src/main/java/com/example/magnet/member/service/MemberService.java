@@ -103,6 +103,16 @@ public class MemberService {
     }
 
 
+    public void deleteMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                        .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        member.getMentorList().clear();
+        member.getMenteeList().clear();
+        member.getMentoringList().clear();
+        memberRepository.delete(member);
+
+    }
+
 
     // jwt의 memberId와 생성자가 같은지 판단하는 함수
 

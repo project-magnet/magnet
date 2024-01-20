@@ -145,6 +145,23 @@ public class MemberServiceTest {
         assertEquals(existingMember, result);
     }
 
+    @Test
+    @DisplayName("회원 탈퇴 테스트")
+    void deleteMember(){
+        // 삭제 후 db 조회 시 찾을 수 없다는 예외를 발생하면 통과
+        Member existingMember = Member.builder()
+                .id(1L)
+                .username("testUser")
+                .nickName("OldNickName")
+                .build();
+
+        memberRepository.save(existingMember);
+
+        assertThrows(BusinessLogicException.class, () ->{
+            memberService.deleteMember(1L);
+        });
+    }
+
 
 
 

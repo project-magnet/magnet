@@ -18,9 +18,17 @@ public class Mentor extends TimeEntity {
     @Column(name = "MENTOR_ID")
     private Long id;
 
-    private String career;
-    private String field;
-    private String task;
+    private String mentorName;
+
+    private String career; // 경력
+    private String field;  // 직무분야
+    private String task; // 현직- 기업정보
+    private String email; // 연락 이메일
+    private String phone; // 연락처
+    private String aboutMe;// 자기소개
+    private String github; // github 링크
+
+    // 계좌관련 정보 추가 가능
 
 
     //member, mentor
@@ -30,15 +38,20 @@ public class Mentor extends TimeEntity {
 
 
     // mentoring, mentor
-    @OneToMany(mappedBy = "mentor")
+    @OneToMany(mappedBy = "mentor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentoring> mentoringList = new ArrayList<>();
 
     @Builder(toBuilder = true)
-    public Mentor(Long id, String career, String field, String task, Member member, List<Mentoring> mentoringList) {
+    public Mentor(Long id, String mentorName, String career, String field, String task, String email, String phone, String aboutMe, String github, Member member, List<Mentoring> mentoringList) {
         this.id = id;
+        this.mentorName = mentorName;
         this.career = career;
         this.field = field;
         this.task = task;
+        this.email = email;
+        this.phone = phone;
+        this.aboutMe = aboutMe;
+        this.github = github;
         this.member = member;
         this.mentoringList = mentoringList;
     }
