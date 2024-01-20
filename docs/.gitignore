@@ -50,6 +50,8 @@ psd
 thumb
 sketch
 
+db.json
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
