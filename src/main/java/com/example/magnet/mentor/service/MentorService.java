@@ -5,8 +5,10 @@ import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
+import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.repository.MentorRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +30,7 @@ public class MentorService {
     private final MentorRepository mentorRepository;
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final JPAQueryFactory jpaQueryFactory;
 
     public void createMentor(Long memberId, Mentor mentor) {
         // memberId로 멤버와 멘토 연관관계 생성
@@ -56,5 +59,12 @@ public class MentorService {
     }
 
 
+    public MentorResponseDto getMentor(Long memberId) {
+        // memberId와 일치하는 멘토 조회
+        Mentor findMentor = mentorRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));
 
+
+
+    }
 }

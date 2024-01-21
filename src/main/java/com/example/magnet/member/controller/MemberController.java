@@ -89,7 +89,6 @@ public class MemberController {
 
 
     // 회원 탈퇴
-
     @DeleteMapping("/delete")
     public ResponseEntity<String> memberDelete(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();

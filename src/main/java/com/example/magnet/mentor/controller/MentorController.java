@@ -3,6 +3,7 @@ package com.example.magnet.mentor.controller;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.mentor.dto.MentorPostDto;
+import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.mapper.MentorMapper;
 import com.example.magnet.mentor.service.MentorService;
@@ -14,12 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/mentor")
@@ -51,5 +50,15 @@ public class MentorController {
 
     }
 
-    // 멘토 조회
+    // 자신의 멘토 정보 조회
+    @GetMapping("/get")
+    public ResponseEntity<MentorResponseDto> getMentor(Authentication authentication){
+        Long memberId = (Long) authentication.getCredentials();
+        mentorService.getMentor(memberId);
+        return new ResponseEntity<MentorResponseDto>(mentorService.getMentor(memberId), HttpStatus.FOUND);
+    }
+
+
+    //멘토 리스트 조회
+
 }

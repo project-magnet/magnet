@@ -12,7 +12,8 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "이미 사용자가 존재합니다."),
 
     // mentor
-    MENTEE_CANT_REGISTER_MENTOR(400, "멘티는 멘토등록이 불가능합니다.");
+    MENTEE_CANT_REGISTER_MENTOR(400, "멘티는 멘토등록이 불가능합니다."),
+    MENTOR_NOT_FOUND(404, "멘토 정보를 찾을 수 없습니다.");
 
 
     //mentee
