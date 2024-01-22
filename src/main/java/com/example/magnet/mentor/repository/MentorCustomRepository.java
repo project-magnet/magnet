@@ -5,5 +5,5 @@ import com.example.magnet.mentor.entity.Mentor;
 import java.util.List;
 
 public interface MentorCustomRepository {
-    List<Mentor> findAll
+    List<Mentor> findAllLeftJoin();
 }

@@ -33,7 +33,7 @@ public class MagnetApplication {
 			String currentUserId = null;
 
 			if (authentication != null && authentication.isAuthenticated()) {
-				currentUserId = (String)authentication.getCredentials();
+				currentUserId = String.valueOf(authentication.getCredentials());
 			}
 			return Optional.ofNullable(currentUserId);
 		};

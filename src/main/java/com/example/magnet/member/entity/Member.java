@@ -5,9 +5,9 @@ import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE member SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE member SET deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE MEMBER_ID = ?")
 @Where(clause = "deleted = false")
 public class Member extends TimeEntity implements Principal {
 
@@ -51,17 +51,20 @@ public class Member extends TimeEntity implements Principal {
     private MemberStatus memberStatus;
 
     @ElementCollection(fetch = FetchType.EAGER) // jpa에서 테이블을 새로 생성해서 관리.
-    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+//    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<String> roles = new ArrayList<>();
 
-    // 회원 탈퇴 필드
+    // 회원 탈퇴 여부 판단
     private Boolean deleted = Boolean.FALSE; // 스케줄러 고도화
+
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     // 권한 부여 시 사용됨
     public void setRoles(List<String> roles) {
         this.roles = new ArrayList<>(roles); // 수정 가능한 새로운 리스트 생성
     }
+
 
 
     /**

@@ -5,7 +5,6 @@ import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
-import com.example.magnet.mentor.mapper.MentorMapper;
 import com.example.magnet.mentor.service.MentorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.example.magnet.mentor.mapper.MentorMapper.*;
 
 @RestController
 @RequestMapping("/mentor")
@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MentorController {
     private final MentorService mentorService;
-    private final MentorMapper mapper;
 
     // 멘토 등록
     @PostMapping("/create")
@@ -42,7 +41,7 @@ public class MentorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new BusinessLogicException(ExceptionCode.MENTEE_CANT_REGISTER_MENTOR));
         }else{
-            Mentor mentor = mapper.MentorPostDtoToMentor(mentorPostDto);
+            Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
             mentorService.createMentor(memberId, mentor);
         }
 
@@ -54,8 +53,7 @@ public class MentorController {
     @GetMapping("/get")
     public ResponseEntity<MentorResponseDto> getMentor(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        mentorService.getMentor(memberId);
-        return new ResponseEntity<MentorResponseDto>(mentorService.getMentor(memberId), HttpStatus.FOUND);
+        return new ResponseEntity<>(mentorService.getMentor(memberId), HttpStatus.FOUND);
     }
 
 
