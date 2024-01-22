@@ -24,6 +24,7 @@ public class Mentoring extends TimeEntity {
     private String pay;
     private String period;
     private int participants;
+    private String category;
 
 
 
@@ -44,13 +45,14 @@ public class Mentoring extends TimeEntity {
 
 
     @Builder(toBuilder = true)
-    public Mentoring(Long id, String title, String content, String pay, String period, int participants, Mentor mentor, Mentee mentee, Member member) {
+    public Mentoring(Long id, String title, String content, String pay, String period, int participants, String category, Mentor mentor, Mentee mentee, Member member) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.pay = pay;
         this.period = period;
         this.participants = participants;
+        this.category = category;
         this.mentor = mentor;
         this.mentee = mentee;
         this.member = member;

@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,7 +110,8 @@ public class MemberService {
         member.getMentorList().clear();
         member.getMenteeList().clear();
         member.getMentoringList().clear();
-        memberRepository.delete(member);
+//        member.deleteSoftly(LocalDateTime.now());
+        memberRepository.delete(member);// delete 쿼리를 보내면 자동으로 deleted = true로 변환
 
     }
 

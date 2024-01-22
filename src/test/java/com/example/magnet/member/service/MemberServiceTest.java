@@ -6,6 +6,12 @@ import com.example.magnet.global.helper.event.MemberRegistrationApplicationEvent
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
+import com.example.magnet.mentee.entity.Mentee;
+import com.example.magnet.mentee.repository.MenteeRepository;
+import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentor.repository.MentorRepository;
+import com.example.magnet.mentoring.entity.Mentoring;
+import com.example.magnet.mentoring.repository.MentoringRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +39,12 @@ public class MemberServiceTest {
 
     @Mock
     MemberRepository memberRepository;
+    @Mock
+    MentorRepository mentorRepository;
+    @Mock
+    MentoringRepository mentoringRepository;
+    @Mock
+    MenteeRepository menteeRepository;
 
     @Mock
     PasswordEncoder passwordEncoder;
@@ -45,6 +57,18 @@ public class MemberServiceTest {
 
     @InjectMocks
     MemberService memberService;
+
+    @Mock
+    Member member;
+
+    @Mock
+    Mentor mentor;
+    @Mock
+    Mentoring mentoring;
+    @Mock
+    Mentee mentee;
+
+
 
     @Test
     @DisplayName("회원가입 테스트 - 정상 생성")
@@ -148,18 +172,48 @@ public class MemberServiceTest {
     @Test
     @DisplayName("회원 탈퇴 테스트")
     void deleteMember(){
-        // 삭제 후 db 조회 시 찾을 수 없다는 예외를 발생하면 통과
+
+        // 삭제 후 deleted 필드 true 변경 내용과 연관 mentor, mentoring, mentee 정보 삭제 확인
         Member existingMember = Member.builder()
                 .id(1L)
                 .username("testUser")
                 .nickName("OldNickName")
+                .mentorList(new ArrayList<>())
+                .menteeList(new ArrayList<>())
+                .mentoringList(new ArrayList<>())
                 .build();
-
         memberRepository.save(existingMember);
 
-        assertThrows(BusinessLogicException.class, () ->{
-            memberService.deleteMember(1L);
-        });
+
+        Mentor mentor1 = Mentor.builder()
+                .member(existingMember)
+                .build();
+
+        Mentoring mentoring1 = Mentoring.builder()
+                .member(existingMember)
+                .build();
+
+        Mentee mentee1 = Mentee.builder()
+                .member(existingMember)
+                .build();
+
+
+        // 회원 삭제 메서드 호출
+        memberService.deleteMember(1L);
+
+        // 삭제된 회원을 찾아서 해당 회원이 삭제되었음을 확인
+        Member deletedMember = memberRepository.findById(1L).orElse(null);
+        assertNotNull(deletedMember);
+        assertTrue(deletedMember.getDeleted());
+
+//        assertThrows(BusinessLogicException.class, () ->{
+//            memberService.deleteMember(1L);
+//        });
+        // 삭제된 회원과 관련된 멘토, 멘티, 멘토링 정보가 모두 삭제되었음을 확인
+        assertTrue(existingMember.getMentorList().isEmpty());
+        assertTrue(existingMember.getMenteeList().isEmpty());
+        assertTrue(existingMember.getMentoringList().isEmpty());
+
     }
 
 
