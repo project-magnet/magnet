@@ -74,31 +74,30 @@ class MentorServiceTest {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
-//    @Test
-//    @DisplayName("멘토등록 테스트")
-//    public void create_Mentor(){
-//        // given
-//
-//
-//        when(memberRepository.findById(memberId)).thenReturn(Optional.of(member));
-//
-//        List<GrantedAuthority> expectedAuthorities = List.of(
-//                new SimpleGrantedAuthority("ROLE_USER"),
-//                new SimpleGrantedAuthority("ROLE_MENTOR"));
-//        when(customAuthorityUtils.createAuthorities(eq(List.of("USER", "MENTOR")))).thenReturn(expectedAuthorities);
-//
-//        // when
-//        mentorService.createMentor(memberId, mentor);
-//
-//        // then
-//        verify(memberRepository).save(member);
-//        verify(mentorRepository).save(any());
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        List<String> updatedRoles = member.getRoles(); // 수정된 roles 확인
-//        assertThat(updatedRoles).contains("ROLE_MENTOR");
-//        assertThat(authentication.getAuthorities()).isEqualTo(expectedAuthorities);
-//    }
+    @Test
+    @DisplayName("멘토등록 테스트")
+    public void create_Mentor(){
+        // given
+
+        when(memberRepository.findById(member.getId())).thenReturn(Optional.of(member));
+
+        List<GrantedAuthority> expectedAuthorities = List.of(
+                new SimpleGrantedAuthority("ROLE_USER"),
+                new SimpleGrantedAuthority("ROLE_MENTOR"));
+        when(customAuthorityUtils.createAuthorities(eq(List.of("USER", "MENTOR")))).thenReturn(expectedAuthorities);
+
+        // when
+        mentorService.createMentor(member.getId(), mentor);
+
+        // then
+        verify(memberRepository).save(member);
+        verify(mentorRepository).save(any());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        List<String> updatedRoles = member.getRoles(); // 수정된 roles 확인
+        assertThat(updatedRoles).contains("ROLE_MENTOR");
+        assertThat(authentication.getAuthorities()).isEqualTo(expectedAuthorities);
+    }
 
     @Test
     @DisplayName("멘토조회 테스트")
