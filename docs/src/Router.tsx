@@ -8,6 +8,7 @@ import MentorPage from './pages/MentorPage';
 import MentorListPage from './pages/MentorListPage';
 import PaymentCompletedPage from './pages/PaymentCompletedPage';
 import UserPage from './pages/UserPage';
+import CreateMentoringPage from './pages/CreateMentoringPage';
 
 export const Router = () => {
   return (
@@ -21,6 +22,7 @@ export const Router = () => {
       <Route path="/mentorlist" Component={MentorListPage} />
       <Route path="/paymentcompleted" Component={PaymentCompletedPage} />
       <Route path="/user" Component={UserPage} />
+      <Route path="/creatementoring" Component={CreateMentoringPage} />
     </Routes>
   );
 };
