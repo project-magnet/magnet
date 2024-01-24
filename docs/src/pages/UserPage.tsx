@@ -1,7 +1,28 @@
 import ScheduleboxV2 from '../component/user/ScheduleboxV2';
 import UserInfoBox from '../component/user/UserInfoBox';
+import { useEffect } from 'react';
+import { MentorRegistPopup } from '../component/user/MentorRegistPopup';
+import PopupStore from '../store/PopupStore';
 
 const UserPage = () => {
+  const isOpen = PopupStore(state => state.isOpen);
+  const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
+
+  const handleButton = () => {
+    setIsOpenTrue();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
+    } else {
+      document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
+    }
+    return () => {
+      document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
+    };
+  }, [isOpen]);
+
   const userInfo = [
     { icon: <i className="ri-phone-line ri-2x" />, name: 'Phone', contents: '010-2321-8346' },
     {
@@ -15,8 +36,10 @@ const UserPage = () => {
       contents: 'qpwoei01234@gmail.com',
     },
   ];
+
   return (
     <div className="flexCol divide-y ">
+      {isOpen && <MentorRegistPopup />}
       {/* 첫번째 섹션 */}
       <section className="userPageSection py-10 gap-10 flex-col sm:flex-row ">
         <img
@@ -47,7 +70,17 @@ const UserPage = () => {
           ))}
         </div>
       </section>
-      {/* 세번째 섹션 */}
+      {/* 세번쨰 섹션 */}
+      <section className="userPageSection py-10 gap-10 justify-between bg-slate-50 ">
+        <div>
+          <p className="text-4xl mb-2 font-semibold">멘토 등록하기</p>
+          <p className="text-sm text-slate-400"> 멘토가 되어서 멘토링을 직접 개설해 보세요!</p>
+        </div>
+        <button className="buttonStyle py-2 px-4" onClick={handleButton}>
+          <p className="font-semibold">간단하게 등록하기</p>
+        </button>
+      </section>
+      {/* 네번째 섹션 */}
       <section className="userPageSection py-10 gap-10 flex-col  bg-slate-50 ">
         <div className="flexCol items-center gap-1">
           <p className="text-3xl font-bold">Mentoring Schedule</p>
