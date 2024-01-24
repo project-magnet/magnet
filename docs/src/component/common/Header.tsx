@@ -13,8 +13,11 @@ const Header = () => {
       <Link to="/mentorlist" className="tracking-wide hidden sm:block mr-10">
         둘러보기
       </Link>
-      <Link to="/login" className="tracking-wide hidden sm:block">
+      <Link to="/login" className="tracking-wide hidden sm:block mr-10">
         로그인
+      </Link>
+      <Link to="/creatementoring" className="tracking-wide hidden sm:block">
+        멘토링 개설하기
       </Link>
     </header>
   );
