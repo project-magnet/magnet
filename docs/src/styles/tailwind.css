@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply break-keep m-0 p-0;
+  @apply box-border m-0 p-0;
 }
 
 @layer components {
@@ -14,7 +14,7 @@
       @apply flex flex-col 
     }
     .input {
-      @apply w-96 h-12 rounded-lg pl-3 font-light border-1
+      @apply w-screen sm:w-96 h-12 rounded-lg px-3 border-1
     }
     .buttonStyle {
       @apply border shadow-md rounded-md hover:opacity-80 cursor-pointer
