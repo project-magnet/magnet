@@ -60,6 +60,7 @@ public class SecurityConfig {
                         .requestMatchers("/health", "member/signup", "auth/login", "/login/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/create").hasRole("USER")
+                        .requestMatchers("/mentor/list").permitAll()
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
                         .requestMatchers("/member/extract").permitAll()

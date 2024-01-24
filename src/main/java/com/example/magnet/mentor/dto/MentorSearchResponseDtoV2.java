@@ -1,13 +1,18 @@
 package com.example.magnet.mentor.dto;
 
+import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentoring.entity.Mentoring;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MentorResponseDto {
+public class MentorSearchResponseDtoV2 {
     private Long mentorId;
     private String mentorName;
 
@@ -32,7 +37,6 @@ public class MentorResponseDto {
         private String category;
 
         @QueryProjection
-        @Builder(toBuilder = true)
         public MentoringDto(Long id, String title, String content, String pay, String period, int participants, String category) {
             this.id = id;
             this.title = title;
@@ -45,17 +49,28 @@ public class MentorResponseDto {
     }
 
     @QueryProjection
-    @Builder(toBuilder = true)
-    public MentorResponseDto(Long mentorId, String mentorName, String career, String field, String task, String email, String phone, String aboutMe, String github, List<MentoringDto> mentoringDtoList) {
-        this.mentorId = mentorId;
-        this.mentorName = mentorName;
-        this.career = career;
-        this.field = field;
-        this.task = task;
-        this.email = email;
-        this.phone = phone;
-        this.aboutMe = aboutMe;
-        this.github = github;
-        this.mentoringDtoList = mentoringDtoList;
+    public MentorSearchResponseDtoV2(Mentor mentor){
+        mentorId = mentor.getId();
+        mentorName = mentor.getMentorName();
+        career = mentor.getCareer();
+        field = mentor.getField();
+        task = mentor.getTask();
+        email = mentor.getEmail();
+        phone = mentor.getPhone();
+        aboutMe = mentor.getAboutMe();
+        github = mentor.getGithub();
+        mentoringDtoList = mentor.getMentoringList().stream()
+                .map(mentoring -> new MentoringDto(
+                        mentoring.getId(),
+                        mentoring.getTitle(),
+                        mentoring.getContent(),
+                        mentoring.getPay(),
+                        mentoring.getPeriod(),
+                        mentoring.getParticipants(),
+                        mentoring.getCategory()))
+                .toList();
+
     }
+
+
 }

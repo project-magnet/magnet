@@ -4,35 +4,48 @@ import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.dto.MentorResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDto;
+import com.example.magnet.mentor.dto.QMentorSearchResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentor.entity.QMentor;
 import com.example.magnet.mentor.mapper.MentorMapper;
 import com.example.magnet.mentor.repository.MentorRepository;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.repository.MentoringRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@Transactional
 class MentorServiceTest {
 
     @Mock
@@ -45,16 +58,19 @@ class MentorServiceTest {
     private MentoringRepository mentoringRepository;
 
     @Mock
-    private MentorMapper mapper;
+    private CustomAuthorityUtils customAuthorityUtils;
+
+    @Autowired
+    EntityManager em;
 
     @Mock
-    private CustomAuthorityUtils customAuthorityUtils;
+    private JPAQueryFactory jpaQueryFactory;
 
     @InjectMocks
     private MentorService mentorService;
 
-    private Member member;
 
+    private Member member;
     private Mentoring mentoring;
     private Mentor mentor;
 
@@ -62,7 +78,7 @@ class MentorServiceTest {
     public void setUp(){
         member = Member.builder()
                 .id(1L)
-                .roles(Arrays.asList("ROLE_USER"))
+                .roles(Arrays.asList("ROLE_USER", "ROLE_MENTOR"))
                 .build();
 
         mentor = Mentor.builder()
@@ -165,5 +181,70 @@ class MentorServiceTest {
         //then
         assertEquals(mentoringDtoList.size(), mentorResponseDto.getMentoringDtoList().size());
     }
+
+//    @Test
+//    @DisplayName("멘토 전체 리스트 조회 - querydsl 적용")
+//    public void search() {
+//        Mentor mentor1 = Mentor.builder()
+//                .id(1L)
+//                .mentoringList(Arrays.asList(
+//                        Mentoring.builder()
+//                                .id(1L)
+//                                .build(),
+//                        Mentoring.builder()
+//                                .id(2L)
+//                                .build()
+//                ))
+//                .build();
+//
+//        Mentor mentor2 = Mentor.builder()
+//                .id(2L)
+//                .mentoringList(Arrays.asList(
+//                        Mentoring.builder()
+//                                .id(3L)
+//                                .build(),
+//                        Mentoring.builder()
+//                                .id(4L)
+//                                .build()
+//                ))
+//                .build();
+//
+//        Mentor mentor3 = Mentor.builder()
+//                .id(3L)
+//                .mentoringList(Arrays.asList(
+//                        Mentoring.builder()
+//                                .id(5L)
+//                                .build(),
+//                        Mentoring.builder()
+//                                .id(6L)
+//                                .build()
+//                ))
+//                .build();
+//        mentorRepository.save(mentor1);
+//        mentorRepository.save(mentor2);
+//        mentorRepository.save(mentor3);
+//
+//
+//        Mentoring mentoring1 = Mentoring.builder().id(1L).mentor(mentor1).build();
+//        Mentoring mentoring2 = Mentoring.builder().id(2L).mentor(mentor1).build();
+//        Mentoring mentoring3 = Mentoring.builder().id(3L).mentor(mentor2).build();
+//        Mentoring mentoring4 = Mentoring.builder().id(4L).mentor(mentor2).build();
+//        Mentoring mentoring5 = Mentoring.builder().id(5L).mentor(mentor3).build();
+//        Mentoring mentoring6 = Mentoring.builder().id(6L).mentor(mentor3).build();
+//
+//        mentoringRepository.save(mentoring1);
+//        mentoringRepository.save(mentoring2);
+//        mentoringRepository.save(mentoring3);
+//        mentoringRepository.save(mentoring4);
+//        mentoringRepository.save(mentoring5);
+//        mentoringRepository.save(mentoring6);
+//
+//
+//        Page<MentorSearchResponseDto> result = mentorService.search(0,3);
+//
+//        assertThat(result.getTotalElements()).isEqualTo(6);
+//
+//
+//    }
 
 }
