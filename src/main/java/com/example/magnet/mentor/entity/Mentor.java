@@ -55,4 +55,10 @@ public class Mentor extends TimeEntity {
         this.member = member;
         this.mentoringList = mentoringList;
     }
+
+    @Builder
+    public Mentor(Long id, List<Mentoring> mentoringList) {
+        this.id = id;
+        this.mentoringList = mentoringList;
+    }
 }

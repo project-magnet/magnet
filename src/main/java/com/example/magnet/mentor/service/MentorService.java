@@ -6,12 +6,17 @@ import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.dto.MentorResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDtoV2;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.mapper.MentorMapper;
 import com.example.magnet.mentor.repository.MentorRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.example.magnet.mentor.mapper.MentorMapper.mapToResponseDtos;
 
 @Service
 @Valid
@@ -65,5 +72,16 @@ public class MentorService {
         Mentor findMentor = mentorRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));
         return MentorMapper.MentorToMentorResponseDto(findMentor);
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<MentorSearchResponseDtoV2> search(int offset, int size) {
+        Pageable pageable = PageRequest.of(offset, size);
+        Page<MentorSearchResponseDtoV2> page = mentorRepository.search2(pageable);
+//        List<MentorSearchResponseDto> dtoPage = page.getContent();
+//        List<MentorResponseDto> responseDtos = mapToResponseDtos(dtoPage);
+        return page;
+
     }
 }

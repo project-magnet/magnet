@@ -4,13 +4,19 @@ import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDtoV2;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.service.MentorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.annotation.Validated;
@@ -58,5 +64,10 @@ public class MentorController {
 
 
     //멘토 리스트 조회
+    @GetMapping("/list")
+    public ResponseEntity<Page<MentorSearchResponseDtoV2>> getMentorList(@RequestParam("offset") int offset,
+                                                                         @RequestParam("size") int size){
+        return new ResponseEntity<>(mentorService.search(offset, size), HttpStatus.OK);
+    }
 
 }

@@ -3,13 +3,16 @@ package com.example.magnet.mentor.mapper;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
+import com.example.magnet.mentor.dto.MentorSearchResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //@Component
 @RequiredArgsConstructor
@@ -69,5 +72,31 @@ public class MentorMapper {
                 .build();
 
         return dto;
+    }
+
+    // getMentorList
+    public static List<MentorResponseDto> mapToResponseDtos(List<MentorSearchResponseDto> searchResponseDtos){
+        return searchResponseDtos.stream()
+                .map(searchResponseDto -> MentorResponseDto.builder()
+                        .mentorId(searchResponseDto.getMentorId())
+                        .mentorName(searchResponseDto.getMentorName())
+                        .career(searchResponseDto.getCareer())
+                        .field(searchResponseDto.getField())
+                        .task(searchResponseDto.getTask())
+                        .email(searchResponseDto.getEmail())
+                        .phone(searchResponseDto.getPhone())
+                        .aboutMe(searchResponseDto.getAboutMe())
+                        .github(searchResponseDto.getGithub())
+                        .mentoringDtoList(Collections.singletonList(MentorResponseDto.MentoringDto.builder()
+                                .id(searchResponseDto.getMentoringId())
+                                .title(searchResponseDto.getMentoringTitle())
+                                .content(searchResponseDto.getMentoringContent())
+                                .pay(searchResponseDto.getMentoringPay())
+                                .period(searchResponseDto.getMentoringPeriod())
+                                .participants(searchResponseDto.getMentoringParticipants())
+                                .category(searchResponseDto.getMentoringCategory())
+                                .build()))
+                        .build())
+                .collect(Collectors.toList());
     }
 }
