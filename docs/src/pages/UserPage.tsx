@@ -1,12 +1,20 @@
 import ScheduleboxV2 from '../component/user/ScheduleboxV2';
 import UserInfoBox from '../component/user/UserInfoBox';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { MentorRegistPopup } from '../component/user/MentorRegistPopup';
 import PopupStore from '../store/PopupStore';
 
 const UserPage = () => {
   const isOpen = PopupStore(state => state.isOpen);
   const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
+
+  const [isMentor, setIsMentor] = useState(false); // [TODO] 로그인 시 멘토인지 멘티인지 확인하는 로직 필요
+  useEffect(() => {
+    const token = sessionStorage.getItem('fakeToken');
+    if (token === 'mentor') {
+      setIsMentor(true);
+    }
+  });
 
   const handleButton = () => {
     setIsOpenTrue();
@@ -48,9 +56,11 @@ const UserPage = () => {
         />
         <div className="flexCol gap-3 flex-grow">
           <p className="font-semibold text-xl">김브라키오사우루스</p>
-          <div className="bg-red-500 w-fit py-1 px-3 rounded-md">
-            <p className="text-sm text-white">멘토</p>
-          </div>
+          {isMentor && (
+            <div className="bg-red-500 w-fit py-1 px-3 rounded-md">
+              <p className="text-sm text-white">멘토</p>
+            </div>
+          )}
         </div>
         <div className="flex gap-2">
           <button className="buttonStyle py-2 px-4">
@@ -71,34 +81,39 @@ const UserPage = () => {
         </div>
       </section>
       {/* 세번쨰 섹션 */}
-      <section className="userPageSection py-10 gap-10 justify-between bg-slate-50 ">
-        <div>
-          <p className="text-4xl mb-2 font-semibold">멘토 등록하기</p>
-          <p className="text-sm text-slate-400"> 멘토가 되어서 멘토링을 직접 개설해 보세요!</p>
-        </div>
-        <button className="buttonStyle py-2 px-4" onClick={handleButton}>
-          <p className="font-semibold">간단하게 등록하기</p>
-        </button>
-      </section>
-      {/* 네번째 섹션 */}
-      <section className="userPageSection py-10 gap-10 flex-col  bg-slate-50 ">
-        <div className="flexCol items-center gap-1">
-          <p className="text-3xl font-bold">Mentoring Schedule</p>
-          <p className="text-slate-400">예약된 멘토링 일정을 확인하세요!</p>
-        </div>
+      {!isMentor && (
+        <section className="userPageSection py-10 gap-10 justify-between bg-slate-50 ">
+          <div>
+            <p className="text-4xl mb-2 font-semibold">멘토 등록하기</p>
+            <p className="text-sm text-slate-400"> 멘토가 되어서 멘토링을 직접 개설해 보세요!</p>
+          </div>
+          <button className="buttonStyle py-2 px-4" onClick={handleButton}>
+            <p className="font-semibold">간단하게 등록하기</p>
+          </button>
+        </section>
+      )}
 
-        <div
-          className="flex gap-10 w-full overflow-x-auto snap-x p-10 
+      {/* 네번째 섹션 */}
+      {isMentor && (
+        <section className="userPageSection py-10 gap-10 flex-col  bg-slate-50 ">
+          <div className="flexCol items-center gap-1">
+            <p className="text-3xl font-bold">Mentoring Schedule</p>
+            <p className="text-slate-400">예약된 멘토링 일정을 확인하세요!</p>
+          </div>
+
+          <div
+            className="flex gap-10 w-full overflow-x-auto snap-x p-10 
         shadow-inner shadow-slate-300 rounded-xl bg-white"
-        >
-          <ScheduleboxV2 />
-          <ScheduleboxV2 />
-          <ScheduleboxV2 />
-          <ScheduleboxV2 />
-          <ScheduleboxV2 />
-          <ScheduleboxV2 />
-        </div>
-      </section>
+          >
+            <ScheduleboxV2 />
+            <ScheduleboxV2 />
+            <ScheduleboxV2 />
+            <ScheduleboxV2 />
+            <ScheduleboxV2 />
+            <ScheduleboxV2 />
+          </div>
+        </section>
+      )}
     </div>
   );
 };
