@@ -31,6 +31,7 @@ const LoginForm = () => {
     if (loginResult.isSuccess) {
       console.log(loginResult.message);
       navigate('/magnet');
+      window.location.reload();
     } else {
       console.log(loginResult.message);
       setLoginFailed(true);
