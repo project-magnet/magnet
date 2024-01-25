@@ -66,8 +66,24 @@ public class MentorController {
     //멘토 리스트 조회
     @GetMapping("/list")
     public ResponseEntity<Page<MentorSearchResponseDtoV2>> getMentorList(@RequestParam("offset") int offset,
-                                                                         @RequestParam("size") int size){
+                                                                         @RequestParam("size") int size){ // pageableDefault 적용 ?
         return new ResponseEntity<>(mentorService.search(offset, size), HttpStatus.OK);
+    }
+
+    //멘토 삭제
+    @DeleteMapping("/remove")
+    public ResponseEntity<?> deleteMentor(Authentication authentication){
+        Long memberId = (Long) authentication.getCredentials();
+        List<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+        if(roles.contains("MENTOR")||roles.contains("ADMIN")){
+            mentorService.remove(memberId);
+            return new ResponseEntity<>("등록한 멘토정보를 삭제했습니다.", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(ResponseEntity.badRequest(),HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
 }

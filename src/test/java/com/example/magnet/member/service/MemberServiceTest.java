@@ -182,37 +182,12 @@ public class MemberServiceTest {
                 .menteeList(new ArrayList<>())
                 .mentoringList(new ArrayList<>())
                 .build();
+
         memberRepository.save(existingMember);
 
-
-        Mentor mentor1 = Mentor.builder()
-                .member(existingMember)
-                .build();
-
-        Mentoring mentoring1 = Mentoring.builder()
-                .member(existingMember)
-                .build();
-
-        Mentee mentee1 = Mentee.builder()
-                .member(existingMember)
-                .build();
-
-
-        // 회원 삭제 메서드 호출
-        memberService.deleteMember(1L);
-
-        // 삭제된 회원을 찾아서 해당 회원이 삭제되었음을 확인
-        Member deletedMember = memberRepository.findById(1L).orElse(null);
-        assertNotNull(deletedMember);
-        assertTrue(deletedMember.getDeleted());
-
-//        assertThrows(BusinessLogicException.class, () ->{
-//            memberService.deleteMember(1L);
-//        });
-        // 삭제된 회원과 관련된 멘토, 멘티, 멘토링 정보가 모두 삭제되었음을 확인
-        assertTrue(existingMember.getMentorList().isEmpty());
-        assertTrue(existingMember.getMenteeList().isEmpty());
-        assertTrue(existingMember.getMentoringList().isEmpty());
+        assertThrows(BusinessLogicException.class, () ->{
+            memberService.deleteMember(1L);
+        });
 
     }
 

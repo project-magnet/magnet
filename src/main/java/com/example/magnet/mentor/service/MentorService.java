@@ -79,9 +79,12 @@ public class MentorService {
     public Page<MentorSearchResponseDtoV2> search(int offset, int size) {
         Pageable pageable = PageRequest.of(offset, size);
         Page<MentorSearchResponseDtoV2> page = mentorRepository.search2(pageable);
-//        List<MentorSearchResponseDto> dtoPage = page.getContent();
-//        List<MentorResponseDto> responseDtos = mapToResponseDtos(dtoPage);
         return page;
+    }
 
+    public void remove(Long memberId) {
+        Mentor findMentor = mentorRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));// 멘토를 생성하지 않은 경우
+        mentorRepository.delete(findMentor);
     }
 }
