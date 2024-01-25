@@ -22,7 +22,7 @@ public class Mentoring extends TimeEntity {
     private String title;
     private String content;
     private String pay;
-    private String period;
+    private String period; // 전체 기간
     private int participants;
     private String category;
 

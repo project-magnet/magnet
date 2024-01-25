@@ -1,6 +1,7 @@
 package com.example.magnet.mentor.service;
 
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
+import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.dto.MentorResponseDto;
@@ -30,16 +31,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -71,7 +69,6 @@ class MentorServiceTest {
 
 
     private Member member;
-    private Mentoring mentoring;
     private Mentor mentor;
 
     @BeforeEach
@@ -246,5 +243,33 @@ class MentorServiceTest {
 //
 //
 //    }
+
+    @Test
+    @DisplayName("멘토 삭제 테스트")
+    public void deleteMentor(){
+        //given
+        Member member1 = Member.builder().id(1L).build();
+
+        Mentor mentor1 = Mentor.builder().id(1L).member(member1).build();
+
+        Mentoring mentoring = Mentoring.builder().id(1L).mentor(mentor1).build();
+
+        List<Mentoring> list = new ArrayList<>();
+        list.add(mentoring);
+        mentor1 = mentor1.toBuilder().mentoringList(list).build();
+
+        memberRepository.save(member1);
+        mentorRepository.save(mentor1);
+        mentoringRepository.save(mentoring);
+
+
+        when(mentorRepository.findByMemberId(1L)).thenReturn(Optional.of(mentor1));
+        mentorService.remove(1L);
+
+        // 검증: mentor와 관련된 mentoring까지 삭제 완료
+        assertThat(mentorRepository.findById(1L)).isEmpty();
+        assertThat(mentoringRepository.findById(1L)).isEmpty();
+
+    }
 
 }

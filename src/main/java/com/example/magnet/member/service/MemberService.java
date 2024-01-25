@@ -107,16 +107,16 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
                         .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        member.getMentorList().clear();
-        member.getMenteeList().clear();
-        member.getMentoringList().clear();
+//        member.getMentorList().clear();
+//        member.getMenteeList().clear();
+//        member.getMentoringList().clear();
 //        member.deleteSoftly(LocalDateTime.now());
         memberRepository.delete(member);// delete 쿼리를 보내면 자동으로 deleted = true로 변환
 
     }
 
 
-    // jwt의 memberId와 생성자가 같은지 판단하는 함수
+
 
 
 }
