@@ -15,6 +15,15 @@ export const MentorRegistPopup = () => {
     }
   };
 
+  const handleSubmit = () => {
+    // 세션스토리지의 fakeToken을 "mentor" 로 변환합니다.
+    const fakeToken = sessionStorage.getItem('fakeToken');
+    if (fakeToken) {
+      sessionStorage.setItem('fakeToken', 'mentor');
+      window.location.reload();
+    }
+  };
+
   const [selectedField, setSelectedField] = useState('');
   const [selectedExperience, setSelectedExperience] = useState('');
   const [currentCompany, setCurrentCompany] = useState('');
@@ -92,7 +101,7 @@ export const MentorRegistPopup = () => {
         <div className="flex justify-center">
           {/* 버튼을 활성화하려면 areAllInputsSelected가 true일 때만 클릭 이벤트를 활성화 */}
           <button
-            onClick={areAllInputsSelected ? submitDataToServer : () => {}}
+            onClick={areAllInputsSelected ? handleSubmit : () => {}}
             className={`buttonStyle py-2 px-6 text-white ${
               areAllInputsSelected ? 'bg-black' : 'bg-gray-300'
             }`}
