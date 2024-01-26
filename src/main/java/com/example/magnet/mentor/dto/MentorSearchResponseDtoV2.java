@@ -67,7 +67,7 @@ public class MentorSearchResponseDtoV2 {
                         mentoring.getPay(),
                         mentoring.getPeriod(),
                         mentoring.getParticipants(),
-                        mentoring.getCategory()))
+                        mentoring.getCategory().toString()))
                 .toList();
 
     }
