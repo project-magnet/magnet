@@ -37,10 +37,6 @@ class MentoringServiceTest {
 
     @Mock
     MentoringRepository mentoringRepository;
-    @Mock
-    Member mockMember;
-    @Mock
-    Mentor mockMentor;
 
     @InjectMocks
     MentoringService mentoringService;
@@ -88,13 +84,20 @@ class MentoringServiceTest {
 //        assertEquals(member.getId(), mentoring1.getMember().getId());
 //
 //    }
+    @Test
+    @DisplayName("멤버 조회")
+    public void getMemberEntity(){
+        Member member = Member.builder().id(1L).email("email@gmail.com").password("1234").build();
+
+        given(memberRepository.findById(anyLong())).willReturn(Optional.ofNullable(member));
+        assertEquals(memberRepository.findById(1L).orElse(null), member);
+    }
 
     @Test
     @DisplayName("멘토링 등록 테스트 - mockito 적용")
     public void register2(){
-        Long memberId = 1L;
-
         //given
+        Long memberId = 1L;
         Member member = Member.builder().id(memberId).email("email@gmail.com").password("1234").build();
         Mentor mentor = Mentor.builder()
                 .id(memberId)
@@ -115,6 +118,7 @@ class MentoringServiceTest {
 
         //mentoring 저장이 한번 이뤄졌는지 검증
         verify(mentoringRepository, times(1)).save(any(Mentoring.class));
+
     }
 
 }

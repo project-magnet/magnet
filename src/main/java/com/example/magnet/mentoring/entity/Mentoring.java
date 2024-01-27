@@ -30,25 +30,22 @@ public class Mentoring extends TimeEntity {
     private Category category;
 
 
-
-    // mentor, mentoring
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_ID")
     private Mentor mentor;
 
-    // mentee, mentoring
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENTEE_ID")
-    private Mentee mentee;
 
-    // member, mentoring
+    @OneToMany(mappedBy = "mentoring")
+    private List<Mentee> menteeList =new ArrayList<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
 
     @Builder(toBuilder = true)
-    public Mentoring(Long id, String title, String content, String pay, String period, int participants, Category category, Mentor mentor, Mentee mentee, Member member) {
+    public Mentoring(Long id, String title, String content, String pay, String period, int participants, Category category, Mentor mentor, List<Mentee> menteeList, Member member) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -57,7 +54,7 @@ public class Mentoring extends TimeEntity {
         this.participants = participants;
         this.category = category;
         this.mentor = mentor;
-        this.mentee = mentee;
+        this.menteeList = menteeList;
         this.member = member;
     }
 

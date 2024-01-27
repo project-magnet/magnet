@@ -21,23 +21,22 @@ public class Mentee extends TimeEntity {
     private String message;
     private String schedule;
 
-    //membr
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-
-    //mentorings
-    @OneToMany(mappedBy = "mentee")
-    private List<Mentoring> mentoringList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTORING_ID")
+    private Mentoring mentoring;
 
     @Builder(toBuilder = true)
-    public Mentee(Long id, String message, String schedule, Member member, List<Mentoring> mentoringList) {
+    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring) {
         this.id = id;
         this.message = message;
         this.schedule = schedule;
         this.member = member;
-        this.mentoringList = mentoringList;
+        this.mentoring = mentoring;
     }
 
 }

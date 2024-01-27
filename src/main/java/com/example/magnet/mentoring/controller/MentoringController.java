@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +30,6 @@ public class MentoringController {
     private final MentoringService mentoringService;
 
 
-
     // 멘토링 등록
     @PostMapping("/create")
     public ResponseEntity<?> registerMentoring(@Valid @RequestBody MentoringPostDto mentoringPostDto, Authentication authentication){
@@ -47,6 +43,11 @@ public class MentoringController {
     }
 
     // 멘토링 단건 조회
+//    @GetMapping("/get/{mentoring-id}")
+//    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
+//        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
+//    }
+
 
     // 멘토링 전체 리스트 조회
 
