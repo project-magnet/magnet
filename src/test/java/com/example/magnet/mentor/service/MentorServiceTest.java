@@ -71,21 +71,21 @@ class MentorServiceTest {
     private Member member;
     private Mentor mentor;
 
-    @BeforeEach
-    public void setUp(){
-        member = Member.builder()
-                .id(1L)
-                .roles(Arrays.asList("ROLE_USER", "ROLE_MENTOR"))
-                .build();
-
-        mentor = Mentor.builder()
-                .id(1L)
-                .member(member)
-                .build();
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken("user", "password", List.of(new SimpleGrantedAuthority("ROLE_USER")));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
+//    @BeforeEach
+//    public void setUp(){
+//        member = Member.builder()
+//                .id(1L)
+//                .roles(Arrays.asList("ROLE_USER", "ROLE_MENTOR"))
+//                .build();
+//
+//        mentor = Mentor.builder()
+//                .id(1L)
+//                .member(member)
+//                .build();
+//
+//        Authentication authentication = new UsernamePasswordAuthenticationToken("user", "password", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//    }
 
     @Test
     @DisplayName("멘토등록 테스트")

@@ -53,6 +53,7 @@ public class MentorService {
 //        List<String> updatedRoles = new ArrayList<>(findMember.getRoles()); // 수정 가능한 새로운 리스트 생성
         List<String> updatedRoles = findMember.getRoles();
         updatedRoles.add("MENTOR");
+        // 권한 부여
         findMember.setRoles(updatedRoles);
         memberRepository.save(findMember); // 기존의 컬럼에서 값을 조회하고 수정하지 않았다.
 

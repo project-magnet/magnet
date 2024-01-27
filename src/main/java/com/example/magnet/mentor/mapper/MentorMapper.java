@@ -1,20 +1,17 @@
 package com.example.magnet.mentor.mapper;
 
-import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.dto.MentorSearchResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Component
 @RequiredArgsConstructor
 public class MentorMapper {
 
@@ -53,7 +50,7 @@ public class MentorMapper {
                     .pay(mentoring.getPay())
                     .period(mentoring.getPeriod())
                     .participants(mentoring.getParticipants())
-                    .category(mentoring.getCategory())
+                    .category(mentoring.getCategory().toString()) // enum 타입 변경으로 인한 수정
                     .build();
             mentoringDtoList.add(mentoringDto);
         }

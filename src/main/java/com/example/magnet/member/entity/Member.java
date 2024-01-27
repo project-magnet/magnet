@@ -131,6 +131,12 @@ public class Member extends TimeEntity implements Principal {
         this.mentoringList = mentoringList;
     }
 
+    @Builder // for test
+    public Member(Long id, String email){
+        this.id=id;
+        this.email=email;
+    }
+
 //    @Override
 //    public boolean equals(Object o){
 //        if(this == o) return true;
