@@ -23,13 +23,13 @@ public class MentoringService {
     private final MentorRepository mentorRepository;
     private final MemberRepository memberRepository;
 
-    private Member getMemberEntity(Long memberId){
+    public Member getMemberEntity(Long memberId){
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 
-    private Mentor getMentorEntity(Long memberId){
+    public Mentor getMentorEntity(Long memberId){
         Mentor findMentor =  mentorRepository.findByMemberId(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));
         return findMentor;
