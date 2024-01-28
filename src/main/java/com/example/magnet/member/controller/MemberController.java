@@ -85,9 +85,14 @@ public class MemberController {
         return new ResponseEntity<>(mapper.memberToResponseDto(result), HttpStatus.OK);
     }
 
-    // 회원 리스트 조회
+
 
 
     // 회원 탈퇴
-
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> memberDelete(Authentication authentication){
+        Long memberId = (Long) authentication.getCredentials();
+        memberService.deleteMember(memberId);
+        return new ResponseEntity<>("회원 탈퇴가 이뤄졌습니다.", HttpStatus.OK);
+    }
 }

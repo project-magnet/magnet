@@ -1,14 +1,14 @@
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: {client-id}
-            client-secret: {client-secret}
-            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
-            authorization-grant-type: authorization_code
-            scope: email
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: {client-id}
+#            client-secret: {client-secret}
+#            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+#            authorization-grant-type: authorization_code
+#            scope: email
 
 ##          kakao:
 ##            client-id: {client-id(Rest Api key)}

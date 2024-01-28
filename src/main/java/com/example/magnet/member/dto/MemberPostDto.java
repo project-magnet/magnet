@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
  * Nonnull은 jakarta로
  * */
 @Getter
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class MemberPostDto {  // 회원 등록 dto
 
     @NotBlank
@@ -48,4 +47,14 @@ public class MemberPostDto {  // 회원 등록 dto
         private String street;
     }
 
+    @Builder
+    public MemberPostDto(String email, String username, String password, String nickName, String phone, String picture, AddressDto addressDto) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.nickName = nickName;
+        this.phone = phone;
+        this.picture = picture;
+        this.addressDto = addressDto;
+    }
 }

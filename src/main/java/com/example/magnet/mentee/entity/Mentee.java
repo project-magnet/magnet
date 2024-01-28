@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Mentee extends TimeEntity {
     @Id
@@ -24,14 +22,21 @@ public class Mentee extends TimeEntity {
     private String schedule;
 
 
-    //membr
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTORING_ID")
+    private Mentoring mentoring;
 
-    //mentorings
-    @OneToMany(mappedBy = "mentee")
-    private List<Mentoring> mentoringList = new ArrayList<>();
+    @Builder(toBuilder = true)
+    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring) {
+        this.id = id;
+        this.message = message;
+        this.schedule = schedule;
+        this.member = member;
+        this.mentoring = mentoring;
+    }
 
 }
