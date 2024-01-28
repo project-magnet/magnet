@@ -20,4 +20,20 @@ public class TimeEntity {
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
+
+    private LocalDateTime deletedAt;
+
+//    // 삭제
+//    public void deleteSoftly(LocalDateTime deletedAt) {
+//        this.deletedAt = deletedAt;
+//    }
+//
+//    // 확인
+//    public boolean isSoftDeleted() {
+//        return null != deletedAt;
+//    }
+//    // 삭제 취소
+//    public void undoDeletion(){
+//        this.deletedAt = null;
+//    }
 }

@@ -1,0 +1,37 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/magnet
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope:
+              - profile
+              - email
+logging.level:
+  org.hibernate.SQL: debug
+
+jwt:
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 60
+  refresh-token-expiration-minutes: 600
+mail:
+  address:
+    admin: admin@gmail.com

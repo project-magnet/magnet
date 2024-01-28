@@ -5,18 +5,21 @@ import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import lombok.*;
+import org.hibernate.annotations.*;
+
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Getter
-//@AllArgsConstructor(access = AccessLevel.PRIVATE) // memberStatus로 인해 사용 불가능
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLDelete(sql = "UPDATE member SET deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE MEMBER_ID = ?")
+@Where(clause = "deleted = false")
 public class Member extends TimeEntity implements Principal {
 
     @Id
@@ -24,14 +27,16 @@ public class Member extends TimeEntity implements Principal {
     @Column(name = "MEMBER_ID")
     private Long id;
 
-    private String username;
+    @Column(unique = true)
+    private String username; // unique key 설정하자
 
+    @Column(unique = true)
     private String nickName;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String email; // id
 
-    @Column(nullable = false) // 암호화 되므로
+    @Column(nullable = false)
     private String password;
 
     private String phone;
@@ -45,23 +50,36 @@ public class Member extends TimeEntity implements Principal {
     @Column(length = 20)
     private MemberStatus memberStatus;
 
-    @ElementCollection(fetch = FetchType.EAGER) // 테이블이 새로 생성됨
+    @ElementCollection(fetch = FetchType.EAGER) // jpa에서 테이블을 새로 생성해서 관리.
+//    @CollectionTable(name = "Role", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<String> roles = new ArrayList<>();
+
+    // 회원 탈퇴 여부 판단
+    private Boolean deleted = Boolean.FALSE; // 스케줄러 고도화
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
+    // 권한 부여 시 사용됨
+    public void setRoles(List<String> roles) {
+        this.roles = new ArrayList<>(roles); // 수정 가능한 새로운 리스트 생성
+    }
+
 
 
     /**
      * Member 엔티티는 조회만 가능합니다.
      * */
     //mentor
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentor> mentorList = new ArrayList<>();
 
     //mentee
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentee> menteeList = new ArrayList<>();
 
     //mentoring
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentoring> mentoringList = new ArrayList<>();
 
 
@@ -96,6 +114,38 @@ public class Member extends TimeEntity implements Principal {
         }
     }
 
+    @Builder(toBuilder = true)
+    public Member(Long id, String username, String nickName, String email, String password, String phone, String picture, Address address, MemberStatus memberStatus, List<String> roles, List<Mentor> mentorList, List<Mentee> menteeList, List<Mentoring> mentoringList) {
+        this.id = id;
+        this.username = username;
+        this.nickName = nickName;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.picture = picture;
+        this.address = address;
+        this.memberStatus = memberStatus;
+        this.roles = roles;
+        this.mentorList = mentorList;
+        this.menteeList = menteeList;
+        this.mentoringList = mentoringList;
+    }
 
+    @Builder // for test
+    public Member(Long id, String email){
+        this.id=id;
+        this.email=email;
+    }
 
+//    @Override
+//    public boolean equals(Object o){
+//        if(this == o) return true;
+//        if(o == null || getClass() != o.getClass()) return false;
+//        Role member = (Member) o;
+//        return
+//    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(memberId, money);
+//    }
 }

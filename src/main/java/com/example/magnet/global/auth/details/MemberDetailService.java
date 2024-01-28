@@ -45,7 +45,6 @@ public class MemberDetailService implements UserDetailsService {
 
     private final class MemberDetails extends Member implements UserDetails { // member 권한 정보 생성, 데이터베이스에서 조회한 회원 정보를 Spring Security의 User 정보로 변환하는 과정과 User의 권한 정보를 생성하는 과정을 캡슐화
           MemberDetails(Member member) {
-              logger.info("member 권한 정보 생성 - setter ");
             MemberBuilder builder = member.toBuilder();
             builder.id(member.getId());
             builder.email(member.getEmail());
