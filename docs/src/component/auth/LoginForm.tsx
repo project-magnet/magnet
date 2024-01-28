@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../api/auth';
+import login from '../../utils/login';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -29,8 +29,9 @@ const LoginForm = () => {
     const loginResult = await login(email, password);
 
     if (loginResult.isSuccess) {
-      console.log('로그인 성공', loginResult.data);
+      console.log(loginResult.message);
       navigate('/magnet');
+      window.location.reload();
     } else {
       console.log(loginResult.message);
       setLoginFailed(true);
@@ -38,7 +39,7 @@ const LoginForm = () => {
   };
 
   return (
-    <section className="w-[500px] h-96 flexCol items-center justify-around">
+    <section className="w-full md:w-[500px] h-96 flexCol items-center justify-around">
       <div>
         <p className="text-slate-600 text-sm m-1">이메일</p>
         <input

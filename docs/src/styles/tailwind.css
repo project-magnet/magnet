@@ -2,14 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply box-border m-0 p-0;
+}
+
 @layer components {
     .flexCenter {
       @apply flex items-center justify-center;
     }
     .flexCol{
-      @apply flex flex-col
+      @apply flex flex-col 
     }
     .input {
-      @apply w-96 h-12 rounded-lg pl-3 font-light border-1
+      @apply w-screen sm:w-96 h-12 rounded-lg px-3 border-1
+    }
+    .buttonStyle {
+      @apply border shadow-md rounded-md  cursor-pointer
+    }
+    .userPageSection {
+      @apply px-10 md:px-20 lg:px-40 flexCenter
+    }
+    .inputStyle {
+      @apply  text-slate-600 text-sm m-1;
+    }
+    .inputStyle input {
+      @apply w-[95vw] sm:w-96 h-12 rounded-lg px-3 border-1;
     }
   }

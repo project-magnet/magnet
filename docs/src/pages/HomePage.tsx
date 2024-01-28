@@ -4,12 +4,12 @@ import MentorCard from '../component/MentorCard';
 const HomePage = () => {
   return (
     <section>
-      <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48 ">
-        <div className="container mx-5 md:mx-20">
-          <div className="flex flex-col justify-center space-y-4">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+      <section className=" py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48 ">
+        <div className="container px-3 md:px-20">
+          <div className="flex flex-col justify-center gap-4">
+            <p className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
               Connect with Magnet
-            </h1>
+            </p>
             <p className=" text-gray-500 text-xs md:text-xl">
               당신의 커리어 여정을 안내해 줄 완벽한 멘토를 찾아보세요.
             </p>

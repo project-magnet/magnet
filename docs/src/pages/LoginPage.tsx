@@ -2,12 +2,26 @@ import React from 'react';
 import LoginButton from '../component/auth/LoginButton';
 
 const LoginPage = () => {
+  const handler = () => {
+    const fakeTokenGenerator = () => {
+      // 일반 멤버로 설정
+      sessionStorage.setItem('fakeToken', 'member');
+    };
+    fakeTokenGenerator();
+    window.location.reload();
+    window.location.href = '/magnet';
+  };
+
   return (
-    <div className="w-screen h-[80vh] flexCenter">
+    <div className="w-full h-[80vh] flexCenter">
       <section className="w-80 h-[350px] container flexCol items-center justify-evenly">
-        <LoginButton type="Email" />
         <LoginButton type="Google" />
         <LoginButton type="Kakao" />
+        <LoginButton type="Naver" />
+        <LoginButton type="Email" />
+        <button className="buttonStyle p-5" onClick={handler}>
+          임시 로그인
+        </button>
       </section>
       <section className=" ml-6 hidden md:block">
         <p className="text-7xl  px-2 py-1 relative">
