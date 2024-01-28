@@ -23,9 +23,9 @@
       @apply px-10 md:px-20 lg:px-40 flexCenter
     }
     .inputStyle {
-      @apply text-slate-600 text-sm m-1;
+      @apply  text-slate-600 text-sm m-1;
     }
     .inputStyle input {
-      @apply w-screen sm:w-96 h-12 rounded-lg px-3 border-1;
+      @apply w-[95vw] sm:w-96 h-12 rounded-lg px-3 border-1;
     }
   }
