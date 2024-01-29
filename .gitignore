@@ -38,4 +38,6 @@ out/
 
 # Ignore application.yml file
 src/main/resources/application.yml
+src/test/resources/application.yml
+src/main/resources/application-oauth.yml
 
