@@ -7,6 +7,7 @@ import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.repository.MentorRepository;
 import com.example.magnet.mentoring.dto.MentoringPostDto;
+import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,9 @@ public class MentoringService {
 
         mentoringRepository.save(mentoringBuilder.build());
 
+    }
+
+    public MentoringResponseDto mentoringInfo(Long mentoringId) {
+        return null;
     }
 }

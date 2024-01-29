@@ -24,11 +24,13 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity(debug = true) // filter 호출 순서 반환
@@ -68,7 +70,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
-                .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
+                .cors((cors) -> cors
+                        .configurationSource(corsConfigurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable) // .httpBasic((httpBasic) -> httpBasic.disable())
                 .exceptionHandling(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -97,8 +100,12 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));   // 모든 출처 허용
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));  // http 통신 허용
+
+        configuration.setAllowCredentials(true); // option요청에 Access-Control-Allow-Origin 추가 > 403 문제 발생
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://ef14-14-5-74-92.ngrok-free.app"));   // 모든 출처 허용
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE","OPTIONS"));  // http 통신 허용
+        configuration.setAllowedHeaders(List.of("*"));// 문제 해결
+        configuration.setExposedHeaders(List.of("Authorization", "RefreshToken","Access-Control-Allow-Origin"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 모든 url 앞에서 구성한 cors 정책 적용

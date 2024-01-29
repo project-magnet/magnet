@@ -1,6 +1,7 @@
 package com.example.magnet.mentoring.controller;
 
 import com.example.magnet.mentoring.dto.MentoringPostDto;
+import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.mapper.MentoringMapper;
 import com.example.magnet.mentoring.service.MentoringService;
@@ -43,10 +44,10 @@ public class MentoringController {
     }
 
     // 멘토링 단건 조회
-//    @GetMapping("/get/{mentoring-id}")
-//    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
-//        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
-//    }
+    @GetMapping("/get/{mentoring-id}")
+    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
+        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
+    }
 
 
     // 멘토링 전체 리스트 조회
