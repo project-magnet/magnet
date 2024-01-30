@@ -51,7 +51,7 @@ thumb
 sketch
 
 db.json
-
+.env
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
