@@ -1,42 +1,36 @@
-import React from 'react';
 import MentorCard from '../component/MentorCard';
+import {Link} from 'react-router-dom';
 
 const HomePage = () => {
-  return (
-    <section>
-      <section className=" py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48 ">
-        <div className="container px-3 md:px-20">
-          <div className="flex flex-col justify-center gap-4">
-            <p className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-              Connect with Magnet
-            </p>
-            <p className=" text-gray-500 text-xs md:text-xl">
-              당신의 커리어 여정을 안내해 줄 완벽한 멘토를 찾아보세요.
-            </p>
-          </div>
-        </div>
-      </section>
+	return (
+		<section>
+			<section className="py-32 ">
+				<div className="flexCol gap-4 ml-5 sm:ml-20 text-primary">
+					<p className="text-3xl font-bold tracking-tighter  sm:text-6xl">Connect with Magnet</p>
+					<p className=" text-secondary text-xs sm:text-xl">
+						당신의 커리어 여정을 안내해 줄 완벽한 멘토를 찾아보세요.
+					</p>
+				</div>
+			</section>
 
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-        <div className="flex flex-col items-center justify-center space-y-4 ">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Meet our Top Mentors</h2>
-          <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            멘티의 성공을 위해 노력하는 경험 많은 멘토를 만나보세요.
-          </p>
-        </div>
-        <div className="w-full  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-          <MentorCard />
-        </div>
-      </section>
-    </section>
-  );
+			<section className="py-12 bg-slate-100 flexCol justify-center items-center gap-10">
+				<div className="flexCol items-center gap-5 ">
+					<h2 className="text-3xl font-bold sm:text-5xl tracking-tighter text-primary">
+						Meet our Mentors
+					</h2>
+					<p className=" text-secondary text-xl">멘티의 성공을 위해 노력하는 멘토를 만나보세요.</p>
+				</div>
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+					<MentorCard />
+					<MentorCard />
+					<MentorCard />
+				</div>
+				<Link to="/mentorlist">
+					<button className="text-secondary font-bold">더 알아보기</button>
+				</Link>
+			</section>
+		</section>
+	);
 };
 
 export default HomePage;

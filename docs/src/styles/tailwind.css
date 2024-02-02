@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
 * {
-  @apply box-border m-0 p-0;
+  @apply box-border m-0 p-0 font-poppins;
 }
 
 @layer components {
@@ -11,21 +21,30 @@
       @apply flex items-center justify-center;
     }
     .flexCol{
-      @apply flex flex-col 
-    }
-    .input {
-      @apply w-screen sm:w-96 h-12 rounded-lg px-3 border-1
+      @apply flex flex-col;
     }
     .buttonStyle {
-      @apply border shadow-md rounded-md  cursor-pointer
+      @apply border shadow-md rounded-md flexCenter h-12
     }
     .userPageSection {
       @apply px-10 md:px-20 lg:px-40 flexCenter
     }
     .inputStyle {
-      @apply  text-slate-600 text-sm m-1;
+      @apply  text-primary text-sm m-1;
     }
     .inputStyle input {
-      @apply w-[95vw] sm:w-96 h-12 rounded-lg px-3 border-1;
+      @apply w-[90vw] sm:w-96 h-10 rounded-md px-3 border;
     }
-  }
+    .inputStyle button{
+      @apply w-[90vw] sm:w-96 h-12 rounded-md shadow-md;
+    }
+    .warning {
+      @apply text-red-500 text-xs;
+    }
+    .success {
+      @apply text-green-500 text-xs;
+    }
+    .boxShadow {
+      @apply shadow-md rounded-xl border;
+    }
+}
