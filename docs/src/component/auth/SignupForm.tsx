@@ -105,25 +105,23 @@ const SignupForm = () => {
 	}, [form.password, form.confirmPassword]);
 
 	return (
-		<section className="w-[500px] h-full flexCol items-center justify-center">
-			<div className="mt-4">
-				<p className="text-slate-600 text-sm m-1">이메일</p>
+		<section className="inputStyle flexCol items-center gap-5">
+			<div>
+				<p>이메일</p>
 				<input
-					className="input"
 					placeholder="이메일을 입력하세요."
 					value={form.email}
 					onChange={e => validateEmail(e.target.value)}
 					onFocus={() => setCheckForm({...checkForm, email: {...checkForm.email, focused: true}})}
 				/>
 				{!checkForm.email.validated && checkForm.email.focused && (
-					<p className="text-red-500 text-xs">이메일 형식이 올바르지 않습니다.</p>
+					<p className="warning">이메일 형식이 올바르지 않습니다.</p>
 				)}
 			</div>
 
-			<div className="mt-4">
-				<p className="text-slate-600 text-sm m-1">이름</p>
+			<div>
+				<p>이름</p>
 				<input
-					className="input"
 					placeholder="이름을 입력하세요."
 					value={form.username}
 					onChange={e => validateusername(e.target.value)}
@@ -132,14 +130,13 @@ const SignupForm = () => {
 					}
 				/>
 				{!checkForm.username.validated && checkForm.username.focused && (
-					<p className="text-red-500 text-xs">이름 형식이 올바르지 않습니다.</p>
+					<p className="warning">이름 형식이 올바르지 않습니다.</p>
 				)}
 			</div>
 
-			<div className="mt-4">
-				<p className="text-slate-600 text-sm m-1">닉네임</p>
+			<div>
+				<p>닉네임</p>
 				<input
-					className="input"
 					placeholder="닉네임을 입력하세요."
 					value={form.nickName}
 					onChange={e => validateNickName(e.target.value)}
@@ -148,72 +145,66 @@ const SignupForm = () => {
 					}
 				/>
 				{!checkForm.nickName.validated && checkForm.nickName.focused && (
-					<p className="text-red-500 text-xs">닉네임 형식이 올바르지 않습니다.</p>
+					<p className="warning">닉네임 형식이 올바르지 않습니다.</p>
 				)}
 			</div>
 
-			<div className="mt-4">
-				<p className="text-slate-600 text-sm m-1">전화번호</p>
+			<div>
+				<p>전화번호</p>
 				<input
-					className="input"
 					placeholder="전화번호를 입력하세요."
 					value={form.phone}
 					onChange={e => validatePhone(e.target.value)}
 					onFocus={() => setCheckForm({...checkForm, phone: {...checkForm.phone, focused: true}})}
 				/>
 				{!checkForm.phone.validated && checkForm.phone.focused && (
-					<p className="text-red-500 text-xs">전화번호 형식이 올바르지 않습니다.</p>
+					<p className="warning">전화번호 형식이 올바르지 않습니다.</p>
 				)}
 			</div>
-
-			<div className="mt-4">
-				<p className="text-slate-600 text-sm m-1">비밀번호</p>
+			<div>
+				<div>
+					<p>비밀번호</p>
+					<input
+						type="password"
+						placeholder="비밀번호를 입력하세요."
+						value={form.password}
+						onChange={e => setForm({...form, password: e.target.value})}
+						onFocus={() =>
+							setCheckForm({...checkForm, password: {...checkForm.password, focused: true}})
+						}
+					/>
+					{!checkForm.password.validated && checkForm.password.focused && (
+						<p className="warning">최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다.</p>
+					)}
+				</div>
 				<input
+					className="mt-2"
 					type="password"
-					className="input"
-					placeholder="비밀번호를 입력하세요."
-					value={form.password}
-					onChange={e => setForm({...form, password: e.target.value})}
-					onFocus={() =>
-						setCheckForm({...checkForm, password: {...checkForm.password, focused: true}})
-					}
-				/>
-				{!checkForm.password.validated && checkForm.password.focused && (
-					<p className="text-red-500 text-xs">최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다.</p>
-				)}
-			</div>
-
-			<div className="mt-1">
-				<input
-					type="password"
-					className="input"
 					placeholder="비밀번호를 다시 입력하세요."
 					value={form.confirmPassword}
 					onChange={e => setForm({...form, confirmPassword: e.target.value})}
 				/>
 				{checkForm.password.validated && (
-					<p
-						className={`text-${checkForm.confirmPassword.validated ? 'green' : 'red'}-500 text-xs`}
-					>
+					<p className={`${checkForm.confirmPassword.validated ? 'success' : 'warning'}`}>
 						{checkForm.confirmPassword.validated
 							? '비밀번호가 일치합니다.'
 							: '비밀번호가 일치하지 않습니다.'}
 					</p>
 				)}
 			</div>
+
 			{/* 모든 validated가 참인가? */}
 			<button
-				type="button"
 				onClick={handleSignup}
-				className={`w-96 h-12 text-white rounded-lg mt-10 ${
-					Object.values(checkForm).every(field => field.validated) ? 'bg-blue-500' : 'bg-blue-100'
+				className={`text-white bg-primary ${
+					!Object.values(checkForm).every(field => field.validated) && 'bg-opacity-20'
 				}`}
 				disabled={!Object.values(checkForm).every(field => field.validated)}
 			>
 				회원가입
 			</button>
 			<Link to="/loginemail">
-				<p className="text-sm text-slate-400 mt-3">로그인으로 돌아가기</p>
+				<p className="text-sm text-slate-400">로그인으로 돌아가기</p>
 			</Link>
 		</section>
 	);
