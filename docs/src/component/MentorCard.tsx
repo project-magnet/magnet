@@ -12,8 +12,14 @@ const MentorCard = () => {
 					<p className="truncate text-secondary text-sm mt-1">#23년차 시니어</p>
 				</div>
 
-				<div className="text-overflow">
-					<p className="text-md ">장기근속의 비밀에 대해서 알려드립니다.</p>
+				<div className="line-clamp-5">
+					<p className="">
+						장기근속의 비밀에 대해서 알려드립니다.장기근속의 비밀에 대해서 알려드립니다.장기근속의
+						비밀에 대해서 알려드립니다. 장기근속의 비밀에 대해서 알려드립니다.장기근속의 비밀에
+						대해서 알려드립니다.장기근속의 비밀에 대해서 알려드립니다. 장기근속의 비밀에 대해서
+						알려드립니다.장기근속의 비밀에 대해서 알려드립니다.장기근속의 비밀에 대해서
+						알려드립니다.
+					</p>
 				</div>
 			</div>
 		</Link>
