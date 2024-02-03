@@ -44,10 +44,10 @@ public class MentoringController {
     }
 
     // 멘토링 단건 조회
-    @GetMapping("/get/{mentoring-id}")
-    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
-        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
-    }
+//    @GetMapping("/get/{mentoring-id}")
+//    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
+//        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
+//    }
 
 
     // 멘토링 전체 리스트 조회

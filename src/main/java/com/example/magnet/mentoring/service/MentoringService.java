@@ -50,7 +50,8 @@ public class MentoringService {
 
     }
 
-    public MentoringResponseDto mentoringInfo(Long mentoringId) {
-        return null;
-    }
+//    public MentoringResponseDto mentoringInfo(Long mentoringId) {
+//        Mentoring mentoring = mentoringRepository.findMentoringByMentoringId();
+//        // 가져온 객체를 dto로 변환
+//    }
 }
