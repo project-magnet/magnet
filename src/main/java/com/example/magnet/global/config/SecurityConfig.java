@@ -66,7 +66,8 @@ public class SecurityConfig {
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
                         .requestMatchers("/member/extract").permitAll()
-                        .requestMatchers("/mentoring/create").hasRole("MENTOR")
+                        .requestMatchers("/mentoring/create").hasAnyRole("MENTOR")
+                        .requestMatchers("/mentoring/get/**").permitAll()
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
