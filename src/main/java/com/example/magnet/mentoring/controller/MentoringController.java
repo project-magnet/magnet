@@ -36,6 +36,10 @@ public class MentoringController {
     public ResponseEntity<?> registerMentoring(@Valid @RequestBody MentoringPostDto mentoringPostDto, Authentication authentication){
         // 권한 확인
         Long memberId = (Long) authentication.getCredentials();
+        List<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .toList();
+        log.info("멘토 권한 소유 여부: " + roles.contains("MENTOR"));
 
         Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
         mentoringService.register(memberId, mentoring);
@@ -44,10 +48,10 @@ public class MentoringController {
     }
 
     // 멘토링 단건 조회
-//    @GetMapping("/get/{mentoring-id}")
-//    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
-//        return new ResponseEntity<MentoringResponseDto>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
-//    }
+    @GetMapping("/get/{mentoring-id}")
+    public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
+        return new ResponseEntity<>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
+    }
 
 
     // 멘토링 전체 리스트 조회

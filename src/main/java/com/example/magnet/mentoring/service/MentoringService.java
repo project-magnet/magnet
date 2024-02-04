@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.example.magnet.mentoring.mapper.MentoringMapper.entityToMentoringResponseDto;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -50,8 +52,8 @@ public class MentoringService {
 
     }
 
-//    public MentoringResponseDto mentoringInfo(Long mentoringId) {
-//        Mentoring mentoring = mentoringRepository.findMentoringByMentoringId();
-//        // 가져온 객체를 dto로 변환
-//    }
+    public MentoringResponseDto mentoringInfo(Long mentoringId) {
+        Mentoring mentoring = mentoringRepository.findMentoringByMentoringId(mentoringId);
+        return entityToMentoringResponseDto(mentoring);
+    }
 }

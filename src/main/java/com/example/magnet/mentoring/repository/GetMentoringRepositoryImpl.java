@@ -16,11 +16,11 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
     }
 
     @Override
-    public Mentoring findMentoringByMentoringId(){
+    public Mentoring findMentoringByMentoringId(Long mentoringId){
         Mentoring findMentoring = jpaQueryFactory
                 .selectFrom(mentoring)
                 .leftJoin(mentoring.mentor, mentor)
-                .where(mentoring.id.eq(mentoring.id))
+                .where(mentoring.id.eq(mentoringId))
                 .fetchOne();
 
         return findMentoring;
