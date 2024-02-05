@@ -1,5 +1,8 @@
 import MentorCard from '../component/MentorCard';
 import 'remixicon/fonts/remixicon.css';
+import PopupStore from '../store/PopupStore';
+import {useEffect} from 'react';
+import PaymentPopup from '../component/payment/PaymentPopup';
 
 const MentorListPage = () => {
 	const categories = [
@@ -10,9 +13,21 @@ const MentorListPage = () => {
 		{title: '보안·네트워크', image: <i className="ri-folder-shield-2-line ri-2x"></i>},
 		{title: '하드웨어', image: <i className="ri-hard-drive-3-line ri-2x"></i>},
 	];
+	const isOpen = PopupStore(state => state.isOpen);
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
+		} else {
+			document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
+		}
+		return () => {
+			document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
+		};
+	}, [isOpen]);
 
 	return (
 		<section className="flexCol items-center bg-slate-100 gap-10 py-10 ">
+			{isOpen && <PaymentPopup />}
 			<div className="flexCenter flex-wrap gap-1">
 				{categories.map((el, index) => (
 					<div key={index} className="buttonStyle bg-background flexCenter flex-col size-24">
