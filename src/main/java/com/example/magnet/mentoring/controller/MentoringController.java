@@ -2,14 +2,18 @@ package com.example.magnet.mentoring.controller;
 
 import com.example.magnet.mentoring.dto.MentoringPostDto;
 import com.example.magnet.mentoring.dto.MentoringResponseDto;
+import com.example.magnet.mentoring.dto.mentoringListPagingDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.mapper.MentoringMapper;
 import com.example.magnet.mentoring.service.MentoringService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +43,7 @@ public class MentoringController {
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-        log.info("멘토 권한 소유 여부: " + roles.contains("MENTOR"));
+        log.info("멘토 권한 소유 여부: {}", roles);
 
         Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
         mentoringService.register(memberId, mentoring);
@@ -55,6 +59,14 @@ public class MentoringController {
 
 
     // 멘토링 전체 리스트 조회
+    // 단순히 전체 멘토링 목록을 조회한다.
+    @GetMapping("/list")
+    public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(@RequestParam("offset") int offset, // or pageable
+                                                                         @RequestParam("size") int size){
+        return new ResponseEntity<Page<mentoringListPagingDto>>(mentoringService.mentoringInfoList(offset, size), HttpStatus.OK);
+    }
+
+    // 멘토링 리스트 필터링
 
     // 멘토링 수정
 

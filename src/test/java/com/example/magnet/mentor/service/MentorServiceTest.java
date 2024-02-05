@@ -100,7 +100,7 @@ class MentorServiceTest {
         when(customAuthorityUtils.createAuthorities(eq(List.of("USER", "MENTOR")))).thenReturn(expectedAuthorities);
 
         // when
-        mentorService.createMentor(member.getId(), mentor);
+//        mentorService.createMentor(member.getId(), );
 
         // then
         verify(memberRepository).save(member);

@@ -8,12 +8,19 @@ import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentor.repository.MentorRepository;
 import com.example.magnet.mentoring.dto.MentoringPostDto;
 import com.example.magnet.mentoring.dto.MentoringResponseDto;
+import com.example.magnet.mentoring.dto.mentoringListPagingDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static com.example.magnet.mentoring.mapper.MentoringMapper.entityToMentoringResponseDto;
 
@@ -52,8 +59,15 @@ public class MentoringService {
 
     }
 
+    // 멘토링 단건 조회
     public MentoringResponseDto mentoringInfo(Long mentoringId) {
         Mentoring mentoring = mentoringRepository.findMentoringByMentoringId(mentoringId);
         return entityToMentoringResponseDto(mentoring);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<mentoringListPagingDto> mentoringInfoList(int offset, int size) {
+        Pageable pageable = PageRequest.of(offset, size);
+        return mentoringRepository.mentoringList(pageable);
     }
 }

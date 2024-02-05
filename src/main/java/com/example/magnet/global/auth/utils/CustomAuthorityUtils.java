@@ -1,5 +1,6 @@
 package com.example.magnet.global.auth.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * */
 
 @Component
+@Slf4j
 public class CustomAuthorityUtils {
     @Value("${mail.address.admin}")
     private String adminMailAddress;
@@ -30,6 +32,8 @@ public class CustomAuthorityUtils {
         List<GrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
+
+        log.info(" authentication에 담기는 권한 목록: {}", authorities );
         return authorities;
     }
 

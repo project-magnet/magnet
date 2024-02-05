@@ -5,6 +5,7 @@ import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
+import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.dto.MentorSearchResponseDto;
 import com.example.magnet.mentor.dto.MentorSearchResponseDtoV2;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.example.magnet.mentor.mapper.MentorMapper.MentorPostDtoToMentor;
 import static com.example.magnet.mentor.mapper.MentorMapper.mapToResponseDtos;
 
 @Service
@@ -40,7 +42,9 @@ public class MentorService {
     private final CustomAuthorityUtils customAuthorityUtils;
 
 
-    public void createMentor(Long memberId, Mentor mentor) {
+    public void createMentor(Long memberId, MentorPostDto mentorPostDto) {
+        //dto 변환
+        Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
         // memberId로 멤버와 멘토 연관관계 생성
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));

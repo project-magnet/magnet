@@ -47,8 +47,7 @@ public class MentorController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new BusinessLogicException(ExceptionCode.MENTEE_CANT_REGISTER_MENTOR));
         }else{
-            Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
-            mentorService.createMentor(memberId, mentor);
+            mentorService.createMentor(memberId, mentorPostDto);
         }
 
         return new ResponseEntity<>("멘토 등록이 완료되었습니다.", HttpStatus.CREATED);
