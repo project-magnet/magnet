@@ -40,11 +40,6 @@ public class MentoringController {
     public ResponseEntity<?> registerMentoring(@Valid @RequestBody MentoringPostDto mentoringPostDto, Authentication authentication){
         // 권한 확인
         Long memberId = (Long) authentication.getCredentials();
-        List<String> roles = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-        log.info("멘토 권한 소유 여부: {}", roles);
-
         Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
         mentoringService.register(memberId, mentoring);
         return new ResponseEntity<>("멘토링이 개설되었습니다.", HttpStatus.OK);
@@ -63,7 +58,7 @@ public class MentoringController {
     @GetMapping("/list")
     public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(@RequestParam("offset") int offset, // or pageable
                                                                          @RequestParam("size") int size){
-        return new ResponseEntity<Page<mentoringListPagingDto>>(mentoringService.mentoringInfoList(offset, size), HttpStatus.OK);
+        return new ResponseEntity<>(mentoringService.mentoringInfoList(offset, size), HttpStatus.OK);
     }
 
     // 멘토링 리스트 필터링

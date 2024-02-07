@@ -13,10 +13,13 @@ public enum ExceptionCode {
 
     // mentor
     MENTEE_CANT_REGISTER_MENTOR(400, "멘티는 멘토등록이 불가능합니다."),
-    MENTOR_NOT_FOUND(404, "멘토 정보를 찾을 수 없습니다.");
+    MENTOR_NOT_FOUND(404, "멘토 정보를 찾을 수 없습니다."),
 
 
     //mentee
+
+    //PAYMENT
+    INVALID_PAYMENT_AMOUNT(404, "잘못된 금액입니다.");
 
 
     @Getter
