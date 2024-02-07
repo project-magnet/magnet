@@ -4,6 +4,7 @@ import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
+import com.example.magnet.payment.entity.Payment;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import lombok.*;
@@ -66,10 +67,6 @@ public class Member extends TimeEntity implements Principal {
     }
 
 
-
-    /**
-     * Member 엔티티는 조회만 가능합니다.
-     * */
     //mentor
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentor> mentorList = new ArrayList<>();
@@ -81,6 +78,10 @@ public class Member extends TimeEntity implements Principal {
     //mentoring
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mentoring> mentoringList = new ArrayList<>();
+
+    //payment
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Payment> paymentList = new ArrayList<>();
 
 
     //MemberDetails
