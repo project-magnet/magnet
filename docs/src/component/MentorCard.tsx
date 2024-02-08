@@ -9,7 +9,10 @@ const MentorCard = () => {
 	};
 
 	return (
-		<div onClick={handleClick} className="p-5 size-72 boxShadow bg-background flexCol gap-5">
+		<div
+			onClick={handleClick}
+			className="p-5 buttonStyle size-72 cursor-pointer bg-background flexCol gap-5"
+		>
 			<div>
 				<p className="truncate font-bold text-xl">김브라키오사우루스</p>
 				<p className="truncate text-secondary text-sm mt-1">#투썸플레이스</p>

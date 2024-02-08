@@ -30,7 +30,10 @@ const MentorListPage = () => {
 			{isOpen && <PaymentPopup />}
 			<div className="flexCenter flex-wrap gap-1">
 				{categories.map((el, index) => (
-					<div key={index} className="buttonStyle bg-background flexCenter flex-col size-24">
+					<div
+						key={index}
+						className="buttonStyle cursor-pointer bg-background flexCenter flex-col size-24"
+					>
 						{el.image}
 						<p className="font-semibold text-xs">{el.title}</p>
 					</div>
