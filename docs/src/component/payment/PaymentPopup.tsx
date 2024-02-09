@@ -47,7 +47,7 @@ const PaymentPopup = () => {
 						className="ri-close-line text-2xl cursor-pointer  text-slate-400"
 					></i>
 				</div>
-				<div className="flexCol flex-grow gap-5 overflow-y-scroll">
+				<div className="flexCol flex-grow gap-5 overflow-y-auto">
 					{pageNumber === 1 ? (
 						<>
 							<div>
