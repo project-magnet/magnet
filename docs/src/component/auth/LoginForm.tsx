@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
-import login from '../../utils/login';
+import {login} from '../../api/auth';
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -26,15 +26,18 @@ const LoginForm = () => {
 	};
 
 	const handleLogin = async () => {
-		const loginResult = await login(email, password);
-		console.log(loginResult.message);
-
-		if (loginResult.isSuccess) {
-			navigate('/magnet');
-			window.location.reload();
-		} else {
-			setLoginFailed(true);
-		}
+		const fetchLogin = async () => {
+			try {
+				await login({email, password});
+				console.log('로그인 성공');
+				navigate('/magnet');
+				window.location.reload();
+			} catch (e) {
+				setLoginFailed(true);
+				console.error('로그인에 실패했습니다.', e);
+			}
+		};
+		fetchLogin();
 	};
 
 	return (
