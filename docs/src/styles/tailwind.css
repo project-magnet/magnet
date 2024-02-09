@@ -14,7 +14,7 @@
       @apply flex flex-col;
     }
     .buttonStyle {
-      @apply border shadow-md rounded-md flexCenter h-12
+      @apply px-5 py-2 rounded-lg shadow-lg hover:shadow-md transition duration-300
     }
     .userPageSection {
       @apply px-10 md:px-20 lg:px-40 flexCenter

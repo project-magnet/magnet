@@ -1,12 +1,6 @@
 import axios from 'axios';
-// ngrok 오류날 시 헤더에 사용
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'ngrok-skip-browser-warning': 'true',
-//   }
 
-const baseUrl = process.env.REACT_APP_BASE_URL || '';
-
+const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 type signupBody = {
 	email: string;
 	password: string;
@@ -20,7 +14,8 @@ type signupBody = {
 };
 export const signup = async (data: signupBody) => {
 	try {
-		const response = await axios.post(baseUrl, {
+		console.log(baseUrl);
+		await axios.post(`${baseUrl}/member/signup`, {
 			email: data.email,
 			password: data.password,
 			username: data.username,
@@ -31,21 +26,9 @@ export const signup = async (data: signupBody) => {
 				street: data.addressDto.street,
 			},
 		});
-
-		if (response.status === 200) {
-			return {isSuccess: true, message: '회원가입에 성공했습니다.'};
-		} else {
-			return {
-				isSuccess: false,
-				message: '회원가입에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.',
-			};
-		}
 	} catch (error) {
 		console.error('회원가입 실패', error);
-		return {
-			isSuccess: false,
-			message: '회원가입에 실패했습니다. 네트워크를 확인하세요.',
-		};
+		throw error;
 	}
 };
 
@@ -55,26 +38,15 @@ type loginBody = {
 };
 export const login = async (body: loginBody) => {
 	try {
-		const response = await axios.post(baseUrl, {
-			email: body.email,
+		const response = await axios.post(`${baseUrl}/auth/login`, {
+			username: body.email,
 			password: body.password,
 		});
-
-		if (response.status === 200 && response.data.token) {
-			sessionStorage.setItem('jwtToken', response.data.token);
-			return {isSuccess: true, message: '로그인에 성공했습니다.'};
-		} else {
-			return {
-				isSuccess: false,
-				message: '로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.',
-			};
-		}
+		sessionStorage.setItem('Authorization', response.headers.authorization);
+		sessionStorage.setItem('RefreshToken', response.headers.refreshtoken);
 	} catch (error) {
 		console.error('로그인 실패', error);
-		return {
-			isSuccess: false,
-			message: '로그인에 실패했습니다. 네트워크를 확인하세요.',
-		};
+		throw error;
 	}
 };
 
