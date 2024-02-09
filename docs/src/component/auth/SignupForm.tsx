@@ -9,7 +9,7 @@ const SignupForm = () => {
 		password: '',
 		nickName: '',
 		phone: '',
-		addressDto: {city: null, street: null},
+		addressDto: {city: 'city', street: 'street'},
 		confirmPassword: '',
 	});
 	// 유효성 검사
@@ -25,11 +25,16 @@ const SignupForm = () => {
 	const navigate = useNavigate();
 
 	const handleSignup = async () => {
-		const {confirmPassword, ...newForm} = form;
-		const signupResult = await signup(newForm);
-
-		console.log(signupResult.message);
-		signupResult.isSuccess && navigate('/loginemail');
+		const fetchSignup = async () => {
+			try {
+				const {confirmPassword, ...newForm} = form;
+				await signup(newForm);
+				navigate('/loginemail');
+			} catch (e) {
+				console.error('회원가입에 실패했습니다.', e);
+			}
+		};
+		fetchSignup();
 	};
 	// 이하 검증 함수.
 	const validateEmail = (vlaue: string) => {
@@ -52,7 +57,7 @@ const SignupForm = () => {
 
 	const validateNickName = (value: string) => {
 		setForm({...form, nickName: value});
-		if (/^[A-Za-z0-9]{3,}$/.test(value)) {
+		if (/^[A-Za-z0-9-가-힣]{3,}$/.test(value)) {
 			setCheckForm({...checkForm, nickName: {...checkForm.nickName, validated: true}});
 		} else {
 			setCheckForm({...checkForm, nickName: {...checkForm.nickName, validated: false}});
@@ -60,8 +65,8 @@ const SignupForm = () => {
 	};
 	const validatePhone = (value: string) => {
 		setForm({...form, phone: value});
-		// 숫자만 허용하고 10자리 이상
-		if (/^[0-9]{10,}$/.test(value)) {
+		// 숫자와 하이픈 허용하고 10자리 이상
+		if (/^([0-9]{2}|[0-9]{3})-([0-9]{3,4})-([0-9]{4})$/.test(value)) {
 			setCheckForm({...checkForm, phone: {...checkForm.phone, validated: true}});
 		} else {
 			setCheckForm({...checkForm, phone: {...checkForm.phone, validated: false}});
@@ -130,7 +135,7 @@ const SignupForm = () => {
 					}
 				/>
 				{!checkForm.username.validated && checkForm.username.focused && (
-					<p className="warning">이름 형식이 올바르지 않습니다.</p>
+					<p className="warning">2자리 이상의 한글이여야 합니다.</p>
 				)}
 			</div>
 
@@ -145,7 +150,7 @@ const SignupForm = () => {
 					}
 				/>
 				{!checkForm.nickName.validated && checkForm.nickName.focused && (
-					<p className="warning">닉네임 형식이 올바르지 않습니다.</p>
+					<p className="warning">특수문자 제외 3자리 이상이여야 합니다.</p>
 				)}
 			</div>
 
@@ -158,7 +163,7 @@ const SignupForm = () => {
 					onFocus={() => setCheckForm({...checkForm, phone: {...checkForm.phone, focused: true}})}
 				/>
 				{!checkForm.phone.validated && checkForm.phone.focused && (
-					<p className="warning">전화번호 형식이 올바르지 않습니다.</p>
+					<p className="warning">하이픈(-)을 포함한 9자리 이상 정수여야 합니다.</p>
 				)}
 			</div>
 			<div>
