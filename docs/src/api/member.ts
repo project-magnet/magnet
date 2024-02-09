@@ -2,11 +2,24 @@ import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 
-export const getMember = async () => {
+export type getMemberResponse = {
+	id: number;
+	username: string;
+	nickName: string;
+	email: string;
+	phone: string;
+	picture: any;
+	memberStatus: string;
+	city: string;
+	street: string;
+	roles: string[];
+};
+
+export const getMember = async (): Promise<getMemberResponse> => {
 	const authorToken = sessionStorage.getItem('Authorization');
 	const refreshToken = sessionStorage.getItem('RefreshToken');
 	try {
-		const response = await axios.get(`${baseUrl}/member/get`, {
+		const response = await axios.get<getMemberResponse>(`${baseUrl}/member/get`, {
 			headers: {
 				'Content-Type': 'application/json',
 				'ngrok-skip-browser-warning': 'true',
