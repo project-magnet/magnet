@@ -38,3 +38,38 @@ export const createMentoring = async (data: createMentoringData) => {
 		throw error;
 	}
 };
+
+export type getMentoringData = {
+	mentoringId: number;
+	title: string;
+	content: string;
+	pay: string;
+	period: string;
+	participants: number;
+	category: string;
+	mentorId: number;
+	career: string;
+	field: string;
+	task: string;
+	email: string;
+	phone: string;
+	aboutMe: string;
+	github: string;
+};
+
+export const getMentoring = async (): Promise<getMentoringData> => {
+	try {
+		const authorToken = sessionStorage.getItem('Authorization');
+		const refreshToken = sessionStorage.getItem('RefreshToken');
+		const response = await axios.get<getMentoringData>(`${baseUrl}/mentoring/get`, {
+			headers: {
+				Authorization: authorToken,
+				RefreshToken: refreshToken,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('멘토링 조회 실패', error);
+		throw error;
+	}
+};
