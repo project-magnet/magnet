@@ -17,11 +17,16 @@ module.exports = {
 			},
 			animation: {
 				blink: 'blink 1.5s step-end infinite',
+				fadeIn: 'fadeIn 0.5s ease-in-out forwards',
 			},
 			keyframes: {
 				blink: {
 					'0%, 100%': {opacity: 1},
 					'50%': {opacity: 0},
+				},
+				fadeIn: {
+					'0%': {opacity: 0},
+					'100%': {opacity: 1},
 				},
 			},
 		},
