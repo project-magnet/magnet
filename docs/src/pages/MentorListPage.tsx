@@ -1,10 +1,11 @@
 import MentorCard from '../component/MentorCard';
 import 'remixicon/fonts/remixicon.css';
 import PopupStore from '../store/PopupStore';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import PaymentPopup from '../component/payment/PaymentPopup';
 
 const MentorListPage = () => {
+	const [category, setCategory] = useState('전체');
 	const categories = [
 		{title: '전체', image: <i className="ri-menu-line ri-2x"></i>},
 		{title: '개발', image: <i className="ri-window-line ri-2x"></i>},
@@ -32,7 +33,10 @@ const MentorListPage = () => {
 				{categories.map((el, index) => (
 					<div
 						key={index}
-						className="buttonStyle p-0 cursor-pointer bg-background flexCenter flex-col size-20 sm:size-24"
+						onClick={() => setCategory(el.title)}
+						className={`${
+							category === el.title ? 'text-additional2' : 'text-black'
+						} buttonStyle p-0 cursor-pointer bg-background flexCenter flex-col size-20 sm:size-24`}
 					>
 						{el.image}
 						<p className="text-[0.7rem]">{el.title}</p>
