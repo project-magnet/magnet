@@ -28,14 +28,14 @@ const MentorListPage = () => {
 	return (
 		<section className="flexCol items-center bg-slate-100 gap-10 py-10 ">
 			{isOpen && <PaymentPopup />}
-			<div className="flexCenter flex-wrap gap-1">
+			<div className="flexCenter flex-wrap gap-2">
 				{categories.map((el, index) => (
 					<div
 						key={index}
-						className="buttonStyle cursor-pointer bg-background flexCenter flex-col size-24"
+						className="buttonStyle p-0 cursor-pointer bg-background flexCenter flex-col size-20 sm:size-24"
 					>
 						{el.image}
-						<p className="font-semibold text-xs">{el.title}</p>
+						<p className="text-[0.7rem]">{el.title}</p>
 					</div>
 				))}
 			</div>
