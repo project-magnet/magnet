@@ -5,8 +5,12 @@ import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.payment.entity.Payment;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
 
@@ -21,6 +25,14 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE member SET deleted = true, deleted_at = CURRENT_TIMESTAMP WHERE MEMBER_ID = ?")
 @Where(clause = "deleted = false")
+@DynamicInsert
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.READ_WRITE)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
+//@Table(indexes = {
+//        @Index(name = "idx_member_email", columnList = "email", unique = true),
+//        @Index(name = "idx_member_nickname", columnList = "nickname")
+//})
 public class Member extends TimeEntity implements Principal {
 
     @Id
@@ -34,7 +46,7 @@ public class Member extends TimeEntity implements Principal {
     @Column(unique = true)
     private String nickName;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(name= "email" ,nullable = false, updatable = false, unique = true)
     private String email; // id
 
     @Column(nullable = false)
@@ -43,6 +55,11 @@ public class Member extends TimeEntity implements Principal {
     private String phone;
 
     private String picture;
+
+    // 포인트
+//    @Column(nullable = false) // 포인트
+    @ColumnDefault("0")
+    private Long point;
 
     @Embedded // 내장 타입을 포함함 > 이거나 Embeddable 하나만 사용하면 된다.
     private Address address;
@@ -56,7 +73,10 @@ public class Member extends TimeEntity implements Principal {
     private List<String> roles = new ArrayList<>();
 
     // 회원 탈퇴 여부 판단
-    private Boolean deleted = Boolean.FALSE; // 스케줄러 고도화
+    @Column(name = "deleted")
+    @ColumnDefault("false")
+    private Boolean deleted;
+
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
@@ -116,7 +136,7 @@ public class Member extends TimeEntity implements Principal {
     }
 
     @Builder(toBuilder = true)
-    public Member(Long id, String username, String nickName, String email, String password, String phone, String picture, Address address, MemberStatus memberStatus, List<String> roles, List<Mentor> mentorList, List<Mentee> menteeList, List<Mentoring> mentoringList) {
+    public Member(Long id, String username, String nickName, String email, String password, String phone, String picture, Long point, Address address, MemberStatus memberStatus, List<String> roles, Boolean deleted, LocalDateTime deletedAt, List<Mentor> mentorList, List<Mentee> menteeList, List<Mentoring> mentoringList, List<Payment> paymentList) {
         this.id = id;
         this.username = username;
         this.nickName = nickName;
@@ -124,12 +144,16 @@ public class Member extends TimeEntity implements Principal {
         this.password = password;
         this.phone = phone;
         this.picture = picture;
+        this.point = point;
         this.address = address;
         this.memberStatus = memberStatus;
         this.roles = roles;
+        this.deleted = deleted;
+        this.deletedAt = deletedAt;
         this.mentorList = mentorList;
         this.menteeList = menteeList;
         this.mentoringList = mentoringList;
+        this.paymentList = paymentList;
     }
 
     @Builder // for test

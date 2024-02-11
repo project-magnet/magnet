@@ -21,9 +21,6 @@ public class MemberDto {
 //    @Embedded // 내장 타입을 포함함 > 이거나 Embeddable 하나만 사용하면 된다.
 //    private AddressDto addressDto;
 
-    private String latitude;
-    private String longitude;
-
     @Valid // 내장타입 검증
     private MemberDto.AddressDto addressDto;
 

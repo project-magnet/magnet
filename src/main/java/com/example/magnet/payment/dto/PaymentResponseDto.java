@@ -12,21 +12,21 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PaymentResponseDto {
-    private String payType;
-    private Long amount;
-    private String orderName;
-    private String orderId;
-    private String customerEmail;
-    private String customerName;
-    private String successUrl;
-    private String failUrl;
+    private String payType; // 결제 타입 - 카드/현금/포인트
+    private Long amount; // 가격 정보
+    private String orderName; // 주문명
+    private String orderId; // 주문id
+    private String customerEmail; // 고객 이메일
+    private String customerName; // 고객 이름
+    private String successUrl; // 성공시 리다이렉트 url
+    private String failUrl; // 실패 시 리다이렉트 url
 
-    private String failReason;
-    private boolean cancelYN;
-    private String cancelReason;
-    private String createdAt;
+    private String failReason; // 실패 이유
+    private boolean cancelYN; // 취소 여부
+    private String cancelReason; // 취소 이유
+    private String createdAt; // 결제가 이루어진 시간
 
-    @Builder
+    @Builder(toBuilder = true)
     public PaymentResponseDto(String payType, Long amount, String orderName, String orderId, String customerEmail, String customerName, String successUrl, String failUrl, String failReason, boolean cancelYN, String cancelReason, String createdAt) {
         this.payType = payType;
         this.amount = amount;

@@ -1,19 +1,29 @@
 package com.example.magnet.payment.controller;
 
 import com.example.magnet.global.config.TossPaymentConfig;
+import com.example.magnet.global.response.SliceInfo;
+import com.example.magnet.global.response.SliceResponseDto;
 import com.example.magnet.payment.dto.PaymentDto;
+import com.example.magnet.payment.dto.PaymentFailDto;
 import com.example.magnet.payment.dto.PaymentResponseDto;
+import com.example.magnet.payment.dto.PaymentSuccessDto;
+import com.example.magnet.payment.entity.Payment;
 import com.example.magnet.payment.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.example.magnet.payment.mapper.PaymentMapper.chargingHistoryToChargingHistoryResponses;
+
+/**
+ * 검증 과정 진행 후 토스페이먼츠에 실제 결제 요청 전송
+ * */
 
 @RestController
 @RequestMapping("/api/v1/payments")
@@ -22,19 +32,58 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
     private final PaymentService paymentService;
     private final TossPaymentConfig tossPaymentConfig;
-    private final PaymentMapper mapper;
 
     @PostMapping("/toss")
     public ResponseEntity<PaymentResponseDto> requestTossPayment(@RequestBody @Valid PaymentDto paymentReqDto, Authentication authentication){
-        // 검증 과정 진행 후 토스페이먼츠에 실제 결제 요청 전송
+
 //        PaymentResponseDto paymentResDto = paymentService.requestTossPayment(paymentReqDto.toEntity(), principal.getUsername()).toPaymentResDto();
 //        paymentResDto.setSuccessUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl());
 //        paymentResDto.setFailUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl());
 //        return ResponseEntity.ok().body(new SingleResponse<>(paymentResDto));
 
-        PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto, authentication.getCredentials());
-        paymentResponseDto.setSuccessUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl());
-        paymentResponseDto.setFailUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl());
+        PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto.toEntity(), (Long)authentication.getCredentials()).toPaymentResDto();
+        paymentResponseDto.toBuilder()
+                .successUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl())
+                .failUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl()).build();
         return new ResponseEntity<>(paymentResponseDto, HttpStatus.OK);
     }
+
+    @GetMapping("/toss/success")
+    public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
+                                                                @RequestParam String orderId,
+                                                                @RequestParam Long amount){
+//        return ResponseEntity.ok().body(new SingleResponse<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount)));
+        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
+    }
+
+    @GetMapping("/toss/fail")
+    public ResponseEntity<PaymentFailDto> tossPaymentFail(@RequestParam String code, @RequestParam String message, @RequestParam String orderId) {
+        paymentService.tossPaymentFail(code, message, orderId);
+        PaymentFailDto result = PaymentFailDto.builder()
+                .errorCode(code)
+                .errorMessage(message)
+                .orderId(orderId)
+                .build();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/toss/cancel/point")
+    public ResponseEntity<?> tossPaymentCancelPoint(
+//            @AuthenticationPrincipal User principal,
+            Authentication authentication,
+            @RequestParam String paymentKey,
+            @RequestParam String cancelReason
+    ){
+        return new ResponseEntity<>(paymentService.cancelPaymentPoint(authentication.getName(), paymentKey, cancelReason), HttpStatus.OK);
+    }
+
+    @GetMapping("/history")
+    public ResponseEntity getChargingHistory(Authentication authentication,
+                                             Pageable pageable) {
+        Slice<Payment> chargingHistories = paymentService.findAllChargingHistories(authentication.getName(), pageable);
+        SliceInfo sliceInfo = new SliceInfo(pageable, chargingHistories.getNumberOfElements(), chargingHistories.hasNext());
+        return new ResponseEntity<>(
+                new SliceResponseDto<>(chargingHistoryToChargingHistoryResponses(chargingHistories.getContent()), sliceInfo), HttpStatus.OK);
+    }
+
 }

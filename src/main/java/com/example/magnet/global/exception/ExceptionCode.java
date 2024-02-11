@@ -19,7 +19,11 @@ public enum ExceptionCode {
     //mentee
 
     //PAYMENT
-    INVALID_PAYMENT_AMOUNT(404, "잘못된 금액입니다.");
+    INVALID_PAYMENT_AMOUNT(404, "잘못된 금액입니다."),
+    PAYMENT_NOT_FOUND(404, "결제 정보를 찾을 수 없습니다."),
+    PAYMENT_AMOUNT_EXP(404, "매개변수로 전달 받은 AMOUNT가 DB에 저장된 값과 불일치"),
+    ALREADY_APPROVED(404, "이미 승인이 완료됐습니다."),
+    PAYMENT_NOT_ENOUGH_POINT(404, "포인트가 부족합니다.");
 
 
     @Getter
