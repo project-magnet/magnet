@@ -1,7 +1,7 @@
 package com.example.magnet.global.config;
 
 import lombok.Getter;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration

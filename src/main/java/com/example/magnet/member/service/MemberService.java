@@ -4,6 +4,7 @@ import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.global.helper.event.MemberRegistrationApplicationEvent;
+import com.example.magnet.member.dto.MemberDto;
 import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,7 @@ public class MemberService {
         Member.MemberBuilder builder = member.toBuilder();
         builder.password(encryptedPassword);
         builder.roles(roles);
+//        builder.deleted(false);
         builder.memberStatus(Member.MemberStatus.MEMBER_ACTIVE);
 
         Member savedMember = memberRepository.save(builder.build());
@@ -117,7 +120,9 @@ public class MemberService {
     }
 
 
+    @CachePut(value = "memberDto", key="#member.email")
+    public MemberDto updateMemberCache(Member member) {
 
-
-
+        return null; // responsedto로 변경 필요
+    }
 }
