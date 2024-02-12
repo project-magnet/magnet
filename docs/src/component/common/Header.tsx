@@ -28,47 +28,67 @@ const Header = () => {
 					MAGNET
 				</p>
 			</Link>
-			<Link to="/mentorlist" className={`tracking-wide hidden sm:block mr-10`}>
-				<p
-					className={`${
-						'/mentorlist' === location.pathname ? 'text-additional2' : 'text-black'
-					} transition`}
-				>
-					둘러보기
-				</p>
+			<Link
+				to="/mentorlist"
+				className={`tracking-wide hidden sm:block mr-10 ${
+					'/mentorlist' === location.pathname ? 'text-additional2' : 'text-black'
+				} transition`}
+			>
+				{'/mentorlist' === location.pathname ? (
+					<i className="ri-search-eye-line mr-1"></i>
+				) : (
+					<i className="ri-search-line mr-1"></i>
+				)}
+
+				<span className="text-sm">둘러보기</span>
 			</Link>
 			{token ? (
 				<>
-					<Link to="/user" className="tracking-wide hidden sm:block mr-10">
-						<p
-							className={`${
-								'/user' === location.pathname ? 'text-additional2' : 'text-black'
-							} transition`}
-						>
-							마이페이지
-						</p>
+					<Link
+						to="/user"
+						className={`tracking-wide hidden sm:block mr-10 ${
+							'/user' === location.pathname ? 'text-additional2' : 'text-black'
+						} transition`}
+					>
+						{'/user' === location.pathname ? (
+							<i className="ri-user-follow-line mr-1"></i>
+						) : (
+							<i className="ri-user-line mr-1"></i>
+						)}
+
+						<span className="text-sm ">내 정보</span>
 					</Link>
 					{isMentor && (
-						<Link to="/creatementoring" className="tracking-wide hidden sm:block">
-							<p
-								className={`${
-									'/creatementoring' === location.pathname ? 'text-additional2' : 'text-black'
-								} transition`}
-							>
-								멘토링 개설하기
-							</p>
+						<Link
+							to="/creatementoring"
+							className={`tracking-wide hidden sm:block mr-10 ${
+								'/creatementoring' === location.pathname ? 'text-additional2' : 'text-black'
+							} transition`}
+						>
+							{'/creatementoring' === location.pathname ? (
+								<i className="ri-link mr-1"></i>
+							) : (
+								<i className="ri-link-unlink mr-1"></i>
+							)}
+
+							<span className="text-sm">멘토링 개설하기</span>
 						</Link>
 					)}
 				</>
 			) : (
-				<Link to="/login" className="tracking-wide hidden sm:block mr-10 ">
-					<p
-						className={`${
-							'/login' === location.pathname ? 'text-additional2' : 'text-black'
-						} transition`}
-					>
-						로그인
-					</p>
+				<Link
+					to="/login"
+					className={`tracking-wide hidden sm:block mr-10 ${
+						'/login' === location.pathname ? 'text-additional2' : 'text-black'
+					} transition`}
+				>
+					{'/login' === location.pathname ? (
+						<i className="ri-login-circle-line mr-1"></i>
+					) : (
+						<i className="ri-login-box-line mr-1"></i>
+					)}
+
+					<span className={`text-sm`}>로그인</span>
 				</Link>
 			)}
 		</header>
