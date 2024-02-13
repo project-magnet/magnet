@@ -40,8 +40,7 @@ public class MentoringController {
     public ResponseEntity<?> registerMentoring(@Valid @RequestBody MentoringPostDto mentoringPostDto, Authentication authentication){
         // 권한 확인
         Long memberId = (Long) authentication.getCredentials();
-        Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
-        mentoringService.register(memberId, mentoring);
+        mentoringService.register(memberId, mentoringPostDto);
         return new ResponseEntity<>("멘토링이 개설되었습니다.", HttpStatus.OK);
 
     }

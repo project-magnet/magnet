@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.example.magnet.mentoring.mapper.MentoringMapper.entityToMentoringResponseDto;
+import static com.example.magnet.mentoring.mapper.MentoringMapper.mentoringPostDtoToMentoring;
 
 @Service
 @Transactional
@@ -46,10 +47,12 @@ public class MentoringService {
     }
 
     //멘토링 등록
-    public void register(Long memberId, Mentoring mentoring) {
+    public void register(Long memberId, MentoringPostDto mentoringPostDto) {
         //멘토 엔티티를 불러온 뒤, 전달 받은 mentoring 엔티티에 추가한다.
         Mentor findMentor =  getMentorEntity(memberId);
         Member findMember = getMemberEntity(memberId);
+
+        Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
 
         // 멘토링에 멘토 정보 저장
         Mentoring.MentoringBuilder mentoringBuilder = mentoring.toBuilder();

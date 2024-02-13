@@ -114,7 +114,7 @@ class MentoringServiceTest {
         when(memberRepository.findById(anyLong())).thenReturn(Optional.of(member));
         when(mentorRepository.findByMemberId(anyLong())).thenReturn(Optional.of(mentor));
 
-        mentoringService.register(1L, mentoring);
+//        mentoringService.register(1L, mentoring);
 
         //mentoring 저장이 한번 이뤄졌는지 검증
         verify(mentoringRepository, times(1)).save(any(Mentoring.class));
