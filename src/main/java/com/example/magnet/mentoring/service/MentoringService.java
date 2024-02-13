@@ -73,4 +73,16 @@ public class MentoringService {
         Pageable pageable = PageRequest.of(offset, size);
         return mentoringRepository.mentoringList(pageable);
     }
+
+    public void remove(Long memberId, Long mentoringId) {
+        // 매개변수로 전달받은 memberId와 mentoringId로 조회한 데이터의 memberId가 동일하면 삭제 > 실 소유자
+        Mentoring mentoring = mentoringRepository.findById(mentoringId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTORING_NOT_FOUND));
+
+        Long realMentor = mentoring.getMember().getId();
+
+        if(memberId.equals(realMentor)){
+            mentoringRepository.delete(mentoring);
+        }
+    }
 }
