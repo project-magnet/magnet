@@ -29,6 +29,10 @@ module.exports = {
 					'100%': {opacity: 1},
 				},
 			},
+			fontSize: {
+				'2xs': '0.625rem',
+				'3xs': '0.5rem',
+			},
 		},
 	},
 	plugins: [],
