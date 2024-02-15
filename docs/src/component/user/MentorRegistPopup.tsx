@@ -1,11 +1,21 @@
 import 'remixicon/fonts/remixicon.css';
 import {useEffect, useState} from 'react';
 import PopupStore from '../../store/PopupStore';
-import {useLocation} from 'react-router-dom';
+import {createMentor} from '../../api/mentor';
 
 export const MentorRegistPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
-	const location = useLocation();
+	const [form, setForm] = useState({
+		mentorName: 'no name',
+		field: '',
+		career: '',
+		task: '',
+		email: 'no email',
+		phone: 'no phone',
+		aboutMe: '',
+		github: 'no github',
+	});
+	const [areAllInputsSelected, setAreAllInputsSelected] = useState(false);
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
 		// 팝업 영역 자체를 클릭한 경우에만 팝업을 닫습니다.
@@ -15,35 +25,22 @@ export const MentorRegistPopup = () => {
 		}
 	};
 
-	const handleSubmit = () => {
-		// 세션스토리지의 fakeToken을 "mentor" 로 변환합니다.
-		const fakeToken = sessionStorage.getItem('fakeToken');
-		if (fakeToken) {
-			sessionStorage.setItem('fakeToken', 'mentor');
-			window.location.reload();
-		}
-	};
-
-	const [selectedField, setSelectedField] = useState('');
-	const [selectedExperience, setSelectedExperience] = useState('');
-	const [currentCompany, setCurrentCompany] = useState('');
-	const [areAllInputsSelected, setAreAllInputsSelected] = useState(false);
-
 	useEffect(() => {
 		setAreAllInputsSelected(
-			selectedField.trim() !== '' &&
-				selectedExperience.trim() !== '' &&
-				currentCompany.trim() !== '',
+			form.field !== '' && form.career !== '' && form.task !== '' && form.aboutMe !== '',
 		);
-	}, [selectedField, selectedExperience, currentCompany]);
+	}, [form]);
 
-	const submitDataToServer = () => {
-		if (areAllInputsSelected) {
-			console.log(selectedExperience, selectedField, currentCompany);
-		} else {
-			// 모든 입력이 선택되지 않았을 때의 처리
-			console.log('All inputs must be selected');
-		}
+	const handleSubmit = () => {
+		const submitData = async () => {
+			try {
+				await createMentor(form);
+				window.location.reload();
+			} catch (error) {
+				prompt('멘토등록에 실패했습니다.');
+			}
+		};
+		submitData();
 	};
 
 	return (
@@ -66,8 +63,8 @@ export const MentorRegistPopup = () => {
 						<p>경력</p>
 						<select
 							className="border w-full p-2 rounded-md"
-							value={selectedField}
-							onChange={e => setSelectedField(e.target.value)}
+							value={form.field}
+							onChange={e => setForm({...form, field: e.target.value})}
 						>
 							<option value="">선택하세요</option>
 							<option value="개발">개발</option>
@@ -79,8 +76,8 @@ export const MentorRegistPopup = () => {
 						<p>경력 레벨</p>
 						<select
 							className="border w-full p-2 rounded-md"
-							value={selectedExperience}
-							onChange={e => setSelectedExperience(e.target.value)}
+							value={form.career}
+							onChange={e => setForm({...form, career: e.target.value})}
 						>
 							<option value="">선택하세요</option>
 							<option value="1~3년 주니어">1~3년 주니어</option>
@@ -90,18 +87,24 @@ export const MentorRegistPopup = () => {
 					</div>
 					<div>
 						<p>현직 회사</p>
-						<input value={currentCompany} onChange={e => setCurrentCompany(e.target.value)} />
+						<input value={form.task} onChange={e => setForm({...form, task: e.target.value})} />
+					</div>
+					<div>
+						<p>자기 소개</p>
+						<input
+							value={form.aboutMe}
+							onChange={e => setForm({...form, aboutMe: e.target.value})}
+						/>
 					</div>
 				</div>
 
 				<div className="flex justify-center">
-					{/* 버튼을 활성화하려면 areAllInputsSelected가 true일 때만 클릭 이벤트를 활성화 */}
 					<button
 						onClick={areAllInputsSelected ? handleSubmit : () => {}}
 						className={`buttonStyle py-2 px-6 text-white ${
 							areAllInputsSelected ? 'bg-black' : 'bg-gray-300'
 						}`}
-						disabled={!areAllInputsSelected} // 버튼 비활성화를 위한 disabled 속성 추가
+						disabled={!areAllInputsSelected}
 					>
 						등록하기
 					</button>
