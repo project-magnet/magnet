@@ -143,7 +143,7 @@ interface Sort2 {
 export const getMentorList = async (offset: number, size: number): Promise<getMentorListData> => {
 	try {
 		const response = await axios.get<getMentorListData>(
-			`${baseUrl}/mentor/list?offset${offset}&size=${size}`,
+			`${baseUrl}/mentor/list?offset=${offset}&size=${size}`,
 			{
 				headers: {
 					'Content-Type': 'application/json',

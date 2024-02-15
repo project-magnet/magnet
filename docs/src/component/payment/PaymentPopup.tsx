@@ -34,7 +34,7 @@ const PaymentPopup = () => {
 			onClick={handleClick}
 			className="flexCenter size-full fixed bg-opacity-30 bg-black z-20 top-0 "
 		>
-			<section className="flexCol mt-48 sm:mt-0 pb-32 sm:pb-8 p-8  bg-white size-full sm:w-[500px] rounded-md z-20 gap-5 ">
+			<section className="flexCol mt-48 sm:mt-0 pb-32 sm:pb-8 p-8  bg-white size-full sm:w-[500px] rounded-md z-20 gap-5">
 				<div className="flex justify-between items-center">
 					<div className="flex gap-3 items-center">
 						<p className="text-lg font-semibold">
@@ -47,7 +47,7 @@ const PaymentPopup = () => {
 						className="ri-close-line text-2xl cursor-pointer  text-slate-400"
 					></i>
 				</div>
-				<div className="flexCol flex-grow gap-5 overflow-y-auto">
+				<div className="flexCol flex-grow gap-5 overflow-y-auto  animate-fadeIn">
 					{pageNumber === 1 ? (
 						<>
 							<div>

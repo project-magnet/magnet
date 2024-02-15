@@ -1,44 +1,63 @@
 import React, {useEffect, useState} from 'react';
 import {MyQuillComponent} from '../component/MyQuillComponent';
+import {createMentoring} from '../api/mentoring';
+import {useNavigate} from 'react-router-dom';
 
 export const CreateMentoringPage: React.FC = () => {
-	const [title, setTitle] = useState('');
+	const [form, setForm] = useState({
+		title: '',
+		content: '',
+		pay: '',
+		period: '',
+		participants: 1,
+		category: '',
+	});
 	const [description, setDescription] = useState('');
-	const [cost, setCost] = useState<number>(1000);
-	const [participants, setParticipants] = useState(1);
-	const [date, setDate] = useState('');
 	const [isFormValid, setIsFormValid] = useState(false);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setIsFormValid(
-			title.length > 0 &&
-				description.length > 0 &&
-				cost.toString().length > 0 &&
-				participants.toString().length > 0 &&
-				date.length > 0,
+			description.length > 0 &&
+				form.title.length > 0 &&
+				form.pay.length > 0 &&
+				form.period.length > 0 &&
+				form.participants > 0,
 		);
-	}, [title, description, cost, participants, date]);
+	}, [form, description]);
 
 	// 날짜 선택 시 과거의 날짜는 선택할 수 없도록 합니다.
 	useEffect(() => {
-		const value = new Date(date);
+		const value = new Date(form.period);
 		if (value < new Date()) {
 			alert('과거의 날짜는 선택할 수 없습니다.');
-			setDate('');
+			setForm({...form, period: ''});
 		}
-	}, [date]);
+	}, [form.period]);
 
 	// 인원은 1명 이상 30명 이하로 제한합니다.
 	useEffect(() => {
-		const value = Number(participants);
+		const value = Number(form.participants);
 		if (value < 1 || value > 30) {
 			alert('인원은 1명 이상 30명 이하로 제한됩니다.');
-			setParticipants(1);
+			setForm({...form, participants: 1});
 		}
-	}, [participants]);
+	}, [form.participants]);
+
+	useEffect(() => {
+		setForm({...form, content: description});
+	}, [description]);
 
 	const handleSubmit = () => {
-		console.log(title, description, cost, participants, date);
+		const submitData = async () => {
+			try {
+				await createMentoring(form);
+				navigate('/mentorlist');
+			} catch (error) {
+				prompt('멘토링 생성에 실패했습니다.');
+			}
+		};
+		submitData();
 	};
 
 	return (
@@ -47,12 +66,33 @@ export const CreateMentoringPage: React.FC = () => {
 				<div className="flexCenter">
 					<p className="text-3xl font-semibold">멘토링 정보 입력</p>
 				</div>
+
+				<div className="inputStyle">
+					<p>분야</p>
+					<select
+						className="border w-full p-2 rounded-md"
+						value={form.category}
+						onChange={e => setForm({...form, category: e.target.value})}
+					>
+						<option value="">선택하세요</option>
+						<option value="DEVELOPMENT">개발</option>
+						<option value="MARKETING">마케팅</option>
+						<option value="PRODUCT_MANAGER">프로덕트 매니저</option>
+						<option value="BACKEND">백엔드</option>
+						<option value="FRONTEND">프론트엔드</option>
+						<option value="DEVOPS">데브옵스</option>
+						<option value="DATA_ENGINEER">데이터 엔지니어</option>
+						<option value="SERVER_ENGINEER">서버 엔지니어</option>
+						<option value="AI">AI</option>
+					</select>
+				</div>
+
 				<div className="inputStyle">
 					<p>제목</p>
 					<input
 						type="text"
-						value={title}
-						onChange={e => setTitle(e.target.value)}
+						value={form.title}
+						onChange={e => setForm({...form, title: e.target.value})}
 						placeholder="제목을 입력해 주세요."
 					/>
 				</div>
@@ -66,8 +106,8 @@ export const CreateMentoringPage: React.FC = () => {
 					<p>비용(원)</p>
 					<input
 						type="number"
-						value={cost}
-						onChange={e => setCost(Number(e.target.value))}
+						value={form.pay}
+						onChange={e => setForm({...form, pay: e.target.value})}
 						placeholder="비용"
 						step={1000}
 						pattern="[0-9]*"
@@ -76,7 +116,11 @@ export const CreateMentoringPage: React.FC = () => {
 				</div>
 				<div className="inputStyle">
 					<p>날짜</p>
-					<input type="month" value={date} onChange={e => setDate(e.target.value)} />
+					<input
+						type="month"
+						value={form.period}
+						onChange={e => setForm({...form, period: e.target.value})}
+					/>
 				</div>
 				<div className="inputStyle">
 					<p>인원</p>
@@ -84,8 +128,8 @@ export const CreateMentoringPage: React.FC = () => {
 						type="number"
 						min={1}
 						max={30}
-						value={participants}
-						onChange={e => setParticipants(Number(e.target.value))}
+						value={form.participants}
+						onChange={e => setForm({...form, participants: Number(e.target.value)})}
 					/>
 				</div>
 				<button

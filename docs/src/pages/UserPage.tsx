@@ -20,6 +20,19 @@ const UserPage = () => {
 				setIsMentor(isMentor);
 			} catch (error) {
 				console.error('회원 정보를 불러오는 동안 오류가 발생했습니다:', error);
+				// 임시 더미 데이터
+				setMember({
+					id: 1,
+					username: 'john.doe',
+					nickName: 'John Doe',
+					email: 'john.doe@example.com',
+					phone: '123-456-7890',
+					picture: 'https://example.com/profile-pics/john-doe.jpg',
+					memberStatus: 'active',
+					city: 'New York',
+					street: '123 Main St',
+					roles: ['user', 'admin'],
+				});
 			}
 		};
 		fetchMemberData();
