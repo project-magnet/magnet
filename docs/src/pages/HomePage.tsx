@@ -20,11 +20,7 @@ const HomePage = () => {
 					</h2>
 					<p className=" text-secondary text-xl">멘티의 성공을 위해 노력하는 멘토를 만나보세요.</p>
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-					<MentorCard />
-					<MentorCard />
-					<MentorCard />
-				</div>
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
 				<Link to="/mentorlist">
 					<button className="text-secondary font-bold">더 알아보기</button>
 				</Link>
