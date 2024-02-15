@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import {login} from '../../api/auth';
 
 const LoginForm = () => {
@@ -29,7 +28,6 @@ const LoginForm = () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
-				console.log('로그인 성공');
 				navigate('/magnet');
 				window.location.reload();
 			} catch (e) {
