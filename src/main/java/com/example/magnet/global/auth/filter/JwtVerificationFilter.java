@@ -62,7 +62,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     private void setAuthenticationToContext(Map<String, Object> claims) { // SecurityContextHolder의 Authentication이 사용자의 이름과 역할을 관리
         String username = (String) claims.get("username"); // name
         Long memberId = Long.valueOf(claims.get("memberId").toString()); // credentials
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
+        List<GrantedAuthority> authorities = authorityUtils.createAuthorities(memberId); // 역할정보 - memberId기반 DB조회  (List)claims.get("roles")
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, memberId, authorities); // claims 값을 기반으로 사용자 정보 객체 생성
         SecurityContextHolder.getContext().setAuthentication(authentication); // SecurityContextHolder에 저장
     }

@@ -97,7 +97,7 @@ class MentorServiceTest {
         List<GrantedAuthority> expectedAuthorities = List.of(
                 new SimpleGrantedAuthority("ROLE_USER"),
                 new SimpleGrantedAuthority("ROLE_MENTOR"));
-        when(customAuthorityUtils.createAuthorities(eq(List.of("USER", "MENTOR")))).thenReturn(expectedAuthorities);
+//        when(customAuthorityUtils.createAuthorities(eq(List.of("USER", "MENTOR")))).thenReturn(expectedAuthorities);
 
         // when
 //        mentorService.createMentor(member.getId(), );

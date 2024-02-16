@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.example.magnet.mentoring.mapper.MentoringMapper.entityToMentoringResponseDto;
+import static com.example.magnet.mentoring.mapper.MentoringMapper.mentoringPostDtoToMentoring;
 
 @Service
 @Transactional
@@ -46,10 +47,12 @@ public class MentoringService {
     }
 
     //멘토링 등록
-    public void register(Long memberId, Mentoring mentoring) {
+    public void register(Long memberId, MentoringPostDto mentoringPostDto) {
         //멘토 엔티티를 불러온 뒤, 전달 받은 mentoring 엔티티에 추가한다.
         Mentor findMentor =  getMentorEntity(memberId);
         Member findMember = getMemberEntity(memberId);
+
+        Mentoring mentoring = mentoringPostDtoToMentoring(mentoringPostDto);
 
         // 멘토링에 멘토 정보 저장
         Mentoring.MentoringBuilder mentoringBuilder = mentoring.toBuilder();
@@ -69,5 +72,17 @@ public class MentoringService {
     public Page<mentoringListPagingDto> mentoringInfoList(int offset, int size) {
         Pageable pageable = PageRequest.of(offset, size);
         return mentoringRepository.mentoringList(pageable);
+    }
+
+    public void remove(Long memberId, Long mentoringId) {
+        // 매개변수로 전달받은 memberId와 mentoringId로 조회한 데이터의 memberId가 동일하면 삭제 > 실 소유자
+        Mentoring mentoring = mentoringRepository.findById(mentoringId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTORING_NOT_FOUND));
+
+        Long realMentor = mentoring.getMember().getId();
+
+        if(memberId.equals(realMentor)){
+            mentoringRepository.delete(mentoring);
+        }
     }
 }

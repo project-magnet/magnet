@@ -1,5 +1,7 @@
 package com.example.magnet.global.auth.utils;
 
+import com.example.magnet.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,18 +19,24 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class CustomAuthorityUtils {
     @Value("${mail.address.admin}")
     private String adminMailAddress;
 
-    private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
-    private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
+    private final MemberRepository memberRepository;
+
+//    private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
+//    private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN");
     private final List<String> USER_ROLES_STRING = List.of("USER");
 
 
     // DB에 저장된 Role을 기반으로 권한 정보 생성
-    public List<GrantedAuthority> createAuthorities(List<String> roles) {
+    public List<GrantedAuthority> createAuthorities(Long memberId) {
+        List<String> roles = memberRepository.findById(memberId)
+                .orElseThrow().getRoles();
+
         List<GrantedAuthority> authorities = roles.stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
