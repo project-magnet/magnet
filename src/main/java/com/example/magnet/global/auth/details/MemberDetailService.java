@@ -59,7 +59,7 @@ public class MemberDetailService implements UserDetailsService {
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
               logger.info("DB에 저장된 Role 정보로 사용자 권한 목록 생성");
-            return authorityUtils.createAuthorities(this.getRoles()); // DB에 저장된 Role 정보로 사용자 권한 목록 생성
+            return authorityUtils.createAuthorities(this.getId()); // DB에 저장된 Role 정보로 사용자 권한 목록 생성 //this.getRoles()
         }
 
         @Override

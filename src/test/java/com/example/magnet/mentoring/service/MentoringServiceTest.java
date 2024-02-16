@@ -95,7 +95,7 @@ class MentoringServiceTest {
 
     @Test
     @DisplayName("멘토링 등록 테스트 - mockito 적용")
-    public void register2(){
+    void register2(){
         //given
         Long memberId = 1L;
         Member member = Member.builder().id(memberId).email("email@gmail.com").password("1234").build();
@@ -120,5 +120,13 @@ class MentoringServiceTest {
         verify(mentoringRepository, times(1)).save(any(Mentoring.class));
 
     }
+
+//    @Test
+//    @DisplayName("멘토링 삭제 테스트")
+//    void delete(){
+//        //given
+//        //
+//
+//    }
 
 }

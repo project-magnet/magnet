@@ -65,7 +65,7 @@ public class MentorService {
 
         // 현재 스레드의 Authentication 업데이트
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities = customAuthorityUtils.createAuthorities(findMember.getRoles());
+        Collection<? extends GrantedAuthority> authorities = customAuthorityUtils.createAuthorities(findMember.getId()); // 권한 문제 적용
         Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), authorities);
         SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
 
