@@ -1,53 +1,37 @@
-// 필요한 import 구문들을 먼저 추가
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import PopupStore from '../../store/PopupStore';
+import {useNavigate} from 'react-router-dom';
+import {openTossPayments} from '../../utils/payments/openTossPayments';
 
-// PaymentButton 컴포넌트 정의
 type PaymentButtonProps = {
-  type: 'previous' | 'next' | 'payment',
-  pageNumber: number,
+	type: 'previous' | 'next' | 'payment';
+	pageNumber: number;
 };
 
-const PaymentButton: React.FC<PaymentButtonProps> = ({ type, pageNumber }) => {
-  const navigate = useNavigate();
-  const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
+const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber}) => {
+	const navigate = useNavigate();
 
-  let buttonText = '';
-  let buttonHandler = () => {};
+	const buttonConfig = {
+		next: {
+			text: '다음으로',
+			handler: () => navigate(`?page=${pageNumber + 1}`),
+		},
+		previous: {
+			text: '이전으로',
+			handler: () => navigate(`?page=${pageNumber - 1}`),
+		},
+		payment: {
+			text: '결제하기',
+			handler: () => openTossPayments(),
+		},
+	};
 
-  switch (type) {
-    case 'next':
-      buttonText = '다음으로';
-      buttonHandler = () => {
-        // 다음 페이지로 이동
-        navigate(`?page=${pageNumber + 1}`);
-      };
-      break;
+	const {text, handler} = buttonConfig[type];
 
-    case 'previous':
-      buttonText = '이전으로';
-      buttonHandler = () => {
-        // 이전 페이지로 이동
-        navigate(`?page=${pageNumber - 1}`);
-      };
-      break;
-
-    case 'payment':
-      buttonText = '결제하기';
-      buttonHandler = () => {
-        // 결제 완료 페이지로 이동
-        setIsOpenFalse();
-        navigate('/paymentcompleted');
-      };
-      break;
-  }
-
-  return (
-    <div onClick={buttonHandler} className="buttonStyle w-24 h-10 flexCenter bg-slate-50">
-      <p className="font- text-sm">{buttonText}</p>
-    </div>
-  );
+	return (
+		<div onClick={handler} className="buttonStyle w-24 h-10 flexCenter bg-slate-50">
+			<p className="font- text-sm">{text}</p>
+		</div>
+	);
 };
 
 export default PaymentButton;
