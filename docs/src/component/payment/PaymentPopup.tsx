@@ -105,7 +105,7 @@ const PaymentPopup = () => {
 								placeholder="멘토링을 시작하기 전, 전달할 내용을 상세하게 남겨주실 수록 더욱 의미있는 시간을 가질 수 있습니다 :)"
 							/>
 						</>
-					) : (
+					) : pageNumber === 3 ? (
 						<>
 							<div>
 								<span>멘토</span>
@@ -132,6 +132,8 @@ const PaymentPopup = () => {
 								<span className="ml-3 text-slate-500 text-sm">취업 안되면 고소함.</span>
 							</div>
 						</>
+					) : (
+						<></>
 					)}
 				</div>
 
@@ -143,11 +145,13 @@ const PaymentPopup = () => {
 							<PaymentButton pageNumber={pageNumber} type="previous" />
 							<PaymentButton pageNumber={pageNumber} type="next" />
 						</>
-					) : (
+					) : pageNumber === 3 ? (
 						<>
 							<PaymentButton pageNumber={pageNumber} type="previous" />
 							<PaymentButton pageNumber={pageNumber} type="payment" />
 						</>
+					) : (
+						<></>
 					)}
 				</div>
 			</section>
