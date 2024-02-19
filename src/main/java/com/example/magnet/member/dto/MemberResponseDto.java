@@ -14,11 +14,12 @@ public class MemberResponseDto {
     private String email;
 //    private String password;  // 복호화 여부 프론트랑 상의
     private String phone;
-    private String picture;
     private String memberStatus;
     private String city;
     private String street;
     private List<String> roles;
+
+    private Long point;
 
 
 }
