@@ -40,24 +40,24 @@ public class PaymentService {
      * */
     public Payment requestTossPayment(Payment payment, Long memberId){
         Member member = memberService.findMyInfo(memberId);
-        if(payment.getAmount() < 1000){
+        if(payment.getAmount() < 1000){ // 1000원 미만이면 오류
             throw new BusinessLogicException(ExceptionCode.INVALID_PAYMENT_AMOUNT);
         }
-        payment.toBuilder().member(member);
-        return paymentRepository.save(payment);
+        Payment result = payment.toBuilder().member(member).build();
+        return paymentRepository.save(result);
     }
 
     public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
         Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
-//        payment.toBuilder().paymentKey(paymentKey).paySuccessYN(true); // 결제 성공 체크
-//        payment.getMember().toBuilder().point(payment.getMember().getPoint() + amount).build(); // 포인트 증가
+
         Payment updatedPayment = payment.toBuilder()
                 .paymentKey(paymentKey).paySuccessYN(true)
                 .member(payment.getMember().toBuilder()
                         .point(payment.getMember().getPoint()+ amount).build())
                 .build();
         paymentRepository.save(updatedPayment);
+
         memberService.updateMemberCache(payment.getMember());
         return result;
     }

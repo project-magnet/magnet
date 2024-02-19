@@ -45,21 +45,20 @@ public class PaymentController {
 //        return ResponseEntity.ok().body(new SingleResponse<>(paymentResDto));
 
         PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto.toEntity(), (Long)authentication.getCredentials()).toPaymentResDto();
-        paymentResponseDto.toBuilder()
+        PaymentResponseDto result = paymentResponseDto.toBuilder()
                 .successUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl())
                 .failUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl()).build();
-        return new ResponseEntity<>(paymentResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
     /**
-     * 결제 성공 시 로직
+     * 결제요청 성공 시 승인 로직
      * */
     @GetMapping("/toss/success")
     public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
                                                                 @RequestParam String orderId,
                                                                 @RequestParam Long amount){
-//        return ResponseEntity.ok().body(new SingleResponse<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount)));
         return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
     }
 
