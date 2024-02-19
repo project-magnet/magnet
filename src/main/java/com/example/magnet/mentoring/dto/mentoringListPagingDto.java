@@ -16,10 +16,15 @@ public class mentoringListPagingDto {
     private String category;
 
     private Long mentorId;
+    private String aboutMe;
+    private String field;
+    private String task;
+    private String mentorName;
+    private String career;
 
 
     @QueryProjection
-    public mentoringListPagingDto(Long mentoringId, String title, String content, String pay, String period, int participants, String category, Long mentorId) {
+    public mentoringListPagingDto(Long mentoringId, String title, String content, String pay, String period, int participants, String category, Long mentorId, String aboutMe, String field, String task, String mentorName, String career) {
         this.mentoringId = mentoringId;
         this.title = title;
         this.content = content;
@@ -28,5 +33,10 @@ public class mentoringListPagingDto {
         this.participants = participants;
         this.category = category;
         this.mentorId = mentorId;
+        this.aboutMe = aboutMe;
+        this.field = field;
+        this.task = task;
+        this.mentorName = mentorName;
+        this.career = career;
     }
 }

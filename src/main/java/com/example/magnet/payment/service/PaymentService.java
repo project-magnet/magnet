@@ -35,31 +35,37 @@ public class PaymentService {
     private final MemberService memberService;
     private final TossPaymentConfig tossPaymentConfig;
 
+    /**
+     * 사용자의 존재 확인 후 검증 로직 진행. 그 후 해당 결제 객체를 DB에 저장
+     * */
     public Payment requestTossPayment(Payment payment, Long memberId){
         Member member = memberService.findMyInfo(memberId);
-        if(payment.getAmount() < 1000){
+        if(payment.getAmount() < 1000){ // 1000원 미만이면 오류
             throw new BusinessLogicException(ExceptionCode.INVALID_PAYMENT_AMOUNT);
         }
-        payment.toBuilder().member(member);
-        return paymentRepository.save(payment);
+        Payment result = payment.toBuilder().member(member).build();
+        return paymentRepository.save(result);
     }
 
     public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
-        Payment payment = verifyPayment(orderId, amount);
-        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount);
-//        payment.setPaymentKey(paymentKey);//추후 결제 취소 / 결제 조회
-//        payment.setPaySuccessYN(true);
-        payment.toBuilder().paymentKey(paymentKey).paySuccessYN(true);
-//        payment.getMember().setPoint(payment.getMember().getPoint() + amount);
-        payment.getMember().toBuilder().point(payment.getMember().getPoint() + amount).build();
+        Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
+        PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
+
+        Payment updatedPayment = payment.toBuilder()
+                .paymentKey(paymentKey).paySuccessYN(true)
+                .member(payment.getMember().toBuilder()
+                        .point(payment.getMember().getPoint()+ amount).build())
+                .build();
+        paymentRepository.save(updatedPayment);
+
         memberService.updateMemberCache(payment.getMember());
         return result;
     }
 
     public Payment verifyPayment(String orderId, Long amount){
-        Payment payment = paymentRepository.findByOrderId(orderId)
+        Payment payment = paymentRepository.findByOrderId(orderId) // 실제로 주문 정보가 DB에 저장되어있는지 확인
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
-        if(!payment.getAmount().equals(amount)){
+        if(!payment.getAmount().equals(amount)){ // 결제 금액 일치여부 확인
             throw new BusinessLogicException(ExceptionCode.PAYMENT_AMOUNT_EXP);
         }
         return payment;
@@ -104,6 +110,7 @@ public class PaymentService {
         paymentRepository.save(payment);
     }
 
+
     @Transactional
     public Map cancelPaymentPoint(String email, String paymentKey, String cancelReason) {
         Payment payment = paymentRepository.findByPaymentKeyAndMember_Email(paymentKey, email).orElseThrow(()->
@@ -111,21 +118,25 @@ public class PaymentService {
 
         // 포인트 취소 시 금액 부족하면 환불 불가
         if(payment.getMember().getPoint() >= payment.getAmount()){
-            payment.toBuilder()
-                    .cancelYN(true)
-                    .cancelReason(cancelReason)
-                    .member(Member.builder()
+            Payment updatedPayment = payment.toBuilder()
+                    .cancelYN(true) //취소 여부
+                    .cancelReason(cancelReason) // 취소 이유
+                    .member(Member.builder() // 환불 금액만큼 차감
                             .point(payment.getMember().getPoint() - payment.getAmount())
-                            .build());
-            return tossPaymentCancel(paymentKey, cancelReason);
+                            .build()).build();
+            paymentRepository.save(updatedPayment);
+            return tossPaymentCancel(paymentKey, cancelReason); // 키 값 반환
         }
         throw new BusinessLogicException(ExceptionCode.PAYMENT_NOT_ENOUGH_POINT);
     }
 
-    // 헤더에 시크릿 키를 인코딩하여 POST요청한 후 받은 값을 리턴
+    /**
+     * 헤더에 시크릿 키를 인코딩하여 POST요청한 후 받은 값을 리턴
+     * - 다형성을 위해 상위 인터페이스인 Map을 선택
+     * */
     public Map tossPaymentCancel(String paymentKey, String cancelReason) {
         RestTemplate restTemplate = new RestTemplate(); // HTTP 요청 양방향 응답 받기 위한 인스턴스
-        HttpHeaders headers = getHeaders(); // 헤더 추출
+        HttpHeaders headers = getHeaders(); // HTTP 요청에 필요한 헤더 생성
         JSONObject params = new JSONObject();
         params.put("cancelReason", cancelReason); // 취소사유를 포함한 파라미터 생성
 
@@ -135,6 +146,9 @@ public class PaymentService {
                 Map.class);
     }
 
+    /**
+     * 결제 내역 조회
+     * */
     public Slice<Payment> findAllChargingHistories(String username, Pageable pageable) {
         memberService.verifyExistsEmail(username);
         return paymentRepository.findAllByMember_Email(username,

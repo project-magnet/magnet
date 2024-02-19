@@ -8,6 +8,7 @@ import com.example.magnet.member.dto.MemberDto;
 import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.member.mapper.MemberMapper;
 import com.example.magnet.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final MemberMapper mapper;
 
     /**
      *  회원가입
@@ -120,9 +122,11 @@ public class MemberService {
     }
 
 
+    /**
+     * 캐시 갱신
+     * */
     @CachePut(value = "memberDto", key="#member.email")
-    public MemberDto updateMemberCache(Member member) {
-
-        return null; // responsedto로 변경 필요
+    public MemberResponseDto updateMemberCache(Member member) {
+        return mapper.memberToResponseDto(member);
     }
 }

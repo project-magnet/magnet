@@ -86,11 +86,12 @@ public class MemberMapper {
                 .nickName(result.getNickName())
                 .email(result.getEmail())
                 .phone(result.getPhone())
-                .picture(result.getPicture())
+//                .picture(result.getPicture())
                 .memberStatus(result.getMemberStatus().toString())
                 .city(result.getAddress().getCity())
                 .street(result.getAddress().getStreet())
                 .roles(result.getRoles());
+
 
         return dtoBuilder.build();
     }

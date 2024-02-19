@@ -4,6 +4,7 @@ import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.payment.entity.Payment;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,12 +37,15 @@ public class Mentoring extends TimeEntity {
 
 
     @OneToMany(mappedBy = "mentoring")
-    private List<Mentee> menteeList =new ArrayList<>();
+    private List<Mentee> menteeList = new ArrayList<>();
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+//    @OneToMany(mappedBy = "mentoring")
+//    private List<Payment> paymentList = new ArrayList<>();
 
 
     @Builder(toBuilder = true)

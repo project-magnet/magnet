@@ -68,6 +68,7 @@ public class SecurityConfig {
                         .requestMatchers("/member/extract").permitAll()
                         .requestMatchers("/mentoring/create").hasAnyRole("MENTOR")
                         .requestMatchers("/mentoring/get/**","/mentoring/list").permitAll()
+                        .requestMatchers("/api/v1/payments/**").permitAll()
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
