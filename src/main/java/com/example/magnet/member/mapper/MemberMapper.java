@@ -92,6 +92,7 @@ public class MemberMapper {
                 .street(result.getAddress().getStreet())
                 .roles(result.getRoles());
 
+
         return dtoBuilder.build();
     }
 

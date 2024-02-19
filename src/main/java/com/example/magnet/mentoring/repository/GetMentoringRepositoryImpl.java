@@ -45,7 +45,12 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
                         mentoring.period,
                         mentoring.participants,
                         mentoring.category.stringValue(), // 생성자와 순서 일치?
-                        mentoring.mentor.id))
+                        mentoring.mentor.id,
+                        mentor.aboutMe,
+                        mentor.field,
+                        mentor.task,
+                        mentor.mentorName,
+                        mentor.career))
                 .from(mentoring)
                 .leftJoin(mentoring.mentor, mentor)
                 .offset(pageable.getOffset())
