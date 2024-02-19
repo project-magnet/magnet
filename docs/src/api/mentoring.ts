@@ -73,3 +73,66 @@ export const getMentoring = async (): Promise<getMentoringData> => {
 		throw error;
 	}
 };
+
+export type getMentoringListData = {
+	content: Content[];
+	pageable: Pageable;
+	last: boolean;
+	totalPages: number;
+	totalElements: number;
+	size: number;
+	number: number;
+	sort: Sort;
+	first: boolean;
+	numberOfElements: number;
+	empty: boolean;
+};
+export type Pageable = {
+	pageNumber: number;
+	pageSize: number;
+	sort: Sort;
+	offset: number;
+	unpaged: boolean;
+	paged: boolean;
+};
+export type Sort = {
+	empty: boolean;
+	sorted: boolean;
+	unsorted: boolean;
+};
+export type Content = {
+	mentoringId: number;
+	title: string;
+	content: string;
+	pay: string;
+	period: string;
+	participants: number;
+	category: string;
+	mentorId: number;
+	aboutMe: string;
+	field: string;
+	task: string;
+	mentorName: string;
+	career: string;
+};
+
+export const getMentoringList = async (
+	offset: number,
+	size: number,
+): Promise<getMentoringListData> => {
+	try {
+		const response = await axios.get(
+			`${baseUrl}/mentoring/listlist?offset=${offset}&size=${size}`,
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'ngrok-skip-browser-warning': 'true',
+				},
+			},
+		);
+		return response.data;
+	} catch (error) {
+		console.error('멘토 리스트 조회 실패', error);
+		throw error;
+	}
+};
