@@ -3,34 +3,14 @@ import 'remixicon/fonts/remixicon.css';
 import PopupStore from '../store/PopupStore';
 import {useEffect, useState} from 'react';
 import PaymentPopup from '../component/payment/PaymentPopup';
-import {getMentorList, getMentorListData} from '../api/mentor';
+import {getMentoringList, getMentoringListData, Content} from '../api/mentoring';
 
 const MentorListPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
 	const [category, setCategory] = useState('전체');
 	const [offset, size] = [0, 10];
-	const [fetchData, setFetchData] = useState(null);
 	const [fetchFinish, setFetchFinish] = useState(false);
-	const fakeData = [
-		{
-			mentorId: 1,
-			mentorName: '데이터 가져오기를',
-			career: '내부 로직이 문제겠죠',
-			field: '아마 서버가 닫혔거나',
-			task: '실패했습니다',
-			email: '안녕하세요',
-			phone: 'testUser3@gmail.com',
-			aboutMe: '010-0000-0003',
-			github: 'github.com/user3',
-			mentoringId: 1,
-			mentoringTitle: '그러니까 얼른 수정하러 갑시다.',
-			mentoringContent: '그러니까 얼른 수정하러 갑시다.',
-			mentoringPay: '1000',
-			mentoringPeriod: '3 months',
-			mentoringParticipants: 5,
-			mentoringCategory: 'Programming',
-		},
-	];
+	const [mentorList, setMentorList] = useState<Content[]>([]);
 
 	const categories = [
 		{title: '전체', image: <i className="ri-menu-line ri-2x"></i>},
@@ -59,7 +39,8 @@ const MentorListPage = () => {
 	useEffect(() => {
 		const fetchMentorList = async () => {
 			try {
-				const data: getMentorListData = await getMentorList(offset, size);
+				const data: getMentoringListData = await getMentoringList(offset, size);
+				setMentorList(data.content);
 				console.log(data);
 			} catch (error) {
 				console.error('멘토 리스트를 불러오는 동안 오류가 발생했습니다:', error);
@@ -67,6 +48,7 @@ const MentorListPage = () => {
 		};
 		fetchMentorList().finally(() => {
 			setFetchFinish(true);
+			console.log(mentorList);
 		});
 	}, []);
 
@@ -90,16 +72,29 @@ const MentorListPage = () => {
 			<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
 				{fetchFinish ? (
 					<>
-						{fakeData.map(el => (
+						{mentorList.length === 0 && (
 							<MentorCard
 								data={{
-									mentoringTitle: el.mentoringTitle,
-									mentoringContent: el.mentoringContent,
+									mentorName: '데이터를 불러오지 못했습니다.',
+									career: '아마 서버가 꺼져있을 것입니다.',
+									field: '아니면 데이터베이스에 문제가 있을 것입니다.',
+									task: '아니면 내가 코드를 잘못 짰을 수도 있습니다.',
+									title:
+										'그러니까 문제를 확인하러 가볼까요? 길을 잃었을 때는 다시 돌아가는 것이 가장 빠른 길입니다.',
+								}}
+							/>
+						)}
+
+						{mentorList.map((el, index) => (
+							<MentorCard
+								data={{
 									mentorName: el.mentorName,
 									career: el.career,
 									field: el.field,
 									task: el.task,
+									title: el.title,
 								}}
+								key={index}
 							/>
 						))}
 					</>
