@@ -5,9 +5,9 @@ type UserInfoBoxProps = {
 
 const UserInfoBox: React.FC<UserInfoBoxProps> = ({icon, contents}) => {
 	return (
-		<div className="flexCol flex-1 items-center">
+		<div className="flex items-center justify-center gap-2">
 			{icon}
-			<p className="mt-5 text-sm font-semibold">{contents}</p>
+			<p className="text-sm font-semibold">{contents}</p>
 		</div>
 	);
 };
