@@ -1,17 +1,15 @@
 type UserInfoBoxProps = {
-  icon: JSX.Element,
-  name: string,
-  contents: string,
+	icon: JSX.Element;
+	contents: string;
 };
 
-const UserInfoBox: React.FC<UserInfoBoxProps> = ({ icon, name, contents }) => {
-  return (
-    <div className="flexCol items-center flex-1">
-      {icon}
-      <p className="text-sm">{name}</p>
-      <p className="mt-5 text-sm font-semibold">{contents}</p>
-    </div>
-  );
+const UserInfoBox: React.FC<UserInfoBoxProps> = ({icon, contents}) => {
+	return (
+		<div className="flex items-center justify-center gap-2">
+			{icon}
+			<p className="text-sm font-semibold">{contents}</p>
+		</div>
+	);
 };
 
 export default UserInfoBox;
