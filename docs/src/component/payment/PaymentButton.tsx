@@ -14,22 +14,25 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber}) => {
 		next: {
 			text: '다음으로',
 			handler: () => navigate(`?page=${pageNumber + 1}`),
+			className: 'bg-additional2 text-white', // Add className for '다음으로' type
 		},
 		previous: {
 			text: '이전으로',
 			handler: () => navigate(`?page=${pageNumber - 1}`),
+			className: 'bg-white text-black',
 		},
 		payment: {
 			text: '결제하기',
 			handler: () => openTossPayments(),
+			className: 'bg-blue-400 text-white',
 		},
 	};
 
-	const {text, handler} = buttonConfig[type];
+	const {text, handler, className} = buttonConfig[type];
 
 	return (
-		<div onClick={handler} className="buttonStyle w-24 h-10 flexCenter bg-slate-50">
-			<p className="font- text-sm">{text}</p>
+		<div onClick={handler} className={`buttonStyle flexCenter h-10 w-24 ${className}`}>
+			<p className="text-sm">{text}</p>
 		</div>
 	);
 };
