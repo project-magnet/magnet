@@ -57,12 +57,14 @@ export type getMentoringData = {
 	github: string;
 };
 
-export const getMentoring = async (): Promise<getMentoringData> => {
+export const getMentoring = async (mentoringId: number): Promise<getMentoringData> => {
 	try {
 		const authorToken = sessionStorage.getItem('Authorization');
 		const refreshToken = sessionStorage.getItem('RefreshToken');
-		const response = await axios.get<getMentoringData>(`${baseUrl}/mentoring/get`, {
+		const response = await axios.get<getMentoringData>(`${baseUrl}/mentoring/get/${mentoringId}`, {
 			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 'true',
 				Authorization: authorToken,
 				RefreshToken: refreshToken,
 			},
@@ -121,15 +123,12 @@ export const getMentoringList = async (
 	size: number,
 ): Promise<getMentoringListData> => {
 	try {
-		const response = await axios.get(
-			`${baseUrl}/mentoring/listlist?offset=${offset}&size=${size}`,
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'ngrok-skip-browser-warning': 'true',
-				},
+		const response = await axios.get(`${baseUrl}/mentoring/list?offset=${offset}&size=${size}`, {
+			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 'true',
 			},
-		);
+		});
 		return response.data;
 	} catch (error) {
 		console.error('멘토 리스트 조회 실패', error);
