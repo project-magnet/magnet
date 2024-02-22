@@ -6,6 +6,7 @@ import PopupStore from '../store/PopupStore';
 import {getMember, getMemberResponse} from '../api/member';
 import {removeToken} from '../utils/auth/removeToken';
 import {useNavigate} from 'react-router-dom';
+import {LodingContainer} from '../component/common/LoadingContainer';
 
 const UserPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
@@ -140,7 +141,7 @@ const UserPage = () => {
 					)}
 				</>
 			) : (
-				<div>로딩중</div>
+				<LodingContainer />
 			)}
 		</div>
 	);
