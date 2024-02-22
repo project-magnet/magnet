@@ -42,7 +42,7 @@ public class MentoringMapper {
                 .mentorId(mentoring.getMentor().getId())
                 .career(mentoring.getMentor().getCareer())
                 .field(mentoring.getMentor().getField())
-                .task(mentoring.getMentor().getField())
+                .task(mentoring.getMentor().getTask())
                 .email(mentoring.getMentor().getEmail())
                 .phone(mentoring.getMentor().getPhone())
                 .aboutMe(mentoring.getMentor().getAboutMe())
