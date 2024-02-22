@@ -5,9 +5,10 @@ import {openTossPayments} from '../../utils/payments/openTossPayments';
 type PaymentButtonProps = {
 	type: 'previous' | 'next' | 'payment';
 	pageNumber: number;
+	disable?: boolean;
 };
 
-const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber}) => {
+const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber, disable}) => {
 	const navigate = useNavigate();
 
 	const buttonConfig = {
@@ -31,7 +32,10 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber}) => {
 	const {text, handler, className} = buttonConfig[type];
 
 	return (
-		<div onClick={handler} className={`buttonStyle flexCenter h-10 w-24 ${className}`}>
+		<div
+			onClick={handler}
+			className={`buttonStyle flexCenter h-10 w-24  ${className} ${disable && 'pointer-events-none opacity-50'}`}
+		>
 			<p className="text-sm">{text}</p>
 		</div>
 	);
