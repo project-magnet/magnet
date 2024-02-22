@@ -4,26 +4,44 @@ import PopupStore from '../store/PopupStore';
 import {useEffect, useState} from 'react';
 import PaymentPopup from '../component/payment/PaymentPopup';
 import {getMentoringList, getMentoringListData, Content} from '../api/mentoring';
+import {LodingContainer} from '../component/common/LoadingContainer';
+import {useNavigate} from 'react-router-dom';
 
-const MentorListPage = () => {
+const MentoringListPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
-	const [category, setCategory] = useState('전체');
+	const [category, setCategory] = useState('ALL');
 	const [offset, size] = [0, 10];
-	const [fetchFinish, setFetchFinish] = useState(false);
-	const [mentorList, setMentorList] = useState<Content[]>([]);
+	const [mentoringList, setMentoringList] = useState<Content[] | null>(null);
+	const navigate = useNavigate();
 
 	const categories = [
-		{title: '전체', image: <i className="ri-menu-line ri-2x"></i>},
-		{title: '개발', image: <i className="ri-code-s-slash-line ri-2x"></i>},
-		{title: '마케팅', image: <i className="ri-megaphone-line ri-2x"></i>},
-		{title: '프로덕트 매니저', image: <i className="ri-user-settings-line  ri-2x"></i>},
-		{title: '백엔드', image: <i className="ri-send-to-back ri-2x"></i>},
-		{title: '프론트엔드', image: <i className="ri-bring-to-front ri-2x"></i>},
-		{title: '데브옵스', image: <i className="ri-file-settings-line ri-2x"></i>},
-		{title: '데이터 엔지니어', image: <i className="ri-line-chart-line ri-2x"></i>},
-		{title: '서버 엔자니어', image: <i className="ri-database-2-line ri-2x"></i>},
-		{title: 'AI', image: <i className="ri-robot-3-line ri-2x"></i>},
+		{title: '전체', id: 'ALL', image: <i className="ri-menu-line ri-2x"></i>},
+		{title: '개발', id: 'DEVELOPMENT', image: <i className="ri-code-s-slash-line ri-2x"></i>},
+		{title: '마케팅', id: 'MARKETING', image: <i className="ri-megaphone-line ri-2x"></i>},
+		{
+			title: '프로덕트 매니저',
+			id: 'PRODUCT_MANAGER',
+			image: <i className="ri-user-settings-line  ri-2x"></i>,
+		},
+		{title: '백엔드', id: 'BACKEND', image: <i className="ri-send-to-back ri-2x"></i>},
+		{title: '프론트엔드', id: 'FRONTEND', image: <i className="ri-bring-to-front ri-2x"></i>},
+		{title: '데브옵스', id: 'DEVOPS', image: <i className="ri-file-settings-line ri-2x"></i>},
+		{
+			title: '데이터 엔지니어',
+			id: 'DATA_ENGINEER',
+			image: <i className="ri-line-chart-line ri-2x"></i>,
+		},
+		{
+			title: '서버 엔자니어',
+			id: 'SERVER_ENGINEER',
+			image: <i className="ri-database-2-line ri-2x"></i>,
+		},
+		{title: 'AI', id: 'AI', image: <i className="ri-robot-3-line ri-2x"></i>},
 	];
+
+	useEffect(() => {
+		navigate(`/mentorlist?category=${category}`);
+	}, [category]);
 
 	useEffect(() => {
 		if (isOpen) {
@@ -37,72 +55,49 @@ const MentorListPage = () => {
 	}, [isOpen]);
 
 	useEffect(() => {
-		const fetchMentorList = async () => {
+		const fetchMentoringList = async () => {
 			try {
 				const data: getMentoringListData = await getMentoringList(offset, size);
-				setMentorList(data.content);
+				setMentoringList(data.content);
 				console.log(data);
 			} catch (error) {
 				console.error('멘토 리스트를 불러오는 동안 오류가 발생했습니다:', error);
 			}
 		};
-		fetchMentorList().finally(() => {
-			setFetchFinish(true);
-			console.log(mentorList);
-		});
+		fetchMentoringList();
 	}, []);
 
 	return (
-		<section className="flexCol items-center bg-slate-100 gap-10 py-10 ">
+		<section className="flexCol h-full w-full items-center gap-10 bg-slate-100 py-10">
 			{isOpen && <PaymentPopup />}
-			<div className="flexCenter flex-wrap gap-2">
+			<div className="flexCenter flex-wrap gap-2 ">
 				{categories.map((el, index) => (
 					<div
 						key={index}
-						onClick={() => setCategory(el.title)}
+						onClick={() => setCategory(el.id)}
 						className={`${
-							category === el.title ? 'text-additional2' : 'text-black'
-						} buttonStyle p-0 cursor-pointer bg-background flexCenter flex-col size-20 sm:size-24`}
+							category === el.id ? 'text-additional2' : 'text-black'
+						} buttonStyle flexCenter size-20 cursor-pointer flex-col bg-background p-0 sm:size-24`}
 					>
 						{el.image}
 						<p className="text-2xs">{el.title}</p>
 					</div>
 				))}
 			</div>
-			<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-				{fetchFinish ? (
+			<div className="flexCenter flex-wrap gap-5 ">
+				{mentoringList ? (
 					<>
-						{mentorList.length === 0 && (
-							<MentorCard
-								data={{
-									mentorName: '데이터를 불러오지 못했습니다.',
-									career: '아마 서버가 꺼져있을 것입니다.',
-									field: '아니면 데이터베이스에 문제가 있을 것입니다.',
-									task: '아니면 내가 코드를 잘못 짰을 수도 있습니다.',
-									title:
-										'그러니까 문제를 확인하러 가볼까요? 길을 잃었을 때는 다시 돌아가는 것이 가장 빠른 길입니다.',
-								}}
-							/>
-						)}
-
-						{mentorList.map((el, index) => (
-							<MentorCard
-								data={{
-									mentorName: el.mentorName,
-									career: el.career,
-									field: el.field,
-									task: el.task,
-									title: el.title,
-								}}
-								key={index}
-							/>
-						))}
+						{mentoringList
+							.filter(el => el.category === category || category === 'ALL')
+							.map((el, index) => (
+								<MentorCard mentoring={el} key={index} />
+							))}
 					</>
 				) : (
-					'멘토 리스트를 불러오는 중입니다.'
+					<LodingContainer />
 				)}
 			</div>
 		</section>
 	);
 };
-export default MentorListPage;
+export default MentoringListPage;
