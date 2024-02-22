@@ -23,8 +23,8 @@ const Header = () => {
 	}, []);
 
 	return (
-		<header className="flexCenter sm:justify-start bg-white  h-10 sm:h-16 sticky top-0 border-b ">
-			<Link to="/magnet" className="tracking-[5px] font-bold  mx-24 ">
+		<header className="flexCenter sticky top-0  z-10 h-10 border-b bg-white sm:h-16 sm:justify-start">
+			<Link to="/magnet" className="mx-24 font-bold  tracking-[5px] ">
 				<p
 					className={`${
 						'/magnet' === location.pathname ? 'text-additional2' : 'text-black'
@@ -37,7 +37,7 @@ const Header = () => {
 				<>
 					<Link
 						to="/mentorlist"
-						className={`hidden sm:block mr-10 ${
+						className={`mr-10 hidden sm:block ${
 							'/mentorlist' === location.pathname ? 'text-additional2' : 'text-black'
 						} transition`}
 					>
@@ -53,7 +53,7 @@ const Header = () => {
 						<>
 							<Link
 								to="/user"
-								className={`hidden sm:block mr-10 ${
+								className={`mr-10 hidden sm:block ${
 									'/user' === location.pathname ? 'text-additional2' : 'text-black'
 								} transition`}
 							>
@@ -68,7 +68,7 @@ const Header = () => {
 							{isMentor && (
 								<Link
 									to="/creatementoring"
-									className={`hidden sm:block mr-10 ${
+									className={`mr-10 hidden sm:block ${
 										'/creatementoring' === location.pathname ? 'text-additional2' : 'text-black'
 									} transition`}
 								>
@@ -85,7 +85,7 @@ const Header = () => {
 					) : (
 						<Link
 							to="/login"
-							className={`hidden sm:block mr-10 ${
+							className={`mr-10 hidden sm:block ${
 								'/login' === location.pathname ? 'text-additional2' : 'text-black'
 							} transition`}
 						>
