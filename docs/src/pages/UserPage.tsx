@@ -6,6 +6,7 @@ import PopupStore from '../store/PopupStore';
 import {getMember, getMemberResponse} from '../api/member';
 import {removeToken} from '../utils/auth/removeToken';
 import {useNavigate} from 'react-router-dom';
+import {LodingContainer} from '../component/common/LoadingContainer';
 
 const UserPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
@@ -34,8 +35,9 @@ const UserPage = () => {
 					memberStatus: 'active',
 					city: 'New York',
 					street: '123 Main St',
-					roles: ['user', 'admin'],
+					roles: ['user', 'MENTOR'],
 				});
+				setIsMentor(true);
 			}
 		};
 		fetchMemberData();
@@ -96,12 +98,14 @@ const UserPage = () => {
 					{/* 유저정보 섹션 */}
 					<section className="userPageSection flex-col justify-between gap-10 bg-slate-50 py-10 lg:flex-row ">
 						<div className="flexCol  gap-3">
-							<p className="text-3xl font-semibold">{member.nickName}</p>
-							{isMentor && (
-								<div className="w-fit rounded-md bg-red-500 px-3 py-1">
-									<p className="text-sm text-white">멘토</p>
-								</div>
-							)}
+							<div className="flex gap-4">
+								<p className="text-3xl font-semibold">{member.nickName}</p>
+								{isMentor && (
+									<div className="flexCenter size-8 rounded-md bg-additional2 ">
+										<p className="text-sm text-white">멘토</p>
+									</div>
+								)}
+							</div>
 							<div className="flexCol items-start gap-2 ">
 								{userInfo.map((el, index) => (
 									<UserInfoBox contents={el.contents} icon={el.icon} key={index} />
@@ -121,7 +125,7 @@ const UserPage = () => {
 					{isMentor && (
 						<section className="userPageSection flex-col gap-10 bg-slate-50 py-10 ">
 							<div className="flexCol items-center gap-1">
-								<p className="text-3xl font-bold">Mentoring Schedule</p>
+								<p className="text-3xl font-bold">멘토링 일정</p>
 								<p className="text-slate-400">예약된 멘토링 일정을 확인하세요!</p>
 							</div>
 
@@ -137,7 +141,7 @@ const UserPage = () => {
 					)}
 				</>
 			) : (
-				<div>로딩중</div>
+				<LodingContainer />
 			)}
 		</div>
 	);

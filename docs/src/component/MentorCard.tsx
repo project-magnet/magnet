@@ -1,35 +1,31 @@
 import PopupStore from '../store/PopupStore';
+import {useNavigate} from 'react-router-dom';
+import {Content} from '../api/mentoring';
 
-interface MyComponentProps {
-	data: {
-		title: string;
-		mentorName: string;
-		career: string;
-		field: string;
-		task: string;
-	};
-}
-
-const MentorCard = (data: MyComponentProps) => {
+const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
-	const {mentorName, career, field, task, title} = data.data;
+	const {mentorName, mentoringId, career, field, task, title, category} = mentoring;
+	const navigate = useNavigate();
 
 	const handleClick = () => {
+		navigate(`/mentorlist?mentoringid=${mentoringId}`);
 		setIsOpenTrue();
 	};
 
 	return (
 		<div
 			onClick={handleClick}
-			className="p-5 buttonStyle size-72 cursor-pointer bg-background flexCol gap-5 animate-fadeIn"
+			className="buttonStyle flexCol size-72 animate-fadeIn cursor-pointer gap-5 bg-background p-5"
 		>
 			<div>
-				<p className="truncate font-bold text-xl">{mentorName}</p>
+				<p className="truncate text-xl font-bold">{mentorName}</p>
 				{[career, field, task].map(el => (
-					<p className="truncate text-secondary text-sm mt-1">{`#${el}`}</p>
+					<p className="mt-1 truncate text-sm text-secondary">{`#${el}`}</p>
 				))}
 			</div>
+			<div className="h-0.5 w-full border border-dashed" />
 			<div className="line-clamp-5">
+				<p className="text-sm text-secondary">#{category}</p>
 				<p className="">{title}</p>
 			</div>
 		</div>
