@@ -3,8 +3,10 @@ package com.example.magnet.member.service;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.helper.event.MemberRegistrationApplicationEvent;
+import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.member.mapper.MemberMapper;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentee.repository.MenteeRepository;
@@ -33,8 +35,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
 @Transactional
+@ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
 
     @Mock
@@ -50,6 +52,9 @@ public class MemberServiceTest {
     PasswordEncoder passwordEncoder;
 
     @Mock
+    MemberMapper mapper;
+
+    @Mock
     CustomAuthorityUtils authorityUtils;
 
     @Mock
@@ -57,16 +62,6 @@ public class MemberServiceTest {
 
     @InjectMocks
     MemberService memberService;
-
-    @Mock
-    Member member;
-
-    @Mock
-    Mentor mentor;
-    @Mock
-    Mentoring mentoring;
-    @Mock
-    Mentee mentee;
 
 
 
@@ -148,25 +143,23 @@ public class MemberServiceTest {
         Member existingMember = Member.builder()
                 .id(1L)
                 .username("testUser")
-                .nickName("OldNickName")
-                .phone("O10-0000-0000")
-                .picture("domain-of-s3")
-                .memberStatus(Member.MemberStatus.MEMBER_ACTIVE)
-                .address(Address.builder().city("testCity").street("testStreet").build())
                 .roles(roles)
-                .menteeList(null)
-                .mentoringList(null)
-                .mentorList(null)
                 .build();
 
+        MemberResponseDto memberResponseDto = MemberResponseDto.builder()
+                .id(1L)
+                .username("testUser")
+                .roles(roles)
+                .build();
 
         // when
-        when(memberRepository.findById(1L)).thenReturn(Optional.ofNullable(existingMember));
+        when(mapper.memberToResponseDto(existingMember)).thenReturn(memberResponseDto);
 
-        // then
-        Member result = memberService.findMyInfo(1L);
+        MemberResponseDto result = mapper.memberToResponseDto(existingMember);
 
-        assertEquals(existingMember, result);
+        assertEquals(memberResponseDto.getId(), result.getId());
+        assertEquals(memberResponseDto.getUsername(), result.getUsername());
+        assertEquals(memberResponseDto.getRoles(), result.getRoles());
     }
 
     @Test

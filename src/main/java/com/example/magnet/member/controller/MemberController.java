@@ -80,9 +80,8 @@ public class MemberController {
     @GetMapping("/get")
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        Member result = memberService.findMyInfo(memberId);
 
-        return new ResponseEntity<>(mapper.memberToResponseDto(result), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
     }
 
 
