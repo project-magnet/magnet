@@ -39,6 +39,15 @@ public class MemberService {
     private final MemberMapper mapper;
 
     /**
+     *  다른 계층에서 member의 엔티티를 호출하기 위해 사용
+     * **/
+    public Member findMemberById(Long memberId){
+        Member findMember = memberRepository.findById(memberId).orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
+    /**
      *  회원가입
      * - 이메일 기반으로 회원이 db에 존재하는지 판단 후 spring security의 createRoles를 통해 역할 생성
      * */
@@ -103,10 +112,10 @@ public class MemberService {
 
 
     @Transactional(readOnly = true)
-    public Member findMyInfo(Long memberId) {
+    public MemberResponseDto findMyInfo(Long memberId) {
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        return findMember;
+        return mapper.memberToResponseDto(findMember);
     }
 
 

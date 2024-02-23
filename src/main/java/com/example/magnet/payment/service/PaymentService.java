@@ -4,6 +4,7 @@ import com.example.magnet.global.config.TossPaymentConfig;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
 import com.example.magnet.payment.dto.PaymentSuccessDto;
 import com.example.magnet.payment.entity.Payment;
@@ -39,7 +40,7 @@ public class PaymentService {
      * 사용자의 존재 확인 후 검증 로직 진행. 그 후 해당 결제 객체를 DB에 저장
      * */
     public Payment requestTossPayment(Payment payment, Long memberId){
-        Member member = memberService.findMyInfo(memberId);
+        Member member = memberService.findMemberById(memberId);
         if(payment.getAmount() < 1000){ // 1000원 미만이면 오류
             throw new BusinessLogicException(ExceptionCode.INVALID_PAYMENT_AMOUNT);
         }
