@@ -20,6 +20,14 @@ public class PaymentDto {
     private String yourSuccessUrl;
     private String yourFailUrl;
 
+    /**
+     *  memberId와 nickName은 createMentee 호출 시 authentication으로 db에 저장
+     * */
+    private Long mentoringId;
+    private String message;
+    private String schedule;
+    private String phone;
+
     public Payment toEntity() {
         return Payment.builder()
                 .payType(payType)

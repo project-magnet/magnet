@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class MentorPostDto {
 
     @NotBlank
-    private String mentorName;
+    private String mentorName; // userNickName
 
     @NotBlank
     private String field; // 직무분야

@@ -1,8 +1,12 @@
 package com.example.magnet.member.dto;
 
+import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.entity.Mentee;
+import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.entity.Mentoring;
+import com.example.magnet.payment.dto.PaymentResponseDto;
 import com.example.magnet.payment.entity.Payment;
 import lombok.*;
 
@@ -22,10 +26,10 @@ public class MemberResponseDto {
     private String street;
     private List<String> roles;
     private Long point;
-    private List<Mentor> mentorList;
-    private List<Mentoring> mentoringList;
-    private List<Payment> paymentList;
-    private List<Mentee> menteeList;
+    private List<MentorResponseDto> mentorList;
+    private List<MentoringResponseDto> mentoringList;
+    private List<PaymentResponseDto> paymentList;
+    private List<MenteeResponseDto> menteeList;
 
 
 }

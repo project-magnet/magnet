@@ -5,9 +5,18 @@ import com.example.magnet.member.dto.MemberPostDto;
 import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.entity.Address;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.entity.Mentee;
+import com.example.magnet.mentee.mapper.MenteeMapper;
+import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.entity.Mentor;
+import com.example.magnet.mentor.mapper.MentorMapper;
+import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.entity.Mentoring;
+import com.example.magnet.mentoring.mapper.MentoringMapper;
+import com.example.magnet.payment.dto.PaymentResponseDto;
+import com.example.magnet.payment.entity.Payment;
+import com.example.magnet.payment.mapper.PaymentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.magnet.mentor.mapper.MentorMapper.*;
 import static java.util.Arrays.stream;
 
 @Component
@@ -80,17 +90,26 @@ public class MemberMapper {
             return null;
         }
 
+        List<MentorResponseDto> mentorList = result.getMentorList().stream().map(MentorMapper::MentorToMentorResponseDto).toList();
+        List<MenteeResponseDto> menteeList = result.getMenteeList().stream().map(MenteeMapper::MenteeToMenteeResponseDto).toList();
+        List<MentoringResponseDto> mentoringList = result.getMentoringList().stream().map(MentoringMapper::entityToMentoringResponseDto).toList();
+        List<PaymentResponseDto> paymentList = result.getPaymentList().stream().map(PaymentMapper::PaymentToPaymentDto).toList();
+
         MemberResponseDto.MemberResponseDtoBuilder dtoBuilder = MemberResponseDto.builder()
                 .id(result.getId())
                 .username(result.getUsername())
                 .nickName(result.getNickName())
                 .email(result.getEmail())
                 .phone(result.getPhone())
-//                .picture(result.getPicture())
                 .memberStatus(result.getMemberStatus().toString())
                 .city(result.getAddress().getCity())
                 .street(result.getAddress().getStreet())
+                .mentorList(mentorList)
+                .menteeList(menteeList)
+                .mentoringList(mentoringList)
+                .paymentList(paymentList)
                 .roles(result.getRoles());
+
 
 
         return dtoBuilder.build();
