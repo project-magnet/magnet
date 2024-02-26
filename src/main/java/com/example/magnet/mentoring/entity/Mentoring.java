@@ -21,10 +21,17 @@ public class Mentoring extends TimeEntity {
     @Column(name = "MENTORING_ID")
     private Long id;
 
+    @Column
     private String title;
+
+    @Column
     private String content;
     private String pay;
+
+    @Column
     private String period; // 전체 기간
+
+    @Column
     private int participants;
 
     @Enumerated(EnumType.STRING)

@@ -6,6 +6,8 @@ import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
+import com.example.magnet.mentee.service.MenteeService;
+import com.example.magnet.payment.dto.PaymentDto;
 import com.example.magnet.payment.dto.PaymentSuccessDto;
 import com.example.magnet.payment.entity.Payment;
 import com.example.magnet.payment.repository.PaymentRepository;
@@ -39,7 +41,9 @@ public class PaymentService {
     /**
      * 사용자의 존재 확인 후 검증 로직 진행. 그 후 해당 결제 객체를 DB에 저장
      * */
-    public Payment requestTossPayment(Payment payment, Long memberId){
+    @Transactional
+    public Payment requestTossPayment(PaymentDto paymentReqDto, Long memberId){
+        Payment payment = paymentReqDto.toEntity();
         Member member = memberService.findMemberById(memberId);
         if(payment.getAmount() < 1000){ // 1000원 미만이면 오류
             throw new BusinessLogicException(ExceptionCode.INVALID_PAYMENT_AMOUNT);
@@ -48,7 +52,9 @@ public class PaymentService {
         return paymentRepository.save(result);
     }
 
-    public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
+    @Transactional
+    public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount,
+                                                String message, String schedule, String phone, String realName) {
         Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
 
@@ -58,8 +64,7 @@ public class PaymentService {
                         .point(payment.getMember().getPoint()+ amount).build())
                 .build();
         paymentRepository.save(updatedPayment);
-
-        memberService.updateMemberCache(payment.getMember());
+//        memberService.updateMemberCache(payment.getMember());
         return result;
     }
 
@@ -70,6 +75,15 @@ public class PaymentService {
             throw new BusinessLogicException(ExceptionCode.PAYMENT_AMOUNT_EXP);
         }
         return payment;
+    }
+
+    /**
+     * paymentkey 존재 여부 확인
+     * */
+    public Boolean beforePaidMentoring(String paymentKey){
+        Payment payment = paymentRepository.findByPaymentKey(paymentKey) // 실제로 주문 정보가 DB에 저장되어있는지 확인
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
+        return payment != null;
     }
 
     @Transactional

@@ -39,12 +39,7 @@ public class PaymentController {
     @PostMapping("/toss")
     public ResponseEntity<PaymentResponseDto> requestTossPayment(@RequestBody @Valid PaymentDto paymentReqDto, Authentication authentication){
 
-//        PaymentResponseDto paymentResDto = paymentService.requestTossPayment(paymentReqDto.toEntity(), principal.getUsername()).toPaymentResDto();
-//        paymentResDto.setSuccessUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl());
-//        paymentResDto.setFailUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl());
-//        return ResponseEntity.ok().body(new SingleResponse<>(paymentResDto));
-
-        PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto.toEntity(), (Long)authentication.getCredentials()).toPaymentResDto();
+        PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto, (Long)authentication.getCredentials()).toPaymentResDto();
         PaymentResponseDto result = paymentResponseDto.toBuilder()
                 .successUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl())
                 .failUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl()).build();
@@ -58,8 +53,12 @@ public class PaymentController {
     @GetMapping("/toss/success")
     public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
                                                                 @RequestParam String orderId,
-                                                                @RequestParam Long amount){
-        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
+                                                                @RequestParam Long amount,
+                                                                @RequestParam String message,
+                                                                @RequestParam String schedule,
+                                                                @RequestParam String phone,
+                                                                @RequestParam String realName){
+        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount, message, schedule, phone, realName), HttpStatus.OK);
     }
 
     /**

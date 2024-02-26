@@ -49,6 +49,7 @@ public class MentorService {
         Member findMember = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+
         // 연관관계 설정
         Mentor.MentorBuilder saveMentor = mentor.toBuilder();
         saveMentor.member(findMember);

@@ -18,14 +18,28 @@ public class Mentor extends TimeEntity {
     @Column(name = "MENTOR_ID")
     private Long id;
 
+    @Column
     private String mentorName;
 
+    @Column
     private String career; // 경력
+
+    @Column
     private String field;  // 직무분야
+
+    @Column
     private String task; // 현직- 기업정보
+
+    @Column
     private String email; // 연락 이메일
+
+    @Column
     private String phone; // 연락처
+
+    @Column
     private String aboutMe;// 자기소개
+
+    @Column
     private String github; // github 링크
 
     // 계좌관련 정보 추가 가능

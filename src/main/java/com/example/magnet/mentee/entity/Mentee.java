@@ -18,7 +18,10 @@ public class Mentee extends TimeEntity {
     @Column(name = "MENTEE_ID")
     private Long id;
 
+    @Column
     private String message;
+
+    @Column
     private String schedule;
 
 

@@ -25,8 +25,9 @@ public class MenteeController {
     // 멘티 등록 = 멘토링 신청
     @PostMapping("/create")
     public ResponseEntity<String> createMentee(@Valid @RequestBody MenteePostDto menteePostDto, Authentication authentication){
-        // payment 테이블에 멤버id가 현재 authentication의 멤버 아이디와 같다면 멘티 생성
-
+        // paymentKey가 존재한다면 mentee 정보 저장
+        Long memberId = (Long)authentication.getCredentials();
+        menteeService.paidMentee(menteePostDto, memberId);
         return new ResponseEntity<>("멘토링 신청이 완료되었습니다.", HttpStatus.OK);
     }
 }

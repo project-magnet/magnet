@@ -149,6 +149,7 @@ public class MemberServiceTest {
         MemberResponseDto memberResponseDto = MemberResponseDto.builder()
                 .id(1L)
                 .username("testUser")
+                .mentorList()
                 .roles(roles)
                 .build();
 
