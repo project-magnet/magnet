@@ -19,6 +19,7 @@ public class MenteeMapper {
 
         return Mentee.builder()
                 .member(Member.builder().id(memberId).build())
+//                .mentoring(Mentoring.builder().title(menteePostDto.getMentoringTitle()).build())
                 .mentoring(Mentoring.builder().id(menteePostDto.getMentoringId()).build())
                 .message(menteePostDto.getMessage())
                 .schedule(menteePostDto.getSchedule())

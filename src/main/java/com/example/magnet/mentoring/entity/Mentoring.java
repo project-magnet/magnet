@@ -21,7 +21,7 @@ public class Mentoring extends TimeEntity {
     @Column(name = "MENTORING_ID")
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String title;
 
     @Column
@@ -45,6 +45,7 @@ public class Mentoring extends TimeEntity {
 
     @OneToMany(mappedBy = "mentoring")
     private List<Mentee> menteeList = new ArrayList<>();
+    //menteeId
 
 
     @ManyToOne(fetch = FetchType.LAZY)

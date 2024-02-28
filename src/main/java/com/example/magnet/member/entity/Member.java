@@ -52,8 +52,10 @@ public class Member extends TimeEntity implements Principal {
     @Column(nullable = false)
     private String password;
 
+    @Column
     private String phone;
 
+    @Column
     private String picture;
 
     // 포인트
