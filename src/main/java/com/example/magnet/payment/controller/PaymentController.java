@@ -53,12 +53,8 @@ public class PaymentController {
     @GetMapping("/toss/success")
     public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
                                                                 @RequestParam String orderId,
-                                                                @RequestParam Long amount,
-                                                                @RequestParam String message,
-                                                                @RequestParam String schedule,
-                                                                @RequestParam String phone,
-                                                                @RequestParam String realName){
-        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount, message, schedule, phone, realName), HttpStatus.OK);
+                                                                @RequestParam Long amount){
+        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
     }
 
     /**
@@ -82,7 +78,7 @@ public class PaymentController {
      * */
 
     @PostMapping("/toss/cancel/point")
-    public ResponseEntity<?> tossPaymentCancelPoint(
+    public ResponseEntity<?> tossPaymentCancel(
 //            @AuthenticationPrincipal User principal,
             Authentication authentication,
             @RequestParam String paymentKey,

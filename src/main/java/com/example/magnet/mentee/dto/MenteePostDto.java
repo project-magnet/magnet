@@ -12,7 +12,7 @@ public class MenteePostDto {
     private String phone;
 
     @NotBlank
-    private Long mentoringId;
+    private Long mentoringId; //mentoringTitle?
 
     @NotBlank
     private String paymentKey;

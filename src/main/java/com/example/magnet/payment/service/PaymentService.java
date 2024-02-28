@@ -53,8 +53,7 @@ public class PaymentService {
     }
 
     @Transactional
-    public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount,
-                                                String message, String schedule, String phone, String realName) {
+    public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
         Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
 

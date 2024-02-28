@@ -33,11 +33,17 @@ public class MenteeService {
      * */
     public void paidMentee(MenteePostDto menteePostDto, Long memberId) {
         // paymentkey를 통해 결제가 승인됐는지 검증
-        if(paymentService.beforePaidMentoring(menteePostDto.getPaymentKey())) {
+        if(paymentService.beforePaidMentoring(menteePostDto.getPaymentKey())) { // 예외처리지점
             //menteeDto 엔티티로 변환
             Mentee mentee = menteePostDtoToEntity(menteePostDto, memberId);
             menteeRepository.save(mentee);
         }
 
     }
+
+    /**
+     * 결제 취소 시 mentee 정보 삭제하는 메소드
+     * paymentKey를 기준으로
+     * */
+//    public void deleteMentee()
 }

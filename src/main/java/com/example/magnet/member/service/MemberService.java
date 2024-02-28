@@ -113,9 +113,16 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public MemberResponseDto findMyInfo(Long memberId) {
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+//        try{
+//            Member findMember = memberRepository.findByFetchJoinV2(memberId);
+//            return mapper.memberToResponseDto(findMember);
+//        }catch(Exception e){
+//            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+//        }
+        Member findMember = memberRepository.findByFetchJoin(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return mapper.memberToResponseDto(findMember);
+
     }
 
 
