@@ -11,6 +11,7 @@ public class MenteeResponseDto {
     private Long mentoringId;
     private String message;
     private String schedule;
-    private Long paymentId;
+    private String paymentKey;
+    private String email;
 
 }

@@ -39,14 +39,23 @@ public class PaymentService {
     private final TossPaymentConfig tossPaymentConfig;
 
     /**
+     * 결제 조회
+     * */
+
+    /**
      * 사용자의 존재 확인 후 검증 로직 진행. 그 후 해당 결제 객체를 DB에 저장
      * */
     @Transactional
     public Payment requestTossPayment(PaymentDto paymentReqDto, Long memberId){
         Payment payment = paymentReqDto.toEntity();
         Member member = memberService.findMemberById(memberId);
-        if(payment.getAmount() < 1000){ // 1000원 미만이면 오류
+        // 금액이 음수거나, payment 테이블에 해당 정보가 이미 저장된 경우 예외처리
+        if(payment.getAmount() < 0){
             throw new BusinessLogicException(ExceptionCode.INVALID_PAYMENT_AMOUNT);
+        }
+        // 중복 결제 확인
+        if(alreadyPaid(payment.getMentoringId(), memberId)){
+            throw new BusinessLogicException(ExceptionCode.ALREADY_PAID_OR_ONGOING);
         }
         Payment result = payment.toBuilder().member(member).build();
         return paymentRepository.save(result);
@@ -56,6 +65,8 @@ public class PaymentService {
     public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
         Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
+
+
 
         Payment updatedPayment = payment.toBuilder()
                 .paymentKey(paymentKey).paySuccessYN(true)
@@ -77,12 +88,19 @@ public class PaymentService {
     }
 
     /**
-     * paymentkey 존재 여부 확인
+     * paymentkey 존재 여부 확인 - 최종 멘티 등록 시 사용
      * */
     public Boolean beforePaidMentoring(String paymentKey){
         Payment payment = paymentRepository.findByPaymentKey(paymentKey) // 실제로 주문 정보가 DB에 저장되어있는지 확인
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
         return payment != null;
+    }
+    /**
+     * 중복 결제 여부 확인
+     * payment 테이블에 mentoringId와 memberId의 존재 여부 판단
+     * */
+    private Boolean alreadyPaid(Long mentoringId, Long memberId){
+        return paymentRepository.existsByMentoringIdAndMemberId(mentoringId, memberId);
     }
 
     @Transactional

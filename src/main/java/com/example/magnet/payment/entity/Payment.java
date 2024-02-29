@@ -2,6 +2,7 @@ package com.example.magnet.payment.entity;
 
 import com.example.magnet.global.audit.TimeEntity;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.payment.dto.PayType;
 import com.example.magnet.payment.dto.PaymentResponseDto;
 import jakarta.persistence.*;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 //@Table(indexes = {  // reference
-//        @Index(name = "idx_payment_member", columnList = "customer"),
+//        @Index(name = "idx_payment_member", columnList = "member"),
 //        @Index(name = "idx_payment_paymentKey", columnList = "paymentKey"),
 //})
 public class Payment extends TimeEntity {
@@ -31,7 +32,7 @@ public class Payment extends TimeEntity {
     private Long amount;
 
     @Column(nullable = false, name = "pay_name")
-    private String orderName;
+    private String orderName; // 결제 종류
 
     @Column(nullable = false, name = "order_id")
     private String orderId;
@@ -50,14 +51,21 @@ public class Payment extends TimeEntity {
     @Column
     private String cancelReason;
 
+    @Column
+    private Long mentoringId;
 
 
-    @ManyToOne(cascade = CascadeType.PERSIST) // fetch = FetchType.LAZY
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST) // fetch = FetchType.LAZY
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTEE_ID")
+    private Mentee mentee;
+
     @Builder(toBuilder = true)
-    public Payment(Long id, PayType payType, Long amount, String orderName, String orderId, boolean paySuccessYN, String paymentKey, String failReason, boolean cancelYN, String cancelReason, Member member) {
+    public Payment(Long id, PayType payType, Long amount, String orderName, String orderId, boolean paySuccessYN, String paymentKey, String failReason, boolean cancelYN, String cancelReason, Member member, Mentee mentee, Long mentoringId) {
         this.id = id;
         this.payType = payType;
         this.amount = amount;
@@ -69,6 +77,8 @@ public class Payment extends TimeEntity {
         this.cancelYN = cancelYN;
         this.cancelReason = cancelReason;
         this.member = member;
+        this.mentee = mentee;
+        this.mentoringId = mentoringId;
     }
 
     public PaymentResponseDto toPaymentResDto() {

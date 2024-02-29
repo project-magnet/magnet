@@ -14,7 +14,7 @@ public class MentorPostDto {
     private String mentorName; // userNickName
 
     @NotBlank
-    private String field; // 직무분야
+    private String field; // 직무분야 - category
 
     @NotBlank
     private String career; // 경력

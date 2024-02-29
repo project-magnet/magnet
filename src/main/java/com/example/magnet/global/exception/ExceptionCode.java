@@ -26,6 +26,7 @@ public enum ExceptionCode {
     PAYMENT_NOT_FOUND(404, "결제 정보를 찾을 수 없습니다."),
     PAYMENT_AMOUNT_EXP(400, "매개변수로 전달 받은 AMOUNT가 DB에 저장된 값과 불일치"),
     ALREADY_APPROVED(400, "이미 승인이 완료됐습니다."),
+    ALREADY_PAID_OR_ONGOING(400, "결제가 완료됐거나 진행중입니다."),
     PAYMENT_NOT_ENOUGH_POINT(400, "포인트가 부족합니다."),
 
 

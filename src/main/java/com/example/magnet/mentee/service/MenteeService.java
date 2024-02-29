@@ -3,6 +3,7 @@ package com.example.magnet.mentee.service;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
+import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
 import com.example.magnet.mentee.dto.MenteePostDto;
 import com.example.magnet.mentee.entity.Mentee;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 import static com.example.magnet.mentee.mapper.MenteeMapper.menteePostDtoToEntity;
 
 @Service
@@ -26,6 +29,8 @@ import static com.example.magnet.mentee.mapper.MenteeMapper.menteePostDtoToEntit
 public class MenteeService {
     private final MenteeRepository menteeRepository;
     private final PaymentService paymentService;
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
 
     /**
@@ -33,8 +38,14 @@ public class MenteeService {
      * */
     public void paidMentee(MenteePostDto menteePostDto, Long memberId) {
         // paymentkey를 통해 결제가 승인됐는지 검증
-        if(paymentService.beforePaidMentoring(menteePostDto.getPaymentKey())) { // 예외처리지점
-            //menteeDto 엔티티로 변환
+        if(paymentService.beforePaidMentoring(menteePostDto.getPaymentKey())) {
+            // 회원에게 멘티권한 부여
+            Member findMember = memberService.findMemberById(memberId);
+            List<String> updatedRoles = findMember.getRoles();
+            updatedRoles.add("MENTEE");
+            findMember.setRoles(updatedRoles);
+            memberRepository.save(findMember);
+
             Mentee mentee = menteePostDtoToEntity(menteePostDto, memberId);
             menteeRepository.save(mentee);
         }

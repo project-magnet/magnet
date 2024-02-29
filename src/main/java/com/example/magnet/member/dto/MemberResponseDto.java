@@ -27,7 +27,6 @@ public class MemberResponseDto {
     private List<String> roles;
     private Long point;
     private List<MentorResponseDto> mentorList;
-    private List<MentoringResponseDto> mentoringList;
     private List<PaymentResponseDto> paymentList;
     private List<MenteeResponseDto> menteeList;
 
