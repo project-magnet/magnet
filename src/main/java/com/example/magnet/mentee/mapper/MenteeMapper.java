@@ -22,9 +22,12 @@ public class MenteeMapper {
 //                .mentoring(Mentoring.builder().title(menteePostDto.getMentoringTitle()).build())
                 .mentoring(Mentoring.builder().id(menteePostDto.getMentoringId()).build())
                 .message(menteePostDto.getMessage())
+                .email(menteePostDto.getEmail())
                 .schedule(menteePostDto.getSchedule())
+                .paymentKey(menteePostDto.getPaymentKey())
                 .build();
     }
+
 
     public static MenteeResponseDto MenteeToMenteeResponseDto(Mentee mentee){
         return MenteeResponseDto.builder()
@@ -33,6 +36,9 @@ public class MenteeMapper {
                 .mentoringId(mentee.getMentoring().getId())
                 .memberId(mentee.getMember().getId())
                 .menteeId(mentee.getId())
+                .email(mentee.getEmail())
+                .paymentKey(mentee.getPaymentKey())
                 .build();
     }
+
 }

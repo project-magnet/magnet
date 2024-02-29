@@ -84,7 +84,10 @@ public class MemberMapper {
         return memberBuilder.build();
     }
 
-    // get
+    /**
+     * 회원 정보 조회 시 연관관계에 있는 테이블을 모두 조회합니다.
+     *
+     * */
     public MemberResponseDto memberToResponseDto(Member result) {
         if(result == null){
             return null;
@@ -92,7 +95,7 @@ public class MemberMapper {
 
         List<MentorResponseDto> mentorList = result.getMentorList().stream().map(MentorMapper::MentorToMentorResponseDto).toList();
         List<MenteeResponseDto> menteeList = result.getMenteeList().stream().map(MenteeMapper::MenteeToMenteeResponseDto).toList();
-        List<MentoringResponseDto> mentoringList = result.getMentoringList().stream().map(MentoringMapper::entityToMentoringResponseDto).toList();
+//        List<MentoringResponseDto> mentoringList = result.getMentoringList().stream().map(MentoringMapper::entityToMentoringResponseDto).toList();
         List<PaymentResponseDto> paymentList = result.getPaymentList().stream().map(PaymentMapper::PaymentToPaymentDto).toList();
 
         MemberResponseDto.MemberResponseDtoBuilder dtoBuilder = MemberResponseDto.builder()
@@ -106,7 +109,6 @@ public class MemberMapper {
                 .street(result.getAddress().getStreet())
                 .mentorList(mentorList)
                 .menteeList(menteeList)
-                .mentoringList(mentoringList)
                 .paymentList(paymentList)
                 .roles(result.getRoles());
 

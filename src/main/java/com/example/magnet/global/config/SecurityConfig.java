@@ -61,8 +61,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/health", "member/signup", "auth/login", "/login/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/mentor/create").hasRole("USER")
+                        .requestMatchers("/mentor/create").hasAnyRole("USER","MENTOR")
                         .requestMatchers("/mentor/list").permitAll()
+                        .requestMatchers("/mentee/create").hasAnyRole("USER","MENTEE","MENTOR")
                         .requestMatchers("/mentee/**").hasRole("MENTEE")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
                         .requestMatchers("/member/extract").permitAll()

@@ -5,6 +5,7 @@ import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
+import com.example.magnet.member.service.MemberService;
 import com.example.magnet.mentor.dto.MentorPostDto;
 import com.example.magnet.mentor.dto.MentorResponseDto;
 import com.example.magnet.mentor.dto.MentorSearchResponseDto;
@@ -40,15 +41,16 @@ public class MentorService {
     private final MentorRepository mentorRepository;
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final MemberService memberService;
 
 
     public void createMentor(Long memberId, MentorPostDto mentorPostDto) {
         //dto 변환
         Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
         // memberId로 멤버와 멘토 연관관계 생성
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-
+//        Member findMember = memberRepository.findById(memberId)
+//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = memberService.findMemberById(memberId);
 
         // 연관관계 설정
         Mentor.MentorBuilder saveMentor = mentor.toBuilder();

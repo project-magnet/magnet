@@ -22,7 +22,12 @@ public class Mentee extends TimeEntity {
     private String message;
 
     @Column
+    private String email;
+
+    @Column
     private String schedule;
+
+    private String paymentKey; // oneToMay 대신 느슨한 결합
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,12 +39,14 @@ public class Mentee extends TimeEntity {
     private Mentoring mentoring;
 
     @Builder(toBuilder = true)
-    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring) {
+    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring, String email, String paymentKey) {
         this.id = id;
         this.message = message;
         this.schedule = schedule;
         this.member = member;
         this.mentoring = mentoring;
+        this.email = email;
+        this.paymentKey = paymentKey;
     }
 
 }
