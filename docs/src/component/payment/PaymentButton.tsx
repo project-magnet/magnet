@@ -1,5 +1,5 @@
 import React from 'react';
-import {openTossPayments} from '../../utils/payments/openTossPayments';
+import {openTossPayment} from '../../api/payments';
 import {useAddPath} from '../../hooks/useAddPath';
 
 type PaymentButtonProps = {
@@ -24,7 +24,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber, disable}
 		},
 		payment: {
 			text: '결제하기',
-			handler: () => openTossPayments(),
+			handler: () => openTossPayment(),
 			className: 'bg-blue-400 text-white',
 		},
 	};
