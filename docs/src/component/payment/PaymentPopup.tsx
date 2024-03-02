@@ -6,20 +6,27 @@ import PopupStore from '../../store/PopupStore';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {getMentoring, getMentoringData} from '../../api/mentoring';
 import {LodingContainer} from '../common/LoadingContainer';
+// import {MenteeStore} from '../../store/MenteeStore';
 
-// page는 urlparameter로 받아온다.
 const PaymentPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
+	// page는 urlparameter로 받아온다.
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [mentoringData, setMentoringData] = useState<getMentoringData | null>(null);
 	const [allInputFilled, setAllInputFilled] = useState<boolean>(false);
-	const [menteeName, setMenteeName] = useState<string>('');
-	const [menteePhone, setMenteePhone] = useState<string>('');
-	const [menteeEmail, setMenteeEmail] = useState<string>('');
-	const [menteeMessage, setMenteeMessage] = useState<string>('');
 	const location = useLocation();
 	const navigate = useNavigate();
+	const [message, setMessage] = useState<string>('');
+	const [phone, setPhone] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
 
+	// 멘티 전역변수
+	// const message = MenteeStore(state => state.message);
+	// const phone = MenteeStore(state => state.phone);
+	// const email = MenteeStore(state => state.email);
+	// const {setMessage, setPhone, setEmail} = MenteeStore.getState();
+
+	// url parameter로 받아온 page를 state에 저장
 	useEffect(() => {
 		const searchParams = new URLSearchParams(location.search);
 		const pageParam = searchParams.get('page');
@@ -29,12 +36,15 @@ const PaymentPopup = () => {
 		}
 	}, [location.search]);
 
+	// input이 모두 채워졌는지 확인
 	useEffect(() => {
-		setAllInputFilled(
-			(menteeName && menteePhone && menteeEmail && menteeMessage) === '' ? false : true,
-		);
-	}, [menteeName, menteePhone, menteeEmail, menteeMessage]);
+		sessionStorage.setItem('phone', phone);
+		sessionStorage.setItem('message', message);
+		sessionStorage.setItem('email', email);
+		setAllInputFilled((phone && message) === '' ? false : true);
+	}, [phone, message]);
 
+	// 멘토링 정보를 불러온다.
 	useEffect(() => {
 		const fetchMentoringData = async () => {
 			try {
@@ -44,30 +54,13 @@ const PaymentPopup = () => {
 				setMentoringData(data);
 			} catch (error) {
 				console.error('멘토링 정보를 불러오는 동안 오류가 발생했습니다:', error);
-				setMentoringData({
-					mentoringId: 0,
-					title: '데이터를 불러오지 못했습니다',
-					content: '이러고 있지말고 빨리 고쳐러 가는게 어떤가요?',
-					pay: '30000',
-					period: ' 2024/3월 ',
-					participants: 12,
-					category: '흑흑',
-					mentorId: 0,
-					career: '아앗',
-					field: '서버가',
-					task: '이상하다',
-					email: '이메일',
-					phone: '전화번호',
-					aboutMe: '어바웃 미',
-					github: '깃헙',
-				});
 			}
 		};
 		fetchMentoringData();
 	}, []);
 
+	// 팝업 영역을 클릭했을 때 팝업을 닫습니다.
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		// 팝업 영역 자체를 클릭한 경우에만 팝업을 닫습니다.
 		if (e.target === e.currentTarget) {
 			setIsOpenFalse();
 			navigate(``);
@@ -113,28 +106,24 @@ const PaymentPopup = () => {
 							) : pageNumber === 2 ? (
 								<>
 									<PaymentInput
-										label="실명"
-										placeholder="실명을 입력해 주세요"
-										data={menteeName}
-										setData={setMenteeName}
-									/>
-									<PaymentInput
 										label="연락 가능한 연락처"
 										placeholder="연락 가능한 연락처를 입력해 주세요"
-										data={menteePhone}
-										setData={setMenteePhone}
+										data={phone}
+										setData={setPhone}
 									/>
+
 									<PaymentInput
-										label="연락 가능한 이메일 "
+										label="연락 가능한 이메일"
 										placeholder="연락 가능한 이메일을 입력해 주세요"
-										data={menteeEmail}
-										setData={setMenteeEmail}
+										data={email}
+										setData={setEmail}
 									/>
+
 									<PaymentInput
 										label="멘토에게 전달사항"
 										placeholder="상세하게 남겨주실 수록 더욱 의미있는 시간을 가질 수 있습니다 :)"
-										data={menteeMessage}
-										setData={setMenteeMessage}
+										data={message}
+										setData={setMessage}
 									/>
 								</>
 							) : pageNumber === 3 ? (
@@ -149,20 +138,16 @@ const PaymentPopup = () => {
 									</div>
 
 									<div>
-										<span>멘티 실명</span>
-										<span className="ml-3 text-sm text-slate-500">{menteeName}</span>
-									</div>
-									<div>
 										<span>연락처</span>
-										<span className="ml-3 text-sm text-slate-500">{menteePhone}</span>
+										<span className="ml-3 text-sm text-slate-500">{phone}</span>
 									</div>
 									<div>
 										<span>이메일</span>
-										<span className="ml-3 text-sm text-slate-500">{menteeEmail}</span>
+										<span className="ml-3 text-sm text-slate-500">{email}</span>
 									</div>
 									<div>
 										<span>메시지</span>
-										<span className="ml-3 text-sm text-slate-500">{menteeMessage}</span>
+										<span className="ml-3 text-sm text-slate-500">{message}</span>
 									</div>
 								</>
 							) : (
