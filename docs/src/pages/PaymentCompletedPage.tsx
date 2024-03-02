@@ -1,57 +1,79 @@
+import React, {useEffect, useState} from 'react';
 import {Link, useNavigate, useSearchParams} from 'react-router-dom';
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import {createMentee} from '../api/mentee';
+import {sendPaymentSuccessToServer} from '../api/payments';
+import {LodingContainer} from '../component/common/LoadingContainer';
 
 const PaymentCompletedPage = () => {
 	const navigate = useNavigate();
-	const [data, setData] = useState([]);
-	const [fetchingReady, setFetchingReady] = useState(false);
-	const [SearchParams, setSearchParams] = useSearchParams();
-
-	const paymentKey = SearchParams.get('paymentKey'),
-		orderId = SearchParams.get('orderId'),
-		amount = SearchParams.get('amount');
+	const [isLoading, setIsLoading] = useState(true);
+	const [searchParams] = useSearchParams();
 
 	useEffect(() => {
-		const authorToken = sessionStorage.getItem('Authorization');
-		const refreshToken = sessionStorage.getItem('RefreshToken');
-		const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
-		axios
-			.get(
-				`${baseUrl}/api/v1/payments/toss/success?paymentKey=${paymentKey}&orderId=${orderId}&amount=${amount}`,
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'ngrok-skip-browser-warning': 'true',
-						Authorization: `${authorToken}`,
-						RefreshToken: `${refreshToken}`,
-					},
-				},
-			)
-			.then(res => setData(res.data.data))
-			.then(() => setFetchingReady(true))
-			.catch(err => {
-				console.log(err);
+		const fetchPaymentData = async () => {
+			try {
+				const paymentKey = searchParams.get('paymentKey');
+				const orderId = searchParams.get('orderId');
+				const amount = searchParams.get('amount');
+
+				if (!paymentKey || !orderId || !amount) {
+					throw new Error('결제 관련 데이터가 올바르지 않습니다.');
+				}
+
+				await sendPaymentSuccessToServer({paymentKey, orderId, amount});
+
+				const {
+					mentoringId = 0,
+					schedule = '',
+					phone = '',
+					message = '',
+					email = '',
+				} = sessionStorage;
+
+				const menteeData = {
+					mentoringId: Number(mentoringId) || 0,
+					schedule,
+					phone,
+					message,
+					paymentKey,
+					email,
+				};
+
+				console.log('menteeData', menteeData);
+				await createMentee(menteeData);
+
+				sessionStorage.removeItem('mentoringId');
+				sessionStorage.removeItem('schedule');
+				sessionStorage.removeItem('phone');
+				sessionStorage.removeItem('message');
+				sessionStorage.removeItem('email');
+				sessionStorage.removeItem('amount');
+
+				setIsLoading(false);
+			} catch (error) {
+				console.error('PaymentCompletedPage.tsx에서 오류 발생:', error);
 				navigate('/paymentfailed');
-			});
+			}
+		};
+
+		fetchPaymentData();
 	}, []);
 
 	return (
-		<div className=" w-full flexCenter flex-col gap-20 py-14">
-			{fetchingReady ? (
+		<div className="flexCenter w-full flex-col gap-20 py-14">
+			{isLoading ? (
+				<LodingContainer />
+			) : (
 				<>
 					<section className="flexCol items-center gap-10">
-						<i className="ri-calendar-check-line text-green-500 ri-7x" />
+						<i className="ri-calendar-check-line ri-7x text-green-500" />
 						<p className="text-3xl font-semibold">결제 완료</p>
-						<p className="text-sm text-slate-400">빠른 시일내에 멘토님의 승인을 알려드릴게요!</p>
-						<p>{data}</p>
+						<p className="text-sm text-slate-400">빠른 시일 내에 멘토님의 승인을 알려드릴게요!</p>
 					</section>
-					<Link to="/user" className=" px-6 py-2 buttonStyle">
+					<Link to="/user" className="buttonStyle px-6 py-2">
 						<p className="text-sm">나의 일정 보러 가기</p>
 					</Link>
 				</>
-			) : (
-				<p className="animate-bounce">서버에 결제 요청중...</p>
 			)}
 		</div>
 	);

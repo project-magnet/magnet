@@ -2,7 +2,7 @@ type PaymentInputProps = {
 	label: string;
 	placeholder: string;
 	data: string;
-	setData: React.Dispatch<React.SetStateAction<string>>;
+	setData: (arg0: string) => void;
 };
 
 const PaymentInput: React.FC<PaymentInputProps> = ({label, placeholder, data, setData}) => {

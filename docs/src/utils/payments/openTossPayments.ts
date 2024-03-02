@@ -1,16 +1,25 @@
 import {loadTossPayments} from '@tosspayments/payment-sdk';
 import axios from 'axios';
-const clientKey = 'test_ck_yL0qZ4G1VO501X6MlKxY8oWb2MQY';
+import {MentoringStore} from '../../store/MentoringStore';
+import {MenteeStore} from '../../store/MenteeStore';
+
+const clientKey = process.env.REACT_APP_TOSS_CLIENT_KEY || 'NO_CLIENT_KEY';
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 const appUrl = process.env.REACT_APP_URL || 'NO_APP_URL';
 
 export const openTossPayments = () => {
+	const {mentoringId, schedule, amount} = MentoringStore();
+	const {phone, message} = MenteeStore();
 	const body = {
 		payType: 'CARD',
-		amount: 2000,
+		amount: amount,
 		orderName: '포인트 결제',
 		yourSuccessUrl: `${appUrl}/paymentcompleted`,
 		yourFailUrl: `${appUrl}/paymentfailed`,
+		mentoringId: mentoringId,
+		phone: phone,
+		message: message,
+		schedule: schedule,
 	};
 	const authorToken = sessionStorage.getItem('Authorization');
 	const refreshToken = sessionStorage.getItem('RefreshToken');

@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import {MentoringStore} from '../store/MentoringStore';
 
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 
@@ -69,6 +70,17 @@ export const getMentoring = async (mentoringId: number): Promise<getMentoringDat
 				RefreshToken: refreshToken,
 			},
 		});
+		// 스토어 저장방식
+		// const {setMentoringId, setSchedule, setAmount} = MentoringStore.getState();
+		// setMentoringId(response.data.mentoringId);
+		// setSchedule(response.data.period);
+		// setAmount(response.data.pay);
+
+		// 세션 스토리지 저장방식
+		sessionStorage.setItem('mentoringId', response.data.mentoringId.toString());
+		sessionStorage.setItem('schedule', response.data.period);
+		sessionStorage.setItem('amount', response.data.pay);
+
 		return response.data;
 	} catch (error) {
 		console.error('멘토링 조회 실패', error);
