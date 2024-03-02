@@ -15,7 +15,7 @@ type signupBody = {
 export const signup = async (data: signupBody) => {
 	try {
 		console.log(baseUrl);
-		await axios.post(`${baseUrl}/member/signup`, {
+		const respone = await axios.post(`${baseUrl}/member/signup`, {
 			email: data.email,
 			password: data.password,
 			username: data.username,
@@ -26,6 +26,8 @@ export const signup = async (data: signupBody) => {
 				street: data.addressDto.street,
 			},
 		});
+		console.log('회원가입 성공', respone.data);
+		return respone.data;
 	} catch (error) {
 		console.error('회원가입 실패', error);
 		throw error;
@@ -44,6 +46,9 @@ export const login = async (body: loginBody) => {
 		});
 		sessionStorage.setItem('Authorization', response.headers.authorization);
 		sessionStorage.setItem('RefreshToken', response.headers.refreshtoken);
+
+		console.log('로그인 성공', response.data);
+		return response.data;
 	} catch (error) {
 		console.error('로그인 실패', error);
 		throw error;

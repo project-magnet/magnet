@@ -27,6 +27,7 @@ export const getMember = async (): Promise<getMemberResponse> => {
 				RefreshToken: `${refreshToken}`,
 			},
 		});
+		console.log('회원정보 불러오기 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('회원정보 불러오기 실패', error);
@@ -38,7 +39,7 @@ export const deleteMember = async () => {
 	try {
 		const authorToken = sessionStorage.getItem('Authorization');
 		const refreshToken = sessionStorage.getItem('RefreshToken');
-		await axios.delete(`${baseUrl}/member/delete`, {
+		const response = await axios.delete(`${baseUrl}/member/delete`, {
 			headers: {
 				'Content-Type': 'application/json',
 				'ngrok-skip-browser-warning': 'true',
@@ -46,6 +47,8 @@ export const deleteMember = async () => {
 				RefreshToken: `${refreshToken}`,
 			},
 		});
+		console.log('회원 탈퇴 성공', response.data);
+		return response.data;
 	} catch (error) {
 		console.error('회원 탈퇴 실패', error);
 		throw error;
