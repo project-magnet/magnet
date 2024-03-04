@@ -14,6 +14,9 @@ module.exports = {
 			fontFamily: {
 				poppins: ['Poppins', 'sans-serif'],
 				lato: ['Lato', 'sans-serif'],
+				GasoekOne: ['GasoekOne-Regular', 'sans-serif'],
+				SEBANG_Gothic_Bold: ['SEBANG_Gothic_Bold', 'sans-serif'],
+				PartialSansKR_Regular: ['PartialSansKR-Regular', 'sans-serif'],
 			},
 			animation: {
 				blink: 'blink 1.5s step-end infinite',
