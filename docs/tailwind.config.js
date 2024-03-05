@@ -1,4 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
+const bounce =
+	'linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%)';
+
 module.exports = {
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
@@ -23,7 +27,7 @@ module.exports = {
 				fadeIn: 'fadeIn 0.5s ease-in-out forwards',
 				// upALittel은 호버가 끝니면 부드럽게 돌아옵니다
 				upALittle: 'upALittle 0.2s ease-in-out forwards',
-				downALittle: 'downALittle 0.2s ease-in-out forwards',
+				downALittle: `downALittle 1s ${bounce} forwards`,
 			},
 			keyframes: {
 				blink: {
@@ -34,13 +38,13 @@ module.exports = {
 					'0%': {opacity: 0},
 					'100%': {opacity: 1},
 				},
-				upALittle: {
-					'0%': {paddingTop: '0px', marginBottom: '20px'},
-					'100%': {paddingTop: '20px', marginBottom: '0px'},
-				},
 				downALittle: {
-					'0%': {paddingTop: '20px', marginBottom: '0px'},
-					'100%': {paddingTop: '0px', marginBottom: '20px'},
+					'0%': {transform: 'translateY(0px)'},
+					'100%': {transform: 'translateY(10px)'},
+				},
+				upALittle: {
+					'0%': {transform: 'translateY(10px)'},
+					'100%': {transform: 'translateY(0px)'},
 				},
 			},
 			fontSize: {
