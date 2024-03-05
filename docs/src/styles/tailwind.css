@@ -37,4 +37,25 @@
     .boxShadow {
       @apply shadow-md rounded-xl border;
     }
+    .hoverAnimationUpDown {
+      @apply hover:animate-upALittle animate-downALittle;
+    }
+}
+@font-face {
+  font-family: 'GasoekOne-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/GasoekOne-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SEBANG_Gothic_Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'PartialSansKR-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }

@@ -8,7 +8,8 @@ const appUrl = process.env.REACT_APP_URL || 'NO_APP_URL';
 
 export const openTossPayment = async () => {
 	try {
-		const {mentoringId, amount} = MentoringStore.getState();
+		const amount = sessionStorage.getItem('amount');
+		const mentoringId = sessionStorage.getItem('amount');
 		const body = {
 			payType: 'CARD',
 			amount: amount,

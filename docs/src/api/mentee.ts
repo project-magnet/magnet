@@ -34,6 +34,7 @@ export const createMentee = async (data: createMenteeData) => {
 				},
 			},
 		);
+		console.log('멘티등록 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘티등록 실패', error);

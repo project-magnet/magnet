@@ -1,16 +1,14 @@
-import MentorCard from '../component/MentorCard';
-import 'remixicon/fonts/remixicon.css';
-import PopupStore from '../store/PopupStore';
 import {useEffect, useState} from 'react';
-import PaymentPopup from '../component/payment/PaymentPopup';
-import {getMentoringList, getMentoringListData, Content} from '../api/mentoring';
-import {LodingContainer} from '../component/common/LoadingContainer';
 import {useNavigate} from 'react-router-dom';
+import MentorCard from '../component/MentorCard';
+import PaymentPopup from '../component/payment/PaymentPopup';
+import {LodingContainer} from '../component/common/LoadingContainer';
+import PopupStore from '../store/PopupStore';
+import {getMentoringList, Content} from '../api/mentoring';
 
 const MentoringListPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
 	const [category, setCategory] = useState('ALL');
-	const [offset, size] = [0, 10];
 	const [mentoringList, setMentoringList] = useState<Content[] | null>(null);
 	const navigate = useNavigate();
 
@@ -41,7 +39,7 @@ const MentoringListPage = () => {
 
 	useEffect(() => {
 		navigate(`/mentorlist?category=${category}`);
-	}, [category]);
+	}, [category, navigate]);
 
 	useEffect(() => {
 		if (isOpen) {
@@ -57,7 +55,7 @@ const MentoringListPage = () => {
 	useEffect(() => {
 		const fetchMentoringList = async () => {
 			try {
-				const data: getMentoringListData = await getMentoringList(offset, size);
+				const data = await getMentoringList(0, 100);
 				setMentoringList(data.content);
 				console.log(data);
 			} catch (error) {
@@ -86,13 +84,9 @@ const MentoringListPage = () => {
 			</div>
 			<div className="flexCenter flex-wrap gap-5 ">
 				{mentoringList ? (
-					<>
-						{mentoringList
-							.filter(el => el.category === category || category === 'ALL')
-							.map((el, index) => (
-								<MentorCard mentoring={el} key={index} />
-							))}
-					</>
+					mentoringList
+						.filter(el => el.category === category || category === 'ALL')
+						.map((el, index) => <MentorCard mentoring={el} key={index} />)
 				) : (
 					<LodingContainer />
 				)}
@@ -100,4 +94,5 @@ const MentoringListPage = () => {
 		</section>
 	);
 };
+
 export default MentoringListPage;

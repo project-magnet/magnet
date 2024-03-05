@@ -38,6 +38,7 @@ export const createMentor = async (data: createMentorData) => {
 				},
 			},
 		);
+		console.log('멘토등록 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘토등록 실패', error);
@@ -79,6 +80,7 @@ export const getMentor = async (): Promise<getMentorData> => {
 				RefreshToken: `${refreshToken}`,
 			},
 		});
+		console.log('멘토정보 불러오기 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘토정보 불러오기 실패', error);
@@ -151,6 +153,7 @@ export const getMentorList = async (offset: number, size: number): Promise<getMe
 				},
 			},
 		);
+		console.log('멘토 리스트 불러오기 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘토 리스트 불러오기 실패', error);

@@ -17,9 +17,9 @@ const Header = () => {
 				console.error('멤버 정보를 불러오는 동안 오류가 발생했습니다:', error);
 			}
 		};
-		fetchData().finally(() => {
-			setFetchFinish(true);
-		});
+		sessionStorage.getItem('Authorization')
+			? fetchData().finally(() => setFetchFinish(true))
+			: setFetchFinish(true);
 	}, []);
 
 	return (
