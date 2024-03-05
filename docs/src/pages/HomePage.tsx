@@ -11,7 +11,7 @@ const HomePage = () => {
 			<section className=" py-20">
 				<div
 					className="flexCenter size-full flex-col 
-				text-[3rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem]"
+				text-[3.5rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem]"
 				>
 					<p className="font-PartialSansKR_Regular">
 						Connect <br />
@@ -19,7 +19,7 @@ const HomePage = () => {
 					</p>
 					<div className="flex text-additional2 *:font-PartialSansKR_Regular">
 						{['M', 'a', 'g', 'n', 'e', 't', '!'].map((el, index) => (
-							<p className="hoverAnimationUpDown" key={index}>
+							<p className="hoverAnimationUpDown " key={index}>
 								{el}
 							</p>
 						))}
@@ -48,7 +48,7 @@ const HomePage = () => {
 					</div>
 					<div className="h-0.5 w-full border border-dashed" />
 					<div className="flexCenter size-full">
-						<p className="animate-bounce font-SEBANG_Gothic_Bold text-3xl text-additional2">
+						<p className="animate-bounce font-SEBANG_Gothic_Bold text-3xl transition duration-300 hover:text-additional2">
 							더 알아보기!
 						</p>
 					</div>
