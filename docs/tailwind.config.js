@@ -21,6 +21,9 @@ module.exports = {
 			animation: {
 				blink: 'blink 1.5s step-end infinite',
 				fadeIn: 'fadeIn 0.5s ease-in-out forwards',
+				// upALittel은 호버가 끝니면 부드럽게 돌아옵니다
+				upALittle: 'upALittle 0.2s ease-in-out forwards',
+				downALittle: 'downALittle 0.2s ease-in-out forwards',
 			},
 			keyframes: {
 				blink: {
@@ -30,6 +33,14 @@ module.exports = {
 				fadeIn: {
 					'0%': {opacity: 0},
 					'100%': {opacity: 1},
+				},
+				upALittle: {
+					'0%': {paddingTop: '0px', marginBottom: '20px'},
+					'100%': {paddingTop: '20px', marginBottom: '0px'},
+				},
+				downALittle: {
+					'0%': {paddingTop: '20px', marginBottom: '0px'},
+					'100%': {paddingTop: '0px', marginBottom: '20px'},
 				},
 			},
 			fontSize: {
