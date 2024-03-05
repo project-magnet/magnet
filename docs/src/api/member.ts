@@ -13,6 +13,8 @@ export type getMemberResponse = {
 	city: string;
 	street: string;
 	roles: string[];
+	menteeList: any;
+	mentorList: any;
 };
 
 export const getMember = async (): Promise<getMemberResponse> => {
