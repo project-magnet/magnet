@@ -37,6 +37,9 @@
     .boxShadow {
       @apply shadow-md rounded-xl border;
     }
+    .hoverAnimationUpDown {
+      @apply hover:animate-upALittle animate-downALittle;
+    }
 }
 @font-face {
   font-family: 'GasoekOne-Regular';
