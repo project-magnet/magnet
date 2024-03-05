@@ -1,4 +1,4 @@
-import ScheduleboxV2 from '../component/user/ScheduleboxV2';
+import Schedulebox from '../component/user/ScheduleboxForMentor';
 import UserInfoBox from '../component/user/UserInfoBox';
 import {useEffect, useState} from 'react';
 import {MentorRegistPopup} from '../component/user/MentorRegistPopup';
@@ -7,11 +7,13 @@ import {getMember, getMemberResponse} from '../api/member';
 import {removeToken} from '../utils/auth/removeToken';
 import {useNavigate} from 'react-router-dom';
 import {LodingContainer} from '../component/common/LoadingContainer';
+import {ScheduleboxForMentee} from '../component/user/ScheduleboxForMentee';
 
 const UserPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
 	const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
-	const [isMentor, setIsMentor] = useState<boolean>(false);
+	const [MentorList, setMentorList] = useState<[]>([]);
+	const [MenteeList, setMenteeList] = useState<[]>([]);
 	const [member, setMember] = useState<getMemberResponse | null>(null);
 	const navigate = useNavigate();
 
@@ -20,8 +22,8 @@ const UserPage = () => {
 			try {
 				const data: getMemberResponse = await getMember();
 				setMember(data);
-				const isMentor = data.roles.includes('MENTOR');
-				setIsMentor(isMentor);
+				setMentorList(data.mentorList);
+				setMenteeList(data.menteeList);
 			} catch (error) {
 				console.error('회원 정보를 불러오는 동안 오류가 발생했습니다:', error);
 				// 임시 더미 데이터
@@ -36,12 +38,12 @@ const UserPage = () => {
 					city: 'New York',
 					street: '123 Main St',
 					roles: ['user', 'MENTOR'],
+					menteeList: [],
+					mentorList: [],
 				});
-				setIsMentor(true);
 			}
 		};
 		fetchMemberData();
-		console.log(member);
 	}, []);
 
 	const handleButton = () => {
@@ -84,7 +86,7 @@ const UserPage = () => {
 				<>
 					{isOpen && <MentorRegistPopup />}
 					{/* 멘토등록 섹션 */}
-					{!isMentor && (
+					{!member.roles.includes('MENTOR') && (
 						<section className="userPageSection flex-col justify-between gap-10  bg-gradient-to-r  from-additional2 to-additional3 py-10 lg:flex-row">
 							<div>
 								<p className="mb-2 text-4xl font-semibold">멘토 등록하기</p>
@@ -100,9 +102,14 @@ const UserPage = () => {
 						<div className="flexCol  gap-3">
 							<div className="flex gap-4">
 								<p className="text-3xl font-semibold">{member.nickName}</p>
-								{isMentor && (
-									<div className="flexCenter size-8 rounded-md bg-additional2 ">
+								{MentorList.length !== 0 && (
+									<div className="flexCenter w-12 rounded-md bg-additional2">
 										<p className="text-sm text-white">멘토</p>
+									</div>
+								)}
+								{MenteeList.length !== 0 && (
+									<div className="flexCenter  w-12 rounded-md bg-blue-400 ">
+										<p className="text-sm text-white">멘티</p>
 									</div>
 								)}
 							</div>
@@ -122,20 +129,33 @@ const UserPage = () => {
 					</section>
 
 					{/* 멘토스케쥴 섹션 */}
-					{isMentor && (
-						<section className="userPageSection flex-col gap-10 bg-slate-50 py-10 ">
+					{MentorList.length !== 0 && (
+						<section className="userPageSection flex-col gap-10 bg-slate-50 py-10  ">
 							<div className="flexCol items-center gap-1">
-								<p className="text-3xl font-bold">멘토링 일정</p>
-								<p className="text-slate-400">예약된 멘토링 일정을 확인하세요!</p>
+								<p className="text-3xl font-bold">나의 멘토링 예약 일정</p>
+								<p className="text-slate-400">안녕하세요 멘토님! 멘티의 신청여부를 확인하세요!</p>
 							</div>
 
 							<div className="flex w-full snap-x gap-10 overflow-x-auto rounded-xl bg-white p-10 shadow-inner shadow-slate-300">
-								<ScheduleboxV2 />
-								<ScheduleboxV2 />
-								<ScheduleboxV2 />
-								<ScheduleboxV2 />
-								<ScheduleboxV2 />
-								<ScheduleboxV2 />
+								{MentorList.map((el, index) => (
+									<Schedulebox props={el} />
+								))}
+							</div>
+						</section>
+					)}
+
+					{/* 멘티 스케쥴 섹션 */}
+					{MenteeList.length !== 0 && (
+						<section className="userPageSection flex-col gap-10 bg-slate-50 py-10 ">
+							<div className="flexCol items-center gap-1">
+								<p className="text-3xl font-bold">내가 신청한 멘토링 일정</p>
+								<p className="text-slate-400">안녕하세요 멘티님! 예약된 일정을 확인해보세요!</p>
+							</div>
+
+							<div className="flex w-full snap-x gap-10 overflow-x-auto rounded-xl bg-white p-10 shadow-inner shadow-slate-300">
+								{MenteeList.map((el, index) => (
+									<ScheduleboxForMentee props={el} key={index} />
+								))}
 							</div>
 						</section>
 					)}
