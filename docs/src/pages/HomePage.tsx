@@ -17,22 +17,20 @@ const HomePage = () => {
 						Connect <br />
 						with
 					</p>
-					<div className="flex text-additional2 *:font-PartialSansKR_Regular">
+					<div className="*:hoverAnimationUpDown flex text-additional2 *:font-PartialSansKR_Regular">
 						{['M', 'a', 'g', 'n', 'e', 't', '!'].map((el, index) => (
-							<p className="hoverAnimationUpDown " key={index}>
-								{el}
-							</p>
+							<span key={index}>{el}</span>
 						))}
 					</div>
 				</div>
 			</section>
 
 			<section className="flexCenter justify-evenly  bg-additional2 py-20 ">
-				<div className="flexCol hidden items-start gap-5 md:block">
-					<h2 className="font-SEBANG_Gothic_Bold text-2xl ">Meet our Mentors</h2>
-					<p className="font-SEBANG_Gothic_Bold  text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+				<div className="flexCol gap- hidden items-start md:block">
+					<h3 className=" text-2xl font-black ">Meet our Mentors</h3>
+					<h1 className=" text-2xl font-black md:text-4xl lg:text-5xl">
 						마그넷의 멘토를 만나보세요.
-					</p>
+					</h1>
 				</div>
 
 				{/* 카드 */}
@@ -48,7 +46,7 @@ const HomePage = () => {
 					</div>
 					<div className="h-0.5 w-full border border-dashed" />
 					<div className="flexCenter size-full">
-						<p className="animate-bounce font-SEBANG_Gothic_Bold text-3xl transition duration-300 hover:text-additional2">
+						<p className="animate-bounce text-3xl transition duration-300 hover:text-additional2">
 							더 알아보기!
 						</p>
 					</div>

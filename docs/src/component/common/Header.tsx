@@ -23,12 +23,12 @@ const Header = () => {
 	}, []);
 
 	return (
-		<header className="flexCenter sticky top-0  z-10 h-10 border-b bg-white sm:h-16 sm:justify-start">
+		<header className="flexCenter sticky top-0 z-10  h-10 border-b bg-white sm:h-16 sm:justify-start">
 			<Link to="/magnet" className="mx-24 font-bold  tracking-[5px] ">
 				<p
 					className={`${
 						'/magnet' === location.pathname ? 'text-additional2' : 'text-black'
-					} transition`}
+					} font-PartialSansKR_Regular transition`}
 				>
 					MAGNET
 				</p>
