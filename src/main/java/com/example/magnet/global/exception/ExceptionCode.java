@@ -14,12 +14,14 @@ public enum ExceptionCode {
     // mentor
     MENTEE_CANT_REGISTER_MENTOR(400, "멘티는 멘토등록이 불가능합니다."),
     MENTOR_NOT_FOUND(404, "멘토 정보를 찾을 수 없습니다."),
+    MENTOR_EXISTS(400, "멘토권한이 이미 존재합니다."),
 
     //MENTORING
     MENTORING_NOT_FOUND(404, "멘토링 정보를 찾을 수 없습니다."),
 
 
     //mentee
+    MENTEE_EXISTS(400, "멘티권한이 존재합니다."),
 
     //PAYMENT
     INVALID_PAYMENT_AMOUNT(400, "잘못된 금액입니다."),

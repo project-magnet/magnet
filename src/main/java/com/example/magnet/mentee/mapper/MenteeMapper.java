@@ -7,8 +7,6 @@ import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentoring.entity.Mentoring;
 import lombok.RequiredArgsConstructor;
 
-import java.util.stream.Stream;
-
 @RequiredArgsConstructor
 public class MenteeMapper {
 
@@ -27,6 +25,7 @@ public class MenteeMapper {
                 .paymentKey(menteePostDto.getPaymentKey())
                 .build();
     }
+
 
 
     public static MenteeResponseDto MenteeToMenteeResponseDto(Mentee mentee){

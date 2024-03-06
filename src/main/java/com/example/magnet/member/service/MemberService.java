@@ -32,7 +32,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;

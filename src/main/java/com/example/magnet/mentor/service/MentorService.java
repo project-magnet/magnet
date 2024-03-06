@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static com.example.magnet.mentor.mapper.MentorMapper.MentorPostDtoToMentor;
 import static com.example.magnet.mentor.mapper.MentorMapper.mapToResponseDtos;
@@ -44,7 +45,7 @@ public class MentorService {
     private final MemberService memberService;
 
 
-    public void createMentor(Long memberId, MentorPostDto mentorPostDto) {
+    public void createMentor(List<String> roles, Long memberId, MentorPostDto mentorPostDto) {
         //dto 변환
         Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
         // memberId로 멤버와 멘토 연관관계 생성
@@ -56,13 +57,15 @@ public class MentorService {
         Mentor.MentorBuilder saveMentor = mentor.toBuilder();
         saveMentor.member(findMember);
 
-        // DB에 MENTOR 권한 부여 후 반영 - member.getRoles > add("MENTOR")
+        if(!roles.contains("MENTOR")){
+            // DB에 MENTOR 권한 부여 후 반영 - member.getRoles > add("MENTOR")
 //        List<String> updatedRoles = new ArrayList<>(findMember.getRoles()); // 수정 가능한 새로운 리스트 생성
-        List<String> updatedRoles = findMember.getRoles();
-        updatedRoles.add("MENTOR");
-        // 권한 부여
-        findMember.setRoles(updatedRoles);
-        memberRepository.save(findMember); // 기존의 컬럼에서 값을 조회하고 수정하지 않았다.
+            List<String> updatedRoles = findMember.getRoles();
+            updatedRoles.add("MENTOR");
+            // 권한 부여
+            findMember.setRoles(updatedRoles);
+            memberRepository.save(findMember); // 기존의 컬럼에서 값을 조회하고 수정하지 않았다.
+        }
 
         mentorRepository.save(saveMentor.build());
 
