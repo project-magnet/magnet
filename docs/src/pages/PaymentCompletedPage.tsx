@@ -57,7 +57,7 @@ const PaymentCompletedPage = () => {
 		};
 
 		fetchPaymentData();
-	}, []);
+	}, [navigate, searchParams]);
 
 	return (
 		<div className="flexCenter w-full flex-col gap-20 py-14">
