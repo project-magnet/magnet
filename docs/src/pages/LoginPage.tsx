@@ -24,7 +24,7 @@ const LoginPage = () => {
 				</button>
 			</section>
 			<section className=" ml-6 hidden md:block">
-				<p className="relative  px-2 py-1 text-7xl font-black">
+				<p className="relative  px-2 py-1 text-7xl">
 					쉽고, 간편하게
 					<span className="absolute right-0 top-0 h-full w-[3px] animate-blink bg-black"></span>
 				</p>

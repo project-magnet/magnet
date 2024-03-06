@@ -50,9 +50,9 @@ const LoginButton: React.FC<LoginButtonProps> = ({type}) => {
 
 	return (
 		<Link to={linkTo}>
-			<div className={`buttonStyle w-[90vw] sm:w-80 py-3  flexCenter ${buttonStyle}`}>
+			<div className={`buttonStyle flexCenter w-[90vw] py-3  sm:w-80 ${buttonStyle}`}>
 				{buttonImage && <img src={buttonImage} alt={`${type} 이미지`} className=" w-6 " />}
-				<p className="font-semibold">{buttonText}</p>
+				<p>{buttonText}</p>
 			</div>
 		</Link>
 	);
