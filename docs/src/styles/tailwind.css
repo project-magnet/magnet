@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply box-border m-0 p-0 font-poppins;
+  @apply box-border m-0 p-0 font-GmarketSansMedium ;
 }
 
 @layer components {
@@ -14,7 +14,7 @@
       @apply flex flex-col;
     }
     .buttonStyle {
-      @apply px-5 py-2 rounded-lg shadow-lg hover:shadow-md transition duration-300 border bg-white
+      @apply px-5 py-2 rounded-lg shadow-lg hover:shadow-md transition duration-300 border bg-white select-none
     }
     .userPageSection {
       @apply px-10 md:px-20 lg:px-40 flexCenter
@@ -38,24 +38,19 @@
       @apply shadow-md rounded-xl border;
     }
     .hoverAnimationUpDown {
-      @apply hover:animate-upALittle animate-downALittle;
+      @apply hover:animate-upALittle animate-downALittle select-none;
     }
 }
-@font-face {
-  font-family: 'GasoekOne-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/GasoekOne-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'SEBANG_Gothic_Bold';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+
 @font-face {
   font-family: 'PartialSansKR-Regular';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
