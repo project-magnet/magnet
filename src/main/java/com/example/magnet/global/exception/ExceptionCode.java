@@ -22,6 +22,7 @@ public enum ExceptionCode {
 
     //mentee
     MENTEE_EXISTS(400, "멘티권한이 존재합니다."),
+    MENTEE_NOT_FOUND(404, "멘티 정보를 찾을 수 없습니다."),
 
     //PAYMENT
     INVALID_PAYMENT_AMOUNT(400, "잘못된 금액입니다."),

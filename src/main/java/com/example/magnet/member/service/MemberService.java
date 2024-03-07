@@ -59,7 +59,6 @@ public class MemberService {
         Member.MemberBuilder builder = member.toBuilder();
         builder.password(encryptedPassword);
         builder.roles(roles);
-//        builder.deleted(false);
         builder.memberStatus(Member.MemberStatus.MEMBER_ACTIVE);
 
         Member savedMember = memberRepository.save(builder.build());

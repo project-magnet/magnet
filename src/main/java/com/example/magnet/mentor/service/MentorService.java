@@ -16,6 +16,7 @@ import com.example.magnet.mentor.repository.MentorRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,7 @@ import static com.example.magnet.mentor.mapper.MentorMapper.mapToResponseDtos;
 @Valid
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class MentorService {
     private final MentorRepository mentorRepository;
     private final MemberRepository memberRepository;
@@ -48,32 +50,20 @@ public class MentorService {
     public void createMentor(List<String> roles, Long memberId, MentorPostDto mentorPostDto) {
         //dto 변환
         Mentor mentor = MentorPostDtoToMentor(mentorPostDto);
-        // memberId로 멤버와 멘토 연관관계 생성
-//        Member findMember = memberRepository.findById(memberId)
-//                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         Member findMember = memberService.findMemberById(memberId);
 
-        // 연관관계 설정
         Mentor.MentorBuilder saveMentor = mentor.toBuilder();
         saveMentor.member(findMember);
 
-        if(!roles.contains("MENTOR")){
+        if(!roles.contains("ROLE_MENTOR")){
             // DB에 MENTOR 권한 부여 후 반영 - member.getRoles > add("MENTOR")
-//        List<String> updatedRoles = new ArrayList<>(findMember.getRoles()); // 수정 가능한 새로운 리스트 생성
             List<String> updatedRoles = findMember.getRoles();
             updatedRoles.add("MENTOR");
-            // 권한 부여
             findMember.setRoles(updatedRoles);
             memberRepository.save(findMember); // 기존의 컬럼에서 값을 조회하고 수정하지 않았다.
         }
 
         mentorRepository.save(saveMentor.build());
-
-        // 현재 스레드의 Authentication 업데이트
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities = customAuthorityUtils.createAuthorities(findMember.getId()); // 권한 문제 적용
-        Authentication updatedAuthentication = new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(), authorities);
-        SecurityContextHolder.getContext().setAuthentication(updatedAuthentication);
 
     }
 

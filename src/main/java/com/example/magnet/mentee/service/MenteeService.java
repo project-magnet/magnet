@@ -1,9 +1,12 @@
 package com.example.magnet.mentee.service;
 
+import com.example.magnet.global.exception.BusinessLogicException;
+import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
 import com.example.magnet.mentee.dto.MenteePostDto;
+import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentee.repository.MenteeRepository;
 import com.example.magnet.payment.service.PaymentService;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.example.magnet.mentee.mapper.MenteeMapper.MenteeToMenteeResponseDto;
 import static com.example.magnet.mentee.mapper.MenteeMapper.menteePostDtoToEntity;
 
 @Service
@@ -34,7 +38,7 @@ public class MenteeService {
         // paymentkey를 통해 결제가 승인됐는지 검증
         if(paymentService.beforePaidMentoring(menteePostDto.getPaymentKey())) {
 
-            if (!roles.contains("MENTEE")) { // 멘티권한 보유중이라면 굳이 추가 안해도 된다.
+            if (!roles.contains("ROLE_MENTEE")) { // 멘티권한 보유중이라면 굳이 추가 안해도 된다.
                 // 회원에게 멘티권한 부여
                 Member findMember = memberService.findMemberById(memberId);
                 List<String> updatedRoles = findMember.getRoles();
@@ -53,6 +57,11 @@ public class MenteeService {
 
     }
 
+    public MenteeResponseDto getInfo(Long menteeId, Long memberId) {
+        Mentee mentee = menteeRepository.findByIdAndMemberId(menteeId, memberId).orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.MENTEE_NOT_FOUND));
+        return MenteeToMenteeResponseDto(mentee);
+    }
 
 
     /**

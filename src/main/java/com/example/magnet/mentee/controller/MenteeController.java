@@ -1,6 +1,7 @@
 package com.example.magnet.mentee.controller;
 
 import com.example.magnet.mentee.dto.MenteePostDto;
+import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.service.MenteeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,4 +42,14 @@ public class MenteeController {
 //        menteeService.paidMenteeV2(requestTossContext, memberId, paymentKey);
 //        return new ResponseEntity<>("멘토링 신청이 완료되었습니다.", HttpStatus.OK);
 //    }
+
+    @GetMapping("/get/{mentee-id}")
+    public ResponseEntity<MenteeResponseDto> menteeInfo(@Valid @PathVariable("mentee-id") Long menteeId, Authentication authentication){
+        return new ResponseEntity<>(menteeService.getInfo(menteeId, (Long)authentication.getCredentials()),HttpStatus.OK);
+    }
+
+    @GetMapping("/list/{mentoring-id}") // ? 필요한가?
+    public ResponseEntity<List<MenteeResponseDto>> mentees(Authentication authentication){
+        return null;
+    }
 }
