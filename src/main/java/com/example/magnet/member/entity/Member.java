@@ -164,15 +164,5 @@ public class Member extends TimeEntity implements Principal {
         this.email=email;
     }
 
-//    @Override
-//    public boolean equals(Object o){
-//        if(this == o) return true;
-//        if(o == null || getClass() != o.getClass()) return false;
-//        Role member = (Member) o;
-//        return
-//    }
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(memberId, money);
-//    }
+
 }

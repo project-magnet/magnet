@@ -2,6 +2,7 @@ package com.example.magnet.payment.mapper;
 
 import com.example.magnet.payment.dto.ChargingHistoryDto;
 import com.example.magnet.payment.dto.PaymentResponseDto;
+import com.example.magnet.payment.dto.PaymentResponseDtoV2;
 import com.example.magnet.payment.entity.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,12 +30,16 @@ public class PaymentMapper {
                 }).toList();
     }
 
-    public static PaymentResponseDto PaymentToPaymentDto(Payment payment){
-        return PaymentResponseDto.builder()
+    public static PaymentResponseDtoV2 PaymentToPaymentDto(Payment payment){
+        return PaymentResponseDtoV2.builder()
                 .payType(payment.getPayType().toString())
                 .orderName(payment.getOrderName())
                 .amount(payment.getAmount())
+                .orderId(payment.getOrderId())
+                .cancelYN(payment.isCancelYN())
+                .cancelReason(payment.getCancelReason())
                 .createdAt(payment.getCreatedDate().toString())
+                .paymentKey(payment.getPaymentKey())
                 .build();
     }
 }

@@ -21,16 +21,16 @@ public class PaymentDto {
     private String yourFailUrl;
 
 
+    /** 검증 시 사용 */
     private Long mentoringId;
-    private String message;
-    private String schedule;
-    private String phone;
+
 
     public Payment toEntity() {
         return Payment.builder()
                 .payType(payType)
                 .amount(amount)
                 .orderName(orderName)
+                .mentoringId(mentoringId)
                 .orderId(UUID.randomUUID().toString())
                 .paySuccessYN(false)
                 .build();

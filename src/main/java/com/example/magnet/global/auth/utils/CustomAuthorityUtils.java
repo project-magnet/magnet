@@ -1,6 +1,7 @@
 package com.example.magnet.global.auth.utils;
 
 import com.example.magnet.member.repository.MemberRepository;
+import com.example.magnet.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +27,6 @@ public class CustomAuthorityUtils {
 
     private final MemberRepository memberRepository;
 
-//    private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
-//    private final List<GrantedAuthority> USER_ROLES = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_MENTOR", "ROLE_MENTEE");
     private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN");
     private final List<String> USER_ROLES_STRING = List.of("USER");
 

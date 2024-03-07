@@ -4,14 +4,12 @@ import com.example.magnet.global.config.TossPaymentConfig;
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
-import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
-import com.example.magnet.mentee.service.MenteeService;
+import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.payment.dto.PaymentDto;
 import com.example.magnet.payment.dto.PaymentSuccessDto;
 import com.example.magnet.payment.entity.Payment;
 import com.example.magnet.payment.repository.PaymentRepository;
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minidev.json.JSONObject;
 import org.springframework.data.domain.PageRequest;
@@ -31,12 +29,13 @@ import java.util.Collections;
 import java.util.Map;
 
 @Service
-@Transactional
+@Transactional(rollbackFor={Exception.class})
 @RequiredArgsConstructor
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final MemberService memberService;
     private final TossPaymentConfig tossPaymentConfig;
+
 
     /**
      * 결제 조회
@@ -47,6 +46,7 @@ public class PaymentService {
      * */
     @Transactional
     public Payment requestTossPayment(PaymentDto paymentReqDto, Long memberId){
+
         Payment payment = paymentReqDto.toEntity();
         Member member = memberService.findMemberById(memberId);
         // 금액이 음수거나, payment 테이블에 해당 정보가 이미 저장된 경우 예외처리
@@ -57,7 +57,7 @@ public class PaymentService {
         if(alreadyPaid(payment.getMentoringId(), memberId)){
             throw new BusinessLogicException(ExceptionCode.ALREADY_PAID_OR_ONGOING);
         }
-        Payment result = payment.toBuilder().member(member).build();
+        Payment result = payment.toBuilder().member(member).mentoringId(paymentReqDto.getMentoringId()).build();
         return paymentRepository.save(result);
     }
 
@@ -65,8 +65,6 @@ public class PaymentService {
     public PaymentSuccessDto tossPaymentSuccess(String paymentKey, String orderId, Long amount) {
         Payment payment = verifyPayment(orderId, amount); // 결제 정보 검증
         PaymentSuccessDto result = requestPaymentAccept(paymentKey, orderId, amount); // successDto 생성
-
-
 
         Payment updatedPayment = payment.toBuilder()
                 .paymentKey(paymentKey).paySuccessYN(true)
@@ -95,6 +93,17 @@ public class PaymentService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
         return payment != null;
     }
+
+    /**
+     * 결제 승인 후 멘티 등록 시 payment가 mentee 정보를 추적하기 위해 작성
+     * */
+    public void paidMenteeForChecking(Mentee mentee){
+        Payment finishedPayment = paymentRepository.findByPaymentKey(mentee.getPaymentKey())
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.PAYMENT_NOT_FOUND));
+        Payment payment = finishedPayment.toBuilder().mentee(mentee).build();
+        paymentRepository.save(payment);
+    }
+
     /**
      * 중복 결제 여부 확인
      * payment 테이블에 mentoringId와 memberId의 존재 여부 판단
@@ -102,6 +111,7 @@ public class PaymentService {
     private Boolean alreadyPaid(Long mentoringId, Long memberId){
         return paymentRepository.existsByMentoringIdAndMemberId(mentoringId, memberId);
     }
+
 
     @Transactional
     public PaymentSuccessDto requestPaymentAccept(String paymentKey, String orderId, Long amount){

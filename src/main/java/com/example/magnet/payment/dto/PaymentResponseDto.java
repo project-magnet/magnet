@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
  * */
 @Getter
 @Builder(toBuilder = true)
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PaymentResponseDto {
     private String payType; // 결제 타입 - 카드/현금/포인트
     private Long amount; // 가격 정보
@@ -25,20 +24,7 @@ public class PaymentResponseDto {
     private boolean cancelYN; // 취소 여부
     private String cancelReason; // 취소 이유
     private String createdAt; // 결제가 이루어진 시간
+    private String paymentKey;
 
-//    @Builder(toBuilder = true)
-//    public PaymentResponseDto(String payType, Long amount, String orderName, String orderId, String customerEmail, String customerName, String successUrl, String failUrl, String failReason, boolean cancelYN, String cancelReason, String createdAt) {
-//        this.payType = payType;
-//        this.amount = amount;
-//        this.orderName = orderName;
-//        this.orderId = orderId;
-//        this.customerEmail = customerEmail;
-//        this.customerName = customerName;
-//        this.successUrl = successUrl;
-//        this.failUrl = failUrl;
-//        this.failReason = failReason;
-//        this.cancelYN = cancelYN;
-//        this.cancelReason = cancelReason;
-//        this.createdAt = createdAt;
-//    }
+
 }

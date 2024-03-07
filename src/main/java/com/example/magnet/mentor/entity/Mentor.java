@@ -18,7 +18,7 @@ public class Mentor extends TimeEntity {
     @Column(name = "MENTOR_ID")
     private Long id;
 
-    @Column
+    @Column(unique = true, name = "MENTOR_NAME")
     private String mentorName;
 
     @Column

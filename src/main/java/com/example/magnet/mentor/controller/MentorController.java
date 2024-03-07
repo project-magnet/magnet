@@ -43,13 +43,13 @@ public class MentorController {
                 .toList();
 
         // 멘티 권한이 있다면 멘토로 등록할 수 없다.
-        if(roles.contains("MENTEE")){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new BusinessLogicException(ExceptionCode.MENTEE_CANT_REGISTER_MENTOR));
-        }else{
-            mentorService.createMentor(memberId, mentorPostDto);
-        }
-
+//        if(roles.contains("MENTEE")){
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body(new BusinessLogicException(ExceptionCode.MENTEE_CANT_REGISTER_MENTOR));
+//        }else{
+//            mentorService.createMentor(roles, memberId, mentorPostDto);
+//        }
+        mentorService.createMentor(roles, memberId, mentorPostDto);
         return new ResponseEntity<>("멘토 등록이 완료되었습니다.", HttpStatus.CREATED);
 
     }

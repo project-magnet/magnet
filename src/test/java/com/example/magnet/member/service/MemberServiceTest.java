@@ -78,7 +78,10 @@ public class MemberServiceTest {
         String encryptedPassword = "encryptedPassword";
         List<String> roles = List.of("USER");
 
+
         // when
+        // 저장된 member가 없는 경우
+        when(memberRepository.findByEmail(member.getEmail())).thenReturn(Optional.empty());
         when(passwordEncoder.encode(password)).thenReturn(encryptedPassword);
         when(authorityUtils.createRoles(email)).thenReturn(roles);
         when(memberRepository.save(any())).thenReturn(member);
@@ -86,18 +89,22 @@ public class MemberServiceTest {
         memberService.createMember(member);
 
         // then
-        verify(passwordEncoder).encode(password);
-        verify(authorityUtils).createRoles(email);
-        verify(memberRepository).save(member);
-        verify(publisher).publishEvent(any(MemberRegistrationApplicationEvent.class));
+        verify(memberRepository).findByEmail(email);
+        verify(passwordEncoder).encode(password);// 비밀번호 암호화 확인
+        verify(authorityUtils).createRoles(email); // 역할 생성 확인
+        verify(memberRepository).save(member); // 회원 정보 저장 확인
+        verify(publisher).publishEvent(any(MemberRegistrationApplicationEvent.class)); // 이벤트 발행 확인
     }
+
+
 
     @Test
     @DisplayName("회원 생성 - 중복 이메일 에러")
-    void createMember_duplicateEmail() {
+    void verifyExistsEmail() {
         // given
         String email = "test@gmail.com";
         Member existingMember = Member.builder().email(email).build();
+        memberRepository.save(existingMember);
 
         when(memberRepository.findByEmail(email)).thenReturn(Optional.of(existingMember));
 

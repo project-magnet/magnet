@@ -28,9 +28,6 @@ public class MentoringMapper {
 
     // mentoringInfo
     public static MentoringResponseDto entityToMentoringResponseDto(Mentoring mentoring){
-        if(mentoring==null){
-            return null;
-        }
         return MentoringResponseDto.builder()
                 .mentoringId(mentoring.getId())
                 .title(mentoring.getTitle())
@@ -48,5 +45,8 @@ public class MentoringMapper {
                 .aboutMe(mentoring.getMentor().getAboutMe())
                 .github(mentoring.getMentor().getGithub())
                 .build();
+        // 멘티, 멘토 정보가 필요하다. > menteeId를 전달. > 멘토링 리스트를 출력하고
     }
+
+
 }

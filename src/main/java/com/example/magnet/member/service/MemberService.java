@@ -32,7 +32,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
@@ -60,7 +59,6 @@ public class MemberService {
         Member.MemberBuilder builder = member.toBuilder();
         builder.password(encryptedPassword);
         builder.roles(roles);
-//        builder.deleted(false);
         builder.memberStatus(Member.MemberStatus.MEMBER_ACTIVE);
 
         Member savedMember = memberRepository.save(builder.build());
