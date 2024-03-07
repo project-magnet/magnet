@@ -66,20 +66,6 @@ const UserPage = () => {
 		};
 	}, [isOpen]);
 
-	const userInfo = [
-		{
-			icon: <i className="ri-phone-line ri-xl" />,
-
-			contents: member ? member.phone : '010-2321-8346',
-		},
-
-		{
-			icon: <i className="ri-mail-line ri-xl" />,
-
-			contents: member ? member.email : 'qpwoei01234@gmail.com',
-		},
-	];
-
 	return (
 		<div className="flexCol divide-y ">
 			{member ? (
@@ -114,9 +100,8 @@ const UserPage = () => {
 								)}
 							</div>
 							<div className="flexCol items-start gap-2 ">
-								{userInfo.map((el, index) => (
-									<UserInfoBox contents={el.contents} icon={el.icon} key={index} />
-								))}
+								<UserInfoBox contents={member.phone} icon={<i className="ri-phone-line ri-xl" />} />
+								<UserInfoBox contents={member.email} icon={<i className="ri-mail-line ri-xl" />} />
 							</div>
 						</div>
 
