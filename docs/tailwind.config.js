@@ -22,6 +22,7 @@ export const theme = {
 			fadeIn: 'fadeIn 0.5s ease-in-out forwards',
 			upALittle: 'upALittle 0.1s forwards',
 			downALittle: `downALittle 1s ${bounce} forwards`,
+			shake: 'shake 0.3s ease-in-out forwards',
 		},
 		keyframes: {
 			blink: {
@@ -39,6 +40,11 @@ export const theme = {
 			upALittle: {
 				'0%': {transform: 'translateY(0px)'},
 				'100%': {transform: 'translateY(-20px)'},
+			},
+			shake: {
+				'0%, 100%': {transform: 'translateX(0)'},
+				'10%, 30%, 50%, 70%, 90%': {transform: 'translateX(-1px)'},
+				'20%, 40%, 60%, 80%': {transform: 'translateX(1px)'},
 			},
 		},
 		fontSize: {
