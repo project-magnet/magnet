@@ -8,6 +8,7 @@ import {removeToken} from '../utils/auth/removeToken';
 import {useNavigate} from 'react-router-dom';
 import {LodingContainer} from '../component/common/LoadingContainer';
 import {ScheduleboxForMentee} from '../component/user/ScheduleboxForMentee';
+import {UserInfoSettingBox} from '../component/user/UserInfoSettingBox';
 
 const UserPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
@@ -30,7 +31,7 @@ const UserPage = () => {
 				setMember({
 					id: 1,
 					username: 'john.doe',
-					nickName: '유저 정보가 없습니다',
+					nickName: '정보가 없습니다',
 					email: '관리자에게 보고해주세요 제발요',
 					phone: '그러니까 이건 더미 데이터에요',
 					picture: 'https://example.com/profile-pics/john-doe.jpg',
@@ -85,20 +86,23 @@ const UserPage = () => {
 					)}
 					{/* 유저정보 섹션 */}
 					<section className="userPageSection flex-col justify-between gap-10 bg-slate-50 py-10 lg:flex-row ">
-						<div className="flexCol  gap-3">
-							<div className="flex gap-4">
-								<p className="text-3xl font-semibold">{member.nickName}</p>
+						<div className="flexCol gap-3">
+							{/* 닉네임*/}
+							<UserInfoSettingBox nickName={member.nickName} />
+							{/* 멘토, 멘티 여부 */}
+							<div className="flex gap-5">
 								{MentorList.length !== 0 && (
-									<div className="flexCenter w-12 rounded-md bg-additional2">
+									<div className="flexCenter h-8 w-12 rounded-md bg-additional2">
 										<p className="text-sm text-white">멘토</p>
 									</div>
 								)}
 								{MenteeList.length !== 0 && (
-									<div className="flexCenter  w-12 rounded-md bg-blue-400 ">
+									<div className="flexCenter h-8 w-12 rounded-md bg-blue-400 ">
 										<p className="text-sm text-white">멘티</p>
 									</div>
 								)}
 							</div>
+							{/* 컨텍트 */}
 							<div className="flexCol items-start gap-2 ">
 								<UserInfoBox contents={member.phone} icon={<i className="ri-phone-line ri-xl" />} />
 								<UserInfoBox contents={member.email} icon={<i className="ri-mail-line ri-xl" />} />
@@ -106,10 +110,10 @@ const UserPage = () => {
 						</div>
 
 						<div className="flex gap-2">
-							<button className="buttonStyle px-4 py-2" onClick={() => handleLogout()}>
+							<button className="buttonStyle" onClick={() => handleLogout()}>
 								로그아웃
 							</button>
-							<button className="px-4 py-2 text-slate-400">회원 탈퇴</button>
+							<button className="px-4 opacity-50">회원 탈퇴</button>
 						</div>
 					</section>
 
