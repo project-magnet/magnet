@@ -57,7 +57,7 @@ export const deleteMember = async () => {
 	}
 };
 
-type updateMemberData = {
+export type updateMemberData = {
 	nickName: string;
 	addressDto: {city: string; street: string};
 };
