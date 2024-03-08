@@ -56,3 +56,28 @@ export const deleteMember = async () => {
 		throw error;
 	}
 };
+
+export type updateMemberData = {
+	nickName: string;
+	addressDto: {city: string; street: string};
+};
+
+export const updateMember = async (data: updateMemberData) => {
+	try {
+		const authorToken = sessionStorage.getItem('Authorization');
+		const refreshToken = sessionStorage.getItem('RefreshToken');
+		const response = await axios.patch(`${baseUrl}/member/update`, data, {
+			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 'true',
+				Authorization: `${authorToken}`,
+				RefreshToken: `${refreshToken}`,
+			},
+		});
+		console.log('회원정보 수정 성공', response.data);
+		return response.data;
+	} catch (error) {
+		console.error('회원정보 수정 실패', error);
+		throw error;
+	}
+};
