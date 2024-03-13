@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-
+const cubric = 'cubic-bezier(0, 0, 0.2, 1)';
 const bounce =
 	'linear(0 0%, 0 2.27%, 0.02 4.53%, 0.04 6.8%, 0.06 9.07%, 0.1 11.33%, 0.14 13.6%, 0.25 18.15%, 0.39 22.7%, 0.56 27.25%, 0.77 31.8%, 1 36.35%, 0.89 40.9%, 0.85 43.18%, 0.81 45.45%, 0.79 47.72%, 0.77 50%, 0.75 52.27%, 0.75 54.55%, 0.75 56.82%, 0.77 59.1%, 0.79 61.38%, 0.81 63.65%, 0.85 65.93%, 0.89 68.2%, 1 72.7%, 0.97 74.98%, 0.95 77.25%, 0.94 79.53%, 0.94 81.8%, 0.94 84.08%, 0.95 86.35%, 0.97 88.63%, 1 90.9%, 0.99 93.18%, 0.98 95.45%, 0.99 97.73%, 1 100%)';
 export const content = ['./src/**/*.{js,jsx,ts,tsx}'];
@@ -9,9 +9,9 @@ export const theme = {
 			background: '#ffffff',
 			primary: '#111111',
 			secondary: '#888888',
-			additional1: '#FF8C00 ',
-			additional2: '#FF9900',
-			additional3: '#FFCC00 ',
+			additional1: 'rgb(250 250 250) ',
+			additional2: '#6495ED',
+			additional3: '#0077FF ',
 		},
 		fontFamily: {
 			PartialSansKR_Regular: ['PartialSansKR-Regular', 'sans-serif'],
@@ -23,6 +23,7 @@ export const theme = {
 			upALittle: 'upALittle 0.1s forwards',
 			downALittle: `downALittle 1s ${bounce} forwards`,
 			shake: 'shake 0.3s ease-in-out forwards',
+			showSideRight: `showSideRight 1s ${cubric} forwards`,
 		},
 		keyframes: {
 			blink: {
@@ -46,10 +47,19 @@ export const theme = {
 				'10%, 30%, 50%, 70%, 90%': {transform: 'translateX(-1px)'},
 				'20%, 40%, 60%, 80%': {transform: 'translateX(1px)'},
 			},
+			showSideRight: {
+				'0%': {transform: 'translateX(100%)'},
+
+				'100%': {transform: 'translateX(0%)'},
+			},
 		},
 		fontSize: {
 			'2xs': '0.625rem',
 			'3xs': '0.5rem',
+		},
+		height: {
+			// header-height is 2.5rem
+			pageRoot: 'calc(100vh - 2.5rem)',
 		},
 	},
 };

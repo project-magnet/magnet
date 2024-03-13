@@ -74,8 +74,8 @@ const MentoringListPage = () => {
 						key={index}
 						onClick={() => setCategory(el.id)}
 						className={`${
-							category === el.id ? 'text-additional2' : 'text-black'
-						} buttonStyle flexCenter size-20 cursor-pointer flex-col bg-background p-0 sm:size-24`}
+							category === el.id ? 'text-additional2 ' : 'text-black shadow-md'
+						}   flexCenter size-20 cursor-pointer flex-col rounded-md bg-background p-0 transition-all  duration-200 hover:text-additional2 sm:size-24`}
 					>
 						{el.image}
 						<p className="text-2xs">{el.title}</p>

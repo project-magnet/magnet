@@ -23,83 +23,86 @@ const Header = () => {
 	}, []);
 
 	return (
-		<header className="flexCenter sticky top-0 z-10  h-10 border-b bg-white sm:h-16 sm:justify-start">
-			<Link to="/magnet" className="mx-24 font-bold  tracking-[5px] ">
-				<p
-					className={`${
-						'/magnet' === location.pathname ? 'text-additional2' : 'text-black'
-					} font-PartialSansKR_Regular transition`}
-				>
-					MAGNET
-				</p>
-			</Link>
-			{fetchFinish && (
-				<>
-					<Link
-						to="/mentorlist"
-						className={`mr-10 hidden sm:block ${
-							'/mentorlist' === location.pathname ? 'text-additional2' : 'text-black'
-						} transition`}
+		<>
+			<header className="flexCenter fixed top-0 z-10  h-10 w-dvw  border-b bg-white sm:h-16 sm:justify-between">
+				<Link to="/magnet" className="ml-0 font-bold tracking-[5px]  sm:ml-10 ">
+					<p
+						className={`${
+							'/magnet' === location.pathname ? 'text-additional2' : 'text-black'
+						} font-PartialSansKR_Regular transition`}
 					>
-						{'/mentorlist' === location.pathname ? (
-							<i className="ri-search-eye-line mr-1"></i>
-						) : (
-							<i className="ri-search-line mr-1"></i>
-						)}
+						MAGNET
+					</p>
+				</Link>
+				{fetchFinish && (
+					<div className="flex">
+						<Link
+							to="/mentorlist"
+							className={`mr-10 hidden sm:block ${
+								'/mentorlist' === location.pathname ? 'text-additional3' : 'text-black'
+							} transition `}
+						>
+							{'/mentorlist' === location.pathname ? (
+								<i className="ri-search-eye-line mr-1"></i>
+							) : (
+								<i className="ri-search-line mr-1"></i>
+							)}
 
-						<span className="text-sm">둘러보기</span>
-					</Link>
-					{sessionStorage.getItem('Authorization') ? (
-						<>
-							<Link
-								to="/user"
-								className={`mr-10 hidden sm:block ${
-									'/user' === location.pathname ? 'text-additional2' : 'text-black'
-								} transition`}
-							>
-								{'/user' === location.pathname ? (
-									<i className="ri-user-follow-line mr-1"></i>
-								) : (
-									<i className="ri-user-line mr-1"></i>
-								)}
-
-								<span className="text-sm ">내 정보</span>
-							</Link>
-							{isMentor && (
+							<span className="text-sm">둘러보기</span>
+						</Link>
+						{sessionStorage.getItem('Authorization') ? (
+							<>
 								<Link
-									to="/creatementoring"
+									to="/user"
 									className={`mr-10 hidden sm:block ${
-										'/creatementoring' === location.pathname ? 'text-additional2' : 'text-black'
+										'/user' === location.pathname ? 'text-additional3' : 'text-black'
 									} transition`}
 								>
-									{'/creatementoring' === location.pathname ? (
-										<i className="ri-link mr-1"></i>
+									{'/user' === location.pathname ? (
+										<i className="ri-user-follow-line mr-1"></i>
 									) : (
-										<i className="ri-link-unlink mr-1"></i>
+										<i className="ri-user-line mr-1"></i>
 									)}
 
-									<span className="text-sm">멘토링 개설하기</span>
+									<span className="text-sm ">내 정보</span>
 								</Link>
-							)}
-						</>
-					) : (
-						<Link
-							to="/login"
-							className={`mr-10 hidden sm:block ${
-								'/login' === location.pathname ? 'text-additional2' : 'text-black'
-							} transition`}
-						>
-							{'/login' === location.pathname ? (
-								<i className="ri-login-circle-line mr-1"></i>
-							) : (
-								<i className="ri-login-box-line mr-1"></i>
-							)}
-							<span className={`text-sm`}>로그인</span>
-						</Link>
-					)}
-				</>
-			)}
-		</header>
+								{isMentor && (
+									<Link
+										to="/creatementoring"
+										className={`mr-10 hidden sm:block ${
+											'/creatementoring' === location.pathname ? 'text-additional3' : 'text-black'
+										} transition`}
+									>
+										{'/creatementoring' === location.pathname ? (
+											<i className="ri-link mr-1"></i>
+										) : (
+											<i className="ri-link-unlink mr-1"></i>
+										)}
+
+										<span className="text-sm">멘토링 개설하기</span>
+									</Link>
+								)}
+							</>
+						) : (
+							<Link
+								to="/login"
+								className={`mr-10 hidden sm:block ${
+									'/login' === location.pathname ? 'text-additional3' : 'text-black'
+								} transition`}
+							>
+								{'/login' === location.pathname ? (
+									<i className="ri-login-circle-line mr-1"></i>
+								) : (
+									<i className="ri-login-box-line mr-1"></i>
+								)}
+								<span className={`text-sm`}>로그인</span>
+							</Link>
+						)}
+					</div>
+				)}
+			</header>
+			<div className="h-10" />
+		</>
 	);
 };
 
