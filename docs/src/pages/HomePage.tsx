@@ -7,52 +7,52 @@ const HomePage = () => {
 	};
 
 	return (
-		<section>
-			<section className=" py-20">
-				<div
-					className="flexCenter size-full flex-col 
-				text-[3.5rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem]"
-				>
-					<p className="font-PartialSansKR_Regular">
-						Connect <br />
-						with
-					</p>
-					<div className="*:hoverAnimationUpDown flex text-additional2 *:font-PartialSansKR_Regular">
+		<div className="h-pageRoot flexCol justify-evenly overflow-x-hidden bg-gradient-to-b from-white to-blue-100 sm:bg-gradient-to-r lg:flex-row">
+			<section className="flexCenter flex-col drop-shadow-xl">
+				<div className="flexCenter hidden flex-col sm:text-[6rem] lg:block 2xl:text-[11rem]  ">
+					<p className="font-PartialSansKR_Regular">Connect</p>
+					<p className="font-PartialSansKR_Regular">With</p>
+					<div className="flex text-additional2 ">
 						{['M', 'a', 'g', 'n', 'e', 't', '!'].map((el, index) => (
-							<span key={index}>{el}</span>
+							<span className="hoverAnimationUpDown font-PartialSansKR_Regular" key={index}>
+								{el}
+							</span>
+						))}
+					</div>
+				</div>
+
+				<div className="text-[3rem] font-bold drop-shadow-xl sm:text-[4rem] lg:hidden ">
+					<p className="">모두를 위한</p>
+					<p className="">멘토링 서비스</p>
+					<div className="flex text-additional2">
+						{['마', '그', '넷', '!'].map((el, index) => (
+							<span className="hoverAnimationUpDown " key={index}>
+								{el}
+							</span>
 						))}
 					</div>
 				</div>
 			</section>
 
-			<section className="flexCenter justify-evenly  bg-additional2 py-20 ">
-				<div className="flexCol gap- hidden items-start md:block">
-					<h3 className=" text-2xl font-black ">Meet our Mentors</h3>
-					<h1 className=" text-2xl font-black md:text-4xl lg:text-5xl">
-						마그넷의 멘토를 만나보세요.
-					</h1>
-				</div>
-
-				{/* 카드 */}
-				<div
-					onClick={handleClick}
-					className="buttonStyle flexCol size-72 animate-fadeIn cursor-pointer gap-5 bg-background p-5"
-				>
-					<div>
-						<p className="truncate text-xl font-bold">마그넷과 함께</p>
-						<p className="mt-1 truncate text-sm text-secondary">{`#각 분야의`}</p>
-						<p className="mt-1 truncate text-sm text-secondary">{`#최고의 멘토와`}</p>
-						<p className="mt-1 truncate text-sm text-secondary">{`#만나 보세요!`}</p>
+			<section className="flexCenter ">
+				<div className="flexCenter w-full flex-col gap-10 drop-shadow-md">
+					<div className="hidden lg:block">
+						<h1 className="text-[3rem] font-bold leading-none">
+							모두를 위한
+							<br />
+							멘토링 서비스
+						</h1>
+						<p className="text-[3rem] font-bold leading-none text-additional2">마그넷</p>
 					</div>
-					<div className="h-0.5 w-full border border-dashed" />
-					<div className="flexCenter size-full">
-						<p className="animate-bounce text-3xl transition duration-300 hover:text-additional2">
-							더 알아보기!
-						</p>
+					{/* 버튼 모음 */}
+					<div onClick={handleClick} className="flexCol w-full  gap-5 px-10 sm:px-44 lg:px-0">
+						<button className="buttonStylePrimary">다양한 카테고리와</button>
+						<button className="buttonStyleSecondary">최고의 멘토를</button>
+						<button className="buttonStyleTertiary">만나 보세요!</button>
 					</div>
 				</div>
 			</section>
-		</section>
+		</div>
 	);
 };
 
