@@ -68,7 +68,7 @@ const MentoringListPage = () => {
 	return (
 		<section className="flexCol h-full w-full items-center gap-10 bg-slate-100 py-10">
 			{isOpen && <PaymentPopup />}
-			<div className="flexCenter flex-wrap gap-2 ">
+			<div className="flexCenter animate-fadeInMoveDown  flex-wrap gap-2">
 				{categories.map((el, index) => (
 					<div
 						key={index}
