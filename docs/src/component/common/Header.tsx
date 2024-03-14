@@ -2,11 +2,13 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import {getMember} from '../../api/member';
+import {LoginPopupStore} from '../../store/LoginPopupStore';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const [isMentor, setIsMentor] = useState(false);
 	const location = useLocation();
+	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -83,8 +85,8 @@ const Header = () => {
 								)}
 							</>
 						) : (
-							<Link
-								to="/login"
+							<div
+								onClick={() => setLoginPopupIsOpenTrue()}
 								className={`mr-10 hidden sm:block ${
 									'/login' === location.pathname ? 'text-additional3' : 'text-black'
 								} transition hover:text-additional3`}
@@ -95,7 +97,7 @@ const Header = () => {
 									<i className="ri-login-box-line mr-1"></i>
 								)}
 								<span className={`text-sm`}>로그인</span>
-							</Link>
+							</div>
 						)}
 					</div>
 				)}
