@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import {useNavigate, Link} from 'react-router-dom';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {login} from '../../api/auth';
+import {LoginPopupStore} from '../../store/LoginPopupStore';
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -8,6 +9,7 @@ const LoginForm = () => {
 	const [password, setPassword] = useState('');
 	const [isFormValid, setIsFormValid] = useState(false);
 	const [loginFailed, setLoginFailed] = useState(false);
+	const setLoginPopupIsOpenFalse = LoginPopupStore(state => state.setLoginPopupIsOpenFalse);
 
 	const handleEmailChange = (e: {target: {value: string}}) => {
 		const newEmail = e.target.value;
@@ -28,7 +30,6 @@ const LoginForm = () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
-				navigate('/magnet');
 				window.location.reload();
 			} catch (e) {
 				setLoginFailed(true);
@@ -37,9 +38,13 @@ const LoginForm = () => {
 		};
 		fetchLogin();
 	};
+	const handleSignupLink = () => {
+		setLoginPopupIsOpenFalse();
+		navigate('/signup');
+	};
 
 	return (
-		<section className="flexCol items-center gap-5 inputStyle">
+		<section className="flexCol inputStyle items-center gap-5">
 			<div>
 				<p>이메일</p>
 				<input
@@ -47,6 +52,7 @@ const LoginForm = () => {
 					value={email}
 					onChange={handleEmailChange}
 					placeholder="이메일을 입력하세요."
+					className="placeholder:text-xs"
 				/>
 			</div>
 			<div>
@@ -56,23 +62,26 @@ const LoginForm = () => {
 					value={password}
 					onChange={handlePasswordChange}
 					placeholder="비밀번호를 입력하세요."
+					className="placeholder:text-xs"
 				/>
 			</div>
 
 			<button
 				disabled={!isFormValid}
 				onClick={handleLogin}
-				className={`text-white bg-primary ${!isFormValid && 'bg-opacity-20'}`}
+				className={`bg-primary text-white ${!isFormValid && 'bg-opacity-20'}`}
 			>
 				로그인
 			</button>
 			{loginFailed && (
-				<p className="warning">로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.</p>
+				<p className="warning animate-shake">
+					로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.
+				</p>
 			)}
 
-			<Link to="/signup">
-				<p className="text-sm text-slate-400">이메일로 회원가입</p>
-			</Link>
+			<p onClick={() => handleSignupLink()} className="text-sm text-slate-400">
+				이메일로 회원가입
+			</p>
 		</section>
 	);
 };

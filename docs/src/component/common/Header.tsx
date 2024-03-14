@@ -2,11 +2,13 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import {getMember} from '../../api/member';
+import {LoginPopupStore} from '../../store/LoginPopupStore';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const [isMentor, setIsMentor] = useState(false);
 	const location = useLocation();
+	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -24,7 +26,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="flexCenter fixed top-0 z-10  h-10 w-dvw  border-b bg-white sm:h-16 sm:justify-between">
+			<header className="flexCenter fixed top-0 z-10  h-10 w-dvw  border-b bg-white *:select-none sm:h-16 sm:justify-between">
 				<Link to="/magnet" className="ml-0 font-bold tracking-[5px]  sm:ml-10 ">
 					<p
 						className={`${
@@ -40,14 +42,13 @@ const Header = () => {
 							to="/mentorlist"
 							className={`mr-10 hidden sm:block ${
 								'/mentorlist' === location.pathname ? 'text-additional3' : 'text-black'
-							} transition `}
+							} transition hover:text-additional3`}
 						>
 							{'/mentorlist' === location.pathname ? (
 								<i className="ri-search-eye-line mr-1"></i>
 							) : (
 								<i className="ri-search-line mr-1"></i>
 							)}
-
 							<span className="text-sm">둘러보기</span>
 						</Link>
 						{sessionStorage.getItem('Authorization') ? (
@@ -56,7 +57,7 @@ const Header = () => {
 									to="/user"
 									className={`mr-10 hidden sm:block ${
 										'/user' === location.pathname ? 'text-additional3' : 'text-black'
-									} transition`}
+									} transition hover:text-additional3`}
 								>
 									{'/user' === location.pathname ? (
 										<i className="ri-user-follow-line mr-1"></i>
@@ -71,7 +72,7 @@ const Header = () => {
 										to="/creatementoring"
 										className={`mr-10 hidden sm:block ${
 											'/creatementoring' === location.pathname ? 'text-additional3' : 'text-black'
-										} transition`}
+										} transition hover:text-additional3`}
 									>
 										{'/creatementoring' === location.pathname ? (
 											<i className="ri-link mr-1"></i>
@@ -84,11 +85,11 @@ const Header = () => {
 								)}
 							</>
 						) : (
-							<Link
-								to="/login"
+							<div
+								onClick={() => setLoginPopupIsOpenTrue()}
 								className={`mr-10 hidden sm:block ${
 									'/login' === location.pathname ? 'text-additional3' : 'text-black'
-								} transition`}
+								} transition hover:text-additional3`}
 							>
 								{'/login' === location.pathname ? (
 									<i className="ri-login-circle-line mr-1"></i>
@@ -96,7 +97,7 @@ const Header = () => {
 									<i className="ri-login-box-line mr-1"></i>
 								)}
 								<span className={`text-sm`}>로그인</span>
-							</Link>
+							</div>
 						)}
 					</div>
 				)}
