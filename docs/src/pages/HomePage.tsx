@@ -7,9 +7,9 @@ const HomePage = () => {
 	};
 
 	return (
-		<div className="h-pageRoot flexCol justify-evenly overflow-x-hidden bg-gradient-to-b from-white to-blue-100 sm:bg-gradient-to-r lg:flex-row">
-			<section className="flexCenter flex-col drop-shadow-xl">
-				<div className="flexCenter hidden flex-col sm:text-[6rem] lg:block 2xl:text-[11rem]  ">
+		<div className="flexCol h-pageRoot justify-evenly overflow-x-hidden bg-gradient-to-b from-white to-blue-100 sm:bg-gradient-to-r lg:flex-row">
+			<section className="flexCenter animate-showSideRight flex-col drop-shadow-xl">
+				<div className="flexCenter hidden  flex-col sm:text-[6rem] lg:block 2xl:text-[11rem]  ">
 					<p className="font-PartialSansKR_Regular">Connect</p>
 					<p className="font-PartialSansKR_Regular">With</p>
 					<div className="flex text-additional2 ">
@@ -26,7 +26,7 @@ const HomePage = () => {
 					<p className="">멘토링 서비스</p>
 					<div className="flex text-additional2">
 						{['마', '그', '넷', '!'].map((el, index) => (
-							<span className="hoverAnimationUpDown " key={index}>
+							<span className="hover:animate-tickle " key={index}>
 								{el}
 							</span>
 						))}
