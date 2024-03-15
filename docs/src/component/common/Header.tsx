@@ -9,6 +9,7 @@ const Header = () => {
 	const [isMentor, setIsMentor] = useState(false);
 	const location = useLocation();
 	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
+	const loginPopupIsOpen = LoginPopupStore(state => state.loginPopupIsOpen);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -88,7 +89,7 @@ const Header = () => {
 							<div
 								onClick={() => setLoginPopupIsOpenTrue()}
 								className={`mr-10 hidden sm:block ${
-									'/login' === location.pathname ? 'text-additional3' : 'text-black'
+									loginPopupIsOpen ? 'text-additional3' : 'text-black'
 								} transition hover:text-additional3`}
 							>
 								{'/login' === location.pathname ? (

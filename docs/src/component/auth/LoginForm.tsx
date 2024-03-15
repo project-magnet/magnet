@@ -79,7 +79,10 @@ const LoginForm = () => {
 				</p>
 			)}
 
-			<p onClick={() => handleSignupLink()} className="text-sm text-slate-400">
+			<p
+				onClick={() => handleSignupLink()}
+				className="cursor-pointer text-sm text-slate-400 transition-colors duration-300 hover:text-black"
+			>
 				이메일로 회원가입
 			</p>
 		</section>
