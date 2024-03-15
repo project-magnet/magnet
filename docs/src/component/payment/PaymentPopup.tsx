@@ -10,6 +10,7 @@ import {LodingContainer} from '../common/LoadingContainer';
 
 const PaymentPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
+	const isOpen = PopupStore(state => state.isOpen);
 	// page는 urlparameter로 받아온다.
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [mentoringData, setMentoringData] = useState<getMentoringData | null>(null);
@@ -20,11 +21,17 @@ const PaymentPopup = () => {
 	const [phone, setPhone] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
 
-	// 멘티 전역변수
-	// const message = MenteeStore(state => state.message);
-	// const phone = MenteeStore(state => state.phone);
-	// const email = MenteeStore(state => state.email);
-	// const {setMessage, setPhone, setEmail} = MenteeStore.getState();
+	// 팝업이 열리면 body의 스크롤을 막는다.
+	useEffect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'auto';
+		}
+		return () => {
+			document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
+		};
+	}, [isOpen]);
 
 	// url parameter로 받아온 page를 state에 저장
 	useEffect(() => {

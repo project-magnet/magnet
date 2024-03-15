@@ -42,17 +42,6 @@ const MentoringListPage = () => {
 	}, [category, navigate]);
 
 	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
-		} else {
-			document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
-		}
-		return () => {
-			document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
-		};
-	}, [isOpen]);
-
-	useEffect(() => {
 		const fetchMentoringList = async () => {
 			try {
 				const data = await getMentoringList(0, 100);
