@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -53,12 +54,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .headers((headers) -> headers.frameOptions(Customizer.withDefaults()))
+                .cors((cors) -> cors
+                        .configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// spring security가 세션을 생성하지 않도록 설정
                 .exceptionHandling((exceptionHandling) ->
                         exceptionHandling.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                                 .accessDeniedHandler(new MemberAccessDeniedHandler()))
                 .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // localhost:3000 // OPTIONS 요청에 대한 접근 허용
                         .requestMatchers("/health", "member/signup", "auth/login", "/login/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/create").hasAnyRole("USER","MENTOR")
@@ -72,8 +76,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
                 .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
-                .cors((cors) -> cors
-                        .configurationSource(corsConfigurationSource()))
                 .httpBasic(AbstractHttpConfigurer::disable) // .httpBasic((httpBasic) -> httpBasic.disable())
                 .exceptionHandling(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
@@ -104,7 +106,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowCredentials(true); // option요청에 Access-Control-Allow-Origin 추가 > 403 문제 발생
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://ef14-14-5-74-92.ngrok-free.app"));   // 모든 출처 허용
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://project-magnet.github.io/magnet"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE","OPTIONS"));  // http 통신 허용
         configuration.setAllowedHeaders(List.of("*"));// 문제 해결
         configuration.setExposedHeaders(List.of("Authorization", "RefreshToken","Access-Control-Allow-Origin"));
