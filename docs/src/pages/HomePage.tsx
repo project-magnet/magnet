@@ -13,7 +13,7 @@ const HomePage = () => {
 					<p className="font-PartialSansKR_Regular">Connect</p>
 					<p className="font-PartialSansKR_Regular">With</p>
 					<div className="flex text-additional2 ">
-						{['M', 'a', 'g', 'n', 'e', 't', '!'].map((el, index) => (
+						{['M', 'A', 'G', 'N', 'E', 'T', '!'].map((el, index) => (
 							<span className="hoverAnimationUpDown font-PartialSansKR_Regular" key={index}>
 								{el}
 							</span>

@@ -25,6 +25,7 @@ export const theme = {
 			showSideRight: `showSideRight 1s ${cubric} forwards`,
 			fadeInMoveDown: `fadeInMoveDown 1s ${cubric} forwards`,
 			tickle: `tickle 0.2s ${cubric} forwards`,
+			disappear: `disappear 1s ${cubric}  2s forwards`,
 		},
 		keyframes: {
 			blink: {
@@ -62,6 +63,10 @@ export const theme = {
 				'30%': {transform: 'rotate(5deg)'},
 				'70%': {transform: 'rotate(-5deg)'},
 				'100%': {transform: 'rotate(0deg)'},
+			},
+			disappear: {
+				'0%': {opacity: 1},
+				'100%': {opacity: 0},
 			},
 		},
 		fontSize: {

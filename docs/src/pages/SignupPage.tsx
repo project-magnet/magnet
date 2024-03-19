@@ -1,15 +1,12 @@
-import React from 'react';
 import SignupForm from '../component/auth/SignupForm';
 
 const SignupPage = () => {
-  return (
-    <div className="w-full py-10 flexCenter flex-col">
-      <p className="text-2xl font-semibold">이메일로 회원가입</p>
-      <section className="">
-        <SignupForm />
-      </section>
-    </div>
-  );
+	return (
+		<div className="flexCenter h-pageRoot flex-col gap-10 py-20">
+			<p className="text-2xl font-semibold">이메일로 회원가입.</p>
+			<SignupForm />
+		</div>
+	);
 };
 
 export default SignupPage;

@@ -26,19 +26,24 @@ export const LoginPopup = () => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30"
+			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 backdrop-blur-sm"
 		>
-			<section className="flexCenter flex-col gap-5 rounded-md border bg-white p-5">
-				<div className="flex w-full justify-end">
+			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-5 md:w-fit md:px-20">
+				<div className="absolute right-1 top-1">
 					<i
 						onClick={handleClick}
 						className="ri-close-line cursor-pointer text-2xl  text-slate-400 transition-colors duration-300 hover:text-black"
 					></i>
 				</div>
+				<h1 className="font-PartialSansKR_Regular text-2xl tracking-[5px]">MAGNET</h1>
 				<LoginForm />
-				<div className="my-3 w-full border border-dashed " />
+				<div className="flexCenter my-5 w-full gap-5">
+					<div className="h-[0.1px]  w-full border " />
+					<p className="w-20 flex-grow text-xs text-slate-400">또는</p>
+					<div className="h-[0.1px] w-full border " />
+				</div>
+
 				<div className="flexCenter gap-3">
-					<p className="mr-5 text-sm ">쉽고, 간편한 로그인</p>
 					<div className="size-12  ">
 						<LoginButton type="Google" />
 					</div>
