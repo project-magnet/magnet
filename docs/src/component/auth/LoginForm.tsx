@@ -7,24 +7,8 @@ const LoginForm = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [isFormValid, setIsFormValid] = useState(false);
 	const [loginFailed, setLoginFailed] = useState(false);
 	const setLoginPopupIsOpenFalse = LoginPopupStore(state => state.setLoginPopupIsOpenFalse);
-
-	const handleEmailChange = (e: {target: {value: string}}) => {
-		const newEmail = e.target.value;
-		const isValidEmail = newEmail.includes('@');
-
-		setEmail(newEmail);
-		setIsFormValid(isValidEmail && password.length > 0);
-	};
-
-	const handlePasswordChange = (e: {target: {value: string}}) => {
-		const newPassword = e.target.value;
-
-		setPassword(newPassword);
-		setIsFormValid(email.includes('@') && newPassword.length > 0);
-	};
 
 	const handleLogin = async () => {
 		const fetchLogin = async () => {
@@ -44,33 +28,31 @@ const LoginForm = () => {
 	};
 
 	return (
-		<section className="flexCol inputStyle items-center gap-5">
-			<div>
-				<p>이메일</p>
-				<input
-					type="email"
-					value={email}
-					onChange={handleEmailChange}
-					placeholder="이메일을 입력하세요."
-					className="placeholder:text-xs"
-				/>
-			</div>
-			<div>
-				<p>비밀번호</p>
-				<input
-					type="password"
-					value={password}
-					onChange={handlePasswordChange}
-					placeholder="비밀번호를 입력하세요."
-					className="placeholder:text-xs"
-				/>
+		<section className="flexCol w-full items-center gap-5 ">
+			<div className="flexCol w-full gap-5 md:w-72 ">
+				<div className={`flexCenter w-full gap-2 border-b-2 p-3  focus-within:border-additional2 `}>
+					<i className={`ri-mail-line ri-lg ${email ? 'text-black' : 'text-slate-400'}`} />
+					<input
+						className="flex-grow text-xs outline-none "
+						placeholder="이메일"
+						value={email}
+						onChange={e => setEmail(e.target.value)}
+					/>
+				</div>
+
+				<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
+					<i className={`ri-key-2-line ri-lg ${password ? 'text-black' : 'text-slate-400'}`} />
+					<input
+						className="flex-grow text-xs outline-none"
+						type="password"
+						placeholder="비밀번호"
+						value={password}
+						onChange={e => setPassword(e.target.value)}
+					/>
+				</div>
 			</div>
 
-			<button
-				disabled={!isFormValid}
-				onClick={handleLogin}
-				className={`bg-primary text-white ${!isFormValid && 'bg-opacity-20'}`}
-			>
+			<button onClick={handleLogin} className={`buttonStylePrimary w-full md:w-72 `}>
 				로그인
 			</button>
 			{loginFailed && (
