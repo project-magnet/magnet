@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {MemberStore} from '../store/MemberStore';
 
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 
@@ -20,6 +21,7 @@ export type getMemberResponse = {
 export const getMember = async (): Promise<getMemberResponse> => {
 	const authorToken = sessionStorage.getItem('Authorization');
 	const refreshToken = sessionStorage.getItem('RefreshToken');
+	const setGlobalMember = MemberStore.getState().setGlobalMember;
 	try {
 		const response = await axios.get<getMemberResponse>(`${baseUrl}/member/get`, {
 			headers: {
@@ -30,6 +32,7 @@ export const getMember = async (): Promise<getMemberResponse> => {
 			},
 		});
 		console.log('회원정보 불러오기 성공', response.data);
+		setGlobalMember(response.data);
 		return response.data;
 	} catch (error) {
 		console.error('회원정보 불러오기 실패', error);
