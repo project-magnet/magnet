@@ -53,8 +53,8 @@ const SignupForm = () => {
 	};
 
 	return (
-		<section className="flexCol w-full items-center gap-10">
-			<div className="flexCol  w-11/12 md:w-96">
+		<section className="flexCol w-full items-center gap-7">
+			<div className="flexCol  w-11/12 gap-3 md:w-96">
 				<div className={`flexCenter w-full gap-2 border-b-2 p-3  focus-within:border-additional2 `}>
 					<i className={`ri-mail-line ri-lg ${form.email ? 'text-black' : 'text-slate-400'}`} />
 					<input
@@ -92,7 +92,7 @@ const SignupForm = () => {
 				)}
 			</div>
 
-			<div className="flexCol  w-11/12  md:w-96">
+			<div className="flexCol  w-11/12  gap-3 md:w-96">
 				<div className="flexCenter w-full gap-2 border-b-2  p-3 focus-within:border-additional2 ">
 					<i className={`ri-user-line ri-lg ${form.username ? 'text-black' : 'text-slate-400'}`} />
 					<input
