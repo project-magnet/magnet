@@ -2,6 +2,7 @@ import {LoginPopupStore} from '../../store/LoginPopupStore';
 import LoginForm from './LoginForm';
 import {useEffect} from 'react';
 import LoginButton from './LoginButton';
+import {LogoMagnet} from '../common/LogoMagnet';
 
 export const LoginPopup = () => {
 	const setLoginPopupIsOpenFalse = LoginPopupStore(state => state.setLoginPopupIsOpenFalse);
@@ -14,7 +15,7 @@ export const LoginPopup = () => {
 
 	useEffect(() => {
 		if (LoginPopupIsOpen) {
-			document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
+			document.body.style.overflow = 'visible'; // 페이지 스크롤 방지
 		} else {
 			document.body.style.overflow = 'auto'; // 페이지 스크롤 허용
 		}
@@ -35,7 +36,7 @@ export const LoginPopup = () => {
 						className="ri-close-line cursor-pointer text-2xl  text-slate-400 transition-colors duration-300 hover:text-black"
 					></i>
 				</div>
-				<h1 className="font-PartialSansKR_Regular text-2xl tracking-[5px]">MAGNET</h1>
+				<LogoMagnet word="MAGNET" />
 				<LoginForm />
 				<div className="flexCenter my-5 w-full gap-5">
 					<div className="h-[0.1px]  w-full border " />

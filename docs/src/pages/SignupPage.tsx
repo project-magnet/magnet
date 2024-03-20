@@ -1,9 +1,10 @@
 import SignupForm from '../component/auth/SignupForm';
+import {LogoMagnet} from '../component/common/LogoMagnet';
 
 const SignupPage = () => {
 	return (
 		<div className="flexCenter h-pageRoot flex-col gap-10 py-20">
-			<p className="text-2xl font-semibold">이메일로 회원가입.</p>
+			<LogoMagnet word="MAGNET" />
 			<SignupForm />
 		</div>
 	);
