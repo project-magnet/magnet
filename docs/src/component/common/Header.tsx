@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
 import {getMember} from '../../api/member';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
+import {MemberStore} from '../../store/MemberStore';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
@@ -10,6 +11,7 @@ const Header = () => {
 	const location = useLocation();
 	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
 	const loginPopupIsOpen = LoginPopupStore(state => state.loginPopupIsOpen);
+	const globalMember = MemberStore(state => state.globalMember);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -58,7 +60,7 @@ const Header = () => {
 									to="/user"
 									className={`mr-10 hidden sm:block ${
 										'/user' === location.pathname ? 'text-additional3' : 'text-black'
-									} transition hover:text-additional3`}
+									} order-1 transition hover:text-additional3`}
 								>
 									{'/user' === location.pathname ? (
 										<i className="ri-user-follow-line mr-1"></i>
@@ -66,7 +68,7 @@ const Header = () => {
 										<i className="ri-user-line mr-1"></i>
 									)}
 
-									<span className="text-sm ">내 정보</span>
+									<span className="text-sm ">{globalMember.nickName}</span>
 								</Link>
 								{isMentor && (
 									<Link
