@@ -65,8 +65,8 @@ export const theme = {
 				'100%': {transform: 'rotate(0deg)'},
 			},
 			disappear: {
-				'0%': {opacity: 1},
-				'100%': {opacity: 0},
+				'0%': {opacity: 1, height: 'auto'},
+				'100%': {opacity: 0, height: 0},
 			},
 		},
 		fontSize: {
