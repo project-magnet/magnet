@@ -4,6 +4,7 @@ import PopupStore from '../../store/PopupStore';
 import {createMentor} from '../../api/mentor';
 import {MemberStore} from '../../store/MemberStore';
 import {LogoMagnet} from '../common/LogoMagnet';
+import {CommonInput} from '../common/CommonInput';
 
 export const MentorRegistPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
@@ -18,7 +19,7 @@ export const MentorRegistPopup = () => {
 		email: globalMember.email,
 		phone: globalMember.phone,
 		aboutMe: '',
-		github: 'no github',
+		github: '',
 	});
 
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -61,53 +62,59 @@ export const MentorRegistPopup = () => {
 				<LogoMagnet word="MAGNET" />
 				<div className="flexCol w-full gap-5 md:w-96">
 					<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-						<i className={`ri-key-2-line ri-lg ${form.field ? 'text-black' : 'text-slate-400'}`} />
+						<i className={`ri-walk-line ri-lg ${form.field ? 'text-black' : 'text-slate-400'}`} />
 						<select
-							className="flex-grow text-xs outline-none"
+							className={`flex-grow text-xs outline-none ${form.field ? 'text-black' : 'text-slate-400'}`}
 							value={form.field}
 							onChange={e => setForm({...form, field: e.target.value})}
 						>
-							<option value="">분야</option>
+							<option value="" selected hidden className="select-text">
+								대표 분야
+							</option>
 							<option value="개발">개발</option>
 							<option value="영업">영업</option>
 							<option value="디자인">디자인</option>
 						</select>
 					</div>
 
-					<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-						<i className={`ri-key-2-line ri-lg ${form.career ? 'text-black' : 'text-slate-400'}`} />
+					<div
+						className={`flexCenter w-full gap-2 border-b-2 p-3 focus-within:border-additional2 ${form.career === '' ? 'text-red-400' : ''}`}
+					>
+						<i
+							className={`ri-bar-chart-2-line ri-lg ${form.career ? 'text-black' : 'text-slate-400'}`}
+						/>
 						<select
-							className="flex-grow text-xs outline-none"
+							className={`flex-grow text-xs outline-none ${form.career ? 'text-black' : 'text-slate-400'}`}
 							value={form.career}
 							onChange={e => setForm({...form, career: e.target.value})}
 						>
-							<option value="">경력 레벨</option>
+							<option value="">경력</option>
 							<option value="1~3년 주니어">1~3년 주니어</option>
 							<option value="4~8년 미들">4~8년 미들</option>
 							<option value="9년 이상 시니어">9년 이상 시니어</option>
 						</select>
 					</div>
 
-					<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-						<i className={`ri-key-2-line ri-lg ${form.task ? 'text-black' : 'text-slate-400'}`} />
-						<input
-							className="flex-grow text-xs outline-none"
-							placeholder="현직"
-							value={form.task}
-							onChange={e => setForm({...form, task: e.target.value})}
-						/>
-					</div>
-					<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-						<i
-							className={`ri-key-2-line ri-lg ${form.aboutMe ? 'text-black' : 'text-slate-400'}`}
-						/>
-						<input
-							className="flex-grow text-xs outline-none"
-							placeholder="자기소개"
-							value={form.aboutMe}
-							onChange={e => setForm({...form, aboutMe: e.target.value})}
-						/>
-					</div>
+					<CommonInput
+						placeholder="현직"
+						icon="building-line"
+						value={form.task}
+						onChange={value => setForm({...form, task: value})}
+					/>
+
+					<CommonInput
+						placeholder="자기소개"
+						icon="contacts-book-2-line"
+						value={form.aboutMe}
+						onChange={value => setForm({...form, aboutMe: value})}
+					/>
+
+					<CommonInput
+						placeholder="Github ID"
+						icon="github-fill"
+						value={form.github}
+						onChange={value => setForm({...form, github: value})}
+					/>
 				</div>
 
 				<button

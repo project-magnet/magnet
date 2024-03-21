@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {MyQuillComponent} from '../component/MyQuillComponent';
 import {createMentoring} from '../api/mentoring';
 import {useNavigate} from 'react-router-dom';
+import {CommonInput} from '../component/common/CommonInput';
 
-export const CreateMentoringPage: React.FC = () => {
+export const CreateMentoringPage = () => {
 	const [form, setForm] = useState({
 		title: '',
 		content: '',
@@ -70,7 +71,7 @@ export const CreateMentoringPage: React.FC = () => {
 				<div className="inputStyle">
 					<p>분야</p>
 					<select
-						className="border w-full p-2 rounded-md"
+						className="w-full rounded-md border p-2"
 						value={form.category}
 						onChange={e => setForm({...form, category: e.target.value})}
 					>
@@ -87,15 +88,12 @@ export const CreateMentoringPage: React.FC = () => {
 					</select>
 				</div>
 
-				<div className="inputStyle">
-					<p>제목</p>
-					<input
-						type="text"
-						value={form.title}
-						onChange={e => setForm({...form, title: e.target.value})}
-						placeholder="제목을 입력해 주세요."
-					/>
-				</div>
+				<CommonInput
+					placeholder="제목을 입력해 주세요."
+					icon="edit-box-line"
+					value={form.title}
+					onChange={value => setForm({...form, title: value})}
+				/>
 
 				<div className="inputStyle">
 					<p>소개내용</p>

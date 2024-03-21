@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {signup} from '../../api/auth';
 import {WarningMessage} from '../common/WarningMessage';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
+import {CommonInput} from '../common/CommonInput';
 
 const SignupForm = () => {
 	const navigate = useNavigate();
@@ -55,101 +56,81 @@ const SignupForm = () => {
 	return (
 		<section className="flexCol w-full items-center gap-7">
 			<div className="flexCol  w-11/12 gap-3 md:w-96">
-				<div className={`flexCenter w-full gap-2 border-b-2 p-3  focus-within:border-additional2 `}>
-					<i className={`ri-mail-line ri-lg ${form.email ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none "
-						placeholder="이메일"
-						value={form.email}
-						onChange={e => valiateField('email', e.target.value)}
-						onFocus={() => setCheckForm({...checkForm, email: {...checkForm.email, focused: true}})}
-					/>
-				</div>
-				{checkForm.email.focused && (
-					<WarningMessage
-						message="이메일 형식이어야 합니다."
-						isSuccess={checkForm.email.validated}
-					/>
-				)}
-				<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-					<i className={`ri-key-2-line ri-lg ${form.password ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none"
-						type="password"
-						placeholder="비밀번호"
-						value={form.password}
-						onChange={e => valiateField('password', e.target.value)}
-						onFocus={() =>
-							setCheckForm({...checkForm, password: {...checkForm.password, focused: true}})
-						}
-					/>
-				</div>
-				{checkForm.password.focused && (
-					<WarningMessage
-						message="최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다."
-						isSuccess={checkForm.password.validated}
-					/>
-				)}
+				<CommonInput
+					placeholder="이메일"
+					icon="mail-line"
+					value={form.email}
+					onChange={val => valiateField('email', val)}
+					onFocus={() => setCheckForm({...checkForm, email: {...checkForm.email, focused: true}})}
+				/>
+				<WarningMessage
+					message="이메일 형식이어야 합니다."
+					isSuccess={checkForm.email.validated}
+					visible={checkForm.email.focused}
+				/>
+
+				<CommonInput
+					password
+					placeholder="비밀번호"
+					icon="key-2-line"
+					value={form.password}
+					onChange={val => valiateField('password', val)}
+					onFocus={() =>
+						setCheckForm({...checkForm, password: {...checkForm.password, focused: true}})
+					}
+				/>
+				<WarningMessage
+					message="최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다."
+					isSuccess={checkForm.password.validated}
+					visible={checkForm.password.focused}
+				/>
 			</div>
 
 			<div className="flexCol  w-11/12  gap-3 md:w-96">
-				<div className="flexCenter w-full gap-2 border-b-2  p-3 focus-within:border-additional2 ">
-					<i className={`ri-user-line ri-lg ${form.username ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none"
-						placeholder="실명"
-						value={form.username}
-						onChange={e => valiateField('username', e.target.value)}
-						onFocus={() =>
-							setCheckForm({...checkForm, username: {...checkForm.username, focused: true}})
-						}
-					/>
-				</div>
-				{checkForm.username.focused && (
-					<WarningMessage
-						message="한글 2자리 이상이여야 합니다."
-						isSuccess={checkForm.username.validated}
-					/>
-				)}
-				<div className="flexCenter w-full gap-2 border-b-2  p-3 focus-within:border-additional2 ">
-					<i className={`ri-phone-line ri-lg ${form.phone ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none"
-						placeholder="전화번호"
-						value={form.phone}
-						onChange={e => valiateField('phone', e.target.value)}
-						onFocus={() => setCheckForm({...checkForm, phone: {...checkForm.phone, focused: true}})}
-					/>
-				</div>
-				{checkForm.phone.focused && (
-					<WarningMessage
-						message="하이픈(-)을 포함한 9자리 이상 정수여야 합니다."
-						isSuccess={checkForm.phone.validated}
-					/>
-				)}
+				<CommonInput
+					placeholder="실명"
+					icon="user-line"
+					value={form.username}
+					onChange={val => valiateField('username', val)}
+					onFocus={() =>
+						setCheckForm({...checkForm, username: {...checkForm.username, focused: true}})
+					}
+				/>
+				<WarningMessage
+					message="한글 2자리 이상이여야 합니다."
+					isSuccess={checkForm.username.validated}
+					visible={checkForm.username.focused}
+				/>
+
+				<CommonInput
+					placeholder="전화번호"
+					icon="phone-line"
+					value={form.phone}
+					onChange={val => valiateField('phone', val)}
+					onFocus={() => setCheckForm({...checkForm, phone: {...checkForm.phone, focused: true}})}
+				/>
+				<WarningMessage
+					message="하이픈(-)을 포함한 9자리 이상 정수여야 합니다."
+					isSuccess={checkForm.phone.validated}
+					visible={checkForm.phone.focused}
+				/>
 			</div>
 
 			<div className="flexCol  w-11/12  md:w-96">
-				<div className="flexCenter w-full gap-2 border-b-2  p-3 focus-within:border-additional2 ">
-					<i
-						className={`ri-aliens-line ri-lg ${form.nickName ? 'text-black' : 'text-slate-400'}`}
-					/>
-					<input
-						className="flex-grow text-xs outline-none"
-						placeholder="닉네임"
-						value={form.nickName}
-						onChange={e => valiateField('nickName', e.target.value)}
-						onFocus={() =>
-							setCheckForm({...checkForm, nickName: {...checkForm.nickName, focused: true}})
-						}
-					/>
-				</div>
-				{checkForm.nickName.focused && (
-					<WarningMessage
-						message={'특수문자 제외 3자리 이상이여야 합니다.'}
-						isSuccess={checkForm.nickName.validated}
-					/>
-				)}
+				<CommonInput
+					placeholder="닉네임"
+					icon="aliens-line"
+					value={form.nickName}
+					onChange={val => valiateField('nickName', val)}
+					onFocus={() =>
+						setCheckForm({...checkForm, nickName: {...checkForm.nickName, focused: true}})
+					}
+				/>
+				<WarningMessage
+					message={'특수문자 제외 3자리 이상이여야 합니다.'}
+					isSuccess={checkForm.nickName.validated}
+					visible={checkForm.nickName.focused}
+				/>
 			</div>
 
 			{/* 모든 validated가 참인가? */}
