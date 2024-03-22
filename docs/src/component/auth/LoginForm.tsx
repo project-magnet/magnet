@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {login} from '../../api/auth';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
-import {CommonInput} from '../common/CommonInput';
+import {CommonInput} from '../input/CommonInput';
 
 const LoginForm = () => {
 	const navigate = useNavigate();

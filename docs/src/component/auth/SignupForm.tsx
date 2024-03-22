@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {signup} from '../../api/auth';
 import {WarningMessage} from '../common/WarningMessage';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
-import {CommonInput} from '../common/CommonInput';
+import {CommonInput} from '../input/CommonInput';
 
 const SignupForm = () => {
 	const navigate = useNavigate();
