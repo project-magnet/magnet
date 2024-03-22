@@ -15,18 +15,29 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	return (
 		<div
 			onClick={handleClick}
-			className="buttonStyle flexCol size-72 animate-fadeIn cursor-pointer gap-5 bg-background p-5"
+			className="flex h-40 animate-fadeIn cursor-pointer gap-5 bg-background p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg"
 		>
-			<div>
-				<p className="truncate text-xl font-bold">{mentorName}</p>
-				{[career, field, task].map(el => (
-					<p className="mt-1 truncate text-sm text-secondary">{`#${el}`}</p>
-				))}
+			<div className="h-full w-52">
+				<p className="mb-1 truncate text-additional3">{`${category}`}</p>
+				<div className="line-clamp-4 text-sm">{title}</div>
 			</div>
-			<div className="h-0.5 w-full border border-dashed" />
-			<div className="line-clamp-5">
-				<p className="text-sm text-secondary">#{category}</p>
-				<p className="">{title}</p>
+
+			<div className="h-full border border-dashed" />
+
+			<div className="flexCol h-full w-32">
+				<p className="mb-2 truncate font-bold">{mentorName}</p>
+				<div className="flex gap-1">
+					<i className="ri-building-line text-secondary" />
+					<p className="mt-1 truncate text-xs text-additional3">{`${task}`}</p>
+				</div>
+				<div className="flex gap-1">
+					<i className="ri-bar-chart-2-line text-secondary" />
+					<p className="mt-1 truncate text-xs text-secondary">{`${career}`}</p>
+				</div>
+				<div className="flex gap-1">
+					<i className="ri-walk-line text-secondary" />
+					<p className="mt-1 truncate text-xs text-secondary">{`${field}`} 직무</p>
+				</div>
 			</div>
 		</div>
 	);
