@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {login} from '../../api/auth';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
+import {CommonInput} from '../input/CommonInput';
 
 const LoginForm = () => {
 	const navigate = useNavigate();
@@ -28,28 +29,16 @@ const LoginForm = () => {
 	};
 
 	return (
-		<section className="flexCol w-full items-center gap-5 ">
+		<section className="flexCol w-full items-center gap-10 ">
 			<div className="flexCol w-full gap-5 md:w-72 ">
-				<div className={`flexCenter w-full gap-2 border-b-2 p-3  focus-within:border-additional2 `}>
-					<i className={`ri-mail-line ri-lg ${email ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none "
-						placeholder="이메일"
-						value={email}
-						onChange={e => setEmail(e.target.value)}
-					/>
-				</div>
-
-				<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-					<i className={`ri-key-2-line ri-lg ${password ? 'text-black' : 'text-slate-400'}`} />
-					<input
-						className="flex-grow text-xs outline-none"
-						type="password"
-						placeholder="비밀번호"
-						value={password}
-						onChange={e => setPassword(e.target.value)}
-					/>
-				</div>
+				<CommonInput placeholder="이메일" icon="mail-line" value={email} onChange={setEmail} />
+				<CommonInput
+					placeholder="비밀번호"
+					icon="key-2-line"
+					value={password}
+					onChange={setPassword}
+					password
+				/>
 			</div>
 
 			<button onClick={handleLogin} className={`buttonStylePrimary w-full md:w-72 `}>

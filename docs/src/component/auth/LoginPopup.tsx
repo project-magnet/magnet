@@ -3,6 +3,7 @@ import LoginForm from './LoginForm';
 import {useEffect} from 'react';
 import LoginButton from './LoginButton';
 import {LogoMagnet} from '../common/LogoMagnet';
+import {PopupCloseButton} from '../common/PopupCloseButton';
 
 export const LoginPopup = () => {
 	const setLoginPopupIsOpenFalse = LoginPopupStore(state => state.setLoginPopupIsOpenFalse);
@@ -30,12 +31,7 @@ export const LoginPopup = () => {
 			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 backdrop-blur-sm"
 		>
 			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-5 md:w-fit md:px-20">
-				<div className="absolute right-1 top-1">
-					<i
-						onClick={handleClick}
-						className="ri-close-line cursor-pointer text-2xl  text-slate-400 transition-colors duration-300 hover:text-black"
-					></i>
-				</div>
+				<PopupCloseButton handleClick={handleClick} />
 				<LogoMagnet word="MAGNET" />
 				<LoginForm />
 				<div className="flexCenter my-5 w-full gap-5">
