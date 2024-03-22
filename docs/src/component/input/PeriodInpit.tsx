@@ -32,7 +32,7 @@ export const PeriodInput = ({value, onChange}: PeriodInputProps) => {
 					}`}
 				/>
 				<input
-					className="flex-grow text-xs outline-none"
+					className={`flex-grow text-xs outline-none ${value ? ' text-black' : 'text-slate-400'}`}
 					placeholder="날짜"
 					value={value}
 					onChange={handleInputChange}
