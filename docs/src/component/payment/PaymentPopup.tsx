@@ -6,7 +6,7 @@ import PopupStore from '../../store/PopupStore';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {getMentoring, getMentoringData} from '../../api/mentoring';
 import {LodingContainer} from '../common/LoadingContainer';
-// import {MenteeStore} from '../../store/MenteeStore';
+import {PopupCloseButton} from '../common/PopupCloseButton';
 
 const PaymentPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
@@ -79,7 +79,8 @@ const PaymentPopup = () => {
 			onClick={handleClick}
 			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 "
 		>
-			<section className="flexCol z-20 mt-48 size-full gap-5 rounded-md  bg-white p-8 pb-32 sm:mt-0 sm:w-[500px] sm:pb-8">
+			<section className="flexCol relative z-20 mt-48 size-full gap-5 rounded-md  bg-white p-8 pb-32 sm:mt-0 sm:w-[500px] sm:pb-8">
+				<PopupCloseButton handleClick={handleClick} />
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-3">
 						<p className="text-lg font-semibold">
@@ -87,10 +88,6 @@ const PaymentPopup = () => {
 						</p>
 						<p className="text-sm text-slate-400">{`${pageNumber}/3`}</p>
 					</div>
-					<i
-						onClick={handleClick}
-						className="ri-close-line cursor-pointer text-2xl  text-slate-400"
-					></i>
 				</div>
 				<div className="flexCol flex-grow animate-fadeIn gap-5  overflow-y-auto">
 					{mentoringData ? (

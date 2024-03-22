@@ -6,6 +6,7 @@ import {MemberStore} from '../../store/MemberStore';
 import {LogoMagnet} from '../common/LogoMagnet';
 import {CommonInput} from '../input/CommonInput';
 import {SelectInput} from '../input/SelectInput';
+import {PopupCloseButton} from '../common/PopupCloseButton';
 
 export const MentorRegistPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
@@ -54,12 +55,7 @@ export const MentorRegistPopup = () => {
 			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 backdrop-blur-sm"
 		>
 			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-10 md:w-fit md:px-20 ">
-				<div className="absolute right-1 top-1">
-					<i
-						onClick={handleClick}
-						className="ri-close-line cursor-pointer text-2xl  text-slate-400 transition-colors duration-300 hover:text-black"
-					></i>
-				</div>
+				<PopupCloseButton handleClick={handleClick} />
 				<LogoMagnet word="MAGNET" />
 				<div className="flexCol w-full gap-5 md:w-96">
 					<SelectInput
