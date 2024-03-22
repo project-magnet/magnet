@@ -4,7 +4,8 @@ import PopupStore from '../../store/PopupStore';
 import {createMentor} from '../../api/mentor';
 import {MemberStore} from '../../store/MemberStore';
 import {LogoMagnet} from '../common/LogoMagnet';
-import {CommonInput} from '../common/CommonInput';
+import {CommonInput} from '../input/CommonInput';
+import {SelectInput} from '../input/SelectInput';
 
 export const MentorRegistPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
@@ -61,40 +62,28 @@ export const MentorRegistPopup = () => {
 				</div>
 				<LogoMagnet word="MAGNET" />
 				<div className="flexCol w-full gap-5 md:w-96">
-					<div className="flexCenter w-full gap-2 border-b-2   p-3 focus-within:border-additional2 ">
-						<i className={`ri-walk-line ri-lg ${form.field ? 'text-black' : 'text-slate-400'}`} />
-						<select
-							className={`flex-grow text-xs outline-none ${form.field ? 'text-black' : 'text-slate-400'}`}
-							value={form.field}
-							onChange={e => setForm({...form, field: e.target.value})}
-						>
-							<option value="" selected hidden className="select-text">
-								대표 분야
-							</option>
-							<option value="개발">개발</option>
-							<option value="영업">영업</option>
-							<option value="디자인">디자인</option>
-						</select>
-					</div>
-
-					<div
-						className={`flexCenter w-full gap-2 border-b-2 p-3 focus-within:border-additional2 ${form.career === '' ? 'text-red-400' : ''}`}
-					>
-						<i
-							className={`ri-bar-chart-2-line ri-lg ${form.career ? 'text-black' : 'text-slate-400'}`}
-						/>
-						<select
-							className={`flex-grow text-xs outline-none ${form.career ? 'text-black' : 'text-slate-400'}`}
-							value={form.career}
-							onChange={e => setForm({...form, career: e.target.value})}
-						>
-							<option value="">경력</option>
-							<option value="1~3년 주니어">1~3년 주니어</option>
-							<option value="4~8년 미들">4~8년 미들</option>
-							<option value="9년 이상 시니어">9년 이상 시니어</option>
-						</select>
-					</div>
-
+					<SelectInput
+						value={form.field}
+						onChange={value => setForm({...form, field: value})}
+						placeholder="대표 분야"
+						options={[
+							{value: '개발', label: '개발'},
+							{value: '영업', label: '영업'},
+							{value: '디자인', label: '디자인'},
+						]}
+						icon="walk-line"
+					/>
+					<SelectInput
+						value={form.career}
+						onChange={value => setForm({...form, career: value})}
+						placeholder="경력"
+						options={[
+							{value: '1~3년 주니어', label: '1~3년 주니어'},
+							{value: '4~8년 미들', label: '4~8년 미들'},
+							{value: '9년 이상 시니어', label: '9년 이상 시니어'},
+						]}
+						icon="bar-chart-2-line"
+					/>
 					<CommonInput
 						placeholder="현직"
 						icon="building-line"
