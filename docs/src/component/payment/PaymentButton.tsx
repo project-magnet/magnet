@@ -1,6 +1,7 @@
 import React from 'react';
 import {openTossPayment} from '../../api/payments';
 import {useAddPath} from '../../hooks/useAddPath';
+import {LoginPopupStore} from '../../store/LoginPopupStore';
 
 type PaymentButtonProps = {
 	type: 'previous' | 'next' | 'payment'; // 버튼의 유형
@@ -10,35 +11,40 @@ type PaymentButtonProps = {
 
 const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber, disable}) => {
 	const addPath = useAddPath();
+	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
 
 	const buttonConfig = {
 		next: {
 			text: '다음으로',
-			handler: () => addPath(`page=${pageNumber + 1}`),
-			className: 'bg-additional2 text-white',
+			handler: () => {
+				//세션스토리지에 Authorization이 있으면 다음페이지로 넘어가고 없으면 로그인 팝업을 띄움
+				const token = sessionStorage.getItem('Authorization');
+				if (token) {
+					addPath(`page=${pageNumber + 1}`);
+				} else {
+					setLoginPopupIsOpenTrue();
+				}
+			},
+			className: 'buttonStylePrimary',
 		},
 		previous: {
 			text: '이전으로',
 			handler: () => addPath(`page=${pageNumber - 1}`),
-			className: 'bg-white text-black',
+			className: 'activeStyle',
 		},
 		payment: {
 			text: '결제하기',
 			handler: () => openTossPayment(),
-			className: 'bg-blue-400 text-white',
+			className: 'buttonStylePrimary',
 		},
 	};
 
 	const {text, handler, className} = buttonConfig[type];
 
 	return (
-		<div
-			onClick={handler}
-			className={`buttonStyle flexCenter h-10 w-24 
-			${className} ${disable && 'pointer-events-none opacity-50'}`}
-		>
+		<button onClick={handler} className={`${className}`} disabled={disable}>
 			<p className="text-sm">{text}</p>
-		</div>
+		</button>
 	);
 };
 

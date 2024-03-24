@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply box-border m-0 p-0 font-GmarketSansMedium ;
+@layer base {
+  html {
+    font-family: 'GmarketSansMedium', sans-serif;
+  }
+  *{
+    @apply box-border m-0 p-0;
+  }
 }
 
 @layer components {
@@ -13,40 +18,34 @@
     .flexCol{
       @apply flex flex-col;
     }
+    .disabledStyle {
+      @apply  bg-opacity-40 active:scale-100 hover:bg-opacity-40;
+    }
+    .buttonStyle {
+      @apply px-5 py-3 rounded-md  transition duration-200 select-none font-bold  active:scale-95
+    }
     .buttonStylePrimary {
-      @apply px-5 py-3 rounded-md shadow-lg transition duration-300  bg-additional3 text-white select-none hover:bg-opacity-75 font-bold;
+      @apply buttonStyle disabled:disabledStyle bg-additional3 text-white hover:bg-opacity-70;
     }
 
     .buttonStyleSecondary {
-      @apply px-5 py-3 rounded-md shadow-sm hover:bg-additional3 hover:text-white transition duration-300 border-2 border-additional3 bg-white text-additional3   select-none font-bold;
+      @apply buttonStyle  hover:bg-additional3 hover:text-white border border-additional3  text-additional3;
     }
 
     .buttonStyleTertiary {
-      @apply px-5 py-3 rounded-md hover:text-additional3 hover:border-additional3 border-2 transition duration-300  bg-white text-black select-none ;
+      @apply buttonStyle hover:text-additional3 hover:border-additional3 border text-black;
     }
-    .buttonStyle {
-      @apply px-5 py-2 rounded-md shadow-lg hover:opacity-75 hover:text-opacity-75 transition duration-300 border bg-white select-none
+    .activeStyle {
+      @apply  px-3 py-2 rounded-xl hover:text-black active:scale-95 active:bg-slate-100 transition text-slate-400 select-none
     }
     .userPageSection {
       @apply px-10 md:px-20 lg:px-40 flexCenter
-    }
-    .inputStyle {
-      @apply  text-primary text-sm m-1;
-    }
-    .inputStyle input {
-      @apply w-[90vw] sm:w-96 h-10 rounded-md px-3 border;
-    }
-    .inputStyle button{
-      @apply w-[90vw] sm:w-96 h-12 rounded-md shadow-md;
     }
     .warning {
       @apply text-red-500 text-xs;
     }
     .success {
       @apply text-green-500 text-xs;
-    }
-    .boxShadow {
-      @apply shadow-md rounded-xl border;
     }
     .hoverAnimationUpDown {
       @apply hover:animate-upALittle animate-downALittle select-none;

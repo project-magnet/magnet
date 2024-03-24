@@ -54,8 +54,8 @@ const SignupForm = () => {
 	};
 
 	return (
-		<section className="flexCol w-full items-center gap-7">
-			<div className="flexCol  w-11/12 gap-3 md:w-96">
+		<section className="flexCol w-full items-center gap-10 *:w-10/12 *:md:w-96">
+			<div className="flexCol gap-3">
 				<CommonInput
 					placeholder="이메일"
 					icon="mail-line"
@@ -86,7 +86,7 @@ const SignupForm = () => {
 				/>
 			</div>
 
-			<div className="flexCol  w-11/12  gap-3 md:w-96">
+			<div className="flexCol gap-3">
 				<CommonInput
 					placeholder="실명"
 					icon="user-line"
@@ -116,7 +116,7 @@ const SignupForm = () => {
 				/>
 			</div>
 
-			<div className="flexCol  w-11/12  md:w-96">
+			<div className="flexCol">
 				<CommonInput
 					placeholder="닉네임"
 					icon="aliens-line"
@@ -136,9 +136,7 @@ const SignupForm = () => {
 			{/* 모든 validated가 참인가? */}
 			<button
 				onClick={handleSignup}
-				className={`buttonStylePrimary w-11/12 md:w-96 ${
-					!Object.values(checkForm).every(field => field.validated) && 'bg-opacity-20'
-				}`}
+				className={`buttonStylePrimary`}
 				disabled={!Object.values(checkForm).every(field => field.validated)}
 			>
 				회원가입

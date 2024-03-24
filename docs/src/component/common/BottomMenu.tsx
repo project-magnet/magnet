@@ -29,22 +29,18 @@ const BottomMenu = () => {
 		<>
 			{fetchFinish ? (
 				<section
-					className="flexCenter fixed bottom-0 h-14 w-full justify-around 
-    				border-t bg-white sm:hidden"
+					className="flexCenter fixed bottom-0 z-50 h-16 w-full 
+    				justify-around rounded-t-3xl border-t bg-white shadow-2xl sm:hidden"
 				>
 					<Link
 						to="/mentorlist"
-						className={`w-20 ${
-							'/mentorlist' === location.pathname ? 'text-additional2' : 'text-black'
-						} transition`}
+						className={`activeStyle w-20 ${'/mentorlist' === location.pathname && 'text-black'} `}
 					>
 						<div className="flexCenter flex-col">
-							{'/mentorlist' === location.pathname ? (
-								<i className="ri-search-eye-line "></i>
-							) : (
-								<i className="ri-search-line"></i>
-							)}
-							<p className="text-2xs">둘러보기</p>
+							<i
+								className={`ri-xl ri-${'/mentorlist' === location.pathname ? 'search-eye-line' : 'search-line'}`}
+							/>
+							<p className="mt-2 text-2xs">둘러보기</p>
 						</div>
 					</Link>
 
@@ -52,34 +48,27 @@ const BottomMenu = () => {
 						<>
 							<Link
 								to="/user"
-								className={`w-20 ${
-									'/user' === location.pathname ? 'text-additional2' : 'text-black'
-								} transition`}
+								className={`activeStyle w-20 ${'/user' === location.pathname && 'text-black'} `}
 							>
 								<div className="flexCenter flex-col">
-									{'/user' === location.pathname ? (
-										<i className="ri-user-follow-line"></i>
-									) : (
-										<i className="ri-user-line"></i>
-									)}
-									<span className="text-2xs">내 정보</span>
+									<i
+										className={`ri-xl ri-${'/user' === location.pathname ? 'user-follow-line' : 'user-line'}`}
+									/>
+									<span className="mt-2 text-2xs">내 정보</span>
 								</div>
 							</Link>
 							{isMentor && (
 								<Link
 									to="/creatementoring"
-									className={`w-20  ${
-										'/creatementoring' === location.pathname ? 'text-additional2' : 'text-black'
+									className={`activeStyle w-20  ${
+										'/creatementoring' === location.pathname && 'text-black'
 									} transition`}
 								>
 									<div className="flexCenter flex-col">
-										{'/creatementoring' === location.pathname ? (
-											<i className="ri-link"></i>
-										) : (
-											<i className="ri-link-unlink"></i>
-										)}
-
-										<span className="text-2xs">멘토링 개설하기</span>
+										<i
+											className={`ri-xl ri-${'/creatementoring' === location.pathname ? 'link' : 'link-unlink'}`}
+										/>
+										<span className="mt-2 text-2xs">멘토링 개설</span>
 									</div>
 								</Link>
 							)}
@@ -87,16 +76,13 @@ const BottomMenu = () => {
 					) : (
 						<div
 							onClick={() => setLoginPopupIsOpenTrue()}
-							className={`w-20 ${loginPopupIsOpen ? 'text-additional2' : 'text-black'} transition`}
+							className={`activeStyle w-20 ${loginPopupIsOpen && 'text-black'}`}
 						>
-							<div className="flexCenter flex-col">
-								{'/login' === location.pathname ? (
-									<i className="ri-login-circle-line"></i>
-								) : (
-									<i className="ri-login-box-line"></i>
-								)}
-
-								<p className={`text-2xs`}>로그인</p>
+							<div className="flexCenter flex-col ">
+								<i
+									className={`ri-xl ri-${loginPopupIsOpen ? 'login-circle-line' : 'login-box-line'}`}
+								/>
+								<p className={`mt-2 text-2xs`}>로그인</p>
 							</div>
 						</div>
 					)}

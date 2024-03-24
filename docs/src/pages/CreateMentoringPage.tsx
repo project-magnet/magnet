@@ -102,13 +102,7 @@ export const CreateMentoringPage = () => {
 					max={30}
 				/>
 
-				<button
-					className={`buttonStyle py-2 ${
-						isFormValid ? 'hover:opacity-80' : 'opacity-20'
-					} bg-black text-white`}
-					onClick={handleSubmit}
-					disabled={!isFormValid}
-				>
+				<button className={`buttonStylePrimary`} onClick={handleSubmit} disabled={!isFormValid}>
 					개설하기
 				</button>
 			</section>

@@ -13,28 +13,28 @@ const MentoringListPage = () => {
 	const navigate = useNavigate();
 
 	const categories = [
-		{title: '전체', id: 'ALL', image: <i className="ri-menu-line ri-2x"></i>},
-		{title: '개발', id: 'DEVELOPMENT', image: <i className="ri-code-s-slash-line ri-2x"></i>},
-		{title: '마케팅', id: 'MARKETING', image: <i className="ri-megaphone-line ri-2x"></i>},
+		{title: '전체', id: 'ALL', icon: 'menu-line'},
+		{title: '개발', id: 'DEVELOPMENT', icon: 'code-s-slash-line'},
+		{title: '마케팅', id: 'MARKETING', icon: 'megaphone-line'},
 		{
 			title: '프로덕트 매니저',
 			id: 'PRODUCT_MANAGER',
-			image: <i className="ri-user-settings-line  ri-2x"></i>,
+			icon: 'user-settings-line',
 		},
-		{title: '백엔드', id: 'BACKEND', image: <i className="ri-send-to-back ri-2x"></i>},
-		{title: '프론트엔드', id: 'FRONTEND', image: <i className="ri-bring-to-front ri-2x"></i>},
-		{title: '데브옵스', id: 'DEVOPS', image: <i className="ri-file-settings-line ri-2x"></i>},
+		{title: '백엔드', id: 'BACKEND', icon: 'send-to-back'},
+		{title: '프론트엔드', id: 'FRONTEND', icon: 'bring-to-front'},
+		{title: '데브옵스', id: 'DEVOPS', icon: 'file-settings-line'},
 		{
 			title: '데이터 엔지니어',
 			id: 'DATA_ENGINEER',
-			image: <i className="ri-line-chart-line ri-2x"></i>,
+			icon: 'line-chart-line',
 		},
 		{
 			title: '서버 엔자니어',
 			id: 'SERVER_ENGINEER',
-			image: <i className="ri-database-2-line ri-2x"></i>,
+			icon: 'database-2-line',
 		},
-		{title: 'AI', id: 'AI', image: <i className="ri-robot-3-line ri-2x"></i>},
+		{title: 'AI', id: 'AI', icon: 'robot-3-line'},
 	];
 
 	useEffect(() => {
@@ -63,10 +63,10 @@ const MentoringListPage = () => {
 						key={index}
 						onClick={() => setCategory(el.id)}
 						className={`${
-							category === el.id ? 'scale-110 text-additional2' : 'text-black'
-						}   flexCenter size-20 cursor-pointer flex-col transition-all  duration-200 hover:text-additional2 `}
+							category === el.id && 'scale-100 text-additional3'
+						}   activeStyle flexCenter size-24 cursor-pointer flex-col hover:text-additional3 `}
 					>
-						{el.image}
+						<i className={`ri-${el.icon} ri-2x ${category === el.id && 'animate-jelly'}`} />
 						<p className="text-2xs">{el.title}</p>
 					</div>
 				))}
