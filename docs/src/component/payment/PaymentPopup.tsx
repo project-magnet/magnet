@@ -7,6 +7,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {getMentoring, getMentoringData} from '../../api/mentoring';
 import {LodingContainer} from '../common/LoadingContainer';
 import {PopupCloseButton} from '../common/PopupCloseButton';
+import {CommonInput} from '../input/CommonInput';
 
 const PaymentPopup = () => {
 	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
@@ -79,7 +80,7 @@ const PaymentPopup = () => {
 			onClick={handleClick}
 			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 "
 		>
-			<section className="flexCol relative z-20 mt-48 size-full gap-5 rounded-md  bg-white p-8 pb-32 sm:mt-0 sm:w-[500px] sm:pb-8">
+			<section className="flexCol relative z-20 mt-48 size-full gap-5 rounded-md  bg-white p-8 pb-48 sm:mt-0 sm:w-[500px] sm:pb-8">
 				<PopupCloseButton handleClick={handleClick} />
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-3">
@@ -95,62 +96,79 @@ const PaymentPopup = () => {
 							{pageNumber === 1 ? (
 								<>
 									<div>
-										<p className="truncate text-lg font-bold">멘토 이름 추가해야함</p>
-										<p className="mt-1 truncate text-sm text-secondary">#{mentoringData.career}</p>
-										<p className="mt-1 truncate text-sm text-secondary">#{mentoringData.field}</p>
-										<p className="mt-1 truncate text-sm text-secondary">#{mentoringData.task}</p>
+										<div className="flex gap-1">
+											<i className="ri-building-line text-secondary" />
+											<p className="mt-1 truncate text-xs text-additional3">{`${mentoringData.task}`}</p>
+										</div>
+										<div className="flex gap-1">
+											<i className="ri-bar-chart-2-line text-secondary" />
+											<p className="mt-1 truncate text-xs text-secondary">{`${mentoringData.career}`}</p>
+										</div>
+										<div className="flex gap-1">
+											<i className="ri-walk-line text-secondary" />
+											<p className="mt-1 truncate text-xs text-secondary">
+												{`${mentoringData.field}`} 직무
+											</p>
+										</div>
 									</div>
 									<div className="h-[1px] w-full border border-dashed" />
-									<p className="text-2xl font-bold">
-										<p className="text-lg text-secondary">#{mentoringData.category}</p>
-										{mentoringData.title}
-									</p>
-									<p className="text-sm">{mentoringData.content}</p>
+									<p className="font-PartialSansKR_Regular text-lg">{mentoringData.category}</p>
+									<p className="text-2xl font-bold">{mentoringData.title}</p>
+									<div
+										className="text-sm"
+										dangerouslySetInnerHTML={{__html: mentoringData.content}}
+									/>
 								</>
 							) : pageNumber === 2 ? (
 								<>
-									<PaymentInput
-										label="연락 가능한 연락처"
+									<article className="animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-lg text-additional3">
+										입력에 주의하라는 거대한 안내문구
+									</article>
+									<CommonInput
 										placeholder="연락 가능한 연락처를 입력해 주세요"
-										data={phone}
-										setData={setPhone}
+										onChange={setPhone}
+										value={phone}
+										icon="phone-line"
 									/>
-
-									<PaymentInput
-										label="연락 가능한 이메일"
+									<CommonInput
 										placeholder="연락 가능한 이메일을 입력해 주세요"
-										data={email}
-										setData={setEmail}
+										onChange={setEmail}
+										value={email}
+										icon="mail-line"
 									/>
-
-									<PaymentInput
-										label="멘토에게 전달사항"
-										placeholder="상세하게 남겨주실 수록 더욱 의미있는 시간을 가질 수 있습니다 :)"
-										data={message}
-										setData={setMessage}
-									/>
+									<textarea
+										className="min-h-52 w-full resize-none rounded-md border-2 p-2 text-sm"
+										placeholder="멘토에게 전달사항
+										(멘토링 신청 이유, 질문 등)"
+										onChange={e => setMessage(e.target.value)}
+										value={message}
+									></textarea>
 								</>
 							) : pageNumber === 3 ? (
 								<>
 									<div>
-										<span>멘토링명</span>
+										<span>신청 멘토링명</span>
 										<span className="ml-3 text-sm text-slate-500">{mentoringData.title}</span>
 									</div>
 									<div>
-										<span>멘토링 가격</span>
+										<span>신청 금액</span>
 										<span className="ml-3 text-sm text-slate-500">{mentoringData.pay}원</span>
 									</div>
-
 									<div>
-										<span>연락처</span>
+										<span>멘토링 진행 기간</span>
+										<span className="ml-3 text-sm text-slate-500">{mentoringData.period}월</span>
+									</div>
+									<br />
+									<div>
+										<span>연락 가능한 연락처</span>
 										<span className="ml-3 text-sm text-slate-500">{phone}</span>
 									</div>
 									<div>
-										<span>이메일</span>
+										<span>연락 가능한 이메일</span>
 										<span className="ml-3 text-sm text-slate-500">{email}</span>
 									</div>
 									<div>
-										<span>메시지</span>
+										<span>멘토에게 전달사항</span>
 										<span className="ml-3 text-sm text-slate-500">{message}</span>
 									</div>
 								</>
@@ -165,11 +183,17 @@ const PaymentPopup = () => {
 
 				<div className="flex justify-end gap-3">
 					{pageNumber === 1 && mentoringData ? (
-						<div className="flexCenter w-full justify-between">
+						<div className="flexCenter w-full justify-between ">
 							{mentoringData && (
-								<div className="text-sm">
-									<p>멘토링 1회: {mentoringData.pay}원</p>
-									<p>진행기간: {mentoringData.period}</p>
+								<div className="flexCol gap-1 rounded-3xl bg-slate-100 px-5 py-2 text-xs">
+									<div className="flex items-center">
+										<i className="ri-money-dollar-circle-line ri-lg" />
+										<p> 1회 : {mentoringData.pay}원</p>
+									</div>
+									<div className="flex items-center">
+										<i className="ri-calendar-event-line ri-lg" />
+										<p> 기간 : {mentoringData.period}</p>
+									</div>
 								</div>
 							)}
 							<PaymentButton pageNumber={pageNumber} type="next" />
