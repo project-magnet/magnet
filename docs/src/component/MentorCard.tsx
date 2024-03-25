@@ -15,7 +15,7 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCol w-full animate-fadeIn cursor-pointer gap-5 bg-background p-5 shadow-md transition hover:-translate-y-1 hover:shadow-lg sm:h-40 sm:w-fit sm:flex-row"
+			className="flexCol w-full animate-fadeIn cursor-pointer gap-5 bg-background p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md active:scale-105 active:shadow-2xl sm:h-40 sm:w-fit sm:flex-row"
 		>
 			<div className="h-full flex-grow text-2xs sm:w-52 sm:text-sm">
 				<p className="mb-2 truncate font-PartialSansKR_Regular">{`${category}`}</p>
