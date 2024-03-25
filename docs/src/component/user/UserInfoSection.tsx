@@ -54,30 +54,30 @@ export const UserInfoSection = ({
 		}
 	};
 	return (
-		<section className="userPageSection flex-col justify-between  gap-10 bg-slate-50 py-10 lg:flex-row ">
+		<section className="userPageSection flex-col justify-between  gap-10 py-10 lg:flex-row ">
 			<div className="flexCol   gap-3">
 				{/* 닉네임 */}
 				<div className="h-2">
 					{changeNickName.length >= 10 && (
-						<p className="animate-shake text-sm text-additional2 opacity-100">
+						<p className="animate-shake text-sm text-yellow-400 opacity-100">
 							닉네임은 10글자를 초과할 수 없습니다.
 						</p>
 					)}
 				</div>
-				<div className="flex flex-col items-center gap-4 sm:flex-row">
+				<div className="flex items-center border-b-2">
 					<input
 						placeholder={nickName}
-						className="w-72 rounded-lg border p-2 text-2xl font-semibold"
+						className="rounded-lg bg-none font-semibold outline-none sm:w-72 sm:text-2xl"
 						maxLength={10}
 						value={changeNickName}
 						onChange={e => setChangeNickName(e.target.value)}
 					></input>
 					<button
 						onClick={handleNickNameChange}
-						className={`buttonStyle ${changeNickName.length < 3 && 'opacity-30'}`}
+						className={`activeStyle ${changeNickName.length < 3 ? 'hover:text-slate-400 active:scale-100 active:bg-slate-50' : 'text-black'}`}
 						disabled={changeNickName.length < 3}
 					>
-						변경하기
+						<i className="ri-repeat-line ri-xl" />
 					</button>
 				</div>
 				{/* 멘토, 멘티 여부 */}
@@ -100,10 +100,10 @@ export const UserInfoSection = ({
 				</div>
 			</div>
 			<div className="flex gap-2">
-				<button className="buttonStyle" onClick={() => handleLogout()}>
+				<button className="buttonStyleTertiary" onClick={() => handleLogout()}>
 					로그아웃
 				</button>
-				<button className="px-4 opacity-50" onClick={() => hadleDeleteMember()}>
+				<button className="activeStyle text-sm" onClick={() => hadleDeleteMember()}>
 					회원 탈퇴
 				</button>
 			</div>

@@ -54,10 +54,10 @@ export const MentorRegistPopup = () => {
 			onClick={handleClick}
 			className="flexCenter fixed top-0 z-20 size-full bg-black bg-opacity-30 backdrop-blur-sm"
 		>
-			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-10 md:w-fit md:px-20 ">
+			<section className="flexCenter relative w-full flex-col gap-10 rounded-md bg-white py-10 md:w-fit  md:p-20 ">
 				<PopupCloseButton handleClick={handleClick} />
 				<LogoMagnet word="MAGNET" />
-				<div className="flexCol w-full gap-5 md:w-96">
+				<div className="flexCol w-11/12 gap-5 md:w-96">
 					<SelectInput
 						value={form.field}
 						onChange={value => setForm({...form, field: value})}
@@ -104,9 +104,7 @@ export const MentorRegistPopup = () => {
 
 				<button
 					onClick={areAllInputsSelected ? handleSubmit : () => {}}
-					className={`buttonStylePrimary w-11/12 md:w-96 ${
-						areAllInputsSelected ? 'bg-black' : 'bg-gray-300'
-					}`}
+					className={`buttonStylePrimary w-11/12 md:w-96`}
 					disabled={!areAllInputsSelected}
 				>
 					등록하기

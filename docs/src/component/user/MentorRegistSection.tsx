@@ -27,13 +27,13 @@ export const MentorRegistSection = ({isMentor}: {isMentor: boolean}) => {
 				<>
 					{/* 멘토등록 팝업 */}
 					{isOpen && <MentorRegistPopup />}
-					<section className="userPageSection flex-col justify-between gap-10  bg-gradient-to-r  from-additional2 to-additional3 py-10 lg:flex-row">
+					<section className="userPageSection flex-col justify-between gap-10 bg-gradient-to-b from-white  to-slate-100  py-16 lg:flex-row">
 						<div>
 							<p className="mb-2 text-4xl font-semibold">멘토 등록하기</p>
-							<p className="text-sm ">멘토가 되어서 멘토링을 직접 개설해 보세요!</p>
+							<p className="text-sm">멘토가 되어서 멘토링을 개설해 보세요!</p>
 						</div>
-						<button className="buttonStyle" onClick={handleButton}>
-							<p className="font-medium ">간단하게 등록하기</p>
+						<button className="buttonStyleSecondary" onClick={handleButton}>
+							간단하게 등록하기
 						</button>
 					</section>
 				</>

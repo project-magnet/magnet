@@ -26,6 +26,7 @@ export const theme = {
 			fadeInMoveDown: `fadeInMoveDown 1s ${cubric} forwards`,
 			tickle: `tickle 0.2s ${cubric} forwards`,
 			disappear: `disappear 1s ${cubric}  2s forwards`,
+			jelly: `jelly 0.5s ${cubric} forwards`,
 		},
 		keyframes: {
 			blink: {
@@ -67,6 +68,12 @@ export const theme = {
 			disappear: {
 				'0%': {opacity: 1, height: 'auto'},
 				'100%': {opacity: 0, height: 0},
+			},
+			jelly: {
+				'0%': {transform: 'scale(1, 1)'},
+				'40%': {transform: 'scale(1.1, 0.9)'},
+				'90%': {transform: 'scale(0.95, 1.05)'},
+				'100%': {transform: 'scale(1, 1)'},
 			},
 		},
 		fontSize: {
