@@ -17,6 +17,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8080")
                 .allowedOrigins("http://43.203.58.41:8080")
                 .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("https://project-magnet.github.io/magnet")
                 .allowedMethods("*")
                 .allowCredentials(true)
                 .allowedHeaders("*")
