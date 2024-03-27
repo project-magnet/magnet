@@ -52,6 +52,7 @@ sketch
 
 db.json
 .env
+build.zip
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
@@ -70,5 +71,3 @@ db.json
 # Ignore all local history of files
 .history
 .ionide
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,react
