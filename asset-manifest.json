@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/magnet/static/css/main.f5e1197d.css",
-    "main.js": "/magnet/static/js/main.e375d851.js",
+    "main.js": "/magnet/static/js/main.2ae656f9.js",
     "static/media/remixicon.svg?t=1702724036775": "/magnet/static/media/remixicon.a377e4c771db384f4bc5.svg",
     "static/media/remixicon.eot?t=1702724036775": "/magnet/static/media/remixicon.dd310df16a603c6a396d.eot",
     "static/media/remixicon.ttf?t=1702724036775": "/magnet/static/media/remixicon.424fce778c275364c18f.ttf",
@@ -9,10 +9,10 @@
     "static/media/remixicon.woff2?t=1702724036775": "/magnet/static/media/remixicon.d690f58194cb889b5487.woff2",
     "index.html": "/magnet/index.html",
     "main.f5e1197d.css.map": "/magnet/static/css/main.f5e1197d.css.map",
-    "main.e375d851.js.map": "/magnet/static/js/main.e375d851.js.map"
+    "main.2ae656f9.js.map": "/magnet/static/js/main.2ae656f9.js.map"
   },
   "entrypoints": [
     "static/css/main.f5e1197d.css",
-    "static/js/main.e375d851.js"
+    "static/js/main.2ae656f9.js"
   ]
 }
