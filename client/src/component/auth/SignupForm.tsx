@@ -36,7 +36,7 @@ const SignupForm = () => {
 	const handleSignup = async () => {
 		try {
 			await signup(form);
-			navigate('/magnet');
+			navigate('/');
 			setLoginPopupIsOpenTrue();
 		} catch (e) {
 			console.error('회원가입에 실패했습니다.', e);

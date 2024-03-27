@@ -30,12 +30,8 @@ const Header = () => {
 	return (
 		<>
 			<header className="flexCenter fixed top-0 z-10 h-10 w-dvw bg-white px-10 *:select-none sm:h-16 sm:justify-between">
-				<Link to="/magnet" className={'activeStyle tracking-[5px]'}>
-					<p
-						className={`${
-							'/magnet' === location.pathname && 'text-black'
-						} font-PartialSansKR_Regular `}
-					>
+				<Link to="/" className={'activeStyle tracking-[5px]'}>
+					<p className={`${'/' === location.pathname && 'text-black'} font-PartialSansKR_Regular `}>
 						MAGNET
 					</p>
 				</Link>

@@ -12,7 +12,7 @@ import PaymentFailedPage from './pages/PaymentFailedPage';
 export const Router = () => {
 	return (
 		<Routes>
-			<Route path="/magnet" Component={HomePage} />
+			<Route path="/" Component={HomePage} />
 			<Route path="/loginemail" Component={LoginEmailPage} />
 			<Route path="/signup" Component={SignupPage} />
 			<Route path="/auth" Component={Authpage} />

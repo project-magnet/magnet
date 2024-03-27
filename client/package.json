@@ -32,7 +32,6 @@
     "deploy": "gh-pages -d build",
     "server": "json-server --watch ./src/db/db.json --port 3001"
   },
-  "homepage": "https://project-magnet.github.io/magnet/",
   "eslintConfig": {
     "extends": [
       "react-app",
