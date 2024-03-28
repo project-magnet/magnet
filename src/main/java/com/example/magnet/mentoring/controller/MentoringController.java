@@ -67,7 +67,6 @@ public class MentoringController {
     // 멘토링 전체 리스트 조회
     @GetMapping("/list")
     public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
-
         return new ResponseEntity<>(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()), HttpStatus.OK);
     }
 

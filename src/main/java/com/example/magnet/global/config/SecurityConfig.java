@@ -69,6 +69,7 @@ public class SecurityConfig {
                         .requestMatchers("/mentor/list").permitAll()
                         .requestMatchers("/mentee/**").hasAnyRole("USER","MENTEE")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
+//                                .requestMatchers("/member/get").authenticated()
                         .requestMatchers("/member/extract").permitAll()
                         .requestMatchers("/mentoring/create").hasAnyRole("MENTOR")
                         .requestMatchers("/mentoring/get/**").permitAll()
