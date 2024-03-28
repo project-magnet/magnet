@@ -83,7 +83,6 @@ public class MemberController {
         List<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
-        log.info("조회 전 roles: { }", roles.toArray());
         return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
     }
 

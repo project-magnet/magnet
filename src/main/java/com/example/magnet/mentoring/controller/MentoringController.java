@@ -65,12 +65,12 @@ public class MentoringController {
 
 
     // 멘토링 전체 리스트 조회
-    // 단순히 전체 멘토링 목록을 조회한다.
     @GetMapping("/list")
-    public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(@RequestParam("offset") int offset, // or pageable
-                                                                         @RequestParam("size") int size){
-        return new ResponseEntity<>(mentoringService.mentoringInfoList(offset, size), HttpStatus.OK);
+    public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
+
+        return new ResponseEntity<>(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()), HttpStatus.OK);
     }
+
 
     // 멘토링 리스트 필터링
 
