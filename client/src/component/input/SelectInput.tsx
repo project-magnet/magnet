@@ -15,7 +15,7 @@ type SelectInputProps = {
 
 export const SelectInput = ({value, onChange, placeholder, options, icon}: SelectInputProps) => {
 	return (
-		<div className={`flexCenter w-full gap-2 border-b-2 p-3 focus-within:border-additional2 `}>
+		<div className={`flexCenter w-full gap-1 border-b-2 p-3 focus-within:border-additional2 `}>
 			<i className={`ri-${icon} ri-lg ${value ? 'animate-tickle text-black' : 'text-slate-400'}`} />
 			<select
 				className={`flex-grow text-xs outline-none ${value ? 'text-black' : 'text-slate-400'}`}
