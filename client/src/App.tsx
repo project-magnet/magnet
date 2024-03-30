@@ -1,5 +1,4 @@
 import Header from './component/common/Header';
-import BottomMenu from './component/common/BottomMenu';
 import Footer from './component/common/Footer';
 import {LoginPopup} from './component/auth/LoginPopup';
 import {LoginPopupStore} from './store/LoginPopupStore';
@@ -12,7 +11,6 @@ function App() {
 			{isLoginPopupOpen && <LoginPopup />}
 			<Header />
 			<Router />
-			<BottomMenu />
 			<Footer />
 		</>
 	);
