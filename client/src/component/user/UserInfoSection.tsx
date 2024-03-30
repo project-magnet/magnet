@@ -42,7 +42,7 @@ export const UserInfoSection = ({
 		const confirmed = window.confirm(`로그아웃 하시겠습니까?`);
 		if (confirmed) {
 			removeToken();
-			navigate('/magnet');
+			navigate('/');
 		}
 	};
 
@@ -50,7 +50,7 @@ export const UserInfoSection = ({
 		const confirmed = window.confirm(`${nickName}님! 정말 회원탈퇴 하시겠습니까?`);
 		if (confirmed) {
 			removeToken();
-			navigate('/magnet');
+			navigate('/');
 		}
 	};
 	return (

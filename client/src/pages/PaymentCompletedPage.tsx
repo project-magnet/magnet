@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useNavigate, useSearchParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {createMentee} from '../api/mentee';
 import {sendPaymentSuccessToServer} from '../api/payments';
 import {LodingContainer} from '../component/common/LoadingContainer';
@@ -70,9 +70,9 @@ const PaymentCompletedPage = () => {
 						<p className="text-3xl font-semibold">결제 완료</p>
 						<p className="text-sm text-slate-400">빠른 시일 내에 멘토님의 승인을 알려드릴게요!</p>
 					</section>
-					<Link to="/user" className="buttonStyle px-6 py-2">
+					<button onClick={() => navigate('/user')} className="buttonStyle px-6 py-2">
 						<p className="text-sm">나의 일정 보러 가기</p>
-					</Link>
+					</button>
 				</>
 			)}
 		</div>
