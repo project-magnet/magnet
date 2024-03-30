@@ -58,6 +58,7 @@ public class SecurityConfig {
                         .configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))// spring security가 세션을 생성하지 않도록 설정
+                .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
                 .exceptionHandling((exceptionHandling) ->
                         exceptionHandling.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                                 .accessDeniedHandler(new MemberAccessDeniedHandler()))
@@ -69,7 +70,7 @@ public class SecurityConfig {
                         .requestMatchers("/mentor/list").permitAll()
                         .requestMatchers("/mentee/**").hasAnyRole("USER","MENTEE")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
-//                                .requestMatchers("/member/get").authenticated()
+                                .requestMatchers("/member/get").authenticated()
                         .requestMatchers("/member/extract").permitAll()
                         .requestMatchers("/mentoring/create").hasAnyRole("MENTOR")
                         .requestMatchers("/mentoring/get/**").permitAll()
@@ -77,7 +78,6 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/payments/**").permitAll()
                         .anyRequest().authenticated() //그 외 나머지는 인증 완료 후 접근 가능
                 )
-                .with(new CustomFilterConfigurer(), Customizer.withDefaults()) // apply(new CustomFilterConfigurer) 로그인 경로 삽입
                 .httpBasic(AbstractHttpConfigurer::disable) // .httpBasic((httpBasic) -> httpBasic.disable())
                 .exceptionHandling(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable);
@@ -108,7 +108,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowCredentials(true); // option요청에 Access-Control-Allow-Origin 추가 > 403 문제 발생
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://www.project-magnet.site"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://www.project-magnet.site", "https://api.tosspayments.com/v1/payments/", "https://project-magnet.site"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH","DELETE","OPTIONS"));  // http 통신 허용
         configuration.setAllowedHeaders(List.of("*"));// 문제 해결
         configuration.setExposedHeaders(List.of("Authorization", "RefreshToken","Access-Control-Allow-Origin"));

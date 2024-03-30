@@ -65,6 +65,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities(memberId); // 역할정보 - memberId기반 DB조회  (List)claims.get("roles")
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, memberId, authorities); // claims 값을 기반으로 사용자 정보 객체 생성
         SecurityContextHolder.getContext().setAuthentication(authentication); // SecurityContextHolder에 저장
+        log.info("securityContextHolder 에 로그인한 사용자 정보 저장");
     }
 
 

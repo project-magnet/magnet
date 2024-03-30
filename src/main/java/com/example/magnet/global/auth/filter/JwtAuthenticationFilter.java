@@ -62,7 +62,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
         log.info("login handler 추가");
 
-
     }
 
     private String delegateAccessToken(Member member) {
