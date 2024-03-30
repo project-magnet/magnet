@@ -18,6 +18,10 @@
     .flexCol{
       @apply flex flex-col;
     }
+    .userPageSection {
+      @apply px-10 md:px-20 lg:px-40 flexCenter
+    }
+    /* 버튼 관련 */
     .disabledStyle {
       @apply  bg-opacity-40 active:scale-100 hover:bg-opacity-40;
     }
@@ -27,19 +31,24 @@
     .buttonStylePrimary {
       @apply buttonStyle disabled:disabledStyle bg-additional3 text-white hover:bg-opacity-70;
     }
-
     .buttonStyleSecondary {
       @apply buttonStyle  hover:bg-additional3 hover:text-white border border-additional3  text-additional3;
     }
-
     .buttonStyleTertiary {
       @apply buttonStyle hover:text-additional3 hover:border-additional3 border text-black;
     }
     .activeStyle {
       @apply  px-3 py-2 rounded-xl hover:text-black active:scale-95 active:bg-slate-100 transition text-slate-400 select-none
     }
-    .userPageSection {
-      @apply px-10 md:px-20 lg:px-40 flexCenter
+    /* 텍스트 관련 */
+    .textBase {
+      @apply text-sm sm:text-base font-medium
+    }
+    .textSmall{
+      @apply text-xs sm:text-sm 
+    }
+    .textLarge{
+      @apply text-lg sm:text-xl font-bold
     }
     .warning {
       @apply text-red-500 text-xs;
@@ -47,8 +56,17 @@
     .success {
       @apply text-green-500 text-xs;
     }
+    /* 애니메이션 관련 */
     .hoverAnimationUpDown {
       @apply hover:animate-upALittle animate-downALittle select-none;
+    }
+    /* 인터렉션 관련 */
+    .interactionPickup {
+      @apply hover:scale-[102%] hover:shadow-md active:scale-105 active:shadow-xl shadow-sm transition cursor-pointer
+    }
+    /* ri 아이콘 관련 */
+    .riBase {
+      @apply text-2xl text-secondary
     }
 }
 

@@ -7,8 +7,8 @@ const HomePage = () => {
 	};
 
 	return (
-		<div className="flexCol h-pageRoot justify-evenly overflow-x-hidden bg-gradient-to-b from-white to-blue-100 sm:bg-gradient-to-r lg:flex-row">
-			<section className="flexCenter animate-showSideRight flex-col drop-shadow-xl">
+		<div className="flexCol h-pageRoot justify-evenly overflow-x-hidden bg-gradient-to-b from-white to-slate-100  lg:flex-row">
+			<section className="flexCenter animate-showSideRight flex-col">
 				<div className="flexCenter hidden  flex-col sm:text-[6rem] lg:block 2xl:text-[11rem]  ">
 					<p className="font-PartialSansKR_Regular">Connect</p>
 					<p className="font-PartialSansKR_Regular">With</p>
@@ -21,12 +21,12 @@ const HomePage = () => {
 					</div>
 				</div>
 
-				<div className="text-[3rem] font-bold drop-shadow-xl sm:text-[4rem] lg:hidden ">
+				<div className="text-[3rem] font-bold sm:text-[4rem] lg:hidden ">
 					<p className="">모두를 위한</p>
 					<p className="">멘토링 서비스</p>
 					<div className="flex text-additional2">
 						{['마', '그', '넷', '!'].map((el, index) => (
-							<span className="hover:animate-tickle " key={index}>
+							<span className="hover:animate-tickle" key={index}>
 								{el}
 							</span>
 						))}
@@ -34,8 +34,8 @@ const HomePage = () => {
 				</div>
 			</section>
 
-			<section className="flexCenter ">
-				<div className="flexCenter w-full flex-col gap-10 drop-shadow-md">
+			<section className="flexCenter">
+				<div className="flexCenter w-full flex-col gap-10">
 					<div className="hidden lg:block">
 						<h1 className="text-[3rem] font-bold leading-none">
 							모두를 위한
@@ -44,11 +44,35 @@ const HomePage = () => {
 						</h1>
 						<p className="text-[3rem] font-bold leading-none text-additional2">마그넷</p>
 					</div>
-					{/* 버튼 모음 */}
-					<div onClick={handleClick} className="flexCol w-full  gap-5 px-10 sm:px-44 lg:px-0">
-						<button className="buttonStylePrimary">다양한 카테고리와</button>
-						<button className="buttonStyleSecondary">최고의 멘토를</button>
-						<button className="buttonStyleTertiary">만나 보세요!</button>
+
+					<div
+						onClick={handleClick}
+						className="flexCol interactionPickup h-60 w-11/12 animate-fadeIn  
+						 gap-5 divide-y-2 rounded-lg bg-background p-5 shadow-md sm:w-96"
+					>
+						<div className="textBase flexCol w-full flex-grow items-start gap-2">
+							<p className="truncate font-PartialSansKR_Regular">MAGNET</p>
+							<div className="textLarge line-clamp-3 h-3/5 pt-5 text-additional3  ">
+								멘토링을 찾아보세요!
+							</div>
+						</div>
+
+						<div className="flexCol textSmall w-full items-start gap-2 pt-2">
+							<div className="text-secondary *:flex *:gap-2">
+								<div>
+									<i className="ri-building-line" />
+									<p className="truncate ">Task</p>
+								</div>
+								<div>
+									<i className="ri-bar-chart-2-line" />
+									<p className="truncate">Career</p>
+								</div>
+								<div>
+									<i className="ri-walk-line" />
+									<p className="truncatey ">Field</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>

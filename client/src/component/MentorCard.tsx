@@ -15,28 +15,29 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCol w-full animate-fadeIn cursor-pointer gap-5 bg-background p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md active:scale-105 active:shadow-2xl sm:h-40 sm:w-fit sm:flex-row"
+			className="flexCol interactionPickup h-52  w-11/12  animate-fadeIn gap-5  
+			 divide-y-2 rounded-lg bg-background p-5 sm:h-60 sm:w-96"
 		>
-			<div className="h-full flex-grow text-2xs sm:w-52 sm:text-sm">
-				<p className="mb-2 truncate font-PartialSansKR_Regular">{`${category}`}</p>
-				<div className="line-clamp-4">{title}</div>
+			<div className="textBase flexCol w-full flex-grow items-start gap-2">
+				<p className="truncate font-PartialSansKR_Regular">{`${category}`}</p>
+				<div className="line-clamp-2 h-3/5 font-light">{title}</div>
 			</div>
 
-			<div className="h-full border border-dashed" />
-
-			<div className="flexCol h-full sm:w-32 ">
-				<p className="mb-2 truncate text-xs font-black sm:text-sm">{mentorName}</p>
-				<div className="flex gap-1">
-					<i className="ri-building-line text-secondary" />
-					<p className="mt-1 truncate text-2xs text-additional3 sm:text-xs">{`${task}`}</p>
-				</div>
-				<div className="flex gap-1">
-					<i className="ri-bar-chart-2-line text-secondary" />
-					<p className="mt-1 truncate text-2xs text-secondary sm:text-xs">{`${career}`}</p>
-				</div>
-				<div className="flex gap-1">
-					<i className="ri-walk-line text-secondary" />
-					<p className="mt-1 truncate text-2xs text-secondary sm:text-xs">{`${field}`} 직무</p>
+			<div className="flexCol textSmall w-full items-start gap-1 pt-2">
+				<p className="textBase truncate font-bold text-black">{mentorName}</p>
+				<div className="flex gap-1 text-secondary *:flex *:gap-1 sm:flex-col">
+					<div>
+						<i className="ri-building-line" />
+						<p className="truncate text-additional3 ">{`${task}`}</p>
+					</div>
+					<div>
+						<i className="ri-bar-chart-2-line " />
+						<p className="truncate">{`${career}`}</p>
+					</div>
+					<div>
+						<i className="ri-walk-line " />
+						<p className="truncatey ">{`${field}`} 직무</p>
+					</div>
 				</div>
 			</div>
 		</div>

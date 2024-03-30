@@ -55,23 +55,23 @@ const MentoringListPage = () => {
 	}, []);
 
 	return (
-		<section className="flexCol items-center gap-20 bg-gradient-to-b from-white to-slate-200 px-10 py-20 sm:px-20">
+		<section className="flexCol items-center gap-10 bg-gradient-to-b from-white to-slate-200 py-10 sm:px-10">
 			{isOpen && <PaymentPopup />}
 			<div className="flexCenter animate-fadeInMoveDown flex-wrap ">
 				{categories.map((el, index) => (
-					<div
+					<button
 						key={index}
 						onClick={() => setCategory(el.id)}
 						className={`${
-							category === el.id && 'scale-100 text-additional3'
-						}   activeStyle flexCenter size-24 cursor-pointer flex-col hover:text-additional3 `}
+							category === el.id && 'text-additional3'
+						}   activeStyle flexCenter size-24 flex-col hover:text-additional3 `}
 					>
 						<i className={`ri-${el.icon} ri-2x ${category === el.id && 'animate-jelly'}`} />
 						<p className="text-2xs">{el.title}</p>
-					</div>
+					</button>
 				))}
 			</div>
-			<div className="flexCenter flex-wrap gap-10 ">
+			<div className="flexCenter w-full flex-wrap gap-10">
 				{mentoringList ? (
 					mentoringList
 						.filter(el => el.category === category || category === 'ALL')
