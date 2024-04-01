@@ -41,7 +41,7 @@ const UserPage = () => {
 	}, []);
 
 	return (
-		<div className="flexCol divide-y ">
+		<div className="flexCol items-center gap-5 bg-slate-100 py-10">
 			{member ? (
 				<>
 					{/* 멘토등록 섹션 */}
