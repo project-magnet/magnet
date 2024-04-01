@@ -15,8 +15,8 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCol interactionPickup h-52  w-11/12  animate-fadeIn gap-5  
-			 divide-y-2 rounded-lg bg-background p-5 sm:h-60 sm:w-96"
+			className="flexCol interactionPushDown h-52 w-11/12  animate-fadeIn  gap-5 divide-y  
+			 rounded-lg bg-background p-5 shadow-md sm:h-60 sm:w-96"
 		>
 			<div className="textBase flexCol w-full flex-grow items-start gap-2">
 				<p className="truncate font-PartialSansKR_Regular">{`${category}`}</p>
