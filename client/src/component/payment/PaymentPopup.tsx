@@ -1,5 +1,4 @@
 import 'remixicon/fonts/remixicon.css';
-import PaymentInput from './PaymentInput';
 import PaymentButton from './PaymentButton';
 import {useEffect, useState} from 'react';
 import PopupStore from '../../store/PopupStore';
@@ -84,10 +83,10 @@ const PaymentPopup = () => {
 				<PopupCloseButton handleClick={handleClick} />
 				<div className="flex items-center justify-between">
 					<div className="flex items-center gap-3">
-						<p className="text-lg font-semibold">
+						<p className="textLarge">
 							{pageNumber === 1 ? '멘토링 소개' : pageNumber === 2 ? '신청하기' : '신청 정보 확인'}
 						</p>
-						<p className="text-sm text-slate-400">{`${pageNumber}/3`}</p>
+						<p className="textSmall text-slate-400">{`${pageNumber}/3`}</p>
 					</div>
 				</div>
 				<div className="flexCol flex-grow animate-fadeIn gap-5  overflow-y-auto">
@@ -95,33 +94,30 @@ const PaymentPopup = () => {
 						<>
 							{pageNumber === 1 ? (
 								<>
-									<div>
-										<div className="flex gap-1">
-											<i className="ri-building-line text-secondary" />
-											<p className="mt-1 truncate text-xs text-additional3">{`${mentoringData.task}`}</p>
+									<div className="textSmall flexCol gap-1 text-secondary *:flex *:gap-1">
+										<div>
+											<i className="ri-building-line" />
+											<p className="truncate text-additional3">{`${mentoringData.task}`}</p>
 										</div>
-										<div className="flex gap-1">
-											<i className="ri-bar-chart-2-line text-secondary" />
-											<p className="mt-1 truncate text-xs text-secondary">{`${mentoringData.career}`}</p>
+										<div>
+											<i className="ri-bar-chart-2-line" />
+											<p className="runcate">{`${mentoringData.career}`}</p>
 										</div>
-										<div className="flex gap-1">
-											<i className="ri-walk-line text-secondary" />
-											<p className="mt-1 truncate text-xs text-secondary">
-												{`${mentoringData.field}`} 직무
-											</p>
+										<div>
+											<i className="ri-walk-line " />
+											<p className="truncate">{`${mentoringData.field}`} 직무</p>
 										</div>
 									</div>
 									<div className="h-[1px] w-full border border-dashed" />
-									<p className="font-PartialSansKR_Regular text-lg">{mentoringData.category}</p>
-									<p className="text-2xl font-bold">{mentoringData.title}</p>
+									<p className="textLarge font-bold">{mentoringData.title}</p>
 									<div
-										className="text-sm"
+										className="textBase text-pretty"
 										dangerouslySetInnerHTML={{__html: mentoringData.content}}
 									/>
 								</>
 							) : pageNumber === 2 ? (
 								<>
-									<article className="animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-lg text-additional3">
+									<article className="textlarge animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-additional3">
 										입력에 주의하라는 거대한 안내문구
 									</article>
 									<CommonInput
@@ -147,29 +143,29 @@ const PaymentPopup = () => {
 							) : pageNumber === 3 ? (
 								<>
 									<div>
-										<span>신청 멘토링명</span>
-										<span className="ml-3 text-sm text-slate-500">{mentoringData.title}</span>
+										<span className="textBase">신청 멘토링명</span>
+										<span className="textSmall ml-3 text-slate-500">{mentoringData.title}</span>
 									</div>
 									<div>
-										<span>신청 금액</span>
-										<span className="ml-3 text-sm text-slate-500">{mentoringData.pay}원</span>
+										<span className="textBase">신청 금액</span>
+										<span className="textSmall ml-3 text-slate-500">{mentoringData.pay}원</span>
 									</div>
 									<div>
-										<span>멘토링 진행 기간</span>
-										<span className="ml-3 text-sm text-slate-500">{mentoringData.period}월</span>
+										<span className="textBase">멘토링 진행 기간</span>
+										<span className="textSmall ml-3 text-slate-500">{mentoringData.period}월</span>
 									</div>
 									<br />
 									<div>
-										<span>연락 가능한 연락처</span>
-										<span className="ml-3 text-sm text-slate-500">{phone}</span>
+										<span className="textBase">연락 가능한 연락처</span>
+										<span className="textSmall ml-3 text-slate-500">{phone}</span>
 									</div>
 									<div>
-										<span>연락 가능한 이메일</span>
-										<span className="ml-3 text-sm text-slate-500">{email}</span>
+										<span className="textBase">연락 가능한 이메일</span>
+										<span className="textSmall ml-3 text-slate-500">{email}</span>
 									</div>
 									<div>
-										<span>멘토에게 전달사항</span>
-										<span className="ml-3 text-sm text-slate-500">{message}</span>
+										<span className="textBase">멘토에게 전달사항</span>
+										<span className="textSmall ml-3 text-slate-500">{message}</span>
 									</div>
 								</>
 							) : (
@@ -185,13 +181,13 @@ const PaymentPopup = () => {
 					{pageNumber === 1 && mentoringData ? (
 						<div className="flexCenter w-full justify-between ">
 							{mentoringData && (
-								<div className="flexCol gap-1 rounded-3xl bg-slate-100 px-5 py-2 text-xs">
-									<div className="flex items-center">
-										<i className="ri-money-dollar-circle-line ri-lg" />
+								<div className="flexCol textSmall gap-1 rounded-3xl bg-slate-100 px-5 py-2">
+									<div className=" flex items-center gap-1">
+										<i className="ri-money-dollar-circle-line" />
 										<p> 1회 : {mentoringData.pay}원</p>
 									</div>
-									<div className="flex items-center">
-										<i className="ri-calendar-event-line ri-lg" />
+									<div className=" flex items-center gap-1">
+										<i className="ri-calendar-event-line" />
 										<p> 기간 : {mentoringData.period}</p>
 									</div>
 								</div>

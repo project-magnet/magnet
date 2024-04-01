@@ -19,17 +19,17 @@
       @apply flex flex-col;
     }
     .userPageSection {
-      @apply px-10 md:px-20 lg:px-40 flexCenter
+      @apply w-11/12 lg:w-3/4 rounded-xl flexCenter p-5 sm:p-10 bg-white shadow-md
     }
     /* 버튼 관련 */
     .disabledStyle {
-      @apply  bg-opacity-40 active:scale-100 hover:bg-opacity-40;
+      @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40;
     }
     .buttonStyle {
-      @apply px-5 py-3 rounded-md  transition duration-200 select-none font-bold  active:scale-95
+      @apply px-3 sm:px-5 h-12 min-w-12 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
     }
     .buttonStylePrimary {
-      @apply buttonStyle disabled:disabledStyle bg-additional3 text-white hover:bg-opacity-70;
+      @apply buttonStyle  bg-additional3 text-white hover:bg-opacity-70;
     }
     .buttonStyleSecondary {
       @apply buttonStyle  hover:bg-additional3 hover:text-white border border-additional3  text-additional3;
@@ -38,17 +38,20 @@
       @apply buttonStyle hover:text-additional3 hover:border-additional3 border text-black;
     }
     .activeStyle {
-      @apply  px-3 py-2 rounded-xl hover:text-black active:scale-95 active:bg-slate-100 transition text-slate-400 select-none
+      @apply buttonStyle rounded-xl hover:text-black active:scale-95 active:bg-slate-100 transition text-slate-400 
     }
     /* 텍스트 관련 */
     .textBase {
-      @apply text-sm sm:text-base font-medium
+      @apply text-sm sm:text-base font-medium 
     }
     .textSmall{
-      @apply text-xs sm:text-sm 
+      @apply text-xs sm:text-sm font-light
     }
     .textLarge{
       @apply text-lg sm:text-xl font-bold
+    }
+    .textTitle{
+      @apply text-xl sm:text-2xl font-bold
     }
     .warning {
       @apply text-red-500 text-xs;
@@ -63,6 +66,9 @@
     /* 인터렉션 관련 */
     .interactionPickup {
       @apply hover:scale-[102%] hover:shadow-md active:scale-105 active:shadow-xl shadow-sm transition cursor-pointer
+    }
+    .interactionPushDown {
+      @apply hover:scale-[99.5%] active:shadow-sm active:scale-[98%] active:brightness-[98%] transition
     }
     /* ri 아이콘 관련 */
     .riBase {

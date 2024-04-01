@@ -13,14 +13,16 @@ type ScheduleboxProps = {
 
 export const MentorScheduleSection = ({mentorList}: {mentorList: ScheduleboxProps[]}) => {
 	return (
-		<section className="userPageSection flex-col gap-10 bg-slate-100 py-10">
+		<section className="userPageSection flexCol gap-10">
 			<div className="flexCol items-center gap-1">
-				<p className="text-3xl font-bold ">나의 멘토링 예약 일정</p>
-				<p className="text-additional2">안녕하세요 멘토님! 멘티의 신청여부를 확인하세요!</p>
+				<p className="textTitle">나의 멘토링 예약 일정</p>
+				<p className="textSmall text-additional2">
+					안녕하세요 멘토님! 멘티의 신청여부를 확인하세요!
+				</p>
 			</div>
 
 			{mentorList.length === 0 ? (
-				<p className="flexCenter h-40 text-lg">개설한 멘토링이 없습니다!</p>
+				<p className="flexCenter textLarge h-40">개설한 멘토링이 없습니다!</p>
 			) : (
 				<div className="flex min-h-72 w-full snap-x gap-10 overflow-x-auto rounded-xl bg-white p-10 shadow-inner shadow-slate-300">
 					{mentorList.map((el, index) => (

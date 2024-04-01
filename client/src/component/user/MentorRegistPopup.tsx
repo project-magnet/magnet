@@ -37,6 +37,13 @@ export const MentorRegistPopup = () => {
 		);
 	}, [form]);
 
+	useEffect(() => {
+		document.body.style.overflow = 'hidden'; // 페이지 스크롤 방지
+		return () => {
+			document.body.style.overflow = 'auto'; // 컴포넌트 언마운트 시 스크롤 허용
+		};
+	}, []);
+
 	const handleSubmit = () => {
 		const submitData = async () => {
 			try {
@@ -57,6 +64,9 @@ export const MentorRegistPopup = () => {
 			<section className="flexCenter relative w-full flex-col gap-10 rounded-md bg-white py-10 md:w-fit  md:p-20 ">
 				<PopupCloseButton handleClick={handleClick} />
 				<LogoMagnet word="MAGNET" />
+				<article className="textlarge w-11/12 animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-additional3 md:w-96">
+					마그넷의 멘토가 되어달라는 문구.
+				</article>
 				<div className="flexCol w-11/12 gap-5 md:w-96">
 					<SelectInput
 						value={form.field}
@@ -88,7 +98,7 @@ export const MentorRegistPopup = () => {
 					/>
 
 					<CommonInput
-						placeholder="자기소개"
+						placeholder="간단 자기소개"
 						icon="contacts-book-2-line"
 						value={form.aboutMe}
 						onChange={value => setForm({...form, aboutMe: value})}
