@@ -43,7 +43,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({type, pageNumber, disable}
 
 	return (
 		<button onClick={handler} className={`${className}`} disabled={disable}>
-			<p className="text-sm">{text}</p>
+			<p className="textSmall">{text}</p>
 		</button>
 	);
 };

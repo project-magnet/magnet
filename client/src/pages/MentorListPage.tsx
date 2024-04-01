@@ -64,7 +64,7 @@ const MentoringListPage = () => {
 						onClick={() => setCategory(el.id)}
 						className={`${
 							category === el.id && 'text-additional3'
-						}   activeStyle flexCenter size-24 flex-col hover:text-additional3 `}
+						}   activeStyle flexCenter h-16 min-w-24 flex-col hover:text-additional3 `}
 					>
 						<i className={`ri-${el.icon} ri-2x ${category === el.id && 'animate-jelly'}`} />
 						<p className="text-2xs">{el.title}</p>
