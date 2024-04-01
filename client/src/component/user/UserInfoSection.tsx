@@ -54,12 +54,12 @@ export const UserInfoSection = ({
 		}
 	};
 	return (
-		<section className="userPageSection flex-col justify-between  gap-10 py-10 lg:flex-row ">
-			<div className="flexCol   gap-3">
+		<section className="userPageSection flex-col justify-between gap-10 sm:flex-row">
+			<div className="flexCol gap-2">
 				{/* 닉네임 */}
 				<div className="h-2">
 					{changeNickName.length >= 10 && (
-						<p className="animate-shake text-sm text-yellow-400 opacity-100">
+						<p className="textSmall animate-shake text-yellow-400 opacity-100">
 							닉네임은 10글자를 초과할 수 없습니다.
 						</p>
 					)}
@@ -67,44 +67,42 @@ export const UserInfoSection = ({
 				<div className="flex items-center border-b-2">
 					<input
 						placeholder={nickName}
-						className="rounded-lg bg-none font-semibold outline-none sm:w-72 sm:text-2xl"
+						className="textBase bg-none outline-none"
 						maxLength={10}
 						value={changeNickName}
 						onChange={e => setChangeNickName(e.target.value)}
-					></input>
+					/>
 					<button
 						onClick={handleNickNameChange}
 						className={`activeStyle ${changeNickName.length < 3 ? 'hover:text-slate-400 active:scale-100 active:bg-slate-50' : 'text-black'}`}
 						disabled={changeNickName.length < 3}
 					>
-						<i className="ri-repeat-line ri-xl" />
+						<i className="ri-repeat-line ri-lg" />
 					</button>
 				</div>
 				{/* 멘토, 멘티 여부 */}
-				<div className="flex gap-2">
+				<div className="textSmall flex gap-2">
 					{memtorReady && (
 						<div className="flexCenter h-8 w-12 rounded-md bg-additional2">
-							<p className="text-sm text-white">멘토</p>
+							<p className="text-white">멘토</p>
 						</div>
 					)}
 					{menteeReady && (
 						<div className="flexCenter h-8 w-12 rounded-md bg-blue-400 ">
-							<p className="text-sm text-white">멘티</p>
+							<p className="text-white">멘티</p>
 						</div>
 					)}
 				</div>
 				{/* 컨텍트 */}
-				<div className="flexCol items-start gap-2 ">
-					<UserInfoBox contents={phone} icon={<i className="ri-phone-line ri-xl" />} />
-					<UserInfoBox contents={email} icon={<i className="ri-mail-line ri-xl" />} />
-				</div>
+				<UserInfoBox contents={phone} icon="phone-line" style="textSmall" />
+				<UserInfoBox contents={email} icon="mail-line" style="textSmall" />
 			</div>
-			<div className="flex gap-2">
+			<div className="textSmall flex gap-2">
 				<button className="buttonStyleTertiary" onClick={() => handleLogout()}>
 					로그아웃
 				</button>
-				<button className="activeStyle text-sm" onClick={() => hadleDeleteMember()}>
-					회원 탈퇴
+				<button className="activeStyle" onClick={() => hadleDeleteMember()}>
+					회원탈퇴
 				</button>
 			</div>
 		</section>
