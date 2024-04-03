@@ -47,7 +47,7 @@ const HomePage = () => {
 
 					<div
 						onClick={handleClick}
-						className="flexCol interactionPickup h-60 w-11/12 animate-fadeIn  
+						className="flexCol interactionPushDown h-60 w-11/12 animate-fadeIn  
 						 gap-5 divide-y-2 rounded-lg bg-background p-5 shadow-md sm:w-96"
 					>
 						<div className="textBase flexCol w-full flex-grow items-start gap-2">
