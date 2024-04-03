@@ -1,37 +1,20 @@
 # magnet
-멘토멘티 매칭 서비스.
+멘토멘티 매칭 서비스. 
 
-## 🌱 Git
-### branch
-> 기능 개발 브랜치에서 작업 후 `Pull Request`하여 병합 진행
-- `main` : 배포 브랜치
-- `dev` : `fe` / `be` 작업 테스트 병합 브랜치
-- `dev/FE` : Front-End 개발 브랜치
-- `dev/BE` : Back-End 개발 브랜치
-- `FE/기능 이름` : FE 기능 개발 브랜치
-- `BE/기능 이름` : BE 기능 개발 브랜치
+## Stack
+- Java17
+- spring boot 3.2.0
+- Spring Security 6.2.0
+- Spring data JPA
+- QeuryDSL
+- JUnit5 5.10.1
+- MySQL
+- Docker
+- gradle
 
-### Git 저장소 이용법 
-로컬에서 작업 후 개인 branch Push
-1. `git checkout 브랜치`
-2. `git add 파일/디렉토리 경로`
-3. `git commit -m "message"`
-4. `git push origin 브랜치"`
+## TroubleShooting
+- [Spring Security + JWT] 스프링 시큐리티를 이용해 Controller에서 현재 로그인한 사용자의 정보 추출하기 https://11dy.tistory.com/3
+- [Troubleshooting] CORS 문제, 응답 헤더 누락(Access-Control-Allow-Origin) https://11dy.tistory.com/4
 
-### Commit Convention
-
-Tag | Title
--- | --
-feat | 새로운 기능 추가
-fix | 버그 수정
-docs | 문서 수정
-design | CSS 등 사용자 UI 디자인 변경
-style | 코드 포맷 변경, 세미 콜록 누락, 코드 수정이 없는 경우
-refactor | 코드 리팩토링
-test | 테스트 추가, 테스트 리팩토링 추가 (프로덕션 코드 변경 x)
-chore | 빌드 테스트 업데이트, 패키지 매니저를 설정 (프로덕션 코드 변경 x)
-comment | 필요한 주석 추가 및 변경
-rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우
-remove | 파일을 삭제하는 작업만 수행한 경우
-!BREAKING CHANGE | 커다란 API 변경
-!HOTFIX | 급하게 치명적인 버그를 고쳐야하는 경우
+## ERD
+![erd 최신](https://github.com/11dy/magnet-BE/assets/96255906/cb78fc60-c21c-476b-af37-8b8e85b58d67)
