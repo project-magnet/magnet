@@ -1,7 +1,8 @@
-# magnet
-멘토멘티 매칭 서비스. 
+## 🧲 MAGNET - 멘토멘티 매칭 서비스 플랫폼
+![image](https://github.com/project-magnet/magnet/assets/96255906/2bfc4c3c-9833-466a-a508-053b4aff3255)
 
-## Stack
+![image](https://github.com/project-magnet/magnet/assets/96255906/2b963be2-5e5c-4f4b-b5ba-42f4b9caf17d)
+## 사용기술
 - Java17
 - spring boot 3.2.0
 - Spring Security 6.2.0
@@ -12,9 +13,18 @@
 - Docker
 - gradle
 
-## TroubleShooting
+<br/>
+
+## 트러블슈팅
 - [Spring Security + JWT] 스프링 시큐리티를 이용해 Controller에서 현재 로그인한 사용자의 정보 추출하기 https://11dy.tistory.com/3
 - [Troubleshooting] CORS 문제, 응답 헤더 누락(Access-Control-Allow-Origin) https://11dy.tistory.com/4
+- [Troubleshooting] Spring Security + JWT 로그인 후 익명 사용자로 인식되는 문제https://11dy.tistory.com/9
+
+<br/>
 
 ## ERD
 ![erd 최신](https://github.com/11dy/magnet-BE/assets/96255906/cb78fc60-c21c-476b-af37-8b8e85b58d67)
+
+
+
+
