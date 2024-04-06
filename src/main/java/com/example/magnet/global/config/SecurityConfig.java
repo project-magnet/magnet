@@ -109,12 +109,12 @@ public class SecurityConfig {
 
         configuration.setAllowCredentials(true); // option요청에 Access-Control-Allow-Origin 추가 > 403 문제 발생
         configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://www.project-magnet.site", "https://api.tosspayments.com/v1/payments/", "https://project-magnet.site"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH","DELETE","OPTIONS"));  // http 통신 허용
-        configuration.setAllowedHeaders(List.of("*"));// 문제 해결
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH","DELETE","OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization", "RefreshToken","Access-Control-Allow-Origin"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // 모든 url 앞에서 구성한 cors 정책 적용
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
