@@ -73,9 +73,15 @@ export const MentorRegistPopup = () => {
 						onChange={value => setForm({...form, field: value})}
 						placeholder="대표 분야"
 						options={[
-							{value: '개발', label: '개발'},
-							{value: '영업', label: '영업'},
-							{value: '디자인', label: '디자인'},
+							{value: 'WEB_DESIGN', label: '웹 디자인'},
+							{value: 'UI_UX', label: 'UI/UX'},
+							{value: 'PRODUCT_MANAGER', label: '프로덕트 매니저'},
+							{value: 'BACKEND', label: '백엔드'},
+							{value: 'FRONTEND', label: '프론트엔드'},
+							{value: 'DEVOPS', label: '데브옵스'},
+							{value: 'DATA_ENGINEER', label: '데이터 엔지니어'},
+							{value: 'SERVER_ENGINEER', label: '서버 엔지니어'},
+							{value: 'AI', label: 'AI'},
 						]}
 						icon="walk-line"
 					/>

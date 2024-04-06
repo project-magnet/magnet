@@ -59,8 +59,8 @@ export const CreateMentoringPage = () => {
 					value={form.category}
 					onChange={value => setForm({...form, category: value})}
 					options={[
-						{value: 'DEVELOPMENT', label: '개발'},
-						{value: 'MARKETING', label: '마케팅'},
+						{value: 'WEB_DESIGN', label: '웹 디자인'},
+						{value: 'UI_UX', label: 'UI/UX'},
 						{value: 'PRODUCT_MANAGER', label: '프로덕트 매니저'},
 						{value: 'BACKEND', label: '백엔드'},
 						{value: 'FRONTEND', label: '프론트엔드'},
