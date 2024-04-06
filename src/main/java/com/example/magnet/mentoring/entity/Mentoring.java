@@ -81,6 +81,8 @@ public class Mentoring extends TimeEntity {
     public enum Category{
         DEVELOPMENT("개발"),
         MARKETING("마케팅"),
+//        WEB_DESIGN("웹디자인"),
+//        UI_UX("UI/UX"),
         PRODUCT_MANAGER("프로덕트매니저"),
         BACKEND("백엔드"),
         FRONTEND("프론트엔드"),
