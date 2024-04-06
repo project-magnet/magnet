@@ -41,7 +41,7 @@ public class MemberDetailService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
         log.info("찾아온 회원: {}", optionalMember);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-
+        log.info("찾아온 회원 !optional: {}", findMember);
         return new MemberDetails(findMember);// db에서 조회한 객체를 리턴해 인증절차 수행
     }
 

@@ -1,31 +1,22 @@
 package com.example.magnet.member.controller;
 
-import com.example.magnet.global.auth.dto.UserInfoDto;
 import com.example.magnet.member.dto.ExtractMember;
 import com.example.magnet.member.dto.MemberPatchDto;
 import com.example.magnet.member.dto.MemberPostDto;
 import com.example.magnet.member.dto.MemberResponseDto;
-import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.mapper.MemberMapper;
 import com.example.magnet.member.service.MemberService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @Validated
@@ -80,10 +71,6 @@ public class MemberController {
     @GetMapping("/get")
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        List<String> roles = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
-        log.info("조회 전 roles: { }", roles.toArray());
         return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
     }
 

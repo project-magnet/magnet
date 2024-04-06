@@ -38,7 +38,6 @@ public class PaymentController {
      * */
     @PostMapping("/toss")
     public ResponseEntity<PaymentResponseDto> requestTossPayment(@RequestBody @Valid PaymentDto paymentReqDto, Authentication authentication){
-
         PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto, (Long)authentication.getCredentials()).toPaymentResDto();
         PaymentResponseDto result = paymentResponseDto.toBuilder()
                 .successUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl())
