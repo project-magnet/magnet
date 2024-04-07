@@ -87,7 +87,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager( // 인증 매니저 설정
+    public AuthenticationManager authenticationManager( //인증 매니저 설정
             UserDetailsService userDetailsService,
             PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
