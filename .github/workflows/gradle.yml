@@ -95,6 +95,9 @@ on:
     branches: [ "dev_BE" ]
   pull_request:
     branches: [ "dev_BE" ]
+    
+# permissions:
+#       contents: read
 
 jobs:
   deploy: 
@@ -103,10 +106,13 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+
+    - name: Gradle Grant 권한 부여
+      run: chmod +x gradlew
     
     # Spring Boot 어플리케이션 Build (1)
     - name: Spring Boot Build
-      run: ./gradlew clean build -x test
+      run: ./gradlew clean build --exclude-task test
     
     # Docker 이미지 Build (2)
     - name: docker image build
