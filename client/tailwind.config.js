@@ -27,6 +27,10 @@ export const theme = {
 			tickle: `tickle 0.2s ${cubric} forwards`,
 			disappear: `disappear 1s ${cubric}  2s forwards`,
 			jelly: `jelly 0.5s ${cubric} forwards`,
+			infinityYscroll: `infinityYscroll 10s linear infinite`,
+			Tilting: `Tilting 2s ${cubric} forwards`,
+			translateX: `translateX 2s 0.8s ${cubric} forwards`,
+			translateY: `translateY 2s 0.8s ${cubric} forwards`,
 		},
 		keyframes: {
 			blink: {
@@ -51,8 +55,7 @@ export const theme = {
 				'20%, 40%, 60%, 80%': {transform: 'translateX(1px)'},
 			},
 			showSideRight: {
-				'0%': {opacity: 0, transform: 'translateX(-100%)'},
-
+				'0%': {opacity: 0, transform: 'translateX(-20%)'},
 				'100%': {opacity: 1, transform: 'translateX(0%)'},
 			},
 			fadeInMoveDown: {
@@ -74,6 +77,22 @@ export const theme = {
 				'40%': {transform: 'scale(1.1, 0.9)'},
 				'90%': {transform: 'scale(0.95, 1.05)'},
 				'100%': {transform: 'scale(1, 1)'},
+			},
+			infinityYscroll: {
+				'0%': {transform: 'translateY(0)'},
+				'100%': {transform: 'translateY(-50%)'},
+			},
+			Tilting: {
+				'0%': {transform: 'rotate(0deg) scale(1)', opacity: 0},
+				'100%': {transform: 'rotate(10deg) scale(1.1)', opacity: 1},
+			},
+			translateX: {
+				'0%': {transform: 'translateX(0)'},
+				'100%': {transform: 'translateX(150px)'},
+			},
+			translateY: {
+				'0%': {transform: 'translateY(0)'},
+				'100%': {transform: 'translateY(150px)'},
 			},
 		},
 		fontSize: {
