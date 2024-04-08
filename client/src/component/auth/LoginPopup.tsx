@@ -35,7 +35,7 @@ export const LoginPopup = () => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCenter fixed top-0 z-30 size-full bg-black bg-opacity-30 backdrop-blur-sm"
+			className="flexCenter fixed top-0 z-30 size-full animate-fadeIn bg-black bg-opacity-50 backdrop-blur-sm "
 		>
 			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-5 md:w-fit md:px-20">
 				<PopupCloseButton handleClick={handleClick} />

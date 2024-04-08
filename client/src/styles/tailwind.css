@@ -9,6 +9,9 @@
   *{
     @apply box-border m-0 p-0;
   }
+  .noScroll::-webkit-scrollbar {
+    display: none;
+}
 }
 
 @layer components {
