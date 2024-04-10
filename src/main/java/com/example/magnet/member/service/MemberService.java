@@ -136,11 +136,11 @@ public class MemberService {
     }
 
 
-    /**
+    /*
      * 캐시 갱신
      * */
-    @CachePut(value = "memberDto", key="#member.email")
-    public MemberResponseDto updateMemberCache(Member member) {
-        return mapper.memberToResponseDto(member);
-    }
+//    @CachePut(value = "memberDto", key="#member.email")
+//    public MemberResponseDto updateMemberCache(Member member) {
+//        return mapper.memberToResponseDto(member);
+//    }
 }
