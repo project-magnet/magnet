@@ -7,22 +7,25 @@ jobs: # Job 설정
   build:
     name: Build, Deploy to S3 Bucket
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./client
     steps:
       - name: Checkout source code. # Repo checkout
         uses: actions/checkout@v3
 
       - name: Check Node v # Node v 확인
         run: node -v
-        working-directory: ./client
 
       - name: Install dependencies # 의존 파일 설치
         run: npm install
-        working-directory: ./client
+
+      - name: fix babel # babel 오류 해결
+        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
       - name: Generate build # React Build
         run: npm run build
-        working-directory: ./client
 
       - name: Deploy # Upload build file to S3
         env:
