@@ -3,7 +3,7 @@ import {getMemberResponse} from '../../api/member';
 import UserInfoBox from './UserInfoBox';
 import {removeToken} from '../../utils/auth/removeToken';
 import {useNavigate} from 'react-router-dom';
-import {updateMember, updateMemberData, deleteMember} from '../../api/member';
+import {updateMember, updateMemberData} from '../../api/member';
 
 export const UserInfoSection = ({
 	member,
@@ -94,8 +94,8 @@ export const UserInfoSection = ({
 					)}
 				</div>
 				{/* 컨텍트 */}
-				<UserInfoBox contents={phone} icon="phone-line" style="textSmall" />
-				<UserInfoBox contents={email} icon="mail-line" style="textSmall" />
+				<UserInfoBox contents={phone} icon="phone-line" />
+				<UserInfoBox contents={email} icon="mail-line" />
 			</div>
 			<div className="textSmall flex gap-2">
 				<button className="buttonStyleTertiary" onClick={() => handleLogout()}>

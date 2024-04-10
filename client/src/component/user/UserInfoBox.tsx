@@ -1,12 +1,11 @@
 type UserInfoBoxProps = {
 	icon: string;
 	contents: string;
-	style?: string;
 };
 
-const UserInfoBox = ({icon, contents, style}: UserInfoBoxProps) => {
+const UserInfoBox = ({icon, contents}: UserInfoBoxProps) => {
 	return (
-		<div className={`${style} flex items-center gap-1 text-secondary`}>
+		<div className={`textSmall flex items-center gap-1 text-secondary`}>
 			<i className={`ri-${icon} ri-xl`} />
 			<p className="">{contents}</p>
 		</div>

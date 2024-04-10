@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {MentoringStore} from '../store/MentoringStore';
 import {loadTossPayments} from '@tosspayments/payment-sdk';
 
 const clientKey = 'test_ck_yL0qZ4G1VO501X6MlKxY8oWb2MQY';

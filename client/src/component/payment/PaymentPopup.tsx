@@ -49,7 +49,7 @@ const PaymentPopup = () => {
 		sessionStorage.setItem('message', message);
 		sessionStorage.setItem('email', email);
 		setAllInputFilled((phone && message) === '' ? false : true);
-	}, [phone, message]);
+	}, [phone, message, email]);
 
 	// 멘토링 정보를 불러온다.
 	useEffect(() => {
@@ -64,7 +64,7 @@ const PaymentPopup = () => {
 			}
 		};
 		fetchMentoringData();
-	}, []);
+	}, [location.search]);
 
 	// 팝업 영역을 클릭했을 때 팝업을 닫습니다.
 	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {

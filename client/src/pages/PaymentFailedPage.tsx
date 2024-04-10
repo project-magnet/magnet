@@ -19,7 +19,7 @@ const PaymentFailedPage = () => {
 		return () => {
 			clearInterval(timer);
 		};
-	}, []);
+	}, [microsecond, navigate]);
 
 	return (
 		<div className="flexCenter h-pageRoot">
