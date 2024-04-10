@@ -33,6 +33,6 @@ jobs: # Job 설정
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID_S3 }}
         run: |
           aws s3 sync \
-          --recursive --region ap-northeast-1 \
+          --region ap-northeast-1 \
           build s3://${wonyoungprojects} \
           --delete
