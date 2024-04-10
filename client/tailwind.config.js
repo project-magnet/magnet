@@ -29,8 +29,8 @@ export const theme = {
 			jelly: `jelly 0.5s ${cubric} forwards`,
 			infinityYscroll: `infinityYscroll 10s linear infinite`,
 			Tilting: `Tilting 2s ${cubric} forwards`,
-			translateX: `translateX 2s 0.8s ${cubric} forwards`,
-			translateY: `translateY 2s 0.8s ${cubric} forwards`,
+			translateX: `translateX 4s ${cubric} forwards`,
+			translateY: `translateY 4s ${cubric} forwards`,
 		},
 		keyframes: {
 			blink: {

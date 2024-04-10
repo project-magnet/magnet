@@ -28,7 +28,7 @@ const HomePage = () => {
 	];
 
 	return (
-		<div className="flexCol h-pageRoot items-center justify-evenly overflow-hidden bg-gradient-to-b from-white  to-slate-100 lg:flex-row">
+		<div className="flexCol h-pageRoot justify-center gap-10 overflow-hidden lg:flex-row ">
 			<section className="flexCenter animate-showSideRight flex-col">
 				<div className="flexCenter hidden  flex-col sm:text-[6rem] lg:block 2xl:text-[11rem]  ">
 					<p className="font-PartialSansKR_Regular">Connecting</p>
@@ -55,8 +55,8 @@ const HomePage = () => {
 				</div>
 			</section>
 
-			<section className="animate-Tilting noScroll flexCenter h-fit w-screen rotate-6 overflow-scroll bg-white py-3 shadow-md transition duration-300 hover:shadow-xl lg:h-screen lg:w-fit ">
-				<div className="lg:flexCol animate-translateX lg:animate-translateY flex gap-10 lg:py-10">
+			<section className=" noScroll flexCenter h-fit w-screen animate-Tilting overflow-scroll bg-white shadow-md transition duration-300 hover:shadow-xl sm:bottom-10 lg:bottom-0 lg:right-32 lg:h-screen lg:w-fit ">
+				<div className="lg:flexCol flex animate-translateX gap-0 py-3 sm:gap-5 lg:animate-translateY lg:gap-10 lg:py-10">
 					{categories.map((el, index) => (
 						<button
 							key={index}
@@ -69,49 +69,6 @@ const HomePage = () => {
 					))}
 				</div>
 			</section>
-
-			{/* <section className="flexCenter">
-				<div className="flexCenter w-full flex-col gap-10">
-					<div className="hidden lg:block">
-						<h1 className="text-[3rem] font-bold leading-none">
-							모두를 위한
-							<br />
-							멘토링 서비스
-						</h1>
-						<p className="text-[3rem] font-bold leading-none text-additional2">마그넷</p>
-					</div>
-
-					<div
-						onClick={handleClick}
-						className="flexCol interactionPushDown h-60 w-11/12 animate-fadeIn  
-						 gap-5 divide-y-2 rounded-lg bg-background p-5 shadow-md sm:w-96"
-					>
-						<div className="textBase flexCol w-full flex-grow items-start gap-2">
-							<p className="truncate font-PartialSansKR_Regular">MAGNET</p>
-							<div className="textLarge line-clamp-3 h-3/5 pt-5 text-additional3  ">
-								멘토링을 찾아보세요!
-							</div>
-						</div>
-
-						<div className="flexCol textSmall w-full items-start gap-2 pt-2">
-							<div className="text-secondary *:flex *:gap-2">
-								<div>
-									<i className="ri-building-line" />
-									<p className="truncate ">Task</p>
-								</div>
-								<div>
-									<i className="ri-bar-chart-2-line" />
-									<p className="truncate">Career</p>
-								</div>
-								<div>
-									<i className="ri-walk-line" />
-									<p className="truncatey ">Field</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section> */}
 		</div>
 	);
 };
