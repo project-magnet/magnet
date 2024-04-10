@@ -5,13 +5,13 @@ on: # Event 감지
       - dev_FE
 jobs: # Job 설정
   build:
+    name: Build, Deploy to S3 Bucket
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./client
     steps:
       - name: Checkout source code. # Repo checkout
         uses: actions/checkout@v3
-
-      - name: Change directory to client # 디렉토리 변경
-        run: cd client
 
       - name: Check Node v # Node v 확인
         run: node -v
