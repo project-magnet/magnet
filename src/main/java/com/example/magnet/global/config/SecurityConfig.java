@@ -6,6 +6,7 @@ import com.example.magnet.global.auth.handler.*;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
 import com.example.magnet.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,19 +37,11 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity(debug = true) // filter 호출 순서 반환
 @Slf4j
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
-    public SecurityConfig(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils
-    ) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-
-    }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
