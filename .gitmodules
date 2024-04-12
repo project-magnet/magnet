@@ -1,4 +1,4 @@
-[submodule "src/main/resources/submodule-config"]
-	path = src/main/resources/submodule-config
+[submodule "src/main/resources/config"]
+	path = src/main/resources/config
 	url = https://github.com/project-magnet/submodule-config.git
 	branch = dev_BE
