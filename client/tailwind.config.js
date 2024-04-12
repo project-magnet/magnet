@@ -17,7 +17,6 @@ export const theme = {
 			GmarketSansMedium: ['GmarketSansMedium', 'sans-serif'],
 		},
 		animation: {
-			blink: 'blink 1.5s step-end infinite',
 			fadeIn: 'fadeIn 0.5s ease-in-out forwards',
 			upALittle: 'upALittle 0.1s forwards',
 			downALittle: `downALittle 1s ${bounce} forwards`,
@@ -27,16 +26,12 @@ export const theme = {
 			tickle: `tickle 0.2s ${cubric} forwards`,
 			disappear: `disappear 1s ${cubric}  2s forwards`,
 			jelly: `jelly 0.5s ${cubric} forwards`,
-			infinityYscroll: `infinityYscroll 10s linear infinite`,
 			Tilting: `Tilting 2s ${cubric} forwards`,
 			translateX: `translateX 4s ${cubric} forwards`,
 			translateY: `translateY 4s ${cubric} forwards`,
+			toastPopupMove: `toastPopupMove 3s ${cubric} forwards`,
 		},
 		keyframes: {
-			blink: {
-				'0%, 100%': {opacity: 1},
-				'50%': {opacity: 0},
-			},
 			fadeIn: {
 				'0%': {opacity: 0},
 				'100%': {opacity: 1},
@@ -78,10 +73,6 @@ export const theme = {
 				'90%': {transform: 'scale(0.95, 1.05)'},
 				'100%': {transform: 'scale(1, 1)'},
 			},
-			infinityYscroll: {
-				'0%': {transform: 'translateY(0)'},
-				'100%': {transform: 'translateY(-50%)'},
-			},
 			Tilting: {
 				'0%': {transform: 'rotate(0deg) scale(1)', opacity: 0},
 				'100%': {transform: 'rotate(10deg) scale(1.1)', opacity: 1},
@@ -93,6 +84,12 @@ export const theme = {
 			translateY: {
 				'0%': {transform: 'translateY(0)'},
 				'100%': {transform: 'translateY(150px)'},
+			},
+			toastPopupMove: {
+				'0%': {opacity: 0, transform: 'translateY(100%)'},
+				'20%': {opacity: 1, transform: 'translateY(0%)'},
+				'80%': {opacity: 1, transform: 'translateY(0%)'},
+				'100%': {opacity: 0, transform: 'translateY(-100%)'},
 			},
 		},
 		fontSize: {
