@@ -85,10 +85,10 @@ clean {
 	delete file('src/main/generated')
 }
 
-task copyPrivate(type: Copy) {
-	copy {
-		from './submodule-config'
-		include "*.yml"
-		into 'src/main/resources'
-	}
-}
+//task copyPrivate(type: Copy) {
+//	copy {
+//		from './submodule-config'
+//		include "*.yml"
+//		into 'src/main/resources'
+//	}
+//}
