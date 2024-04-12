@@ -15,26 +15,26 @@ const LoginButton: React.FC<LoginButtonProps> = ({type}) => {
 
 	let buttonStyle = '';
 	let buttonImage = '';
-	let linkTo = '';
+	// let linkTo = '';
 
 	switch (type) {
 		case 'Google':
 			buttonStyle = 'bg-slate-100 text-black';
 			buttonImage = googleImage;
 			// 나중에 리다이렉션 추가해!
-			linkTo = '';
+			// linkTo = '';
 			break;
 		case 'Kakao':
 			buttonStyle = 'bg-yellow-400 text-black';
 			buttonImage = kakaoImage;
 			// 나중에 리다이렉션 추가해!
-			linkTo = '';
+			// linkTo = '';
 			break;
 		case 'Naver':
 			buttonStyle = 'bg-green-500 text-white';
 			buttonImage = naverImage;
 			// 나중에 리다이렉션 추가해!
-			linkTo = '';
+			// linkTo = '';
 			break;
 	}
 
