@@ -1,8 +1,8 @@
 import {LoginPopupStore} from '../../store/LoginPopupStore';
 import LoginForm from './LoginForm';
 import {useEffect} from 'react';
-import LoginButton from './LoginButton';
-import {LogoMagnet} from '../common/LogoMagnet';
+import LoginButton from './OAuthButton';
+import {LogoTickle} from '../common/LogoTickle';
 import {PopupCloseButton} from '../common/PopupCloseButton';
 import {useNavigate} from 'react-router-dom';
 
@@ -39,7 +39,7 @@ export const LoginPopup = () => {
 		>
 			<section className="flexCenter relative w-11/12 flex-col gap-5 rounded-md bg-white p-5 md:w-fit md:px-20">
 				<PopupCloseButton handleClick={handleClick} />
-				<LogoMagnet word="MAGNET" />
+				<LogoTickle word="MAGNET" />
 				<LoginForm />
 
 				<button onClick={() => handleSignupLink()} className="activeStyle text-sm">
