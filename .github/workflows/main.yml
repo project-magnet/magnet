@@ -15,6 +15,12 @@ jobs: # Job 설정
       - name: Checkout source code. # Repo checkout
         uses: actions/checkout@v3
 
+      - name: .env setting # .env에 있던 환경변수들을 등록해주는 단계
+        run: |
+          echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> .env
+          echo "REACT_APP_URL=${{ secrets.REACT_APP_URL }}" >> .env
+          echo "REACT_APP_TOSS_CLIENT_KEY=${{ secrets.REACT_APP_TOSS_CLIENT_KEY }}" >> .env
+
       - name: Check Node v # Node v 확인
         run: node -v
 
