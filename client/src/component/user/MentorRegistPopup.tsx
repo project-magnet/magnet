@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import PopupStore from '../../store/PopupStore';
 import {createMentor} from '../../api/mentor';
 import {MemberStore} from '../../store/MemberStore';
-import {LogoMagnet} from '../common/LogoMagnet';
+import {LogoTickle} from '../common/LogoTickle';
 import {CommonInput} from '../input/CommonInput';
 import {SelectInput} from '../input/SelectInput';
 import {PopupCloseButton} from '../common/PopupCloseButton';
@@ -63,7 +63,7 @@ export const MentorRegistPopup = () => {
 		>
 			<section className="flexCenter relative w-full flex-col gap-10 rounded-md bg-white py-10 md:w-fit  md:p-20 ">
 				<PopupCloseButton handleClick={handleClick} />
-				<LogoMagnet word="MAGNET" />
+				<LogoTickle word="MAGNET" />
 				<article className="textlarge w-11/12 animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-additional3 md:w-96">
 					마그넷의 멘토가 되어달라는 문구.
 				</article>
