@@ -1,4 +1,4 @@
-export const LogoMagnet = ({word}: {word: string}) => {
+export const LogoTickle = ({word}: {word: string}) => {
 	const wordArr = word.split('');
 	return (
 		<div className="flex select-none">
