@@ -8,17 +8,19 @@
 - Spring Security 6.2.0
 - Spring data JPA
 - QeuryDSL
-- JUnit5 5.10.1
-- MySQL
+- JUnit5
+- MySQL 8
 - Docker
-- gradle
+- gradle 8.5
+- AWS EC2, cloudFront, route53
 
 <br/>
 
-## 트러블슈팅
+## 트러블슈팅🚨
 - [Spring Security + JWT] 스프링 시큐리티를 이용해 Controller에서 현재 로그인한 사용자의 정보 추출하기 https://11dy.tistory.com/3
 - [Troubleshooting] CORS 문제, 응답 헤더 누락(Access-Control-Allow-Origin) https://11dy.tistory.com/4
-- [Troubleshooting] Spring Security + JWT 로그인 후 익명 사용자로 인식되는 문제https://11dy.tistory.com/9
+- [Troubleshooting] Spring Security + JWT 로그인 후 익명 사용자로 인식되는 문제 https://11dy.tistory.com/9
+- [Troubleshooting] Github Actions + submodule application.yml을 못 읽는 경우 https://11dy.tistory.com/10
 
 <br/>
 
