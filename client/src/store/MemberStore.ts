@@ -2,24 +2,16 @@ import {getMemberResponse} from '../api/member';
 import {create} from 'zustand';
 
 type useStoreProps = {
-	globalMember: getMemberResponse;
+	globalMember: getMemberResponse | null;
 	setGlobalMember: (member: getMemberResponse) => void;
+	resetGlobalMember: () => void;
 };
 
 export const MemberStore = create<useStoreProps>()(set => ({
-	globalMember: {
-		id: 0,
-		username: '',
-		nickName: '',
-		email: '',
-		phone: '',
-		picture: null,
-		memberStatus: '',
-		city: '',
-		street: '',
-		roles: [],
-		menteeList: [],
-		mentorList: [],
-	},
+	globalMember: null,
 	setGlobalMember: globalMember => set({globalMember}),
+	resetGlobalMember: () =>
+		set({
+			globalMember: null,
+		}),
 }));
