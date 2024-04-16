@@ -32,7 +32,7 @@ const HomePage = () => {
 	};
 
 	return (
-		<div className="flexCol h-pageRoot justify-center gap-10 overflow-hidden lg:flex-row ">
+		<div className="flexCol rootPageSection justify-center gap-10 overflow-hidden lg:flex-row">
 			<section className="flexCenter animate-showSideRight flex-col  font-PartialSansKR_Regular">
 				<div className="text-[3rem] sm:text-[4rem] lg:text-[6rem] 2xl:text-[10rem]">
 					<p className="" onClick={onclick}>
