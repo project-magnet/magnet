@@ -20,9 +20,9 @@ export const ToastPopup = () => {
 	return (
 		<>
 			{isOpen && (
-				<aside className="fixed left-1/2 top-0 z-50 w-10/12 -translate-x-1/2 sm:w-1/2">
+				<aside className="fixed left-1/2 top-3 z-50 w-10/12 -translate-x-1/2 sm:w-1/2">
 					<div
-						className={`animate-toastPopupMove flexCenter h-12 gap-2 rounded-md bg-slate-100 ${color}`}
+						className={`flexCenter h-12 animate-toastPopupMove gap-2 rounded-md bg-slate-100 ${color}`}
 					>
 						<i className={`ri-${icon} ri-2x`} />
 						<p>{message}</p>
