@@ -73,7 +73,7 @@ jobs:
     
     # AWS EC2 Server Connect & Docker 명령어 실행
     - name: AWS EC2 Connection
-      uses: appleboy/ssh-action@v0.1.6
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ubuntu
@@ -81,6 +81,8 @@ jobs:
         port: ${{ secrets.EC2_SSH_PORT }}
         timeout: 30s
         script: |
+          whoami
+          ls -al
           sudo docker stop magnet-be
           sudo docker rm magnet-be
           sudo docker run -d -p 8080:8080 \
