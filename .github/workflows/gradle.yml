@@ -81,8 +81,6 @@ jobs:
         port: ${{ secrets.EC2_SSH_PORT }}
         timeout: 30s
         script: |
-          whoami
-          ls -al
           sudo docker stop magnet-be
           sudo docker rm magnet-be
           sudo docker run -d -p 8080:8080 \
