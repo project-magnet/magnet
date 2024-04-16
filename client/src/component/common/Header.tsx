@@ -38,7 +38,7 @@ const Header = () => {
 					</p>
 				</button>
 				{fetchFinish && (
-					<div className="*:flexCenter flex w-full justify-evenly *:flex-col sm:justify-end *:sm:flex-row">
+					<div className="*:flexCenter flex w-full justify-evenly *:w-36 *:flex-col sm:justify-end *:sm:flex-row">
 						<button
 							onClick={() => navigate('/mentorlist')}
 							className={`activeStyle tracking-wide  ${'/mentorlist' === location.pathname && '*:text-black'}`}
@@ -57,7 +57,7 @@ const Header = () => {
 									<i
 										className={`text-xl sm:text-base  ri-${'/user' === location.pathname ? 'user-follow-line' : 'user-line'}`}
 									/>
-									<span className="textSmall">{globalMember.nickName}</span>
+									<span className="textSmall truncate">{globalMember.nickName}</span>
 								</button>
 								{globalMember.roles.includes('MENTOR') && (
 									<button
