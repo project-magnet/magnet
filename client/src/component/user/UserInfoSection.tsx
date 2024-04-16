@@ -1,22 +1,17 @@
 import {useState} from 'react';
-import {getMemberResponse} from '../../api/member';
+import {useNavigate} from 'react-router-dom';
 import UserInfoBox from './UserInfoBox';
 import {removeToken} from '../../utils/auth/removeToken';
-import {useNavigate} from 'react-router-dom';
-import {updateMember, updateMemberData} from '../../api/member';
+import {updateMember, updateMemberData, getMemberResponse, getMember} from '../../api/member';
+import {MemberStore} from '../../store/MemberStore';
+import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 
-export const UserInfoSection = ({
-	member,
-	memtorReady,
-	menteeReady,
-}: {
-	member: getMemberResponse;
-	memtorReady: boolean;
-	menteeReady: boolean;
-}) => {
+export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 	const [changeNickName, setChangeNickName] = useState<string>('');
+	const {resetGlobalMember} = MemberStore();
 	const {nickName, phone, email} = member;
 	const navigate = useNavigate();
+	const openToastPopup = useOpenToastPopup();
 
 	const handleNickNameChange = async () => {
 		const confirmed = window.confirm(`닉네임을 '${changeNickName}' 으로 변경하시겠습니까?`);
@@ -28,11 +23,12 @@ export const UserInfoSection = ({
 					nickName: changeNickName,
 				};
 				await updateMember(updatedData);
-				window.alert('닉네임 변경 성공!');
-				window.location.reload();
+				await getMember();
+				openToastPopup({message: '닉네임 변경에 성공했습니다', type: 'success'});
 			} catch (error) {
 				console.error('닉네임 변경 실패', error);
-				window.alert('닉네임 변경에 실패했습니다  ' + error);
+				openToastPopup({message: '닉네임 변경에 실패했습니다', type: 'error'});
+			} finally {
 				setChangeNickName('');
 			}
 		}
@@ -42,6 +38,8 @@ export const UserInfoSection = ({
 		const confirmed = window.confirm(`로그아웃 하시겠습니까?`);
 		if (confirmed) {
 			removeToken();
+			resetGlobalMember();
+			openToastPopup({message: '로그아웃 되었습니다', type: 'success'});
 			navigate('/');
 		}
 	};
@@ -82,12 +80,12 @@ export const UserInfoSection = ({
 				</div>
 				{/* 멘토, 멘티 여부 */}
 				<div className="textSmall flex gap-2">
-					{memtorReady && (
+					{member.roles.includes('MENTOR') && (
 						<div className="flexCenter h-8 w-12 rounded-md bg-additional2">
 							<p className="text-white">멘토</p>
 						</div>
 					)}
-					{menteeReady && (
+					{member.roles.includes('MENTEE') && (
 						<div className="flexCenter h-8 w-12 rounded-md bg-blue-400 ">
 							<p className="text-white">멘티</p>
 						</div>

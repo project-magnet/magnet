@@ -1,20 +1,31 @@
 import {useState} from 'react';
 import {login} from '../../api/auth';
 import {CommonInput} from '../input/CommonInput';
+import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
+import {LoginPopupStore} from '../../store/LoginPopupStore';
+import {getMember} from '../../api/member';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [loginFailed, setLoginFailed] = useState(false);
+	const openToast = useOpenToastPopup();
+	const {setLoginPopupIsOpenFalse} = LoginPopupStore();
 
 	const handleLogin = async () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
-				window.location.reload();
+				await getMember();
+				setLoginPopupIsOpenFalse();
+				openToast({message: '로그인 성공!', type: 'success'});
 			} catch (e) {
-				setLoginFailed(true);
-				console.error('로그인에 실패했습니다.', e);
+				console.error('로그인 실패', e);
+				openToast({
+					message: '이메일 또는 비밀번호를 확인하세요.',
+					type: 'error',
+				});
+				setEmail('');
+				setPassword('');
 			}
 		};
 		fetchLogin();
@@ -39,11 +50,6 @@ const LoginForm = () => {
 			>
 				로그인
 			</button>
-			{loginFailed && (
-				<p className="warning animate-shake">
-					로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.
-				</p>
-			)}
 		</section>
 	);
 };
