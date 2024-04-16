@@ -100,6 +100,9 @@ export const theme = {
 			// header-height is 2.5rem
 			pageRoot: 'calc(100vh - 2.5rem)',
 		},
+		minHeight: {
+			pageRoot: 'calc(100vh - 2.5rem)',
+		},
 	},
 };
 export const plugins = [];
