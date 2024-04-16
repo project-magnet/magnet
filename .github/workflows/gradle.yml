@@ -79,7 +79,7 @@ jobs:
         username: ubuntu
         password: ${{ secrets.EC2_PASSWORD }} 
         port: ${{ secrets.EC2_SSH_PORT }}
-        timeout: 30s
+        timeout: 60s
         script: |
           sudo docker stop magnet-be
           sudo docker rm magnet-be
