@@ -29,7 +29,7 @@ jobs:
     - name: Gradle Grant 권한 부여
       run: chmod +x gradlew
     
-    # Spring Boot 어플리케이션 Build 
+    # Spring Boot 어플리케이션 Build
     # - name: Spring Boot Build
     #   run: ./gradlew clean build --exclude-task test
     - name: Setup Gradle
