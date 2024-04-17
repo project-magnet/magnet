@@ -8,35 +8,44 @@ type ScheduleboxProps = {
 	phone: string;
 	aboutMe: string;
 	github: string;
-	mentoringDtoList: any[];
+	mentoringDtoList: mentoringDto[];
+};
+type mentoringDto = {
+	id: number;
+	title: string;
+	content: string;
+	pay: string;
+	period: string;
+	participants: number;
+	category: string;
 };
 
 export const MentorScheduleSection = ({mentorList}: {mentorList: ScheduleboxProps[]}) => {
+	const mentoringList = mentorList[0].mentoringDtoList;
 	return (
 		<section className="userPageSection flexCol gap-10">
 			<div className="flexCol items-center gap-1">
-				<p className="textTitle">나의 멘토링 예약 일정</p>
+				<p className="textTitle">개설한 멘토링</p>
 				<p className="textSmall text-additional2">
 					안녕하세요 멘토님! 멘티의 신청여부를 확인하세요!
 				</p>
 			</div>
 
-			{mentorList.length === 0 ? (
+			{mentoringList.length === 0 ? (
 				<p className="flexCenter textLarge h-40">개설한 멘토링이 없습니다!</p>
 			) : (
-				<div className="flex min-h-72 w-full snap-x gap-10 overflow-x-auto rounded-xl bg-white p-10 shadow-inner shadow-slate-300">
-					{mentorList.map((el, index) => (
-						<div className="buttonStyle flexCol size-72 animate-fadeIn cursor-pointer gap-5 bg-background p-5">
-							<div>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.career}`}</p>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.field}`}</p>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.task}`}</p>
+				<div className="flex  w-full gap-10  rounded-xl bg-white p-1 shadow-slate-300  sm:p-10">
+					{mentoringList.map((el, index) => (
+						<button
+							key={index}
+							className="interactionPushDown textSmall flexCenter w-full justify-between border-b p-5"
+						>
+							<div className="flexCol items-start gap-3">
+								<span className="font-PartialSansKR_Regular">{el.category}</span>
+								<span>{el.title}</span>
 							</div>
-							<div className="h-0.5 w-full border border-dashed" />
-							<div className="line-clamp-5">
-								<p className="">{el.aboutMe}</p>
-							</div>
-						</div>
+							<p className="textLarge text-secondary">{'>'}</p>
+						</button>
 					))}
 				</div>
 			)}
