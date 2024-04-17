@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import UserInfoBox from './UserInfoBox';
-import {removeToken} from '../../utils/auth/removeToken';
+import {removeAuthTokens} from '../../utils/auth/removeAuthTokens';
 import {updateMember, updateMemberData, getMemberResponse, getMember} from '../../api/member';
 import {MemberStore} from '../../store/MemberStore';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
@@ -37,7 +37,7 @@ export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 	const handleLogout = () => {
 		const confirmed = window.confirm(`로그아웃 하시겠습니까?`);
 		if (confirmed) {
-			removeToken();
+			removeAuthTokens();
 			resetGlobalMember();
 			openToastPopup({message: '로그아웃 되었습니다', type: 'success'});
 			navigate('/');
@@ -47,13 +47,13 @@ export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 	const hadleDeleteMember = () => {
 		const confirmed = window.confirm(`${nickName}님! 정말 회원탈퇴 하시겠습니까?`);
 		if (confirmed) {
-			removeToken();
+			removeAuthTokens();
 			navigate('/');
 		}
 	};
 	return (
-		<section className="userPageSection flex-col justify-between gap-10 sm:flex-row">
-			<div className="flexCol gap-2">
+		<section className="userPageSection flexCol items-center justify-between gap-10 sm:flex-row">
+			<div className="flexCol gap-3">
 				{/* 닉네임 */}
 				<div className="h-2">
 					{changeNickName.length >= 10 && (
@@ -62,7 +62,7 @@ export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 						</p>
 					)}
 				</div>
-				<div className="flex items-center border-b-2">
+				<div className="flex w-fit items-center border-b-2">
 					<input
 						placeholder={nickName}
 						className="textBase bg-none outline-none"
@@ -81,12 +81,12 @@ export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 				{/* 멘토, 멘티 여부 */}
 				<div className="textSmall flex gap-2">
 					{member.roles.includes('MENTOR') && (
-						<div className="flexCenter h-8 w-12 rounded-md bg-additional2">
+						<div className="flexCenter h-8 w-12 rounded-md bg-additional3">
 							<p className="text-white">멘토</p>
 						</div>
 					)}
 					{member.roles.includes('MENTEE') && (
-						<div className="flexCenter h-8 w-12 rounded-md bg-blue-400 ">
+						<div className="flexCenter h-8 w-12 rounded-md bg-additional2">
 							<p className="text-white">멘티</p>
 						</div>
 					)}

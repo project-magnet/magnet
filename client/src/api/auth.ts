@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {saveAuthTokens} from '../utils/auth/saveAuthTokens';
+import {removeAuthTokens} from '../utils/auth/removeAuthTokens';
 
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 type signupBody = {
@@ -44,12 +46,14 @@ export const login = async (body: loginBody) => {
 			username: body.email,
 			password: body.password,
 		});
-		sessionStorage.setItem('Authorization', response.headers.authorization);
-		sessionStorage.setItem('RefreshToken', response.headers.refreshtoken);
-
 		console.log('로그인 성공', response.data);
+		saveAuthTokens({
+			Authorization: response.headers.authorization,
+			RefreshToken: response.headers.refreshtoken,
+		});
 		return response.data;
 	} catch (error) {
+		removeAuthTokens();
 		console.error('로그인 실패', error);
 		throw error;
 	}
