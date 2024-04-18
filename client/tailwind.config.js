@@ -9,7 +9,7 @@ export const theme = {
 			primary: '#111111',
 			secondary: '#888888',
 			additional1: 'rgb(250 250 250) ',
-			additional2: '#6495ED',
+			additional2: '#F89B00',
 			additional3: '#0077FF ',
 		},
 		fontFamily: {
