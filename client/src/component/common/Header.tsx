@@ -6,25 +6,24 @@ import {MemberStore} from '../../store/MemberStore';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
-	const [isMentor, setIsMentor] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
-	const loginPopupIsOpen = LoginPopupStore(state => state.loginPopupIsOpen);
-	const globalMember = MemberStore(state => state.globalMember);
+	const {setLoginPopupIsOpenTrue, loginPopupIsOpen} = LoginPopupStore();
+	const {globalMember} = MemberStore();
 
+	//헤더에서는 토큰으로만 멤버 정보를 불러옵니다.
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getMember();
-				setIsMentor(data.roles.includes('MENTOR'));
+				await getMember();
+				console.log('헤더에서 멤버 정보를 성공적으로 불러왔습니다.');
 			} catch (error) {
-				console.error('멤버 정보를 불러오는 동안 오류가 발생했습니다:', error);
+				console.error('헤더에서 멤버 정보를 불러오는 동안 오류가 발생했습니다:', error);
+			} finally {
+				setFetchFinish(true);
 			}
 		};
-		sessionStorage.getItem('Authorization')
-			? fetchData().finally(() => setFetchFinish(true))
-			: setFetchFinish(true);
+		sessionStorage.getItem('Authorization') ? fetchData() : setFetchFinish(true);
 	}, []);
 
 	return (
@@ -39,7 +38,7 @@ const Header = () => {
 					</p>
 				</button>
 				{fetchFinish && (
-					<div className="*:flexCenter flex w-full justify-evenly *:flex-col sm:justify-end *:sm:flex-row">
+					<div className="*:flexCenter flex w-full justify-evenly *:w-36 *:flex-col sm:justify-end *:sm:flex-row">
 						<button
 							onClick={() => navigate('/mentorlist')}
 							className={`activeStyle tracking-wide  ${'/mentorlist' === location.pathname && '*:text-black'}`}
@@ -49,7 +48,7 @@ const Header = () => {
 							/>
 							<span className={`textSmall`}>둘러보기</span>
 						</button>
-						{sessionStorage.getItem('Authorization') ? (
+						{globalMember ? (
 							<>
 								<button
 									onClick={() => navigate('/user')}
@@ -58,9 +57,9 @@ const Header = () => {
 									<i
 										className={`text-xl sm:text-base  ri-${'/user' === location.pathname ? 'user-follow-line' : 'user-line'}`}
 									/>
-									<span className="textSmall">{globalMember.nickName}</span>
+									<span className="textSmall truncate">{globalMember.nickName}</span>
 								</button>
-								{isMentor && (
+								{globalMember.roles.includes('MENTOR') && (
 									<button
 										onClick={() => navigate('/creatementoring')}
 										className={`activeStyle tracking-wide ${

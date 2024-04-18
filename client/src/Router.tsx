@@ -1,6 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import LoginEmailPage from './pages/LoginEmailPage';
 import SignupPage from './pages/SignupPage';
 import Authpage from './pages/AuthPage';
 import MentorListPage from './pages/MentorListPage';
@@ -13,7 +12,6 @@ export const Router = () => {
 	return (
 		<Routes>
 			<Route path="/" Component={HomePage} />
-			<Route path="/loginemail" Component={LoginEmailPage} />
 			<Route path="/signup" Component={SignupPage} />
 			<Route path="/auth" Component={Authpage} />
 			<Route path="/mentorlist" Component={MentorListPage} />

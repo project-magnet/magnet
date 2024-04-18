@@ -4,10 +4,12 @@ import {signup} from '../../api/auth';
 import {WarningMessage} from '../common/WarningMessage';
 import {LoginPopupStore} from '../../store/LoginPopupStore';
 import {CommonInput} from '../input/CommonInput';
+import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 
 const SignupForm = () => {
 	const navigate = useNavigate();
-	const setLoginPopupIsOpenTrue = LoginPopupStore(state => state.setLoginPopupIsOpenTrue);
+	const {setLoginPopupIsOpenTrue} = LoginPopupStore();
+	const openToast = useOpenToastPopup();
 	const [form, setForm] = useState({
 		email: '',
 		username: '',
@@ -38,6 +40,7 @@ const SignupForm = () => {
 			await signup(form);
 			navigate('/');
 			setLoginPopupIsOpenTrue();
+			openToast({message: '회원가입 성공!', type: 'success'});
 		} catch (e) {
 			console.error('회원가입에 실패했습니다.', e);
 		}

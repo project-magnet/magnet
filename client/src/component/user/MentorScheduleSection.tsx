@@ -1,3 +1,4 @@
+import {CreatedMentoringBox} from './CreatedMentoringBox';
 type ScheduleboxProps = {
 	mentorId: number;
 	mentorName: string;
@@ -8,35 +9,36 @@ type ScheduleboxProps = {
 	phone: string;
 	aboutMe: string;
 	github: string;
-	mentoringDtoList: any[];
+	mentoringDtoList: mentoringDto[];
+};
+type mentoringDto = {
+	id: number;
+	title: string;
+	content: string;
+	pay: string;
+	period: string;
+	participants: number;
+	category: string;
 };
 
 export const MentorScheduleSection = ({mentorList}: {mentorList: ScheduleboxProps[]}) => {
+	const mentoringList = mentorList[0].mentoringDtoList;
 	return (
 		<section className="userPageSection flexCol gap-10">
-			<div className="flexCol items-center gap-1">
-				<p className="textTitle">나의 멘토링 예약 일정</p>
-				<p className="textSmall text-additional2">
-					안녕하세요 멘토님! 멘티의 신청여부를 확인하세요!
-				</p>
+			<div className="flexCol items-start gap-1">
+				<div className="flexCenter textTitle gap-2 text-additional3">
+					<i className="ri-calendar-check-line" />
+					<p className="">내가 개설한 멘토링</p>
+				</div>
+				<p className="textSmall">개설한 멘토링의 신청여부를 확인해요.</p>
 			</div>
 
-			{mentorList.length === 0 ? (
-				<p className="flexCenter textLarge h-40">개설한 멘토링이 없습니다!</p>
+			{mentoringList.length === 0 ? (
+				<p className="flexCenter textLarge h-40">개설한 멘토링이 없어요.</p>
 			) : (
-				<div className="flex min-h-72 w-full snap-x gap-10 overflow-x-auto rounded-xl bg-white p-10 shadow-inner shadow-slate-300">
-					{mentorList.map((el, index) => (
-						<div className="buttonStyle flexCol size-72 animate-fadeIn cursor-pointer gap-5 bg-background p-5">
-							<div>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.career}`}</p>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.field}`}</p>
-								<p className="mt-1 truncate text-sm text-secondary">{`#${el.task}`}</p>
-							</div>
-							<div className="h-0.5 w-full border border-dashed" />
-							<div className="line-clamp-5">
-								<p className="">{el.aboutMe}</p>
-							</div>
-						</div>
+				<div className="w-full rounded-xl bg-white">
+					{mentoringList.map((el, index) => (
+						<CreatedMentoringBox mentoringDto={el} key={index} />
 					))}
 				</div>
 			)}

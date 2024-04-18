@@ -1,4 +1,3 @@
-import 'remixicon/fonts/remixicon.css';
 import {useEffect, useState} from 'react';
 import PopupStore from '../../store/PopupStore';
 import {createMentor} from '../../api/mentor';
@@ -7,29 +6,25 @@ import {LogoTickle} from '../common/LogoTickle';
 import {CommonInput} from '../input/CommonInput';
 import {SelectInput} from '../input/SelectInput';
 import {PopupCloseButton} from '../common/PopupCloseButton';
+import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
+import {getMember} from '../../api/member';
 
 export const MentorRegistPopup = () => {
-	const setIsOpenFalse = PopupStore(state => state.setIsOpenFalse);
-	const globalMember = MemberStore(state => state.globalMember);
+	const {setIsOpenFalse} = PopupStore();
+	const {globalMember} = MemberStore();
+	const openToast = useOpenToastPopup();
 
 	const [areAllInputsSelected, setAreAllInputsSelected] = useState(false);
 	const [form, setForm] = useState({
-		mentorName: globalMember.username,
+		mentorName: '',
 		field: '',
 		career: '',
 		task: '',
-		email: globalMember.email,
-		phone: globalMember.phone,
+		email: '',
+		phone: '',
 		aboutMe: '',
 		github: '',
 	});
-
-	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-		e.stopPropagation();
-		if (e.target === e.currentTarget) {
-			setIsOpenFalse();
-		}
-	};
 
 	useEffect(() => {
 		setAreAllInputsSelected(
@@ -44,16 +39,34 @@ export const MentorRegistPopup = () => {
 		};
 	}, []);
 
+	const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+		e.stopPropagation();
+		if (e.target === e.currentTarget) {
+			setIsOpenFalse();
+		}
+	};
+
 	const handleSubmit = () => {
 		const submitData = async () => {
 			try {
-				await createMentor(form);
-				window.location.reload();
+				const newForm = {
+					...form,
+					mentorName: globalMember?.username || '',
+					email: globalMember?.email || '',
+					phone: globalMember?.phone || '',
+				};
+				await createMentor(newForm);
+				await getMember();
+				setIsOpenFalse();
+				openToast({message: '멘토등록이 완료되었습니다.', type: 'success'});
 			} catch (error) {
-				prompt('멘토등록에 실패했습니다.');
+				console.error('멘토등록 실패', error);
+				openToast({message: '멘토등록에 실패했습니다.', type: 'error'});
 			}
 		};
-		submitData();
+		globalMember
+			? submitData()
+			: openToast({message: '로그인 상태를 확인해주세요.', type: 'warning'});
 	};
 
 	return (

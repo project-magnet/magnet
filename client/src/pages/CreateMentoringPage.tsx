@@ -6,6 +6,7 @@ import {CommonInput} from '../component/input/CommonInput';
 import {SelectInput} from '../component/input/SelectInput';
 import {NumberInput} from '../component/input/NumberInput';
 import {PeriodInput} from '../component/input/PeriodInpit';
+import {useOpenToastPopup} from '../hooks/useOpenToastPopup';
 
 export const CreateMentoringPage = () => {
 	const [form, setForm] = useState({
@@ -19,6 +20,7 @@ export const CreateMentoringPage = () => {
 	const [description, setDescription] = useState('');
 	const [isFormValid, setIsFormValid] = useState(false);
 	const navigate = useNavigate();
+	const openToastPopup = useOpenToastPopup();
 
 	useEffect(() => {
 		setIsFormValid(
@@ -39,9 +41,10 @@ export const CreateMentoringPage = () => {
 		const submitData = async () => {
 			try {
 				await createMentoring(newForm);
+				openToastPopup({message: '멘토링 개설에 성공했습니다.', type: 'success'});
 				navigate('/mentorlist');
 			} catch (error) {
-				prompt('멘토링 생성에 실패했습니다.');
+				openToastPopup({message: '멘토링 개설에 실패했습니다.', type: 'error'});
 			}
 		};
 		submitData();

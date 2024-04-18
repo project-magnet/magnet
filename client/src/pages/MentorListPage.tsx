@@ -5,37 +5,14 @@ import PaymentPopup from '../component/payment/PaymentPopup';
 import {LodingContainer} from '../component/common/LoadingContainer';
 import PopupStore from '../store/PopupStore';
 import {getMentoringList, Content} from '../api/mentoring';
+import {categories} from '../asset/categories';
 
 const MentoringListPage = () => {
 	const isOpen = PopupStore(state => state.isOpen);
 	const [category, setCategory] = useState('ALL');
 	const [mentoringList, setMentoringList] = useState<Content[] | null>(null);
 	const navigate = useNavigate();
-
-	const categories = [
-		{title: '전체', id: 'ALL', icon: 'menu-line'},
-		{title: '웹 디자인', id: 'WEB_DESIGN', icon: 'brush-2-line'},
-		{title: 'UI/UX', id: 'UI_UX', icon: 'layout-2-line'},
-		{
-			title: '프로덕트 매니저',
-			id: 'PRODUCT_MANAGER',
-			icon: 'file-list-2-line',
-		},
-		{title: '백엔드', id: 'BACKEND', icon: 'send-to-back'},
-		{title: '프론트엔드', id: 'FRONTEND', icon: 'bring-to-front'},
-		{title: '데브옵스', id: 'DEVOPS', icon: 'cloud-line'},
-		{
-			title: '데이터 엔지니어',
-			id: 'DATA_ENGINEER',
-			icon: 'database-2-line',
-		},
-		{
-			title: '서버 엔자니어',
-			id: 'SERVER_ENGINEER',
-			icon: 'server-line',
-		},
-		{title: 'AI', id: 'AI', icon: 'robot-3-line'},
-	];
+	const newCategories = [{id: 'ALL', title: '전체', icon: 'menu-line'}].concat(categories);
 
 	useEffect(() => {
 		navigate(`/mentorlist?category=${category}`);
@@ -55,10 +32,10 @@ const MentoringListPage = () => {
 	}, []);
 
 	return (
-		<section className="flexCol items-center gap-10 bg-gradient-to-b from-white to-slate-200 py-10 sm:px-10">
+		<section className="flexCol rootPageSection items-center gap-10 py-10 sm:px-10">
 			{isOpen && <PaymentPopup />}
 			<div className="flexCenter animate-fadeInMoveDown flex-wrap ">
-				{categories.map((el, index) => (
+				{newCategories.map((el, index) => (
 					<button
 						key={index}
 						onClick={() => setCategory(el.id)}
