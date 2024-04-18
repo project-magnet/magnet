@@ -26,7 +26,7 @@
       @apply w-full bg-gradient-to-t from-slate-200 to-white min-h-pageRoot 
     }
     .userPageSection {
-      @apply w-11/12 lg:w-3/4 rounded-xl flexCenter p-5 sm:p-10 bg-white shadow-md
+      @apply w-11/12 lg:w-3/4 rounded-xl p-5 sm:p-10 bg-white shadow-md
     }
     /* 버튼 관련 */
     .disabledStyle {
