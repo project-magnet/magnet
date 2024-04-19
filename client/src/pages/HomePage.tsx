@@ -10,7 +10,7 @@ const HomePage = () => {
 				<div className="text-[3rem] sm:text-[4rem] lg:text-[6rem] 2xl:text-[10rem]">
 					<p>모두를 위한</p>
 					<p>멘토링 서비스</p>
-					<div className="flex text-additional2">
+					<div className="flex text-additional3">
 						{['마', '그', '넷', '!'].map((el, index) => (
 							<span className="hover:animate-tickle" key={index}>
 								{el}
