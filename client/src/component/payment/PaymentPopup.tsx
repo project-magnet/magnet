@@ -108,7 +108,7 @@ const PaymentPopup = () => {
 											<p className="truncate">{`${mentoringData.field}`} 직무</p>
 										</div>
 									</div>
-									<div className="h-[1px] w-full border border-dashed" />
+									<div className="h-[1px] w-full border" />
 									<p className="textLarge font-bold">{mentoringData.title}</p>
 									<div
 										className="textBase text-pretty"
@@ -118,7 +118,7 @@ const PaymentPopup = () => {
 							) : pageNumber === 2 ? (
 								<>
 									<article className="textlarge animate-fadeInMoveDown rounded-xl bg-slate-100 p-5 text-additional3">
-										입력에 주의하라는 거대한 안내문구
+										멘토링 신청을 위해 신중하게 작성해 주세요.
 									</article>
 									<CommonInput
 										placeholder="연락 가능한 연락처를 입력해 주세요"
@@ -142,30 +142,30 @@ const PaymentPopup = () => {
 								</>
 							) : pageNumber === 3 ? (
 								<>
-									<div>
-										<span className="textBase">신청 멘토링명</span>
-										<span className="textSmall ml-3 text-slate-500">{mentoringData.title}</span>
+									<div className="flexCol">
+										<span className="textBase">멘토링 제목</span>
+										<span className="textSmall text-slate-500">{mentoringData.title}</span>
 									</div>
-									<div>
-										<span className="textBase">신청 금액</span>
-										<span className="textSmall ml-3 text-slate-500">{mentoringData.pay}원</span>
+									<div className="flexCol">
+										<span className="textBase">결제 금액</span>
+										<span className="textSmall  text-slate-500">{mentoringData.pay}원</span>
 									</div>
-									<div>
+									<div className="flexCol">
 										<span className="textBase">멘토링 진행 기간</span>
-										<span className="textSmall ml-3 text-slate-500">{mentoringData.period}월</span>
+										<span className="textSmall text-slate-500">{mentoringData.period}월</span>
 									</div>
-									<br />
-									<div>
+
+									<div className="flexCol">
 										<span className="textBase">연락 가능한 연락처</span>
-										<span className="textSmall ml-3 text-slate-500">{phone}</span>
+										<span className="textSmall  text-slate-500">{phone}</span>
 									</div>
-									<div>
+									<div className="flexCol">
 										<span className="textBase">연락 가능한 이메일</span>
-										<span className="textSmall ml-3 text-slate-500">{email}</span>
+										<span className="textSmall text-slate-500">{email}</span>
 									</div>
-									<div>
+									<div className="flexCol">
 										<span className="textBase">멘토에게 전달사항</span>
-										<span className="textSmall ml-3 text-slate-500">{message}</span>
+										<span className="textSmall text-slate-500">{message}</span>
 									</div>
 								</>
 							) : (
