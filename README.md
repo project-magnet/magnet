@@ -29,7 +29,7 @@
 
 <br/>
 
-## 개발 서버 아키텍처
+## 개발서버 아키텍처
 ![image](https://github.com/project-magnet/magnet/assets/96255906/71cb921c-ac19-402c-96c2-552c4c6aaffe)
 
 
