@@ -27,6 +27,11 @@
 ## ERD
 ![erd 최신](https://github.com/11dy/magnet-BE/assets/96255906/cb78fc60-c21c-476b-af37-8b8e85b58d67)
 
+<br/>
+
+## 개발 서버 아키텍처
+![image](https://github.com/project-magnet/magnet/assets/96255906/71cb921c-ac19-402c-96c2-552c4c6aaffe)
+
 
 
 
