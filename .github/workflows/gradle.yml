@@ -26,6 +26,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    # - name: Gradle 캐싱
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: |
+    #       ~/.gradle/caches
+    #       ~/.gradle/wrapper
+    #     key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-gradle-
+
     - name: Gradle Grant 권한 부여
       run: chmod +x gradlew
     
@@ -84,6 +94,7 @@ jobs:
           sudo docker stop magnet-be
           sudo docker rm magnet-be
           sudo docker run -d -p 8080:8080 \
+              --name magnet-be \
               -e CLIENT_ID=${{ secrets.CLIENT_ID }} \
               -e CLIENT_SECRET=${{ secrets.CLIENT_SECRET }} \
               -e DB_NAME=${{ secrets.DB_NAME }} \
