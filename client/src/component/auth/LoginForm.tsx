@@ -40,7 +40,7 @@ const LoginForm = () => {
 					icon="key-2-line"
 					value={password}
 					onChange={setPassword}
-					password
+					inputType="password"
 				/>
 			</div>
 			<button

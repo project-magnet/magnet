@@ -40,9 +40,10 @@ const SignupForm = () => {
 			await signup(form);
 			navigate('/');
 			setLoginPopupIsOpenTrue();
-			openToast({message: '회원가입 성공!', type: 'success'});
+			openToast({message: '회원가입 완료!', type: 'success'});
 		} catch (e) {
-			console.error('회원가입에 실패했습니다.', e);
+			openToast({message: '회원가입에 실패했어요.', type: 'error'});
+			console.error('회원가입에 실패했어요.', e);
 		}
 	};
 
@@ -58,7 +59,7 @@ const SignupForm = () => {
 
 	return (
 		<section className="flexCol w-full items-center gap-10 *:w-10/12 *:md:w-96">
-			<div className="flexCol gap-3">
+			<div className="flexCol gap-2">
 				<CommonInput
 					placeholder="이메일"
 					icon="mail-line"
@@ -68,12 +69,11 @@ const SignupForm = () => {
 				/>
 				<WarningMessage
 					message="이메일 형식이어야 합니다."
-					isSuccess={checkForm.email.validated}
-					visible={checkForm.email.focused}
+					isSuccess={checkForm.email.validated || form.email.length === 0}
 				/>
 
 				<CommonInput
-					password
+					inputType="password"
 					placeholder="비밀번호"
 					icon="key-2-line"
 					value={form.password}
@@ -84,12 +84,11 @@ const SignupForm = () => {
 				/>
 				<WarningMessage
 					message="최소 8자 이상, 영문과 숫자를 모두 포함해야 합니다."
-					isSuccess={checkForm.password.validated}
-					visible={checkForm.password.focused}
+					isSuccess={checkForm.password.validated || form.password.length === 0}
 				/>
 			</div>
 
-			<div className="flexCol gap-3">
+			<div className="flexCol gap-2">
 				<CommonInput
 					placeholder="실명"
 					icon="user-line"
@@ -101,8 +100,7 @@ const SignupForm = () => {
 				/>
 				<WarningMessage
 					message="한글 2자리 이상이여야 합니다."
-					isSuccess={checkForm.username.validated}
-					visible={checkForm.username.focused}
+					isSuccess={checkForm.username.validated || form.username.length === 0}
 				/>
 
 				<CommonInput
@@ -114,8 +112,7 @@ const SignupForm = () => {
 				/>
 				<WarningMessage
 					message="하이픈(-)을 포함한 9자리 이상 정수여야 합니다."
-					isSuccess={checkForm.phone.validated}
-					visible={checkForm.phone.focused}
+					isSuccess={checkForm.phone.validated || form.phone.length === 0}
 				/>
 			</div>
 
@@ -131,8 +128,7 @@ const SignupForm = () => {
 				/>
 				<WarningMessage
 					message={'특수문자 제외 3자리 이상이여야 합니다.'}
-					isSuccess={checkForm.nickName.validated}
-					visible={checkForm.nickName.focused}
+					isSuccess={checkForm.nickName.validated || form.nickName.length === 0}
 				/>
 			</div>
 
