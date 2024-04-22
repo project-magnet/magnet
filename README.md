@@ -32,6 +32,10 @@
 ## 개발서버 아키텍처
 ![image](https://github.com/project-magnet/magnet/assets/96255906/71cb921c-ac19-402c-96c2-552c4c6aaffe)
 
+<br/>
+
+## CI /CD 파이프라인 
+![image](https://github.com/project-magnet/magnet/assets/96255906/39343e04-6331-4500-8592-ac45c9e06148)
 
 
 
