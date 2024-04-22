@@ -1,66 +1,68 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {MyQuillComponent} from '../component/input/MyQuillComponent';
 import {createMentoring} from '../api/mentoring';
 import {useNavigate} from 'react-router-dom';
 import {CommonInput} from '../component/input/CommonInput';
 import {SelectInput} from '../component/input/SelectInput';
-import {NumberInput} from '../component/input/NumberInput';
-import {PeriodInput} from '../component/input/PeriodInpit';
 import {useOpenToastPopup} from '../hooks/useOpenToastPopup';
+import {WarningMessage} from '../component/common/WarningMessage';
 
 export const CreateMentoringPage = () => {
-	const [form, setForm] = useState({
-		title: '',
-		content: '',
-		pay: '',
-		period: '',
-		participants: '',
-		category: '',
-	});
-	const [description, setDescription] = useState('');
+	const [title, setTitle] = useState('');
+	const [content, setContent] = useState('');
+	const [pay, setPay] = useState('');
+	const [period, setPeriod] = useState('');
+	const [participants, setParticipants] = useState('');
+	const [category, setCategory] = useState('');
 	const [isFormValid, setIsFormValid] = useState(false);
 	const navigate = useNavigate();
 	const openToastPopup = useOpenToastPopup();
 
-	useEffect(() => {
-		setIsFormValid(
-			description.length > 0 &&
-				form.title.length > 0 &&
-				form.pay.length > 0 &&
-				form.period.length > 0 &&
-				form.participants.length > 0,
-		);
-	}, [form, description]);
-
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		const newForm = {
-			...form,
-			content: description,
-			participants: Number(form.participants),
+			title,
+			content,
+			pay,
+			period,
+			participants: Number(participants),
+			category,
 		};
-		const submitData = async () => {
-			try {
-				await createMentoring(newForm);
-				openToastPopup({message: '멘토링 개설에 성공했습니다.', type: 'success'});
-				navigate('/mentorlist');
-			} catch (error) {
-				openToastPopup({message: '멘토링 개설에 실패했습니다.', type: 'error'});
-			}
-		};
-		submitData();
+		try {
+			await createMentoring(newForm);
+			openToastPopup({message: '멘토링 개설에 성공했습니다.', type: 'success'});
+			navigate('/mentorlist');
+		} catch (error) {
+			openToastPopup({message: '멘토링 개설에 실패했습니다.', type: 'error'});
+		}
 	};
+
+	const validateForm = useCallback(() => {
+		const isValidDescription = content.trim().length > 0;
+		const isValidTitle = title.trim().length > 0;
+		const isValidPay = Number(pay) >= 1000 && Number(pay) <= 100000;
+		const isValidParticipants = Number(participants) >= 1 && Number(participants) <= 30;
+		const isValidPeriod = new Date(period).getMonth() >= new Date().getMonth();
+
+		setIsFormValid(
+			isValidDescription && isValidTitle && isValidPay && isValidParticipants && isValidPeriod,
+		);
+	}, [title, content, pay, participants, period]);
+
+	useEffect(() => {
+		validateForm();
+	}, [validateForm]);
 
 	return (
 		<div className="flexCenter">
-			<section className="flexCol gap-5 py-10">
+			<section className="flexCol gap-3 py-10">
 				<div className="flexCenter">
 					<p className="text-3xl font-semibold">멘토링 정보 입력</p>
 				</div>
 				<SelectInput
 					placeholder="멘토링 분야"
 					icon="chat-smile-3-line"
-					value={form.category}
-					onChange={value => setForm({...form, category: value})}
+					value={category}
+					onChange={value => setCategory(value)}
 					options={[
 						{value: 'WEB_DESIGN', label: '웹 디자인'},
 						{value: 'UI_UX', label: 'UI/UX'},
@@ -76,35 +78,49 @@ export const CreateMentoringPage = () => {
 				<CommonInput
 					placeholder="멘토링 제목"
 					icon="edit-box-line"
-					value={form.title}
-					onChange={value => setForm({...form, title: value})}
+					value={title}
+					onChange={value => setTitle(value)}
 				/>
-				<div className="inputStyle">
-					<p>소개내용</p>
-					<MyQuillComponent value={description} setValue={setDescription} />
-				</div>
 
-				<PeriodInput value={form.period} onChange={value => setForm({...form, period: value})} />
+				<MyQuillComponent value={content} setValue={setContent} />
 
-				<NumberInput
-					placeholder="신청비용"
+				<CommonInput
+					placeholder="멘토링 진행 월"
+					value={period}
+					onChange={value => setPeriod(value)}
+					inputType="month"
+					icon="calendar-line"
+				/>
+				<WarningMessage
+					message="과거의 시간은 선택할 수 없습니다."
+					isSuccess={period.length === 0 || new Date(period).getMonth() >= new Date().getMonth()}
+				/>
+
+				<CommonInput
+					inputType="number"
+					placeholder="결제 비용"
 					icon="money-dollar-circle-line"
-					value={form.pay}
-					onChange={value => setForm({...form, pay: value})}
-					step={1000}
-					min={1000}
-					max={1000000}
+					value={pay.toString()}
+					onChange={value => setPay(value)}
 				/>
-				<NumberInput
-					placeholder="모집인원"
-					icon="group-line"
-					value={form.participants.toString()}
-					onChange={value => setForm({...form, participants: value})}
-					step={1}
-					min={1}
-					max={30}
+				<WarningMessage
+					message="결제 금액은 1,000원부터 100,000원까지 가능해요."
+					isSuccess={pay.length === 0 || (Number(pay) > 1000 && Number(pay) <= 100000)}
 				/>
 
+				<CommonInput
+					inputType="number"
+					placeholder="모집 인원"
+					icon="group-line"
+					value={participants.toString()}
+					onChange={value => setParticipants(value)}
+				/>
+				<WarningMessage
+					message="모집 인원은 1명부터 30명까지 가능해요."
+					isSuccess={
+						participants.length === 0 || (Number(participants) >= 1 && Number(participants) <= 30)
+					}
+				/>
 				<button className={`buttonStylePrimary`} onClick={handleSubmit} disabled={!isFormValid}>
 					개설하기
 				</button>
