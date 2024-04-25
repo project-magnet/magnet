@@ -3,7 +3,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {getMember} from '../../api/member';
 import {MemberStore} from '../../store/MemberStore';
 import ModalStore from '../../store/ModalStore';
-import {LoginPopup} from '../auth/LoginPopup';
+import {LoginModal} from '../auth/LoginModal';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
 	const {globalMember} = MemberStore();
 
 	const handleLogin = () => {
-		setChildren(<LoginPopup />);
+		setChildren(<LoginModal />);
 		setIsOpenTure();
 	};
 

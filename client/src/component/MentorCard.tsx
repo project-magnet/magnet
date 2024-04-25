@@ -1,7 +1,7 @@
 import ModalStore from '../store/ModalStore';
 import {useNavigate} from 'react-router-dom';
 import {Content} from '../api/mentoring';
-import PaymentPopup from './payment/PaymentPopup';
+import PaymentModal from './payment/PaymentModal';
 
 const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	const {setIsOpenTure, setChildren} = ModalStore();
@@ -10,7 +10,7 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 
 	const handleClick = () => {
 		navigate(`/mentorlist?mentoringid=${mentoringId}`);
-		setChildren(<PaymentPopup />);
+		setChildren(<PaymentModal />);
 		setIsOpenTure();
 	};
 

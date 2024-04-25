@@ -1,6 +1,6 @@
 import React from 'react';
 import {openTossPayment} from '../../api/payments';
-import {LoginPopup} from '../auth/LoginPopup';
+import {LoginModal} from '../auth/LoginModal';
 import ModalStore from '../../store/ModalStore';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 
@@ -24,7 +24,7 @@ const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
 					setPage(pre => pre + 1);
 				} else {
 					openTossPaymentToast({message: '로그인이 필요해요.', type: 'warning'});
-					setChildren(<LoginPopup />);
+					setChildren(<LoginModal />);
 				}
 			},
 			className: 'buttonStylePrimary',
