@@ -8,7 +8,7 @@ import {useLocation} from 'react-router-dom';
 import {MentoringStore} from '../../store/MentoringStore';
 import {MentoringDetails} from './MentoringDetails';
 
-const PaymentPopup = () => {
+const PaymentModal = () => {
 	// page는 urlparameter로 받아온다.
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const location = useLocation();
@@ -69,4 +69,4 @@ const PaymentPopup = () => {
 	);
 };
 
-export default PaymentPopup;
+export default PaymentModal;

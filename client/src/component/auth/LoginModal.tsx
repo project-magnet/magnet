@@ -3,7 +3,7 @@ import LoginButton from './OAuthButton';
 import {useNavigate} from 'react-router-dom';
 import ModalStore from '../../store/ModalStore';
 
-export const LoginPopup = () => {
+export const LoginModal = () => {
 	const navigate = useNavigate();
 	const {setIsOpenFalse} = ModalStore();
 
