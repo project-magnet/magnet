@@ -28,6 +28,9 @@
     .userPageSection {
       @apply w-11/12 lg:w-3/4 rounded-xl p-5 sm:p-10 bg-white shadow-md
     }
+    .modalStyle {
+      @apply  sm:w-[600px] sm:h-fit size-11/12 rounded-xl p-5 sm:p-10 bg-white shadow-md flexCenter flex-col gap-5
+    }
     /* 버튼 관련 */
     .disabledStyle {
       @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40;
