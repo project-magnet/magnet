@@ -1,14 +1,11 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import MentorCard from '../component/MentorCard';
-import PaymentPopup from '../component/payment/PaymentPopup';
 import {LodingContainer} from '../component/common/LoadingContainer';
-import PopupStore from '../store/PopupStore';
 import {getMentoringList, Content} from '../api/mentoring';
 import {categories} from '../asset/categories';
 
 const MentoringListPage = () => {
-	const isOpen = PopupStore(state => state.isOpen);
 	const [category, setCategory] = useState('ALL');
 	const [mentoringList, setMentoringList] = useState<Content[] | null>(null);
 	const navigate = useNavigate();
@@ -33,7 +30,6 @@ const MentoringListPage = () => {
 
 	return (
 		<section className="flexCol rootPageSection items-center gap-10 py-10 sm:px-10">
-			{isOpen && <PaymentPopup />}
 			<div className="flexCenter animate-fadeInMoveDown flex-wrap ">
 				{newCategories.map((el, index) => (
 					<button

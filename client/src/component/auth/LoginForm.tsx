@@ -2,21 +2,21 @@ import {useState} from 'react';
 import {login} from '../../api/auth';
 import {CommonInput} from '../input/CommonInput';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
-import {LoginPopupStore} from '../../store/LoginPopupStore';
 import {getMember} from '../../api/member';
+import ModalStore from '../../store/ModalStore';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const openToast = useOpenToastPopup();
-	const {setLoginPopupIsOpenFalse} = LoginPopupStore();
+	const {setIsOpenFalse} = ModalStore();
 
 	const handleLogin = async () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
 				await getMember();
-				setLoginPopupIsOpenFalse();
+				setIsOpenFalse();
 				openToast({message: '로그인 성공!', type: 'success'});
 			} catch (e) {
 				console.error('로그인 실패', e);

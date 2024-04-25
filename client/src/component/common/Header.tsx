@@ -1,15 +1,21 @@
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {getMember} from '../../api/member';
-import {LoginPopupStore} from '../../store/LoginPopupStore';
 import {MemberStore} from '../../store/MemberStore';
+import ModalStore from '../../store/ModalStore';
+import {LoginPopup} from '../auth/LoginPopup';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const {setLoginPopupIsOpenTrue, loginPopupIsOpen} = LoginPopupStore();
+	const {isOpen, setIsOpenTure, setChildren} = ModalStore();
 	const {globalMember} = MemberStore();
+
+	const handleLogin = () => {
+		setChildren(<LoginPopup />);
+		setIsOpenTure();
+	};
 
 	//헤더에서는 토큰으로만 멤버 정보를 불러옵니다.
 	useEffect(() => {
@@ -76,11 +82,11 @@ const Header = () => {
 							</>
 						) : (
 							<div
-								onClick={() => setLoginPopupIsOpenTrue()}
-								className={`activeStyle tracking-wide ${loginPopupIsOpen && 'text-black'}`}
+								onClick={() => handleLogin()}
+								className={`activeStyle tracking-wide ${isOpen && 'text-black'}`}
 							>
 								<i
-									className={`text-xl sm:text-base  ri-${loginPopupIsOpen ? 'login-circle-line' : 'login-box-line'}`}
+									className={`text-xl sm:text-base  ri-${isOpen ? 'login-circle-line' : 'login-box-line'}`}
 								/>
 
 								<span className={`textSmall`}>로그인</span>

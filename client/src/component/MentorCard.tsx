@@ -1,15 +1,17 @@
-import PopupStore from '../store/PopupStore';
+import ModalStore from '../store/ModalStore';
 import {useNavigate} from 'react-router-dom';
 import {Content} from '../api/mentoring';
+import PaymentPopup from './payment/PaymentPopup';
 
 const MentorCard = ({mentoring}: {mentoring: Content}) => {
-	const setIsOpenTrue = PopupStore(state => state.setIsOpenTure);
+	const {setIsOpenTure, setChildren} = ModalStore();
 	const {mentorName, mentoringId, career, field, task, title, category} = mentoring;
 	const navigate = useNavigate();
 
 	const handleClick = () => {
 		navigate(`/mentorlist?mentoringid=${mentoringId}`);
-		setIsOpenTrue();
+		setChildren(<PaymentPopup />);
+		setIsOpenTure();
 	};
 
 	return (

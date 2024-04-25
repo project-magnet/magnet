@@ -2,13 +2,11 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {signup} from '../../api/auth';
 import {WarningMessage} from '../common/WarningMessage';
-import {LoginPopupStore} from '../../store/LoginPopupStore';
 import {CommonInput} from '../input/CommonInput';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 
 const SignupForm = () => {
 	const navigate = useNavigate();
-	const {setLoginPopupIsOpenTrue} = LoginPopupStore();
 	const openToast = useOpenToastPopup();
 	const [form, setForm] = useState({
 		email: '',
@@ -39,7 +37,6 @@ const SignupForm = () => {
 		try {
 			await signup(form);
 			navigate('/');
-			setLoginPopupIsOpenTrue();
 			openToast({message: '회원가입 완료!', type: 'success'});
 		} catch (e) {
 			openToast({message: '회원가입에 실패했어요.', type: 'error'});
