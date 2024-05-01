@@ -1,12 +1,10 @@
-import ModalStore from '../../store/ModalStore';
-import {MentorRegistPopup} from './MentorRegistPopup';
+import {useOpenMentorRegistModal} from '../../hooks/useOpenModals';
 
 export const MentorRegistSection = ({isMentor}: {isMentor: boolean}) => {
-	const {setIsOpenTure, setChildren} = ModalStore();
+	const openMentorRegistModal = useOpenMentorRegistModal();
 
 	const handleButton = () => {
-		setChildren(<MentorRegistPopup />);
-		setIsOpenTure();
+		openMentorRegistModal();
 	};
 
 	return !isMentor ? (

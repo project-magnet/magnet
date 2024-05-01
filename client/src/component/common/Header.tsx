@@ -3,18 +3,18 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {getMember} from '../../api/member';
 import {MemberStore} from '../../store/MemberStore';
 import ModalStore from '../../store/ModalStore';
-import {LoginModal} from '../auth/LoginModal';
+import {useOpenLoginModal} from '../../hooks/useOpenModals';
 
 const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const {isOpen, setIsOpenTure, setChildren} = ModalStore();
+	const {modalChildren} = ModalStore();
 	const {globalMember} = MemberStore();
+	const openLoginModal = useOpenLoginModal();
 
 	const handleLogin = () => {
-		setChildren(<LoginModal />);
-		setIsOpenTure();
+		openLoginModal();
 	};
 
 	//헤더에서는 토큰으로만 멤버 정보를 불러옵니다.
@@ -83,10 +83,10 @@ const Header = () => {
 						) : (
 							<div
 								onClick={() => handleLogin()}
-								className={`activeStyle tracking-wide ${isOpen && 'text-black'}`}
+								className={`activeStyle tracking-wide ${modalChildren && 'text-black'}`}
 							>
 								<i
-									className={`text-xl sm:text-base  ri-${isOpen ? 'login-circle-line' : 'login-box-line'}`}
+									className={`text-xl sm:text-base  ri-${modalChildren ? 'login-circle-line' : 'login-box-line'}`}
 								/>
 
 								<span className={`textSmall`}>로그인</span>
