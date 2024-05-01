@@ -9,24 +9,26 @@ const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const openToast = useOpenToastPopup();
-	const {setIsOpenFalse} = ModalStore();
+	const {closeModal} = ModalStore();
 
 	const handleLogin = async () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
 				await getMember();
-				setIsOpenFalse();
+				closeModal();
 				openToast({message: '로그인 성공!', type: 'success'});
 			} catch (e) {
-				console.error('로그인 실패', e);
 				openToast({
 					message: '이메일 또는 비밀번호를 확인하세요.',
 					type: 'error',
 				});
-				setEmail('');
-				setPassword('');
+				resetState();
 			}
+		};
+		const resetState = () => {
+			setEmail('');
+			setPassword('');
 		};
 		fetchLogin();
 	};

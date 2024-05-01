@@ -1,8 +1,7 @@
 import React from 'react';
 import {openTossPayment} from '../../api/payments';
-import {LoginPopup} from '../auth/LoginPopup';
-import ModalStore from '../../store/ModalStore';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
+import {useOpenLoginModal} from '../../hooks/useOpenModals';
 
 type PaymentButtonProps = {
 	type: 'previous' | 'next' | 'payment'; // 버튼의 유형
@@ -11,8 +10,8 @@ type PaymentButtonProps = {
 };
 
 const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
-	const {setChildren} = ModalStore();
 	const openTossPaymentToast = useOpenToastPopup();
+	const openLoginModal = useOpenLoginModal();
 
 	const buttonConfig = {
 		next: {
@@ -24,7 +23,7 @@ const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
 					setPage(pre => pre + 1);
 				} else {
 					openTossPaymentToast({message: '로그인이 필요해요.', type: 'warning'});
-					setChildren(<LoginPopup />);
+					openLoginModal();
 				}
 			},
 			className: 'buttonStylePrimary',

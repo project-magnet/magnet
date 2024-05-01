@@ -1,4 +1,5 @@
 import {ToastPopupStore} from '../../store/ToastPopupStore';
+import ReactDOM from 'react-dom';
 
 export const ToastPopup = () => {
 	// ToastPopupStore를 사용하여 상태를 관리
@@ -17,9 +18,8 @@ export const ToastPopup = () => {
 
 	const {icon, color} = getIconAndColor();
 
-	return (
-		<>
-			{isOpen && (
+	return isOpen
+		? ReactDOM.createPortal(
 				<aside className="fixed left-1/2 top-3 z-50 w-10/12 -translate-x-1/2 sm:w-1/2">
 					<div
 						className={`flexCenter h-12 animate-toastPopupMove gap-2 rounded-md bg-slate-50 drop-shadow-xl ${color}`}
@@ -27,8 +27,8 @@ export const ToastPopup = () => {
 						<i className={`ri-${icon} ri-2x`} />
 						<p>{message}</p>
 					</div>
-				</aside>
-			)}
-		</>
-	);
+				</aside>,
+				document.body,
+			)
+		: null;
 };
