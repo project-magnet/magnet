@@ -1,20 +1,16 @@
 import {create} from 'zustand';
 
 type useStoreProps = {
-	isOpen: boolean;
-	children: React.ReactNode;
-	setChildren: (children: React.ReactNode) => void;
-	setIsOpenTure: () => void;
-	setIsOpenFalse: () => void;
+	modalChildren: React.ReactNode;
+	setModalChildren: (children: React.ReactNode) => void;
+	closeModal: () => void;
 };
 
 const ModalStore = create<useStoreProps>()(set => ({
-	isOpen: false,
-	children: null,
-	setChildren: (children: React.ReactNode) =>
-		set((state: {children: React.ReactNode}) => ({children})),
-	setIsOpenTure: () => set((state: {isOpen: boolean}) => ({isOpen: true})),
-	setIsOpenFalse: () => set((state: {isOpen: boolean}) => ({isOpen: false})),
+	modalChildren: null,
+	setModalChildren: (modalChildren: React.ReactNode) =>
+		set((state: {modalChildren: React.ReactNode}) => ({modalChildren})),
+	closeModal: () => set({modalChildren: null}),
 }));
 
 export default ModalStore;
