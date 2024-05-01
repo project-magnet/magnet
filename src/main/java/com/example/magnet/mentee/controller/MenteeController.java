@@ -1,8 +1,10 @@
 package com.example.magnet.mentee.controller;
 
+import com.example.magnet.mentee.dto.AppliedMenteesDto;
 import com.example.magnet.mentee.dto.MenteePostDto;
 import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.service.MenteeService;
+import com.example.magnet.mentor.dto.MentorsMenteeDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,8 +50,9 @@ public class MenteeController {
         return new ResponseEntity<>(menteeService.getInfo(menteeId, (Long)authentication.getCredentials()),HttpStatus.OK);
     }
 
-    @GetMapping("/list/{mentoring-id}") // ? 필요한가?
-    public ResponseEntity<List<MenteeResponseDto>> mentees(Authentication authentication){
-        return null;
+    // 회원조회 - 멘토 - 멘토링 - 멘티 리스트 조회
+    @GetMapping("/list/{mentoring-id}")
+    public ResponseEntity<List<AppliedMenteesDto>> mentees(@Valid @PathVariable("mentoring-id") Long mentoringId){
+        return new ResponseEntity<>(menteeService.getAppliedMentees(mentoringId), HttpStatus.OK);
     }
 }

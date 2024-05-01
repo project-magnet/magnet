@@ -5,7 +5,6 @@ import com.example.magnet.global.auth.filter.JwtVerificationFilter;
 import com.example.magnet.global.auth.handler.*;
 import com.example.magnet.global.auth.jwt.JwtTokenizer;
 import com.example.magnet.global.auth.utils.CustomAuthorityUtils;
-import com.example.magnet.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -62,6 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/mentor/create").hasAnyRole("USER","MENTOR")
                         .requestMatchers("/mentor/list").permitAll()
                         .requestMatchers("/mentee/**").hasAnyRole("USER","MENTEE")
+                                .requestMatchers("/mentee/list/**").hasAnyRole("MENTOR")
                         .requestMatchers("/member/**").hasAnyRole("ADMIN","USER","MENTOR","MENTEE")
                                 .requestMatchers("/member/get").authenticated()
                         .requestMatchers("/member/extract").permitAll()

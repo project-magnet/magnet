@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder(toBuilder = true)
 public class MenteeResponseDto {
     private Long menteeId;
-    private Long memberId;
+    private Long memberId; // mentee의 memberId
     private String message;
     private String schedule;
     private String paymentKey;
@@ -20,6 +20,8 @@ public class MenteeResponseDto {
     private String pay;
     private int participants;
     private String category;
+
+    private String mentorName;
 
 
 }

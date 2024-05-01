@@ -84,7 +84,7 @@ public class MemberMapper {
 
         List<MentorResponseDto> mentorList = result.getMentorList().stream().map(MentorMapper::MentorToMentorResponseDto).toList();
         List<MenteeResponseDto> menteeList = result.getMenteeList().stream().map(MenteeMapper::MenteeToMenteeResponseDto).toList();
-        List<MentoringResponseDto> mentoringList = result.getMentoringList().stream().map(MentoringMapper::entityToMentoringResponseDto).toList();
+//        List<MentoringResponseDto> mentoringList = result.getMentoringList().stream().map(MentoringMapper::entityToMentoringResponseDto).toList();
         List<PaymentResponseDtoV2> paymentList = result.getPaymentList().stream().map(PaymentMapper::PaymentToPaymentDto).toList();
 
         MemberResponseDto.MemberResponseDtoBuilder dtoBuilder = MemberResponseDto.builder()

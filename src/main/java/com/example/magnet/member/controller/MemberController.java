@@ -71,6 +71,7 @@ public class MemberController {
     @GetMapping("/get")
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
+        log.info("지금 회원 id: {}", memberId);
         return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
     }
 

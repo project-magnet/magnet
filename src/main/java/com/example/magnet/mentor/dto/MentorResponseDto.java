@@ -1,5 +1,6 @@
 package com.example.magnet.mentor.dto;
 
+import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
@@ -19,30 +20,8 @@ public class MentorResponseDto {
     private String aboutMe;// 자기소개
     private String github; // github 링크
     private List<MentoringDto> mentoringDtoList;
+//    private List<MentorsMenteeDto> mentorsMenteeDtos;
 
-    @Getter
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class MentoringDto {
-        private Long id;
-        private String title;
-        private String content;
-        private String pay;
-        private String period;
-        private int participants;
-        private String category;
-
-        @QueryProjection
-        @Builder(toBuilder = true)
-        public MentoringDto(Long id, String title, String content, String pay, String period, int participants, String category) {
-            this.id = id;
-            this.title = title;
-            this.content = content;
-            this.pay = pay;
-            this.period = period;
-            this.participants = participants;
-            this.category = category;
-        }
-    }
 
     @QueryProjection
     @Builder(toBuilder = true)
@@ -57,5 +36,30 @@ public class MentorResponseDto {
         this.aboutMe = aboutMe;
         this.github = github;
         this.mentoringDtoList = mentoringDtoList;
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class MentoringDto {
+        private Long id;
+        private String title;
+        private String content;
+        private String pay;
+        private String period;
+        private int participants;
+        private String category;
+//        private List<MentorsMenteeDto> mentorsMenteeDtos;
+
+        @QueryProjection
+        @Builder(toBuilder = true)
+        public MentoringDto(Long id, String title, String content, String pay, String period, int participants, String category) {
+            this.id = id;
+            this.title = title;
+            this.content = content;
+            this.pay = pay;
+            this.period = period;
+            this.participants = participants;
+            this.category = category;
+        }
     }
 }

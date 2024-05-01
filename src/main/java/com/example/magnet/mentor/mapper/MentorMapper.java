@@ -41,6 +41,7 @@ public class MentorMapper {
             return null;
         }
 
+        // 멘토링 정보 리스트
         List<MentorResponseDto.MentoringDto> mentoringDtoList = new ArrayList<>();
         for(Mentoring mentoring: findMentor.getMentoringList()){
             MentorResponseDto.MentoringDto mentoringDto = MentorResponseDto.MentoringDto.builder()
@@ -51,6 +52,7 @@ public class MentorMapper {
                     .period(mentoring.getPeriod())
                     .participants(mentoring.getParticipants())
                     .category(mentoring.getCategory().toString()) // enum 타입 변경으로 인한 수정
+//                    .mentorsMenteeDtos(mentorsMenteeDtosArr) // 멘티들의 정보
                     .build();
             mentoringDtoList.add(mentoringDto);
         }
