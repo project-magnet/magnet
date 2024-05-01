@@ -7,8 +7,8 @@ import {SelectInput} from '../input/SelectInput';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 import {getMember} from '../../api/member';
 
-export const MentorRegistPopup = () => {
-	const {setIsOpenFalse} = ModalStore();
+export const MentorRegistModal = () => {
+	const {closeModal} = ModalStore();
 	const {globalMember} = MemberStore();
 	const openToast = useOpenToastPopup();
 
@@ -41,7 +41,7 @@ export const MentorRegistPopup = () => {
 				};
 				await createMentor(newForm);
 				await getMember();
-				setIsOpenFalse();
+				closeModal();
 				openToast({message: '멘토등록이 완료되었습니다.', type: 'success'});
 			} catch (error) {
 				console.error('멘토등록 실패', error);
