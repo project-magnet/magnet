@@ -15,6 +15,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8080")
+                .allowedOrigins("http://localhost:8080/swagger-ui/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("https://www.project-magnet.site")
                 .allowedOrigins("https://project-magnet.site")
