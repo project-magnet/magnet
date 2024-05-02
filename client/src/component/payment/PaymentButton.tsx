@@ -10,8 +10,20 @@ type PaymentButtonProps = {
 };
 
 const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
-	const openTossPaymentToast = useOpenToastPopup();
+	const openToastToast = useOpenToastPopup();
 	const openLoginModal = useOpenLoginModal();
+
+	const handlePayment = () => {
+		if (
+			sessionStorage.getItem('phone') &&
+			sessionStorage.getItem('email') &&
+			sessionStorage.getItem('message')
+		) {
+			openTossPayment();
+		} else {
+			openToastToast({message: '필수 정보를 입력해주세요', type: 'warning'});
+		}
+	};
 
 	const buttonConfig = {
 		next: {
@@ -22,7 +34,7 @@ const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
 				if (token) {
 					setPage(pre => pre + 1);
 				} else {
-					openTossPaymentToast({message: '로그인이 필요해요.', type: 'warning'});
+					openToastToast({message: '로그인이 필요해요.', type: 'warning'});
 					openLoginModal();
 				}
 			},
@@ -35,7 +47,7 @@ const PaymentButton = ({type, setPage, disable}: PaymentButtonProps) => {
 		},
 		payment: {
 			text: '결제하기',
-			handler: () => openTossPayment(),
+			handler: () => handlePayment(),
 			className: 'buttonStylePrimary',
 		},
 	};

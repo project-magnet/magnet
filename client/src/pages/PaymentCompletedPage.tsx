@@ -3,6 +3,7 @@ import {useNavigate, useSearchParams} from 'react-router-dom';
 import {createMentee} from '../api/mentee';
 import {sendPaymentSuccessToServer} from '../api/payments';
 import {LodingContainer} from '../component/common/LoadingContainer';
+import {getMember} from '../api/member';
 
 const PaymentCompletedPage = () => {
 	const navigate = useNavigate();
@@ -39,8 +40,8 @@ const PaymentCompletedPage = () => {
 					email,
 				};
 
-				console.log('menteeData', menteeData);
 				await createMentee(menteeData);
+				await getMember();
 
 				sessionStorage.removeItem('mentoringId');
 				sessionStorage.removeItem('schedule');

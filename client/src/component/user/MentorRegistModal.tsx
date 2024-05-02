@@ -35,7 +35,7 @@ export const MentorRegistModal = () => {
 			try {
 				const newForm = {
 					...form,
-					mentorName: globalMember?.username || '',
+					mentorName: globalMember?.nickName || '',
 					email: globalMember?.email || '',
 					phone: globalMember?.phone || '',
 				};

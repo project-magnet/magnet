@@ -1,10 +1,3 @@
-// 포함해야 할 데이터,
-// 1. 플레이스홀더
-// 2. 아이콘
-// 3. value
-// 4. onChange
-// 5. (선택사항) onFocus
-// 6. (선택사항) inputType
 import {useState} from 'react';
 
 type CommonInputProps = {
@@ -12,29 +5,20 @@ type CommonInputProps = {
 	icon: string;
 	value: string;
 	onChange: (value: string) => void;
-	onFocus?: () => void;
-	inputType?: inputType;
+	type?: inputType;
 };
 // inputType은 number와 password, month 세 가지 중 하나만 가능합니다.
 type inputType = 'number' | 'password' | 'month';
 
-export const CommonInput = ({
-	placeholder,
-	icon,
-	value,
-	onChange,
-	onFocus,
-	inputType,
-}: CommonInputProps) => {
-	const [visiblePassword, setVisiblePassword] = useState(false);
+export const CommonInput = ({placeholder, icon, value, onChange, type}: CommonInputProps) => {
+	const [isVisible, setIsVisible] = useState(false);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.value);
 	};
 
-	const togglePasswordVisibility = () => {
-		setVisiblePassword(!visiblePassword);
-	};
+	// inputType이 password일 경우, visiblePassword 상태에 따라 type을 변경합니다.
+	const typeLogic = type === 'password' ? (isVisible ? 'text' : 'password') : type;
 
 	return (
 		<div
@@ -46,19 +30,33 @@ export const CommonInput = ({
 				placeholder={placeholder}
 				value={value}
 				onChange={handleInputChange}
-				onFocus={onFocus}
-				type={inputType}
+				type={typeLogic}
 			/>
-			{inputType === 'password' && (
-				// 클릭 시 비밀번호 보이기/숨기기 기능버튼
-				<i
-					onClick={togglePasswordVisibility}
-					className={`ri-${visiblePassword ? 'eye' : 'eye-off'}-fill ri-lg cursor-pointer ${
-						visiblePassword ? 'text-black' : 'text-slate-400 '
-					}`}
-				/>
+			{type === 'password' && (
+				<VisibleToggleButton isVisible={isVisible} setIsVisible={setIsVisible} />
 			)}
 		</div>
+	);
+};
+
+// 클릭 시 비밀번호 보이기/숨기기 기능버튼
+const VisibleToggleButton = ({
+	isVisible,
+	setIsVisible,
+}: {
+	isVisible: boolean;
+	setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+	const togglePasswordVisibility = () => {
+		setIsVisible(pre => !pre);
+	};
+	return (
+		<i
+			onClick={togglePasswordVisibility}
+			className={`ri-${isVisible ? 'eye' : 'eye-off'}-fill ri-lg cursor-pointer ${
+				isVisible ? 'text-black' : 'text-slate-400 '
+			} transition-colors `}
+		/>
 	);
 };
 

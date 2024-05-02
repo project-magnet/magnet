@@ -1,9 +1,28 @@
 import ReactDOM from 'react-dom';
 import ModalStore from '../../store/ModalStore';
 import {LogoTickle} from './LogoTickle';
+import {useEffect} from 'react';
 
 export const Modal = () => {
 	const {modalChildren, closeModal} = ModalStore();
+
+	// ESC 키를 누르면 모달이 닫히도록 합니다.
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				closeModal();
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, [closeModal]);
+
+	// 모달이 열릴 때 body에 overflow: hidden을 추가합니다.
+	useEffect(() => {
+		modalChildren
+			? (document.body.style.overflow = 'hidden')
+			: (document.body.style.overflow = 'unset');
+	}, [modalChildren]);
 
 	return modalChildren
 		? ReactDOM.createPortal(
@@ -17,7 +36,7 @@ export const Modal = () => {
 						{modalChildren}
 					</section>
 				</div>,
-				document.body, // 여기가 포탈의 타겟 위치입니다.
+				document.body,
 			)
 		: null;
 };
