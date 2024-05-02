@@ -27,6 +27,9 @@ public class Mentee extends TimeEntity {
     @Column
     private String schedule;
 
+    @Column
+    private String phone;
+
     private String paymentKey; // oneToMay 대신 느슨한 결합
 
 
@@ -39,7 +42,7 @@ public class Mentee extends TimeEntity {
     private Mentoring mentoring;
 
     @Builder(toBuilder = true)
-    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring, String email, String paymentKey) {
+    public Mentee(Long id, String message, String schedule, Member member, Mentoring mentoring, String email,String phone, String paymentKey) {
         this.id = id;
         this.message = message;
         this.schedule = schedule;
@@ -47,6 +50,7 @@ public class Mentee extends TimeEntity {
         this.mentoring = mentoring;
         this.email = email;
         this.paymentKey = paymentKey;
+        this.phone = phone;
     }
 
 }

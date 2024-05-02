@@ -28,7 +28,8 @@ public class MenteeRepositoryImpl implements MenteeRepositoryCustom{
                         mentee.id,
                         mentee.member.nickName,
                         mentee.email,
-                        mentee.schedule
+                        mentee.schedule,
+                        mentee.phone
                         ))
                 .from(mentoring)
                 .join(mentoring.menteeList, mentee)

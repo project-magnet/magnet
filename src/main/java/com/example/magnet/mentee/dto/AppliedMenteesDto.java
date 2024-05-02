@@ -12,15 +12,16 @@ public class AppliedMenteesDto {
     private Long menteeId;
     private String menteeNickName;
     private String schedule;
-//    private String phone;
+    private String phone;
     private String email;
 
     @Builder(toBuilder = true)
     @QueryProjection
-    public AppliedMenteesDto(Long menteeId, String menteeNickName, String schedule, String email) {
+    public AppliedMenteesDto(Long menteeId, String menteeNickName, String schedule, String email, String phone) {
         this.menteeId = menteeId;
         this.menteeNickName = menteeNickName;
         this.schedule = schedule;
         this.email = email;
+        this.phone= phone;
     }
 }
