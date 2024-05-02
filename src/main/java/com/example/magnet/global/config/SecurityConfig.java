@@ -56,7 +56,7 @@ public class SecurityConfig {
                                 .accessDeniedHandler(new MemberAccessDeniedHandler()))
                 .authorizeHttpRequests((authorize) -> authorize
 //                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // localhost:3000 // OPTIONS 요청에 대한 접근 허용
-                        .requestMatchers("/health", "member/signup", "auth/login", "/login/**").permitAll()
+                        .requestMatchers("/health", "member/signup", "auth/login", "/login/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/mentor/create").hasAnyRole("USER","MENTOR")
                         .requestMatchers("/mentor/list").permitAll()
