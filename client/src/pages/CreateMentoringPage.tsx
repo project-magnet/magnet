@@ -88,7 +88,7 @@ export const CreateMentoringPage = () => {
 					placeholder="멘토링 진행 월"
 					value={period}
 					onChange={value => setPeriod(value)}
-					inputType="month"
+					type="month"
 					icon="calendar-line"
 				/>
 				<WarningMessage
@@ -97,7 +97,7 @@ export const CreateMentoringPage = () => {
 				/>
 
 				<CommonInput
-					inputType="number"
+					type="number"
 					placeholder="결제 비용"
 					icon="money-dollar-circle-line"
 					value={pay.toString()}
@@ -109,7 +109,7 @@ export const CreateMentoringPage = () => {
 				/>
 
 				<CommonInput
-					inputType="number"
+					type="number"
 					placeholder="모집 인원"
 					icon="group-line"
 					value={participants.toString()}
