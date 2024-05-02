@@ -29,6 +29,13 @@
 
 <br/>
 
+## API 명세서 - swagger
+![image](https://github.com/project-magnet/magnet/assets/96255906/92048642-5730-43ac-8bfd-13b7f99d7430)
+
+![image](https://github.com/project-magnet/magnet/assets/96255906/a94f4973-dd50-4c27-9b4e-507a096782ed)
+
+<br/>
+
 ## 개발서버 아키텍처
 ![image](https://github.com/project-magnet/magnet/assets/96255906/71cb921c-ac19-402c-96c2-552c4c6aaffe)
 
