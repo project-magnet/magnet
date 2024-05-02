@@ -9,6 +9,10 @@ import com.example.magnet.payment.dto.PaymentResponseDto;
 import com.example.magnet.payment.dto.PaymentSuccessDto;
 import com.example.magnet.payment.entity.Payment;
 import com.example.magnet.payment.service.PaymentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +33,7 @@ import static com.example.magnet.payment.mapper.PaymentMapper.chargingHistoryToC
 @RequestMapping("/api/v1/payments")
 @Validated
 @RequiredArgsConstructor
+@Tag(name = "Payment Controller",description = "결제(toss) API")
 public class PaymentController {
     private final PaymentService paymentService;
     private final TossPaymentConfig tossPaymentConfig;
@@ -37,6 +42,8 @@ public class PaymentController {
      * 토스페이먼츠에 실제 결제 요청을 보내기 전 검증 api
      * */
     @PostMapping("/toss")
+    @Operation(summary ="Request Toss Payment", description = "결제 요청 API")
+    @ApiResponse(responseCode = "200", description = "토스로 결제 요청을 보냈습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<PaymentResponseDto> requestTossPayment(@RequestBody @Valid PaymentDto paymentReqDto, Authentication authentication){
         PaymentResponseDto paymentResponseDto = paymentService.requestTossPayment(paymentReqDto, (Long)authentication.getCredentials()).toPaymentResDto();
         PaymentResponseDto result = paymentResponseDto.toBuilder()
@@ -50,6 +57,8 @@ public class PaymentController {
      * 결제요청 성공 시 승인 로직
      * */
     @GetMapping("/toss/success")
+    @Operation(summary ="Request for Approval of payment", description = "결제승인 요청 API")
+    @ApiResponse(responseCode = "200", description = "토스로 결제승인 요청을 보냈습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
                                                                 @RequestParam String orderId,
                                                                 @RequestParam Long amount){
@@ -60,6 +69,8 @@ public class PaymentController {
      * 결제 실패 로직
      * */
     @GetMapping("/toss/fail")
+    @Operation(summary ="Payment failed", description = "결제 실패 API")
+    @ApiResponse(responseCode = "200", description = "결제 실패 요청이 정상적으로 실행됐습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<PaymentFailDto> tossPaymentFail(@RequestParam String code, @RequestParam String message, @RequestParam String orderId) {
         paymentService.tossPaymentFail(code, message, orderId);
         PaymentFailDto result = PaymentFailDto.builder()
@@ -77,8 +88,9 @@ public class PaymentController {
      * */
 
     @PostMapping("/toss/cancel/point")
+    @Operation(summary ="Payment Cancel", description = "결제 취소 API")
+    @ApiResponse(responseCode = "200", description = "결제 취소요청이 정상적으로 동작합니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<?> tossPaymentCancel(
-//            @AuthenticationPrincipal User principal,
             Authentication authentication,
             @RequestParam String paymentKey,
             @RequestParam String cancelReason
@@ -87,6 +99,8 @@ public class PaymentController {
     }
 
     @GetMapping("/history")
+    @Operation(summary ="Get ChargingHistory", description = "결제 충전내역 조회 API")
+    @ApiResponse(responseCode = "200", description = "결제 충전내역을 조회합니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity getChargingHistory(Authentication authentication,
                                              Pageable pageable) {
         Slice<Payment> chargingHistories = paymentService.findAllChargingHistories(authentication.getName(), pageable);

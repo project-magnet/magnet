@@ -8,6 +8,10 @@ import com.example.magnet.mentoring.dto.mentoringListPagingDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.mapper.MentoringMapper;
 import com.example.magnet.mentoring.service.MentoringService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,19 +38,18 @@ import static com.example.magnet.mentoring.mapper.MentoringMapper.mentoringPostD
 @RequiredArgsConstructor
 @Validated
 @Slf4j
+@Tag(name = "Mentoring Controller",description = "멘토링 API")
 public class MentoringController {
     private final MentoringService mentoringService;
 
-
-    // 멘토링 등록
     @PostMapping("/create")
+    @Operation(summary ="Mentoring Registration", description = "멘토링 등록 API")
+    @ApiResponse(responseCode = "200", description = "멘토링이 개설되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<?> registerMentoring(@Valid @RequestBody MentoringPostDto mentoringPostDto, Authentication authentication){
-        // 권한 확인
         Long memberId = (Long) authentication.getCredentials();
         List<String> roles = authentication.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .toList();
-        log.info("멘토링 등록 시도 유저의 권한 목록: {}" , roles);
 
         if(!roles.contains("ROLE_MENTOR")){
             throw new BusinessLogicException(ExceptionCode.MISSING_MENTOR_ROLE);
@@ -57,8 +60,9 @@ public class MentoringController {
 
     }
 
-    // 멘토링 단건 조회
     @GetMapping("/get/{mentoring-id}")
+    @Operation(summary ="Get Mentoring", description = "멘토링 단건 조회 API")
+    @ApiResponse(responseCode = "200", description = "멘토링 단건조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
         return new ResponseEntity<>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
     }
@@ -66,6 +70,8 @@ public class MentoringController {
 
     // 멘토링 전체 리스트 조회
     @GetMapping("/list")
+    @Operation(summary ="Get Mentorings", description = "멘토링 리스트 조회 API")
+    @ApiResponse(responseCode = "200", description = "멘토링 리스트 조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
         return new ResponseEntity<>(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()), HttpStatus.OK);
     }
@@ -77,6 +83,8 @@ public class MentoringController {
 
     // 멘토링 삭제
     @DeleteMapping("/remove/{mentoring-id}")
+    @Operation(summary ="Delete Mentoring", description = "멘토링 삭제 API")
+    @ApiResponse(responseCode = "200", description = "멘토링이 삭제되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<String> deleteMentoring(Authentication authentication,
                                              @Valid @PathVariable("mentoring-id") Long mentoringId){
         // 현재 memberid와 mentoring id를 service로 전달

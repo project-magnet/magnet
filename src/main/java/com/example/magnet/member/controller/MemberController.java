@@ -6,6 +6,10 @@ import com.example.magnet.member.dto.MemberPostDto;
 import com.example.magnet.member.dto.MemberResponseDto;
 import com.example.magnet.member.mapper.MemberMapper;
 import com.example.magnet.member.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +27,15 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/member")
+@Tag(name = "Member Controller",description = "회원 API")
 public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper mapper;
 
-    // return current member
+
     @GetMapping("/extract")
+    @Operation(summary ="Current Member's Credential", description = "현재 Authentication 추출 확인용 API")
     public ResponseEntity<ExtractMember> extractMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         String username = authentication.getName();
@@ -43,20 +49,26 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
+    @Operation(summary ="Signup", description = "회원가입 API")
+    @ApiResponse(responseCode = "200", description = "정상적으로 가입되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<String> signupMember(@Valid @RequestBody MemberPostDto memberPostDto){
         memberService.createMember(mapper.postDtoToEntity(memberPostDto));
         return new ResponseEntity<>("정상적으로 가입되었습니다.",HttpStatus.OK);
     }
 
     @GetMapping("/logout")
+    @Operation(summary ="Logout", description = "로그아웃 API")
+    @ApiResponse(responseCode = "200", description = "로그아웃 되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<String> logout(){
         // 로그아웃 로직 수행
         // Redis에서 사용자 정보 및 토큰 정보 삭제
         return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
     } 
 
-    // 회원 수정
+
     @PatchMapping("/update")
+    @Operation(summary ="Update Member", description = "회원수정 API")
+    @ApiResponse(responseCode = "200", description = "회원 정보가 정상적으로 수정되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<Void> memberUpdate(@Valid @RequestBody MemberPatchDto memberPatchDto, Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         memberService.updateMember(mapper.patchDtoToEntity(memberPatchDto, memberId));
@@ -64,21 +76,23 @@ public class MemberController {
     }
 
 
-    /**
-     * 회원 단건 조회
-     *  - 로그인 한 사용자는 자신의 회원 정보를 조회할 수 있습니다.
-     * */
+
     @GetMapping("/get")
+    @Operation(summary ="Get Member", description = "회원 정보 단건 조회 API")
+    @ApiResponse(responseCode = "200", description = "회원정보 단건 조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
+        log.info("지금 회원 id: {}", memberId);
         return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
     }
 
 
 
 
-    // 회원 탈퇴
+
     @DeleteMapping("/delete")
+    @Operation(summary ="softDelete Member", description = "회원삭제 API")
+    @ApiResponse(responseCode = "200", description = "회원이 정상적으로 삭제되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<String> memberDelete(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         memberService.deleteMember(memberId);

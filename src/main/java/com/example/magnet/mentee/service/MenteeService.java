@@ -5,10 +5,12 @@ import com.example.magnet.global.exception.ExceptionCode;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.member.service.MemberService;
+import com.example.magnet.mentee.dto.AppliedMenteesDto;
 import com.example.magnet.mentee.dto.MenteePostDto;
 import com.example.magnet.mentee.dto.MenteeResponseDto;
 import com.example.magnet.mentee.entity.Mentee;
 import com.example.magnet.mentee.repository.MenteeRepository;
+import com.example.magnet.mentor.dto.MentorsMenteeDto;
 import com.example.magnet.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +63,12 @@ public class MenteeService {
         Mentee mentee = menteeRepository.findByIdAndMemberId(menteeId, memberId).orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.MENTEE_NOT_FOUND));
         return MenteeToMenteeResponseDto(mentee);
+    }
+
+
+    public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
+        // 현재 회원정보를 기반으로 회원의 mentorId를 기반으로 멘토링 조회.
+        return menteeRepository.mentees(mentoringId);
     }
 
 
