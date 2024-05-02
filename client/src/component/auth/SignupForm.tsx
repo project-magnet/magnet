@@ -1,9 +1,10 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {signup} from '../../api/auth';
+import {signup, login} from '../../api/auth';
 import {WarningMessage} from '../common/WarningMessage';
 import {CommonInput} from '../input/CommonInput';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
+import {getMember} from '../../api/member';
 
 const SignupForm = () => {
 	const navigate = useNavigate();
@@ -37,8 +38,12 @@ const SignupForm = () => {
 	const handleSignup = async () => {
 		try {
 			await signup(userInfo.form);
+			// 회원가입 후 자동로그인 ------------
+			await login({email: userInfo.form.email, password: userInfo.form.password});
+			await getMember();
+			// ------------------------------
 			navigate('/');
-			openToast({message: '회원가입 완료!', type: 'success'});
+			openToast({message: `${userInfo.form.nickName}님 가입을 축하드려요!`, type: 'success'});
 		} catch (e) {
 			openToast({message: '회원가입에 실패했어요.', type: 'error'});
 			console.error('회원가입에 실패했어요.', e);
