@@ -23,7 +23,7 @@ import static com.example.magnet.mentee.mapper.MenteeMapper.*;
 
 @Service
 @Slf4j
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class MenteeService {
     private final MenteeRepository menteeRepository;
@@ -64,8 +64,7 @@ public class MenteeService {
         return MenteeToMenteeResponseDto(mentee);
     }
 
-
-
+    @Transactional(readOnly = true)
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
         log.info("mentees 메소드 진입 - service");
 //        return menteeRepository.mentees(mentoringId);
