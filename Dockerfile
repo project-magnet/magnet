@@ -6,6 +6,5 @@ FROM openjdk:17-jdk
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} app.jar
-COPY build/generated /app/generated
 # "-Dspring.profiles.active=docker",
 ENTRYPOINT ["java","-Dspring.profiles.active=docker", "-jar", "app.jar"]

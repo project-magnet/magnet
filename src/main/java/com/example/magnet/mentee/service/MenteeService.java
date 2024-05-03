@@ -66,8 +66,8 @@ public class MenteeService {
     }
 
 
+    @Transactional(readOnly = true)
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
-        // 현재 회원정보를 기반으로 회원의 mentorId를 기반으로 멘토링 조회.
         return menteeRepository.mentees(mentoringId);
     }
 
