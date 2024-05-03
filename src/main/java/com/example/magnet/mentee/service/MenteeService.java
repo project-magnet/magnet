@@ -67,11 +67,11 @@ public class MenteeService {
     @Transactional(readOnly = true)
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
         log.info("mentees 메소드 진입 - service");
-//        return menteeRepository.mentees(mentoringId);
+        return menteeRepository.mentees(mentoringId);
         // 멘티 엔티티에서 mentoringId와 일치하는 row 조회
-        List<Mentee> mentees = menteeRepository.findAllByMentoringId(mentoringId);
-        List<AppliedMenteesDto> resultDto = MenteeToAppliedMenteesDto(mentees);
-        return resultDto;
+//        List<Mentee> mentees = menteeRepository.findAllByMentoringId(mentoringId);
+//        List<AppliedMenteesDto> resultDto = MenteeToAppliedMenteesDto(mentees);
+//        return resultDto;
     }
 
 
