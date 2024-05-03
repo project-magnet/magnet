@@ -4,6 +4,7 @@ import com.example.magnet.mentee.dto.AppliedMenteesDto;
 import com.example.magnet.mentee.dto.QAppliedMenteesDto;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -13,13 +14,14 @@ import static com.example.magnet.mentee.entity.QMentee.mentee;
 import static com.example.magnet.mentoring.entity.QMentoring.mentoring;
 
 @Repository
+@RequiredArgsConstructor
 @Slf4j
 public class MenteeRepositoryImpl implements MenteeRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
-    public MenteeRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
-        this.jpaQueryFactory = jpaQueryFactory;
-    }
+//    public MenteeRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
+//        this.jpaQueryFactory = jpaQueryFactory;
+//    }
 
 //    public MenteeRepositoryImpl(EntityManager em){
 //        this.jpaQueryFactory = new JPAQueryFactory(em);
