@@ -63,6 +63,7 @@ public class MenteeController {
     @Operation(summary ="Get Mentees", description = "멘토링을 신청한 멘티 리스트 조회 API")
     @ApiResponse(responseCode = "200", description = "멘티 정보 리스트 조회 성공", content = @Content(mediaType = "application/json"))
     public ResponseEntity<List<AppliedMenteesDto>> mentees(@Valid @PathVariable("mentoring-id") Long mentoringId){
+        log.info("mentee list controller 진입");
         return new ResponseEntity<>(menteeService.getAppliedMentees(mentoringId), HttpStatus.OK);
     }
 }
