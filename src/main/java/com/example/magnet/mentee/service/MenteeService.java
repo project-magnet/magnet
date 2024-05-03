@@ -24,7 +24,7 @@ import static com.example.magnet.mentee.mapper.MenteeMapper.menteePostDtoToEntit
 
 @Service
 @Slf4j
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MenteeService {
     private final MenteeRepository menteeRepository;
