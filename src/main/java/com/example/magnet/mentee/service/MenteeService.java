@@ -68,6 +68,7 @@ public class MenteeService {
 
 
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
+        log.info("mentees 메소드 진입 - service");
         return menteeRepository.mentees(mentoringId);
     }
 

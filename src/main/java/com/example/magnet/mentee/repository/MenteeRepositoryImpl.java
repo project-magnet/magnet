@@ -4,6 +4,7 @@ import com.example.magnet.mentee.dto.AppliedMenteesDto;
 import com.example.magnet.mentee.dto.QAppliedMenteesDto;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import static com.example.magnet.mentee.entity.QMentee.mentee;
 import static com.example.magnet.mentoring.entity.QMentoring.mentoring;
 
 @Repository
+@Slf4j
 public class MenteeRepositoryImpl implements MenteeRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
@@ -26,6 +28,7 @@ public class MenteeRepositoryImpl implements MenteeRepositoryCustom{
 
     @Override
     public List<AppliedMenteesDto> mentees(Long mentoringId){
+        log.info("mentees 메소드 구현체 진입");
         return jpaQueryFactory
                 .select(new QAppliedMenteesDto(
                         mentee.id,
