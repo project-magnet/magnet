@@ -19,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.example.magnet.mentee.mapper.MenteeMapper.MenteeToMenteeResponseDto;
-import static com.example.magnet.mentee.mapper.MenteeMapper.menteePostDtoToEntity;
+import static com.example.magnet.mentee.mapper.MenteeMapper.*;
 
 @Service
 @Slf4j
@@ -69,7 +68,11 @@ public class MenteeService {
 
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
         log.info("mentees 메소드 진입 - service");
-        return menteeRepository.mentees(mentoringId);
+//        return menteeRepository.mentees(mentoringId);
+        // 멘티 엔티티에서 mentoringId와 일치하는 row 조회
+        List<Mentee> mentees = menteeRepository.findAllByMentoringId(mentoringId);
+        List<AppliedMenteesDto> resultDto = MenteeToAppliedMenteesDto(mentees);
+        return resultDto;
     }
 
 

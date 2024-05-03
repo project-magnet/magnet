@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface MenteeRepository extends JpaRepository<Mentee, Long>, MenteeRepositoryCustom {
     Optional<Mentee> findByIdAndMemberId(Long menteeId, Long memberId);
     List<AppliedMenteesDto> mentees(Long mentoringId);
+
+    List<Mentee> findAllByMentoringId(Long mentoringId);// jpql용
 }
