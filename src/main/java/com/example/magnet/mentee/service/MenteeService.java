@@ -66,7 +66,7 @@ public class MenteeService {
     }
 
 
-    @Transactional(readOnly = true)
+
     public List<AppliedMenteesDto> getAppliedMentees(Long mentoringId) {
         return menteeRepository.mentees(mentoringId);
     }
