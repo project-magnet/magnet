@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {getMentoring} from '../../api/mentoring';
+import {getMenteeList} from '../../api/mentee';
 
 type MentoringDto = {
 	id: number;
@@ -19,7 +19,7 @@ export const CreatedMentoringBox = ({mentoringDto}: {mentoringDto: MentoringDto}
 	const handleClick = async () => {
 		if (mentoringData === null) {
 			try {
-				const data = await getMentoring(mentoringDto.id); // mentoring 데이터 가져오기
+				const data = await getMenteeList(mentoringDto.id); // mentoring 데이터 가져오기
 				setMentoringData(data); // mentoring 데이터 설정
 			} catch (error) {
 				console.error('getMentoring 호출 중 오류 발생:', error);
