@@ -34,10 +34,29 @@ export const createMentee = async (data: createMenteeData) => {
 				},
 			},
 		);
-		console.log('멘티등록 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘티등록 실패', error);
+		throw error;
+	}
+};
+
+export const getMenteeList = async (mentoringId: number) => {
+	try {
+		const authorToken = sessionStorage.getItem('Authorization') || '';
+		const refreshToken = sessionStorage.getItem('RefreshToken') || '';
+		const response = await axios.get(`${baseUrl}/mentee/list/${mentoringId}`, {
+			headers: {
+				'Content-Type': 'application/json',
+				'ngrok-skip-browser-warning': 'true',
+				Authorization: authorToken,
+				RefreshToken: refreshToken,
+			},
+		});
+		console.log(response);
+		return response.data;
+	} catch (error) {
+		console.error('멘티리스트 조회 실패', error);
 		throw error;
 	}
 };
