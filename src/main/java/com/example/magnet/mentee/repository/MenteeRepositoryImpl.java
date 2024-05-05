@@ -35,8 +35,8 @@ public class MenteeRepositoryImpl implements MenteeRepositoryCustom{
                 .select(new QAppliedMenteesDto(
                         mentee.id,
                         mentee.member.nickName,
-                        mentee.email,
                         mentee.schedule,
+                        mentee.email,
                         mentee.phone
                         ))
                 .from(mentoring)
