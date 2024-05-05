@@ -14,5 +14,5 @@ public interface MenteeRepository extends JpaRepository<Mentee, Long>, MenteeRep
     List<AppliedMenteesDto> mentees(Long mentoringId);
 
     @Query("select m from Mentee m where m.mentoring.id = :mentoringId")
-    List<Mentee> findAllByMentoringId(@Param("mentoringId") Long mentoringId);// jpql용
+    List<Mentee> findAllByMentoringId(@Param("mentoringId") Long mentoringId);// get Mentees
 }
