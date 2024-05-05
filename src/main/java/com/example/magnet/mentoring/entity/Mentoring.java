@@ -52,8 +52,6 @@ public class Mentoring extends TimeEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-//    @OneToMany(mappedBy = "mentoring")
-//    private List<Payment> paymentList = new ArrayList<>();
 
 
     @Builder(toBuilder = true)
