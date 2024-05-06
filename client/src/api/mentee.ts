@@ -53,7 +53,6 @@ export const getMenteeList = async (mentoringId: number) => {
 				RefreshToken: refreshToken,
 			},
 		});
-		console.log(response);
 		return response.data;
 	} catch (error) {
 		console.error('멘티리스트 조회 실패', error);
