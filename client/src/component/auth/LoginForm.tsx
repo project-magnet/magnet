@@ -9,14 +9,14 @@ const LoginForm = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const openToast = useOpenToastPopup();
-	const {closeModal} = ModalStore();
+	const {setModalClose} = ModalStore();
 
 	const handleLogin = async () => {
 		const fetchLogin = async () => {
 			try {
 				await login({email, password});
 				await getMember();
-				closeModal();
+				setModalClose();
 				openToast({message: '로그인 성공!', type: 'success'});
 			} catch (e) {
 				openToast({

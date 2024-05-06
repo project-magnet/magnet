@@ -5,9 +5,12 @@ import {MentorRegistModal} from '../component/user/MentorRegistModal';
 
 // 모달 열기 훅
 export const useOpenModal = (ModalComponent: () => JSX.Element) => {
-	const {setModalChildren} = ModalStore();
+	const {setModalChildren, setModalOpen} = ModalStore();
 
-	return () => setModalChildren(<ModalComponent />);
+	return () => {
+		setModalChildren(<ModalComponent />);
+		setModalOpen();
+	};
 };
 
 // 로그인 모달 열기
