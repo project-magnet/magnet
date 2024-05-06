@@ -1,7 +1,9 @@
 ## 🧲 MAGNET - 멘토멘티 매칭 서비스 플랫폼
-![image](https://github.com/project-magnet/magnet/assets/96255906/2bfc4c3c-9833-466a-a508-053b4aff3255)
+![image](https://github.com/project-magnet/magnet/assets/96255906/1f5b0f80-23be-49e0-81bf-2445318744ee)
 
-![image](https://github.com/project-magnet/magnet/assets/96255906/2b963be2-5e5c-4f4b-b5ba-42f4b9caf17d)
+
+![image](https://github.com/project-magnet/magnet/assets/96255906/b6eeb9c2-683b-4a73-832b-2afefe9685ab)
+
 ## 사용기술
 - Java17
 - spring boot 3.2.0
