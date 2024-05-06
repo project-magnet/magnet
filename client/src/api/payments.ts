@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {loadTossPayments} from '@tosspayments/payment-sdk';
 
-const clientKey = 'test_ck_yL0qZ4G1VO501X6MlKxY8oWb2MQY';
+const clientKey = process.env.REACT_APP_TOSS_CLIENT_KEY || 'NO_CLIENT_KEY';
 const baseUrl = process.env.REACT_APP_BASE_URL || 'NO_BASE_URL';
 const appUrl = process.env.REACT_APP_URL || 'NO_APP_URL';
 
