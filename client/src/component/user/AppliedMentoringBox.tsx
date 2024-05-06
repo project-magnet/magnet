@@ -22,11 +22,8 @@ export const AppliedMentoringBox = ({mentoringDto}: {mentoringDto: appliedMentor
 	};
 
 	return (
-		<div className="flexCol w-full rounded-lg border">
-			<button
-				className={`interactionPushDown textSmall flexCenter w-full justify-between p-5`}
-				onClick={handleClick}
-			>
+		<div className="interactionPushDown flexCol w-full rounded-lg border">
+			<button className={` textSmall flexCenter w-full justify-between p-5`} onClick={handleClick}>
 				<div className="flexCol items-start gap-3">
 					<span className="font-PartialSansKR_Regular">{mentoringDto.category}</span>
 					<span>{mentoringDto.title}</span>
