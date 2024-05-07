@@ -1,6 +1,7 @@
 import {AppliedMentoringBox} from './AppliedMentoringBox';
 
 type ScheduleboxProps = {
+	mentorName: string;
 	menteeId: number;
 	memberId: number;
 	message: string;

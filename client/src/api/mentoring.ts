@@ -34,7 +34,6 @@ export const createMentoring = async (data: createMentoringData) => {
 			},
 		);
 		console.log('멘토링 생성 성공', response.data);
-		return response.data;
 	} catch (error) {
 		console.error('멘토링 생성 실패', error);
 		throw error;
@@ -81,7 +80,6 @@ export const getMentoring = async (mentoringId: number): Promise<getMentoringDat
 		sessionStorage.setItem('mentoringId', response.data.mentoringId.toString());
 		sessionStorage.setItem('schedule', response.data.period);
 		sessionStorage.setItem('amount', response.data.pay);
-		console.log('멘토링 조회 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘토링 조회 실패', error);
@@ -142,7 +140,6 @@ export const getMentoringList = async (
 				'ngrok-skip-browser-warning': 'true',
 			},
 		});
-		console.log('멘토 리스트 조회 성공', response.data);
 		return response.data;
 	} catch (error) {
 		console.error('멘토 리스트 조회 실패', error);
