@@ -28,7 +28,6 @@ export const signup = async (data: signupBody) => {
 				street: data.addressDto.street,
 			},
 		});
-		console.log('회원가입 성공', respone.data);
 		return respone.data;
 	} catch (error) {
 		console.error('회원가입 실패', error);

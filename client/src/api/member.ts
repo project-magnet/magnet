@@ -31,7 +31,6 @@ export const getMember = async (): Promise<getMemberResponse> => {
 				RefreshToken: `${refreshToken}`,
 			},
 		});
-		console.log('회원정보 불러오기 성공', response.data);
 		setGlobalMember(response.data);
 		return response.data;
 	} catch (error) {
@@ -53,7 +52,6 @@ export const deleteMember = async () => {
 			},
 		});
 		console.log('회원 탈퇴 성공', response.data);
-		return response.data;
 	} catch (error) {
 		console.error('회원 탈퇴 실패', error);
 		throw error;
@@ -78,7 +76,6 @@ export const updateMember = async (data: updateMemberData) => {
 			},
 		});
 		console.log('회원정보 수정 성공', response.data);
-		return response.data;
 	} catch (error) {
 		console.error('회원정보 수정 실패', error);
 		throw error;
