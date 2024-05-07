@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 type appliedMentoringProps = {
+	mentorName: string;
 	menteeId: number;
 	memberId: number;
 	message: string;
@@ -36,7 +37,7 @@ export const AppliedMentoringBox = ({mentoringDto}: {mentoringDto: appliedMentor
 				<div className={`textSmall flexCol animate-fadeIn gap-3 p-5 pt-0 `}>
 					<div>
 						<p className="textBase font-black">멘토</p>
-						<span className="text-secondary">데이터 준비중입니다!{/* 데이터 필요함 */}</span>
+						<span className="text-secondary">{mentoringDto.mentorName}</span>
 					</div>
 					<div>
 						<p className="textBase font-black">멘토링 일정</p>
