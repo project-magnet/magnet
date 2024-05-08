@@ -49,16 +49,9 @@ public class MentorController {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
-        // 멘티 권한이 있다면 멘토로 등록할 수 없다.
-//        if(roles.contains("MENTEE")){
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                    .body(new BusinessLogicException(ExceptionCode.MENTEE_CANT_REGISTER_MENTOR));
-//        }else{
-//            mentorService.createMentor(roles, memberId, mentorPostDto);
-//        }
         mentorService.createMentor(roles, memberId, mentorPostDto);
-        return new ResponseEntity<>("멘토 등록이 완료되었습니다.", HttpStatus.CREATED);
-
+        return ResponseEntity.status(201)
+                .body("멘토 등록이 완료되었습니다.");
     }
 
     @GetMapping("/get")
@@ -66,7 +59,8 @@ public class MentorController {
     @ApiResponse(responseCode = "200", description = "멘토 단건조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MentorResponseDto> getMentor(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        return new ResponseEntity<>(mentorService.getMentor(memberId), HttpStatus.FOUND);
+        return ResponseEntity.ok()
+                .body(mentorService.getMentor(memberId));
     }
 
 
@@ -75,7 +69,8 @@ public class MentorController {
     @ApiResponse(responseCode = "200", description = "멘토 리스트 조회 성공", content = @Content(mediaType = "application/json"))
     public ResponseEntity<Page<MentorSearchResponseDtoV2>> getMentorList(@RequestParam("offset") int offset,
                                                                          @RequestParam("size") int size){ // pageableDefault 적용 ?
-        return new ResponseEntity<>(mentorService.search(offset, size), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(mentorService.search(offset, size));
     }
 
     @DeleteMapping("/remove")
@@ -88,9 +83,10 @@ public class MentorController {
                 .toList();
         if(roles.contains("MENTOR")||roles.contains("ADMIN")){
             mentorService.remove(memberId);
-            return new ResponseEntity<>("등록한 멘토정보를 삭제했습니다.", HttpStatus.OK);
+            return ResponseEntity.ok().body("등록한 멘토정보를 삭제했습니다.");
         }else{
-            return new ResponseEntity<>(ResponseEntity.badRequest(),HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ResponseEntity.badRequest());
         }
 
     }

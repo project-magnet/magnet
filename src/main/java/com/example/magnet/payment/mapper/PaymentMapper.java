@@ -1,14 +1,11 @@
 package com.example.magnet.payment.mapper;
 
 import com.example.magnet.payment.dto.ChargingHistoryDto;
-import com.example.magnet.payment.dto.PaymentResponseDto;
 import com.example.magnet.payment.dto.PaymentResponseDtoV2;
 import com.example.magnet.payment.entity.Payment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class PaymentMapper {
