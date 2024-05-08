@@ -56,7 +56,8 @@ public class MentoringController {
         }
 
         mentoringService.register(memberId, mentoringPostDto);
-        return new ResponseEntity<>("멘토링이 개설되었습니다.", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("멘토링이 개설되었습니다.");
 
     }
 
@@ -64,7 +65,8 @@ public class MentoringController {
     @Operation(summary ="Get Mentoring", description = "멘토링 단건 조회 API")
     @ApiResponse(responseCode = "200", description = "멘토링 단건조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MentoringResponseDto> getMentoring(@Valid @PathVariable("mentoring-id") Long mentoringId){
-        return new ResponseEntity<>(mentoringService.mentoringInfo(mentoringId), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(mentoringService.mentoringInfo(mentoringId));
     }
 
 
@@ -73,7 +75,8 @@ public class MentoringController {
     @Operation(summary ="Get Mentorings", description = "멘토링 리스트 조회 API")
     @ApiResponse(responseCode = "200", description = "멘토링 리스트 조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
-        return new ResponseEntity<>(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()));
     }
 
 
@@ -90,6 +93,7 @@ public class MentoringController {
         // 현재 memberid와 mentoring id를 service로 전달
         Long memberId = (Long) authentication.getCredentials();
         mentoringService.remove(memberId,mentoringId);
-        return new ResponseEntity<>("멘토링이 삭제되었습니다.", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("멘토링이 삭제되었습니다.");
     }
 }

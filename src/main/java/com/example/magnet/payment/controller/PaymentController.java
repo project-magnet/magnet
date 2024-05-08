@@ -23,6 +23,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 import static com.example.magnet.payment.mapper.PaymentMapper.chargingHistoryToChargingHistoryResponses;
 
 /**
@@ -49,7 +51,8 @@ public class PaymentController {
         PaymentResponseDto result = paymentResponseDto.toBuilder()
                 .successUrl(paymentReqDto.getYourSuccessUrl() == null ? tossPaymentConfig.getSuccessUrl() : paymentReqDto.getYourSuccessUrl())
                 .failUrl(paymentReqDto.getYourFailUrl() == null ? tossPaymentConfig.getFailUrl() : paymentReqDto.getYourFailUrl()).build();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(result);
     }
 
 
@@ -62,7 +65,8 @@ public class PaymentController {
     public ResponseEntity<PaymentSuccessDto> tossPaymentSuccess(@RequestParam String paymentKey,
                                                                 @RequestParam String orderId,
                                                                 @RequestParam Long amount){
-        return new ResponseEntity<>(paymentService.tossPaymentSuccess(paymentKey, orderId, amount), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(paymentService.tossPaymentSuccess(paymentKey, orderId, amount));
     }
 
     /**
@@ -78,7 +82,8 @@ public class PaymentController {
                 .errorMessage(message)
                 .orderId(orderId)
                 .build();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(result);
     }
 
     /**
@@ -95,18 +100,23 @@ public class PaymentController {
             @RequestParam String paymentKey,
             @RequestParam String cancelReason
     ){
-        return new ResponseEntity<>(paymentService.cancelPaymentPoint(authentication.getName(), paymentKey, cancelReason), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(paymentService.cancelPaymentPoint(authentication.getName(), paymentKey, cancelReason));
     }
 
     @GetMapping("/history")
-    @Operation(summary ="Get ChargingHistory", description = "결제 충전내역 조회 API")
-    @ApiResponse(responseCode = "200", description = "결제 충전내역을 조회합니다.", content = @Content(mediaType = "application/json"))
-    public ResponseEntity getChargingHistory(Authentication authentication,
+    @Operation(summary ="Get ChargingHistory", description = "결제 조회 API")
+    @ApiResponse(responseCode = "200", description = "결제 내역을 조회합니다.", content = @Content(mediaType = "application/json"))
+    public ResponseEntity<?> getChargingHistory(Authentication authentication,
                                              Pageable pageable) {
         Slice<Payment> chargingHistories = paymentService.findAllChargingHistories(authentication.getName(), pageable);
         SliceInfo sliceInfo = new SliceInfo(pageable, chargingHistories.getNumberOfElements(), chargingHistories.hasNext());
-        return new ResponseEntity<>(
-                new SliceResponseDto<>(chargingHistoryToChargingHistoryResponses(chargingHistories.getContent()), sliceInfo), HttpStatus.OK);
+
+        return ResponseEntity.ok()
+                .body(SliceResponseDto.builder()
+                        .data(Collections.singletonList(chargingHistoryToChargingHistoryResponses(chargingHistories.getContent())))
+                        .sliceInfo(sliceInfo)
+                        .build());
     }
 
 }

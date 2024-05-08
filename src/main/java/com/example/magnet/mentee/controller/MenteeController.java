@@ -40,7 +40,8 @@ public class MenteeController {
                 .map(GrantedAuthority::getAuthority)
                 .toList();
         menteeService.paidMentee(menteePostDto, memberId, roles);
-        return new ResponseEntity<>("멘토링 신청이 완료되었습니다.", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("멘토링 신청이 완료되었습니다.");
     }
 
 //    @PostMapping("/create")
@@ -55,7 +56,8 @@ public class MenteeController {
     @Operation(summary ="Get Mentee", description = "멘티 정보 단건조회 API")
     @ApiResponse(responseCode = "200", description = "멘티 정보 단건조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MenteeResponseDto> menteeInfo(@Valid @PathVariable("mentee-id") Long menteeId, Authentication authentication){
-        return new ResponseEntity<>(menteeService.getInfo(menteeId, (Long)authentication.getCredentials()),HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(menteeService.getInfo(menteeId, (Long)authentication.getCredentials()));
     }
 
     // 회원조회 - 멘토 - 멘토링 - 멘티 리스트 조회
@@ -64,6 +66,7 @@ public class MenteeController {
     @ApiResponse(responseCode = "200", description = "멘티 정보 리스트 조회 성공", content = @Content(mediaType = "application/json"))
     public ResponseEntity<List<AppliedMenteesDto>> mentees(@Valid @PathVariable("mentoring-id") Long mentoringId){
         log.info("mentee list controller 진입");
-        return new ResponseEntity<>(menteeService.getAppliedMentees(mentoringId), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(menteeService.getAppliedMentees(mentoringId));
     }
 }

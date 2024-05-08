@@ -53,7 +53,9 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "정상적으로 가입되었습니다.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<String> signupMember(@Valid @RequestBody MemberPostDto memberPostDto){
         memberService.createMember(mapper.postDtoToEntity(memberPostDto));
-        return new ResponseEntity<>("정상적으로 가입되었습니다.",HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("정상적으로 가입되었습니다.");
+
     }
 
     @GetMapping("/logout")
@@ -62,17 +64,19 @@ public class MemberController {
     public ResponseEntity<String> logout(){
         // 로그아웃 로직 수행
         // Redis에서 사용자 정보 및 토큰 정보 삭제
-        return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("로그아웃 되었습니다.");
     } 
 
 
     @PatchMapping("/update")
     @Operation(summary ="Update Member", description = "회원수정 API")
     @ApiResponse(responseCode = "200", description = "회원 정보가 정상적으로 수정되었습니다.", content = @Content(mediaType = "application/json"))
-    public ResponseEntity<Void> memberUpdate(@Valid @RequestBody MemberPatchDto memberPatchDto, Authentication authentication){
+    public ResponseEntity<String> memberUpdate(@Valid @RequestBody MemberPatchDto memberPatchDto, Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         memberService.updateMember(mapper.patchDtoToEntity(memberPatchDto, memberId));
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("회원 정보가 정상적으로 수정되었습니다.");
     }
 
 
@@ -83,7 +87,8 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         log.info("지금 회원 id: {}", memberId);
-        return new ResponseEntity<>(memberService.findMyInfo(memberId), HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body(memberService.findMyInfo(memberId));
     }
 
 
@@ -96,6 +101,7 @@ public class MemberController {
     public ResponseEntity<String> memberDelete(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
         memberService.deleteMember(memberId);
-        return new ResponseEntity<>("회원 탈퇴가 이뤄졌습니다.", HttpStatus.OK);
+        return ResponseEntity.ok()
+                .body("회원이 정상적으로 삭제되었습니다.");
     }
 }
