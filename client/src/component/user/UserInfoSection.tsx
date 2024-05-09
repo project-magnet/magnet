@@ -2,7 +2,13 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import UserInfoBox from './UserInfoBox';
 import {removeAuthTokens} from '../../utils/auth/removeAuthTokens';
-import {updateMember, updateMemberData, getMemberResponse, getMember} from '../../api/member';
+import {
+	updateMember,
+	updateMemberData,
+	getMemberResponse,
+	getMember,
+	deleteMember,
+} from '../../api/member';
 import {MemberStore} from '../../store/MemberStore';
 import {useOpenToastPopup} from '../../hooks/useOpenToastPopup';
 
@@ -47,7 +53,10 @@ export const UserInfoSection = ({member}: {member: getMemberResponse}) => {
 	const hadleDeleteMember = () => {
 		const confirmed = window.confirm(`${nickName}님! 정말 회원탈퇴 하시겠습니까?`);
 		if (confirmed) {
+			deleteMember();
 			removeAuthTokens();
+			resetGlobalMember();
+			openToastPopup({message: '회원님의 계정이 성공적으로 탈퇴되었습니다.', type: 'success'});
 			navigate('/');
 		}
 	};
