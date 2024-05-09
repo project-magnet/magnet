@@ -50,7 +50,7 @@ public class MentorController {
                 .toList();
 
         mentorService.createMentor(roles, memberId, mentorPostDto);
-        return ResponseEntity.status(201)
+        return ResponseEntity.ok()
                 .body("멘토 등록이 완료되었습니다.");
     }
 
