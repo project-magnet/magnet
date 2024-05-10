@@ -52,7 +52,7 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
                         mentor.mentorName,
                         mentor.career))
                 .from(mentoring)
-                .leftJoin(mentoring.mentor, mentor)
+                .leftJoin(mentoring.mentor, mentor).fetchJoin()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
