@@ -1,12 +1,15 @@
 package com.example.magnet.mentoring.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class mentoringListPagingDto {
+
     private Long mentoringId;
     private String title;
     private String content;
@@ -23,6 +26,7 @@ public class mentoringListPagingDto {
     private String career;
 
 
+    @Builder
     @QueryProjection
     public mentoringListPagingDto(Long mentoringId, String title, String content, String pay, String period, int participants, String category, Long mentorId, String aboutMe, String field, String task, String mentorName, String career) {
         this.mentoringId = mentoringId;
