@@ -2,6 +2,7 @@ package com.example.magnet.mentoring.controller;
 
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
+import com.example.magnet.global.response.RestPage;
 import com.example.magnet.mentoring.dto.MentoringPostDto;
 import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.dto.mentoringListPagingDto;
@@ -75,8 +76,9 @@ public class MentoringController {
     @Operation(summary ="Get Mentorings", description = "멘토링 리스트 조회 API")
     @ApiResponse(responseCode = "200", description = "멘토링 리스트 조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
+        Page<mentoringListPagingDto> result = mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize());
         return ResponseEntity.ok()
-                .body(mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize()));
+                .body(new RestPage<>(result));
     }
 
 
