@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class mentoringListPagingDto {
-    private Long id;
+
+    private Long mentoringId;
     private String title;
     private String content;
     private String pay;
@@ -27,8 +28,8 @@ public class mentoringListPagingDto {
 
     @Builder
     @QueryProjection
-    public mentoringListPagingDto(Long id, String title, String content, String pay, String period, int participants, String category, Long mentorId, String aboutMe, String field, String task, String mentorName, String career) {
-        this.id = id;
+    public mentoringListPagingDto(Long mentoringId, String title, String content, String pay, String period, int participants, String category, Long mentorId, String aboutMe, String field, String task, String mentorName, String career) {
+        this.mentoringId = mentoringId;
         this.title = title;
         this.content = content;
         this.pay = pay;
