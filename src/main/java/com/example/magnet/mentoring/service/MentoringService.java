@@ -13,6 +13,7 @@ import com.example.magnet.mentoring.entity.Mentoring;
 import com.example.magnet.mentoring.repository.MentoringRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -69,6 +70,7 @@ public class MentoringService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(value = "mentoringCache", cacheManager = "redisCacheManager") // value: 반환 데이터가 저장되는 캐시의 이름 정의
     public Page<mentoringListPagingDto> mentoringInfoList(int offset, int size) {
         Pageable pageable = PageRequest.of(offset, size);
         return mentoringRepository.mentoringList(pageable);
