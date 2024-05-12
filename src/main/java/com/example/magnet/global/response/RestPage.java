@@ -1,12 +1,15 @@
 package com.example.magnet.global.response;
 
+
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 /*
@@ -26,4 +29,11 @@ public class RestPage<T> extends PageImpl<T> {
         super(page.getContent(), page.getPageable(), page.getTotalElements());
     }
 
+    public RestPage(List<T> content, Pageable pageable, long total) {
+        super(content, pageable, total);
+    }
+
+    public RestPage(List<T> content) {
+        super(content);
+    }
 }

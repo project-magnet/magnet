@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,19 +66,7 @@ public class RedisConfig {
 //    }
 
     @Bean
-    public RedisCacheManager redisCacheManager(){
-////        //직렬화 시 type 정보를 저장할 scope를 지정
-////        PolymorphicTypeValidator typeValidator = BasicPolymorphicTypeValidator
-////                .builder()
-////                .allowIfSubType(Object.class)
-////                .build();
-////
-////        // 역직렬화 대응
-////        ObjectMapper objectMapper = new ObjectMapper();
-////        objectMapper.registerModule(new JavaTimeModule());
-////        objectMapper.activateDefaultTyping(typeValidator, ObjectMapper.DefaultTyping.NON_FINAL);
-////        GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
-//
+    public CacheManager redisCacheManager(){ // or RedisCacheManager
 //
 //        // 캐시 설정 구성 - 키: 문자열 / 값: json
 //        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
@@ -89,6 +78,7 @@ public class RedisConfig {
 //                .cacheDefaults(redisCacheConfiguration).build();
         RedisCacheManager.RedisCacheManagerBuilder builder = fromConnectionFactory(redisConnectionFactory());
         RedisCacheConfiguration configuration = defaultCacheConfig()
+//                .serializeKeysWith(fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .entryTtl(Duration.ofMinutes(30));
         builder.cacheDefaults(configuration);
