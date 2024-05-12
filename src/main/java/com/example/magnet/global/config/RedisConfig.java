@@ -69,7 +69,6 @@ public class RedisConfig {
 
     @Bean
     public CacheManager redisCacheManager(){ // or RedisCacheManager
-        log.info("캐시 매니저 진입");
 //
 //        // 캐시 설정 구성 - 키: 문자열 / 값: json
 //        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
@@ -86,7 +85,6 @@ public class RedisConfig {
                 .serializeValuesWith(fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .entryTtl(Duration.ofMinutes(30));
         builder.cacheDefaults(configuration);
-        log.info("캐시매니저 빌더 완성: " + configuration );
         return builder.build();
     }
 
