@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -29,6 +30,7 @@ import static org.springframework.data.redis.serializer.RedisSerializationContex
 
 @Configuration
 @EnableCaching
+@Slf4j
 public class RedisConfig {
     @Value("${spring.data.redis.host}")
     private String host;
@@ -40,7 +42,7 @@ public class RedisConfig {
     private String password;
 
     @Bean
-    public RedisConnectionFactory redisConnectionFactory() { // Redis 연결 설정, Lettuce는 레디스 클라이언트 라이브러리
+    public RedisConnectionFactory redisConnectionFactory() {
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
         redisConfig.setHostName(host);
         redisConfig.setPort(port);
@@ -49,24 +51,25 @@ public class RedisConfig {
         return new LettuceConnectionFactory(redisConfig);
     }
 
-//    @Bean
-//    public RedisTemplate<String, Object> redisTemplate() {
-//        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-//
-//        redisTemplate.setConnectionFactory(redisConnectionFactory());
-//
-//        // 키와 값의 직렬화 방법 설정
-//        redisTemplate.setKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setValueSerializer(new StringRedisSerializer());
-//
-//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-//        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
-//
-//        return redisTemplate;
-//    }
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
+
+        // 키와 값의 직렬화 방법 설정
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
+
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+
+        return redisTemplate;
+    }
 
     @Bean
     public CacheManager redisCacheManager(){ // or RedisCacheManager
+        log.info("캐시 매니저 진입");
 //
 //        // 캐시 설정 구성 - 키: 문자열 / 값: json
 //        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
@@ -76,12 +79,14 @@ public class RedisConfig {
 //
 //        return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory())
 //                .cacheDefaults(redisCacheConfiguration).build();
+
         RedisCacheManager.RedisCacheManagerBuilder builder = fromConnectionFactory(redisConnectionFactory());
         RedisCacheConfiguration configuration = defaultCacheConfig()
 //                .serializeKeysWith(fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .entryTtl(Duration.ofMinutes(30));
         builder.cacheDefaults(configuration);
+        log.info("캐시매니저 빌더 완성: " + configuration );
         return builder.build();
     }
 

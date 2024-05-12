@@ -2,6 +2,7 @@ package com.example.magnet.mentoring.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @ToString

@@ -6,6 +6,7 @@ import com.example.magnet.mentoring.dto.mentoringListPagingDto;
 import com.example.magnet.mentoring.entity.Mentoring;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import static com.example.magnet.mentoring.entity.QMentoring.mentoring;
 import static com.example.magnet.mentor.entity.QMentor.mentor;
 
 @Repository
+@Slf4j
 public class GetMentoringRepositoryImpl implements GetMentoringRepository{
     private final JPAQueryFactory jpaQueryFactory;
     public GetMentoringRepositoryImpl(EntityManager em){
@@ -63,6 +65,7 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
                 .leftJoin(mentoring.mentor, mentor)
                 .fetchOne();
 
+        log.info("page객체 생성완료");
         return new PageImpl<>(content, pageable, total);
 
     }
