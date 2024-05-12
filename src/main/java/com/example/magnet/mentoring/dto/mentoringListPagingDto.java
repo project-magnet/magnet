@@ -3,9 +3,9 @@ package com.example.magnet.mentoring.dto;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
-@Getter
+@Data
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class mentoringListPagingDto {
 
     private Long mentoringId;
