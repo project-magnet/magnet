@@ -2,6 +2,7 @@ package com.example.magnet.mentoring.service;
 
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
+import com.example.magnet.global.response.RestPage;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.entity.Mentor;
