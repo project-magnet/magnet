@@ -39,7 +39,7 @@
 <br/>
 
 ## 개발서버 아키텍처
-![image](https://github.com/project-magnet/magnet/assets/96255906/71cb921c-ac19-402c-96c2-552c4c6aaffe)
+![image](https://github.com/project-magnet/magnet/assets/96255906/0006f410-c467-4056-9a2b-e49127e90e05)
 
 <br/>
 
