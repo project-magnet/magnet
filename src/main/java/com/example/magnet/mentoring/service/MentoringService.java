@@ -2,7 +2,6 @@ package com.example.magnet.mentoring.service;
 
 import com.example.magnet.global.exception.BusinessLogicException;
 import com.example.magnet.global.exception.ExceptionCode;
-import com.example.magnet.global.response.RestPage;
 import com.example.magnet.member.entity.Member;
 import com.example.magnet.member.repository.MemberRepository;
 import com.example.magnet.mentor.entity.Mentor;
@@ -18,7 +17,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,10 +68,11 @@ public class MentoringService {
         return entityToMentoringResponseDto(mentoring);
     }
 
-    @Transactional(readOnly = true)
+
     @Cacheable(value = "mentoringCache", cacheManager = "redisCacheManager") // value: 반환 데이터가 저장되는 캐시의 이름 정의
     public Page<mentoringListPagingDto> mentoringInfoList(int offset, int size) {
         Pageable pageable = PageRequest.of(offset, size);
+        log.info("멘토링 서비스 호출");
         return mentoringRepository.mentoringList(pageable);
     }
 

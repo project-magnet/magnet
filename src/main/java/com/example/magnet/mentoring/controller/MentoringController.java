@@ -75,10 +75,12 @@ public class MentoringController {
     @GetMapping("/list")
     @Operation(summary ="Get Mentorings", description = "멘토링 리스트 조회 API")
     @ApiResponse(responseCode = "200", description = "멘토링 리스트 조회 성공.", content = @Content(mediaType = "application/json"))
-    public ResponseEntity<Page<mentoringListPagingDto>> getMentoringList(Pageable pageable){
+    public ResponseEntity<?> getMentoringList(Pageable pageable){
         Page<mentoringListPagingDto> result = mentoringService.mentoringInfoList(pageable.getPageNumber(), pageable.getPageSize());
-        return ResponseEntity.ok()
-                .body(new RestPage<>(result));
+        log.info("페이징 객체", result);
+//        return ResponseEntity.ok()
+//                .body(new RestPage<>(result));
+        return new ResponseEntity<>(new RestPage<>(result), HttpStatus.OK);
     }
 
 
