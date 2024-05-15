@@ -49,7 +49,7 @@ public class MentoringService {
     }
 
     //멘토링 등록
-    @CacheEvict(value = "mentoringCache")
+    @CacheEvict(value = "mentoringCache", cacheManager = "redisCacheManager")
     public void register(Long memberId, MentoringPostDto mentoringPostDto) {
         //멘토 엔티티를 불러온 뒤, 전달 받은 mentoring 엔티티에 추가한다.
         Mentor findMentor =  getMentorEntity(memberId);
@@ -79,7 +79,7 @@ public class MentoringService {
         return new RestPage<>(resultPage);
     }
 
-    @CacheEvict(value = "mentoringCache")
+    @CacheEvict(value = "mentoringCache", cacheManager = "redisCacheManager")
     public void remove(Long memberId, Long mentoringId) {
         // 매개변수로 전달받은 memberId와 mentoringId로 조회한 데이터의 memberId가 동일하면 삭제 > 실 소유자
         Mentoring mentoring = mentoringRepository.findById(mentoringId)
