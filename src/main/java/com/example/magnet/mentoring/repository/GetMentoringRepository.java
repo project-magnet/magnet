@@ -1,5 +1,6 @@
 package com.example.magnet.mentoring.repository;
 
+import com.example.magnet.global.response.RestPage;
 import com.example.magnet.mentoring.dto.MentoringResponseDto;
 import com.example.magnet.mentoring.dto.mentoringListPagingDto;
 import com.example.magnet.mentoring.entity.Mentoring;

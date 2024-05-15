@@ -65,7 +65,6 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
                 .leftJoin(mentoring.mentor, mentor)
                 .fetchOne();
 
-        log.info("page객체 생성완료");
         return new PageImpl<>(content, pageable, total);
 
     }
