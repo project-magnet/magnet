@@ -86,7 +86,6 @@ public class MemberController {
     @ApiResponse(responseCode = "200", description = "회원정보 단건 조회 성공.", content = @Content(mediaType = "application/json"))
     public ResponseEntity<MemberResponseDto> getMember(Authentication authentication){
         Long memberId = (Long) authentication.getCredentials();
-        log.info("지금 회원 id: {}", memberId);
         return ResponseEntity.ok()
                 .body(memberService.findMyInfo(memberId));
     }
