@@ -17,6 +17,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -83,9 +84,10 @@ public class MentorService {
         return page;
     }
 
+    @CacheEvict(value = "mentoringCache", allEntries = true) // 추가적으로 멘토링 삭제 로직도 나가야된다.
     public void remove(Long memberId) {
         Mentor findMentor = mentorRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));// 멘토를 생성하지 않은 경우
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MENTOR_NOT_FOUND));
         mentorRepository.delete(findMentor);
     }
 }
