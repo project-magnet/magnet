@@ -91,6 +91,10 @@ jobs:
         port: ${{ secrets.EC2_SSH_PORT }}
         timeout: 60s
         script: |
+          # Redis 캐시 삭제
+          sudo docker exec -i -t redis-container redis-cli -a ${{ secrets.REDIS_PASSWORD }} FLUSHALL
+
+          # spring boot 업데이트
           sudo docker stop magnet-be
           sudo docker rm magnet-be
           sudo docker rmi 11dy/magnet-be:latest
