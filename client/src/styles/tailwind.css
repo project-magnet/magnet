@@ -23,7 +23,7 @@
     }
     /* 페이지 관련 */
     .rootPageSection {
-      @apply w-full bg-white min-h-pageRoot 
+      @apply w-full bg-gradient-to-t from-slate-200 to-white min-h-pageRoot 
     }
     .userPageSection {
       @apply w-11/12 lg:w-3/4 rounded-xl p-5 sm:p-10 bg-white shadow-md
@@ -96,8 +96,7 @@
 
 @font-face {
   font-family: 'pretendard';
-  src:  url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
-
+  src:  url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 }
 
 
