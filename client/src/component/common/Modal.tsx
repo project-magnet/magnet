@@ -28,9 +28,12 @@ export const Modal = () => {
 		? ReactDOM.createPortal(
 				<div
 					onClick={setModalClose}
-					className="flexCenter fixed top-0 z-50 size-full animate-fadeIn bg-black bg-opacity-50 backdrop-blur-sm"
+					className="flexCenter fixed top-0 z-50 size-full  bg-black bg-opacity-30 backdrop-blur-sm"
 				>
-					<section onClick={e => e.stopPropagation()} className="modalStyle relative">
+					<section
+						onClick={e => e.stopPropagation()}
+						className="modalStyle relative animate-fadeIn"
+					>
 						<PopupCloseButton handleClick={setModalClose} />
 						<LogoTickle word="MAGNET" />
 						{modalChildren}
