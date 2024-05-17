@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: 'GmarketSansMedium', sans-serif;
+    font-family: 'pretendard', sans-serif;
   }
   *{
     @apply box-border m-0 p-0;
@@ -23,7 +23,7 @@
     }
     /* 페이지 관련 */
     .rootPageSection {
-      @apply w-full bg-gradient-to-t from-slate-200 to-white min-h-pageRoot 
+      @apply w-full bg-white min-h-pageRoot 
     }
     .userPageSection {
       @apply w-11/12 lg:w-3/4 rounded-xl p-5 sm:p-10 bg-white shadow-md
@@ -36,7 +36,7 @@
       @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40;
     }
     .buttonStyle {
-      @apply px-3 sm:px-5 h-12 min-w-12 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
+      @apply px-3 h-12 min-w-9 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
     }
     .buttonStylePrimary {
       @apply buttonStyle  bg-additional3 text-white hover:bg-opacity-70;
@@ -78,7 +78,7 @@
       @apply hover:scale-[102%] hover:shadow-md active:scale-105 active:shadow-xl shadow-sm transition cursor-pointer
     }
     .interactionPushDown {
-      @apply hover:scale-[99.5%] active:shadow-sm active:scale-[98%] active:brightness-[98%] transition
+      @apply hover:scale-[99.5%] hover:brightness-[97%] hover:shadow-md active:shadow-sm active:scale-[98%] active:brightness-[95%] transition duration-300
     }
     /* ri 아이콘 관련 */
     .riBase {
@@ -93,12 +93,12 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
-  font-family: 'GmarketSansMedium';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff'),
-       url('https://dqj8wg5sxijbn.cloudfront.net/GmarketSansMedium.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'pretendard';
+  src:  url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
+
 }
+
 
 /* 클라우드 프론트: https://dqj8wg5sxijbn.cloudfront.net */

@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {categories} from '../asset/categories';
+import {SwapText} from '../component/SwapText';
 
 const HomePage = () => {
 	const navigate = useNavigate();
@@ -8,7 +9,9 @@ const HomePage = () => {
 		<div className="flexCol rootPageSection justify-center gap-10 overflow-hidden lg:flex-row">
 			<section className="flexCenter animate-showSideRight flex-col  font-PartialSansKR_Regular">
 				<div className="text-[3rem] sm:text-[4rem] lg:text-[6rem] 2xl:text-[10rem]">
-					<p>모두를 위한</p>
+					<SwapText
+						textList={['모두를 위한', '백엔드', '프론트엔드', '데브옵스', '웹 디자이너', 'UI/UX']}
+					/>
 					<p>멘토링 서비스</p>
 					<div className="flex text-additional3">
 						{['마', '그', '넷', '!'].map((el, index) => (

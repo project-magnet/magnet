@@ -9,7 +9,7 @@ const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const {modalChildren} = ModalStore();
+	const {isModalOpen} = ModalStore();
 	const {globalMember} = MemberStore();
 	const openLoginModal = useOpenLoginModal();
 
@@ -34,7 +34,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="flexCenter fixed bottom-0 z-30 h-16 w-screen rounded-t-3xl border bg-white *:select-none sm:top-0  sm:z-10 sm:h-12 sm:justify-between sm:border-none sm:px-10">
+			<header className="flexCenter fixed bottom-0 z-30 h-16 w-screen rounded-t-xl border bg-white *:select-none sm:top-0  sm:z-10 sm:h-14 sm:justify-between sm:border-0 sm:border-b sm:px-10">
 				<button
 					onClick={() => navigate('/')}
 					className={'activeStyle hidden tracking-[5px] sm:block'}
@@ -83,10 +83,10 @@ const Header = () => {
 						) : (
 							<div
 								onClick={() => handleLogin()}
-								className={`activeStyle tracking-wide ${modalChildren && 'text-black'}`}
+								className={`activeStyle tracking-wide ${isModalOpen && 'text-black'}`}
 							>
 								<i
-									className={`text-xl sm:text-base  ri-${modalChildren ? 'login-circle-line' : 'login-box-line'}`}
+									className={`text-xl sm:text-base  ri-${isModalOpen ? 'login-circle-line' : 'login-box-line'}`}
 								/>
 
 								<span className={`textSmall`}>로그인</span>
