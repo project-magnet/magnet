@@ -36,7 +36,7 @@
       @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40;
     }
     .buttonStyle {
-      @apply px-3 sm:px-5 h-12 min-w-12 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
+      @apply px-3 h-12 min-w-9 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
     }
     .buttonStylePrimary {
       @apply buttonStyle  bg-additional3 text-white hover:bg-opacity-70;
