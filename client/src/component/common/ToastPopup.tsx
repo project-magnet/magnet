@@ -24,8 +24,8 @@ export const ToastPopup = () => {
 					<div
 						className={`flexCenter h-12 animate-toastPopupMove gap-2 rounded-md bg-slate-50 drop-shadow-xl ${color}`}
 					>
-						<i className={`ri-${icon} ri-2x`} />
-						<p>{message}</p>
+						<i className={`ri-${icon} ri-lg`} />
+						<p className="textSmall">{message}</p>
 					</div>
 				</aside>,
 				document.body,
