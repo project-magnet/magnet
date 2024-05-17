@@ -15,20 +15,24 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 	return (
 		<div
 			onClick={handleClick}
-			className="flexCol interactionPushDown h-52 w-11/12  animate-fadeIn  gap-5 divide-y  
-			 rounded-lg bg-background p-5 shadow-md sm:h-60 sm:w-96"
+			className="flexCol interactionPushDown h-36 w-11/12  animate-fadeIn gap-5 divide-y  
+			 rounded-lg bg-background p-5 shadow-lg sm:h-60 sm:w-96"
 		>
 			<div className="textBase flexCol w-full flex-grow items-start gap-2">
 				<p className="truncate font-PartialSansKR_Regular">{`${category}`}</p>
-				<div className="line-clamp-2 h-3/5 font-light">{title}</div>
+				<div className="textBase line-clamp-2 h-3/5">{title}</div>
 			</div>
 
-			<div className="flexCol textSmall w-full items-start gap-1 pt-2">
-				<p className="textBase truncate font-bold text-black">{mentorName}</p>
-				<div className="flex gap-1 text-secondary *:flex *:gap-1 sm:flex-col">
+			<div className="flexCol items-start gap-1 pt-2">
+				<div className="textSmall flex gap-2 text-secondary *:flex *:gap-1 sm:flex-col">
+					<div>
+						<i className="ri-user-line" />
+						<p className="truncate font-bold text-additional3">{mentorName}</p>
+					</div>
+
 					<div>
 						<i className="ri-building-line" />
-						<p className="truncate text-additional3 ">{`${task}`}</p>
+						<p className="truncate">{`${task}`}</p>
 					</div>
 					<div>
 						<i className="ri-bar-chart-2-line " />
@@ -36,7 +40,7 @@ const MentorCard = ({mentoring}: {mentoring: Content}) => {
 					</div>
 					<div>
 						<i className="ri-walk-line " />
-						<p className="truncatey ">{`${field}`} 직무</p>
+						<p className="truncatey ">{`${field}`} 분야</p>
 					</div>
 				</div>
 			</div>
