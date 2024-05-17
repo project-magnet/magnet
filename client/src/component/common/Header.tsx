@@ -9,7 +9,7 @@ const Header = () => {
 	const [fetchFinish, setFetchFinish] = useState(false);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const {modalChildren} = ModalStore();
+	const {isModalOpen} = ModalStore();
 	const {globalMember} = MemberStore();
 	const openLoginModal = useOpenLoginModal();
 
@@ -83,10 +83,10 @@ const Header = () => {
 						) : (
 							<div
 								onClick={() => handleLogin()}
-								className={`activeStyle tracking-wide ${modalChildren && 'text-black'}`}
+								className={`activeStyle tracking-wide ${isModalOpen && 'text-black'}`}
 							>
 								<i
-									className={`text-xl sm:text-base  ri-${modalChildren ? 'login-circle-line' : 'login-box-line'}`}
+									className={`text-xl sm:text-base  ri-${isModalOpen ? 'login-circle-line' : 'login-box-line'}`}
 								/>
 
 								<span className={`textSmall`}>로그인</span>
