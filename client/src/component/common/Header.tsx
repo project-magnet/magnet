@@ -34,7 +34,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="flexCenter fixed bottom-0 z-30 h-16 w-screen rounded-t-3xl border bg-white *:select-none sm:top-0  sm:z-10 sm:h-12 sm:justify-between sm:border-none sm:px-10">
+			<header className="flexCenter fixed bottom-0 z-30 h-16 w-screen rounded-t-xl border bg-white *:select-none sm:top-0  sm:z-10 sm:h-14 sm:justify-between sm:border-0 sm:border-b sm:px-10">
 				<button
 					onClick={() => navigate('/')}
 					className={'activeStyle hidden tracking-[5px] sm:block'}
