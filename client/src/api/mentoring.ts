@@ -134,7 +134,7 @@ export const getMentoringList = async (
 	size: number,
 ): Promise<getMentoringListData> => {
 	try {
-		const response = await axios.get(`${baseUrl}/mentoring/list?offset=${offset}&size=${size}`, {
+		const response = await axios.get(`${baseUrl}/mentoring/list?page=${offset}&size=${size}`, {
 			headers: {
 				'Content-Type': 'application/json',
 				'ngrok-skip-browser-warning': 'true',
