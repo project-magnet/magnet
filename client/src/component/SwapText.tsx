@@ -5,8 +5,15 @@ import {useEffect, useRef} from 'react';
 export const SwapText = ({textList}: {textList: string[]}) => {
 	const animateText = (elements: HTMLLIElement[]) => {
 		const textAni = gsap.timeline({repeat: -1});
-		for (let i = 0; i < elements.length; i++) {
-			textAni.to(elements[i], 1, {
+		textAni.to(elements[0], 2, {
+			opacity: 1,
+			repeat: 1,
+			yoyo: true,
+			ease: 'power4.out',
+			x: 0,
+		});
+		for (let i = 1; i < elements.length; i++) {
+			textAni.to(elements[i], 0.5, {
 				opacity: 1,
 				repeat: 1,
 				yoyo: true,
