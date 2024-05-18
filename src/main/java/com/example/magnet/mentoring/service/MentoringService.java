@@ -73,7 +73,7 @@ public class MentoringService {
 
 
     // value: 반환 데이터가 저장되는 캐시의 이름 정의, SpEL로 offset값별로 페이징 구분
-//    @Cacheable(value = "mentoringCache", cacheManager = "redisCacheManager", key = "'mentoringInfoList:' + #offset + ':' + #size")
+    @Cacheable(value = "mentoringCache", cacheManager = "redisCacheManager", key = "'mentoringInfoList:' + #offset + ':' + #size")
     public RestPage<mentoringListPagingDto> mentoringInfoList(int offset, int size) {
         Pageable pageable = PageRequest.of(offset, size);
         Page<mentoringListPagingDto> resultPage = mentoringRepository.mentoringList(pageable);
