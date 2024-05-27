@@ -38,6 +38,7 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
 
     @Override
     public Page<mentoringListPagingDto> mentoringList(Pageable pageable){
+        int offset = pageable.getPageNumber() * pageable.getPageSize();
         List<mentoringListPagingDto> content = jpaQueryFactory
                 .select(new QmentoringListPagingDto(
                         mentoring.id,
@@ -55,7 +56,7 @@ public class GetMentoringRepositoryImpl implements GetMentoringRepository{
                         mentor.career))
                 .from(mentoring)
                 .leftJoin(mentoring.mentor, mentor)
-                .offset(pageable.getPageNumber())
+                .offset(offset)
                 .limit(pageable.getPageSize())
                 .fetch();
 
