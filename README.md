@@ -21,8 +21,6 @@
 
 ## 기여한 부분
 
-<br/>
-
 - 프론트엔드 전체
 - 웹사이트의 전반적인 디자인과 UI/UX를 담당
     - 사용자의 경로를 인식하기 위해 네비게이션은 경로를 기반으로 아이콘과 색상을 변경함
@@ -34,11 +32,9 @@
 
 ## 프로토 타입
 <img width="800" alt="2" src="https://github.com/qpwoei0123/magnet/assets/85989215/bde91724-9fa4-42be-ba9f-624e33ba548f">
-
-
+<br/>
 
 ## 주요개발 내용
-
 
 ### **서비스의 인상을 남기기 위한 사용자 인터랙션 구현.**
 ![3](https://github.com/qpwoei0123/magnet/assets/85989215/05cef95a-dcd5-4584-89ba-bf5a8c353269)
@@ -89,21 +85,3 @@ const useOpenModal = <P extends object>(ModalComponent: React.ComponentType<P>) 
 - Tailwind CSS 환경에서 사전 정의된 속성을 의미와 용도에 맞게 그룹화하여 효율적으로 토큰화했습니다
 - 디자인 관련 코드를 50% 이상 축소하고, 일관된 디자인을 유지하면서 개발 시간을 단축할 수 있었습니다.
 <br/>
-
-### Commit Convention
-
-Tag | Title
--- | --
-feat | 새로운 기능 추가
-fix | 버그 수정
-docs | 문서 수정
-design | CSS 등 사용자 UI 디자인 변경
-style | 코드 포맷 변경, 세미 콜록 누락, 코드 수정이 없는 경우
-refactor | 코드 리팩토링
-test | 테스트 추가, 테스트 리팩토링 추가 (프로덕션 코드 변경 x)
-chore | 빌드 테스트 업데이트, 패키지 매니저를 설정 (프로덕션 코드 변경 x)
-comment | 필요한 주석 추가 및 변경
-rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우
-remove | 파일을 삭제하는 작업만 수행한 경우
-!BREAKING CHANGE | 커다란 API 변경
-!HOTFIX | 급하게 치명적인 버그를 고쳐야하는 경우
