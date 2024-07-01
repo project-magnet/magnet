@@ -5,10 +5,10 @@ import ModalStore from '../../store/ModalStore';
 
 export const LoginModal = () => {
 	const navigate = useNavigate();
-	const {setModalClose} = ModalStore();
+	const {closeModal} = ModalStore();
 
 	const handleSignupLink = () => {
-		setModalClose();
+		closeModal();
 		navigate('/signup');
 	};
 
