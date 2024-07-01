@@ -1,20 +1,20 @@
 import {create} from 'zustand';
 
 type useStoreProps = {
-	modalChildren: React.ReactNode;
-	setModalChildren: (children: React.ReactNode) => void;
-	isModalOpen: boolean;
-	setModalOpen: () => void;
-	setModalClose: () => void;
+	modalContent: React.ReactNode; // 모달에 표시될 내용
+	setModalContent: (content: React.ReactNode) => void; // 모달 내용을 설정하는 함수
+	isModalOpen: boolean; // 모달이 열려 있는지 여부를 나타내는 상태
+	openModal: () => void; // 모달을 여는 함수
+	closeModal: () => void; // 모달을 닫는 함수
 };
 
 const ModalStore = create<useStoreProps>()(set => ({
-	modalChildren: null,
-	setModalChildren: (modalChildren: React.ReactNode) =>
-		set((state: {modalChildren: React.ReactNode}) => ({modalChildren})),
+	modalContent: null,
+	setModalContent: (modalContent: React.ReactNode) =>
+		set((state: {modalContent: React.ReactNode}) => ({modalContent})),
 	isModalOpen: false,
-	setModalOpen: () => set({isModalOpen: true}),
-	setModalClose: () => set({isModalOpen: false}),
+	openModal: () => set({isModalOpen: true}),
+	closeModal: () => set({isModalOpen: false}),
 }));
 
 export default ModalStore;

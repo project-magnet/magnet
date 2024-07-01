@@ -4,18 +4,18 @@ import {LogoTickle} from './LogoTickle';
 import {useEffect} from 'react';
 
 export const Modal = () => {
-	const {modalChildren, setModalClose, isModalOpen} = ModalStore();
+	const {closeModal, modalContent, isModalOpen} = ModalStore();
 
 	// ESC 키를 누르면 모달이 닫히도록 합니다.
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') {
-				setModalClose();
+				closeModal();
 			}
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [setModalClose]);
+	}, [closeModal]);
 
 	// 모달이 열릴 때 body의 스크롤을 막습니다.
 	useEffect(() => {
@@ -27,16 +27,16 @@ export const Modal = () => {
 	return isModalOpen
 		? ReactDOM.createPortal(
 				<div
-					onClick={setModalClose}
+					onClick={closeModal}
 					className="flexCenter fixed top-0 z-50 size-full  bg-black bg-opacity-30 backdrop-blur-sm"
 				>
 					<section
 						onClick={e => e.stopPropagation()}
 						className="modalStyle relative animate-fadeIn"
 					>
-						<PopupCloseButton handleClick={setModalClose} />
+						<PopupCloseButton handleClick={closeModal} />
 						<LogoTickle word="MAGNET" />
-						{modalChildren}
+						{modalContent}
 					</section>
 				</div>,
 				document.body, // 여기가 포탈의 타겟 위치입니다.s
