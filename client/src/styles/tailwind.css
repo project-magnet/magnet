@@ -55,7 +55,7 @@
       @apply text-sm sm:text-base font-medium 
     }
     .textSmall{
-      @apply text-xs sm:text-sm font-light
+      @apply text-xs sm:text-sm font-normal
     }
     .textLarge{
       @apply text-lg sm:text-xl font-bold
