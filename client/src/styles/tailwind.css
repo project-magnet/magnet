@@ -33,7 +33,7 @@
     }
     /* 버튼 관련 */
     .disabledStyle {
-      @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40 hover:text-secondary text-secondary hover:border-slate-200;
+      @apply bg-opacity-40 active:scale-100 hover:bg-opacity-40 hover:border-slate-200;
     }
     .buttonStyle {
       @apply px-3 h-12 min-w-9 rounded-md transition-all duration-100 select-none active:scale-95 disabled:disabledStyle
